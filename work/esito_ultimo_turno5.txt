@@ -1,0 +1,4 @@
+INTERPRETAZIONE {'nome': '', 'telefono': '', 'trattamento': '', 'tempistica': '', 'intento': 'sconosciuto', 'emozione': 'neutra', 'domanda': False, 'rifiuto_dati': True, 'consenso': 'negativo', 'modalita': ''}
+Possiamo preparare la richiesta di ricontatto.
+Hai già in mente quando vorresti occupartene, oppure è ancora da decidere?
+PASS ultimo turno nella cronologia originale.

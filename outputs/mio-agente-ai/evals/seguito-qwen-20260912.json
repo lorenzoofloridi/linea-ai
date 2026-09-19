@@ -1,0 +1,26 @@
+[
+  {
+    "user": "Come funziona per il pagamento?",
+    "assistant": "Non ho informazioni verificate su questo punto. Vuoi che aggiunga alla richiesta per la segreteria: «Informazioni sulle modalità di pagamento»?",
+    "seconds": 7.06,
+    "updates": 0
+  },
+  {
+    "user": "Ok",
+    "assistant": "Ho aggiunto alla richiesta per la segreteria: Informazioni sulle modalità di pagamento. Posso aiutarti con altro?",
+    "seconds": 2.0,
+    "updates": 1
+  },
+  {
+    "user": "Quindi cosa hai salvato?",
+    "assistant": "Per la segreteria risultano registrati:\nNome: Franco\nTelefono: 0000000001\nTrattamento e richieste: Ortodonzia — interesse per apparecchio ortodontico — Informazione aggiuntiva: Informazioni sulle modalità di pagamento\nPreferenza per il contatto: 13/09/2026 (Europe/Rome)\nConsenso al contatto: sì",
+    "seconds": 5.98,
+    "updates": 1
+  },
+  {
+    "user": "Va bene, grazie.",
+    "assistant": "Prego, sono qui per aiutarti!",
+    "seconds": 15.91,
+    "updates": 1
+  }
+]

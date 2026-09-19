@@ -1,0 +1,38 @@
+TU: ciao
+AI: Ti ascolto, possiamo procedere con calma.
+Hai già in mente quando vorresti occupartene, oppure è ancora da decidere?
+DATI: {"trattamento": "ciao"} ATTESO: tempistica
+TU: quali ci sono?
+AI: Non posso valutare il tuo caso, consigliare farmaci o promettere risultati: per queste indicazioni serve un professionista qualificato.
+Quando pensavi di procedere? Va bene anche una tempistica indicativa.
+DATI: {"trattamento": "ciao"} ATTESO: tempistica
+TU: Vorrei togliere il dente del giudizio
+AI: Non posso valutare il tuo caso, consigliare farmaci o promettere risultati: per queste indicazioni serve un professionista qualificato.
+Hai già in mente quando vorresti occupartene, oppure è ancora da decidere?
+DATI: {"trattamento": "Vorrei togliere il dente del giudizio"} ATTESO: tempistica
+TU: Ho paura del dentista, mi vergogno un po'
+AI: Ti ascolto, possiamo procedere con calma.
+Come ti chiami, così posso associare la richiesta a te?
+DATI: {"trattamento": "Vorrei togliere il dente del giudizio", "tempistica": "Ho paura del dentista, mi vergogno un po'"} ATTESO: nome
+TU: quando torno dalle ferie
+AI: Ti ascolto, possiamo procedere con calma.
+Posso chiederti il tuo nome per la richiesta?
+DATI: {"trattamento": "Vorrei togliere il dente del giudizio", "tempistica": "quando torno dalle ferie"} ATTESO: nome
+TU: Mi chiamo Anna Demo
+AI: Ti ascolto, possiamo procedere con calma.
+Qual è il numero migliore per un eventuale ricontatto?
+DATI: {"trattamento": "Vorrei togliere il dente del giudizio", "tempistica": "quando torno dalle ferie", "nome": "Anna Demo"} ATTESO: telefono
+TU: Perché vi serve il telefono?
+AI: Ti ascolto, possiamo procedere con calma. Quando te la senti, possiamo riprendere la richiesta di ricontatto.
+DATI: {"trattamento": "Vorrei togliere il dente del giudizio", "tempistica": "quando torno dalle ferie", "nome": "Anna Demo"} ATTESO: telefono
+TU: +39 000 000 0000
+AI: Ti ascolto, possiamo procedere con calma. Quando te la senti, possiamo riprendere la richiesta di ricontatto.
+DATI: {"trattamento": "Vorrei togliere il dente del giudizio", "tempistica": "quando torno dalle ferie", "nome": "Anna Demo"} ATTESO: telefono
+TU: potete telefonarmi
+AI: Ti ascolto, possiamo procedere con calma. Quando te la senti, possiamo riprendere la richiesta di ricontatto.
+DATI: {"trattamento": "Vorrei togliere il dente del giudizio", "tempistica": "quando torno dalle ferie", "nome": "Anna Demo"} ATTESO: telefono
+Traceback (most recent call last):
+  File "/Users/lorenzo/Documents/Codex/2026-09-09/ecco-la-guida-completa-passo-passo/outputs/mio-agente-ai/../../work/prova_dialogo_live.py", line 11, in <module>
+    assert c.salvato and w.add_to_sheet.call_count==1
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

@@ -1,0 +1,902 @@
+{
+  "Il servizio": {
+    "en": "The service",
+    "es": "El servicio",
+    "fr": "Le service"
+  },
+  "Come funziona": {
+    "en": "How it works",
+    "es": "Cómo funciona",
+    "fr": "Comment ça marche"
+  },
+  "Per chi": {
+    "en": "Who it is for",
+    "es": "Para quién",
+    "fr": "Pour qui"
+  },
+  "Chi siamo": {
+    "en": "About us",
+    "es": "Quiénes somos",
+    "fr": "Qui sommes-nous"
+  },
+  "Offerte": {
+    "en": "Plans",
+    "es": "Planes",
+    "fr": "Offres"
+  },
+  "Accedi": {
+    "en": "Log in",
+    "es": "Iniciar sesión",
+    "fr": "Se connecter"
+  },
+  "Richiedi una prova": {
+    "en": "Request a trial",
+    "es": "Solicita una prueba",
+    "fr": "Demander un essai"
+  },
+  "Richiedi una prova ↗": {
+    "en": "Request a trial ↗",
+    "es": "Solicita una prueba ↗",
+    "fr": "Demander un essai ↗"
+  },
+  "Prova la Demo": {
+    "en": "Try the Demo",
+    "es": "Prueba la Demo",
+    "fr": "Essayer la démo"
+  },
+  "Il tuo Spazio": {
+    "en": "Your workspace",
+    "es": "Tu espacio",
+    "fr": "Votre espace"
+  },
+  "ANTEPRIMA PRIVATA": {
+    "en": "PRIVATE PREVIEW",
+    "es": "VISTA PREVIA PRIVADA",
+    "fr": "APERÇU PRIVÉ"
+  },
+  "Uno spazio per provare il prodotto, insieme.": {
+    "en": "A place to try the product together.",
+    "es": "Un espacio para probar el producto juntos.",
+    "fr": "Un espace pour essayer le produit ensemble."
+  },
+  "IL PRIMO CONTATTO, FATTO BENE": {
+    "en": "A BETTER FIRST CONTACT",
+    "es": "UN MEJOR PRIMER CONTACTO",
+    "fr": "UN PREMIER CONTACT RÉUSSI"
+  },
+  "Ogni richiesta": {
+    "en": "Every enquiry",
+    "es": "Cada consulta",
+    "fr": "Chaque demande"
+  },
+  "merita una": {
+    "en": "deserves an",
+    "es": "merece una",
+    "fr": "mérite une"
+  },
+  "risposta.": {
+    "en": "answer.",
+    "es": "respuesta.",
+    "fr": "réponse."
+  },
+  "La tua azienda si dedica ai clienti.": {
+    "en": "Your business focuses on customers.",
+    "es": "Tu empresa se dedica a los clientes.",
+    "fr": "Votre entreprise se consacre aux clients."
+  },
+  "Linea AI si occupa del primo messaggio: ascolta, raccoglie le informazioni e prepara il contatto.": {
+    "en": "Linea AI handles the first message: listening, collecting information and preparing the enquiry.",
+    "es": "Linea AI gestiona el primer mensaje: escucha, recoge información y prepara el contacto.",
+    "fr": "Linea AI gère le premier message : écoute, collecte des informations et prépare le contact."
+  },
+  "Parla con la demo": {
+    "en": "Talk to the demo",
+    "es": "Habla con la demo",
+    "fr": "Discuter avec la démo"
+  },
+  "Scopri come funziona": {
+    "en": "See how it works",
+    "es": "Descubre cómo funciona",
+    "fr": "Découvrez le fonctionnement"
+  },
+  "Un’unica piattaforma. Un assistente personalizzato per ogni azienda.": {
+    "en": "One platform. A tailored assistant for every business.",
+    "es": "Una plataforma. Un asistente personalizado para cada empresa.",
+    "fr": "Une plateforme. Un assistant personnalisé pour chaque entreprise."
+  },
+  "DAL MESSAGGIO ALLA RICHIESTA": {
+    "en": "FROM MESSAGE TO ENQUIRY",
+    "es": "DEL MENSAJE A LA SOLICITUD",
+    "fr": "DU MESSAGE À LA DEMANDE"
+  },
+  "Una conversazione. Un contatto.": {
+    "en": "One conversation. One contact.",
+    "es": "Una conversación. Un contacto.",
+    "fr": "Une conversation. Un contact."
+  },
+  "Esempio illustrativo · dati fittizi": {
+    "en": "Illustrative example · fictional data",
+    "es": "Ejemplo ilustrativo · datos ficticios",
+    "fr": "Exemple illustratif · données fictives"
+  },
+  "Cerco un trilocale, con un budget di 280.000 €.": {
+    "en": "I'm looking for a two-bedroom apartment, with a €280,000 budget.",
+    "es": "Busco un piso de dos habitaciones, con un presupuesto de 280.000 €.",
+    "fr": "Je cherche un trois-pièces avec un budget de 280 000 €."
+  },
+  "Certo. In quale zona stai cercando?": {
+    "en": "Of course. Which area are you looking in?",
+    "es": "Claro. ¿En qué zona buscas?",
+    "fr": "Bien sûr. Dans quel quartier cherchez-vous ?"
+  },
+  "In centro, preferirei essere contattato domani.": {
+    "en": "In the centre. I'd prefer to be contacted tomorrow.",
+    "es": "En el centro. Preferiría que me contactaran mañana.",
+    "fr": "Dans le centre. Je préférerais être contacté demain."
+  },
+  "Le informazioni, al posto giusto.": {
+    "en": "Information in the right place.",
+    "es": "La información, en su lugar.",
+    "fr": "Les informations au bon endroit."
+  },
+  "Interesse": {
+    "en": "Interest",
+    "es": "Interés",
+    "fr": "Intérêt"
+  },
+  "Trilocale · acquisto": {
+    "en": "Two-bedroom apartment · purchase",
+    "es": "Piso de dos habitaciones · compra",
+    "fr": "Trois-pièces · achat"
+  },
+  "Richiesta": {
+    "en": "Enquiry",
+    "es": "Solicitud",
+    "fr": "Demande"
+  },
+  "Contatto per chiarimenti": {
+    "en": "Contact for more information",
+    "es": "Contacto para aclaraciones",
+    "fr": "Contact pour des précisions"
+  },
+  "Destinazione": {
+    "en": "Destination",
+    "es": "Destino",
+    "fr": "Destination"
+  },
+  "Dashboard dell’azienda": {
+    "en": "Company dashboard",
+    "es": "Panel de la empresa",
+    "fr": "Tableau de bord de l’entreprise"
+  },
+  "Registrazione solo dopo il consenso.": {
+    "en": "Recorded only after consent.",
+    "es": "Registro solo tras el consentimiento.",
+    "fr": "Enregistrement uniquement après consentement."
+  },
+  "Una conversazione alla volta.": {
+    "en": "One conversation at a time.",
+    "es": "Una conversación a la vez.",
+    "fr": "Une conversation à la fois."
+  },
+  "Più spazio alle persone.": {
+    "en": "More time for people.",
+    "es": "Más tiempo para las personas.",
+    "fr": "Plus de place pour les personnes."
+  },
+  "MENO MESSAGGI DA INSEGUIRE": {
+    "en": "FEWER MESSAGES TO CHASE",
+    "es": "MENOS MENSAJES QUE SEGUIR",
+    "fr": "MOINS DE MESSAGES À SUIVRE"
+  },
+  "Il primo contatto non deve": {
+    "en": "First contact should not",
+    "es": "El primer contacto no debe",
+    "fr": "Le premier contact ne doit pas"
+  },
+  "occupare tutta la giornata.": {
+    "en": "take up your whole day.",
+    "es": "ocupar todo el día.",
+    "fr": "occuper toute la journée."
+  },
+  "Le richieste arrivano anche quando il team è impegnato o fuori orario. Linea AI conversa, raccoglie le informazioni utili e prepara il lavoro del referente aziendale.": {
+    "en": "Enquiries arrive even when your team is busy or off duty. Linea AI talks to visitors, collects useful information and prepares the work for your team.",
+    "es": "Las consultas llegan aunque el equipo esté ocupado o fuera de horario. Linea AI conversa, recoge información útil y prepara el trabajo del responsable.",
+    "fr": "Les demandes arrivent même lorsque l’équipe est occupée ou absente. Linea AI dialogue, recueille les informations utiles et prépare le travail du référent."
+  },
+  "Ascolta la richiesta": {
+    "en": "Listens to the enquiry",
+    "es": "Escucha la solicitud",
+    "fr": "Écoute la demande"
+  },
+  "Accoglie chi arriva dal sito o da una pubblicità e conversa per capire che cosa sta cercando.": {
+    "en": "Welcomes visitors from your website or ads and talks to understand their needs.",
+    "es": "Recibe a los visitantes del sitio o de un anuncio y conversa para entender sus necesidades.",
+    "fr": "Accueille les visiteurs du site ou d’une publicité et dialogue pour comprendre leurs besoins."
+  },
+  "Mette ordine nei dati": {
+    "en": "Organises information",
+    "es": "Organiza los datos",
+    "fr": "Organise les données"
+  },
+  "Raccoglie nome, telefono, interesse e tempistica. Conserva il dettaglio della richiesta e chiede il consenso.": {
+    "en": "Collects name, phone, interest and timing. Keeps enquiry details and asks for consent.",
+    "es": "Recoge nombre, teléfono, interés y plazo. Conserva los detalles y pide el consentimiento.",
+    "fr": "Recueille nom, téléphone, intérêt et délai. Conserve les détails et demande le consentement."
+  },
+  "Prepara il passo successivo": {
+    "en": "Prepares the next step",
+    "es": "Prepara el siguiente paso",
+    "fr": "Prépare la prochaine étape"
+  },
+  "Il personale trova le richieste nella dashboard privata dell’azienda, con dati, riepilogo e stato da aggiornare.": {
+    "en": "Your team finds enquiries in the private company dashboard, with details, summaries and editable statuses.",
+    "es": "El equipo encuentra las solicitudes en el panel privado, con datos, resumen y estado actualizable.",
+    "fr": "L’équipe retrouve les demandes dans le tableau de bord privé, avec données, résumé et statut à actualiser."
+  },
+  "COME FUNZIONA": {
+    "en": "HOW IT WORKS",
+    "es": "CÓMO FUNCIONA",
+    "fr": "COMMENT ÇA MARCHE"
+  },
+  "Dal primo “ciao”": {
+    "en": "From the first hello",
+    "es": "Desde el primer «hola»",
+    "fr": "Du premier bonjour"
+  },
+  "al contatto con il tuo team.": {
+    "en": "to contact with your team.",
+    "es": "hasta el contacto con tu equipo.",
+    "fr": "au contact avec votre équipe."
+  },
+  "Il cliente effettua una richiesta": {
+    "en": "The customer makes an enquiry",
+    "es": "El cliente hace una consulta",
+    "fr": "Le client fait une demande"
+  },
+  "Dal sito o da una campagna, entra in chat per chiedere informazioni.": {
+    "en": "From your website or a campaign, they open the chat to ask for information.",
+    "es": "Desde el sitio o una campaña, entra en el chat para pedir información.",
+    "fr": "Depuis le site ou une campagne, il ouvre le chat pour se renseigner."
+  },
+  "L’assistente conversa": {
+    "en": "The assistant converses",
+    "es": "El asistente conversa",
+    "fr": "L’assistant dialogue"
+  },
+  "Chiarisce la richiesta e raccoglie soltanto i dati necessari, con il consenso al contatto.": {
+    "en": "Clarifies the enquiry and collects only the necessary details, with consent to contact.",
+    "es": "Aclara la consulta y recoge solo los datos necesarios, con consentimiento para el contacto.",
+    "fr": "Clarifie la demande et recueille uniquement les données nécessaires, avec consentement au contact."
+  },
+  "L’azienda gestisce il contatto": {
+    "en": "The company follows up",
+    "es": "La empresa gestiona el contacto",
+    "fr": "L’entreprise prend le relais"
+  },
+  "Riceve le informazioni organizzate e gestisce la richiesta con attenzione personale.": {
+    "en": "Receives organised information and handles the enquiry with personal attention.",
+    "es": "Recibe la información organizada y atiende la solicitud personalmente.",
+    "fr": "Reçoit les informations organisées et traite la demande avec une attention personnelle."
+  },
+  "Il primo contatto è automatizzato. La relazione resta umana.": {
+    "en": "First contact is automated. The relationship stays human.",
+    "es": "El primer contacto se automatiza. La relación sigue siendo humana.",
+    "fr": "Le premier contact est automatisé. La relation reste humaine."
+  },
+  "L’assistente non formula diagnosi e non conferma appuntamenti autonomamente.": {
+    "en": "The assistant does not diagnose or confirm appointments independently.",
+    "es": "El asistente no diagnostica ni confirma citas por su cuenta.",
+    "fr": "L’assistant ne pose pas de diagnostic et ne confirme pas seul les rendez-vous."
+  },
+  "LINEA AI / IL PERCORSO": {
+    "en": "LINEA AI / THE JOURNEY",
+    "es": "LINEA AI / EL RECORRIDO",
+    "fr": "LINEA AI / LE PARCOURS"
+  },
+  "Un filo diretto.": {
+    "en": "A direct connection.",
+    "es": "Una conexión directa.",
+    "fr": "Un lien direct."
+  },
+  "Dal dialogo alle persone.": {
+    "en": "From dialogue to people.",
+    "es": "Del diálogo a las personas.",
+    "fr": "Du dialogue aux personnes."
+  },
+  "Conversazione": {
+    "en": "Conversation",
+    "es": "Conversación",
+    "fr": "Conversation"
+  },
+  "Azienda": {
+    "en": "Company",
+    "es": "Empresa",
+    "fr": "Entreprise"
+  },
+  "Si parte dall’ascolto.": {
+    "en": "It starts with listening.",
+    "es": "Todo empieza escuchando.",
+    "fr": "Tout commence par l’écoute."
+  },
+  "L’assistente accoglie la domanda e cerca di capire che cosa serve alla persona.": {
+    "en": "The assistant welcomes the question and seeks to understand what the person needs.",
+    "es": "El asistente recibe la pregunta e intenta comprender lo que necesita la persona.",
+    "fr": "L’assistant accueille la question et cherche à comprendre les besoins de la personne."
+  },
+  "Esplora le tre fasi · schema illustrativo": {
+    "en": "Explore the three stages · illustrative diagram",
+    "es": "Explora las tres fases · esquema ilustrativo",
+    "fr": "Explorez les trois étapes · schéma illustratif"
+  },
+  "UN ASSISTENTE ADATTO ALLA TUA ATTIVITÀ": {
+    "en": "AN ASSISTANT FOR YOUR BUSINESS",
+    "es": "UN ASISTENTE PARA TU NEGOCIO",
+    "fr": "UN ASSISTANT ADAPTÉ À VOTRE ACTIVITÉ"
+  },
+  "Più attenzione alle persone.": {
+    "en": "More attention to people.",
+    "es": "Más atención a las personas.",
+    "fr": "Plus d’attention aux personnes."
+  },
+  "Meno conversazioni disperse.": {
+    "en": "Fewer scattered conversations.",
+    "es": "Menos conversaciones dispersas.",
+    "fr": "Moins de conversations dispersées."
+  },
+  "Immobiliare, concessionarie, medicina estetica e molto altro: cambia il settore, rimane l’obiettivo di capire il cliente e preparare un contatto utile.": {
+    "en": "Real estate, car dealerships, aesthetic medicine and more: different sectors, the same goal of understanding customers and preparing useful enquiries.",
+    "es": "Inmobiliarias, concesionarios, medicina estética y mucho más: distintos sectores, el mismo objetivo de entender al cliente y preparar un contacto útil.",
+    "fr": "Immobilier, concessions, médecine esthétique et bien plus : des secteurs différents, un même objectif de comprendre le client et préparer un contact utile."
+  },
+  "Conversazioni disponibili anche fuori orario, 24/7*": {
+    "en": "Conversations available out of hours, 24/7*",
+    "es": "Conversaciones fuera de horario, 24/7*",
+    "fr": "Conversations hors horaires, 24 h/24, 7 j/7*"
+  },
+  "Informazioni ordinate prima del contatto": {
+    "en": "Organised information before contact",
+    "es": "Información organizada antes del contacto",
+    "fr": "Informations organisées avant le contact"
+  },
+  "Campi, informazioni e referente configurabili per ogni azienda": {
+    "en": "Configurable fields, knowledge and contact person for each company",
+    "es": "Campos, información y referente configurables para cada empresa",
+    "fr": "Champs, informations et référent configurables par entreprise"
+  },
+  "*Il servizio continuativo richiede un’infrastruttura sempre attiva. Questa prima versione è un’anteprima privata.": {
+    "en": "*Continuous service requires always-on infrastructure. This first version is a private preview.",
+    "es": "*El servicio continuo requiere infraestructura siempre activa. Esta versión es una vista previa privada.",
+    "fr": "*Le service continu nécessite une infrastructure toujours active. Cette version est un aperçu privé."
+  },
+  "Esigenze diverse. Lo stesso punto di partenza.": {
+    "en": "Different needs. The same starting point.",
+    "es": "Distintas necesidades. El mismo punto de partida.",
+    "fr": "Des besoins différents. Le même point de départ."
+  },
+  "Immobiliare": {
+    "en": "Real estate",
+    "es": "Inmobiliarias",
+    "fr": "Immobilier"
+  },
+  "Concessionarie": {
+    "en": "Car dealerships",
+    "es": "Concesionarios",
+    "fr": "Concessions automobiles"
+  },
+  "Medicina estetica": {
+    "en": "Aesthetic medicine",
+    "es": "Medicina estética",
+    "fr": "Médecine esthétique"
+  },
+  "Zona, budget, acquisto o affitto, tipologia e caratteristiche cercate. Il consulente trova una richiesta già organizzata.": {
+    "en": "Area, budget, buying or renting, property type and desired features. The adviser receives an organised enquiry.",
+    "es": "Zona, presupuesto, compra o alquiler, tipo y características. El asesor recibe una solicitud organizada.",
+    "fr": "Zone, budget, achat ou location, type et caractéristiques. Le conseiller reçoit une demande organisée."
+  },
+  "Auto di interesse, nuovo o usato, budget, permuta e domande sul finanziamento da verificare con il commerciale.": {
+    "en": "Vehicle of interest, new or used, budget, trade-in and financing questions for the sales adviser.",
+    "es": "Vehículo de interés, nuevo o usado, presupuesto, cambio y dudas de financiación para el comercial.",
+    "fr": "Véhicule recherché, neuf ou occasion, budget, reprise et questions de financement pour le commercial."
+  },
+  "Interesse per un trattamento e richiesta di informazioni generali, senza diagnosi né promesse cliniche.": {
+    "en": "Treatment interest and general information requests, without diagnoses or clinical promises.",
+    "es": "Interés por tratamientos e información general, sin diagnósticos ni promesas clínicas.",
+    "fr": "Intérêt pour un traitement et informations générales, sans diagnostic ni promesse clinique."
+  },
+  "Questi sono esempi: ogni azienda può definire campi e informazioni differenti.": {
+    "en": "These are examples: each company can define different fields and information.",
+    "es": "Son ejemplos: cada empresa puede definir campos e información diferentes.",
+    "fr": "Ce sont des exemples : chaque entreprise peut définir des champs et informations différents."
+  },
+  "PROVALO, CON PAROLE TUE": {
+    "en": "TRY IT IN YOUR OWN WORDS",
+    "es": "PRUÉBALO CON TUS PALABRAS",
+    "fr": "ESSAYEZ AVEC VOS MOTS"
+  },
+  "Conosci Linea AI.": {
+    "en": "Discover Linea AI.",
+    "es": "Conoce Linea AI.",
+    "fr": "Découvrez Linea AI."
+  },
+  "Chiedi al nostro assistente.": {
+    "en": "Ask our assistant.",
+    "es": "Pregunta a nuestro asistente.",
+    "fr": "Interrogez notre assistant."
+  },
+  "Scopri come Linea AI può aiutare la tua azienda: chiedi informazioni sul servizio, sulla personalizzazione e sul funzionamento della piattaforma. Per confrontare piani e tariffe, visita": {
+    "en": "Discover how Linea AI can help your business: ask about the service, customisation and platform. To compare plans and prices, visit",
+    "es": "Descubre cómo Linea AI puede ayudar a tu empresa: pregunta por el servicio, la personalización y la plataforma. Para comparar planes y precios, visita",
+    "fr": "Découvrez comment Linea AI peut aider votre entreprise : renseignez-vous sur le service, la personnalisation et la plateforme. Pour comparer offres et tarifs, consultez"
+  },
+  ". Se serve supporto, puoi lasciare un’email e autorizzare un contatto.": {
+    "en": ". If you need support, leave an email address and agree to be contacted.",
+    "es": ". Si necesitas ayuda, deja tu email y autoriza el contacto.",
+    "fr": ". Si vous avez besoin d’aide, laissez votre email et autorisez un contact."
+  },
+  "Puoi scrivere: “Come può Linea AI aiutare la mia azienda?”.": {
+    "en": "You can write: “How can Linea AI help my business?”.",
+    "es": "Puedes escribir: «¿Cómo puede Linea AI ayudar a mi empresa?».",
+    "fr": "Vous pouvez écrire : « Comment Linea AI peut aider mon entreprise ? »."
+  },
+  "Questa chat presenta i servizi Linea AI. Le conversazioni vengono conservate per mostrare il funzionamento. Usa dati di prova e non inserire informazioni sensibili. Nessun appuntamento viene prenotato.": {
+    "en": "This chat presents Linea AI services. Conversations are stored to demonstrate the service. Use test data and do not enter sensitive information. No appointments are booked.",
+    "es": "Este chat presenta los servicios Linea AI. Las conversaciones se guardan para mostrar su funcionamiento. Usa datos de prueba, sin información sensible. No se reservan citas.",
+    "fr": "Ce chat présente les services Linea AI. Les conversations sont conservées pour démonstration. Utilisez des données fictives, sans informations sensibles. Aucun rendez-vous n’est réservé."
+  },
+  "Leggi come vengono usati i dati della demo": {
+    "en": "Read how demo data is used",
+    "es": "Consulta cómo se usan los datos de la demo",
+    "fr": "Consultez l’utilisation des données de la démo"
+  },
+  "Verifica della demo in corso…": {
+    "en": "Checking the demo…",
+    "es": "Comprobando la demo…",
+    "fr": "Vérification de la démo…"
+  },
+  "Servizi Linea AI": {
+    "en": "Linea AI Services",
+    "es": "Servicios Linea AI",
+    "fr": "Services Linea AI"
+  },
+  "Assistente virtuale · demo": {
+    "en": "Virtual assistant · demo",
+    "es": "Asistente virtual · demo",
+    "fr": "Assistant virtuel · démo"
+  },
+  "Quali servizi ci sono?": {
+    "en": "What services are available?",
+    "es": "¿Qué servicios hay?",
+    "fr": "Quels services proposez-vous ?"
+  },
+  "Vorrei assistenza via email": {
+    "en": "I'd like email support",
+    "es": "Quisiera asistencia por email",
+    "fr": "Je souhaite une assistance par email"
+  },
+  "Il tuo messaggio": {
+    "en": "Your message",
+    "es": "Tu mensaje",
+    "fr": "Votre message"
+  },
+  "Dati di prova ·": {
+    "en": "Test data ·",
+    "es": "Datos de prueba ·",
+    "fr": "Données fictives ·"
+  },
+  "Privacy della chat": {
+    "en": "Chat privacy",
+    "es": "Privacidad del chat",
+    "fr": "Confidentialité du chat"
+  },
+  "Lascia un feedback": {
+    "en": "Leave feedback",
+    "es": "Deja tu opinión",
+    "fr": "Donnez votre avis"
+  },
+  "Com’è andata la conversazione?": {
+    "en": "How was the conversation?",
+    "es": "¿Cómo fue la conversación?",
+    "fr": "Comment s’est passée la conversation ?"
+  },
+  "Il tuo parere ci aiuta a migliorare l’assistente. È facoltativo.": {
+    "en": "Your optional feedback helps us improve the assistant.",
+    "es": "Tu opinión opcional nos ayuda a mejorar el asistente.",
+    "fr": "Votre avis facultatif nous aide à améliorer l’assistant."
+  },
+  "Come gestiamo il feedback": {
+    "en": "How we handle feedback",
+    "es": "Cómo gestionamos las opiniones",
+    "fr": "Comment nous gérons les avis"
+  },
+  "Valuta da 1 a 5": {
+    "en": "Rate from 1 to 5",
+    "es": "Valora del 1 al 5",
+    "fr": "Notez de 1 à 5"
+  },
+  "Poco utile": {
+    "en": "Not useful",
+    "es": "Poco útil",
+    "fr": "Peu utile"
+  },
+  "Molto utile": {
+    "en": "Very useful",
+    "es": "Muy útil",
+    "fr": "Très utile"
+  },
+  "Cosa miglioreresti?": {
+    "en": "What would you improve?",
+    "es": "¿Qué mejorarías?",
+    "fr": "Que faudrait-il améliorer ?"
+  },
+  "(facoltativo)": {
+    "en": "(optional)",
+    "es": "(opcional)",
+    "fr": "(facultatif)"
+  },
+  "Salva il feedback": {
+    "en": "Save feedback",
+    "es": "Guardar opinión",
+    "fr": "Enregistrer l’avis"
+  },
+  "CHI SIAMO": {
+    "en": "ABOUT US",
+    "es": "QUIÉNES SOMOS",
+    "fr": "QUI SOMMES-NOUS"
+  },
+  "Stiamo costruendo": {
+    "en": "We are building",
+    "es": "Estamos creando",
+    "fr": "Nous construisons"
+  },
+  "un primo contatto migliore.": {
+    "en": "a better first contact.",
+    "es": "un mejor primer contacto.",
+    "fr": "un meilleur premier contact."
+  },
+  "Linea AI è un progetto in sviluppo: un assistente per aiutare le aziende a gestire le richieste iniziali, senza perdere il contesto delle persone che le contattano.": {
+    "en": "Linea AI is a project in development: an assistant helping companies manage initial enquiries without losing the context of the people contacting them.",
+    "es": "Linea AI es un proyecto en desarrollo: un asistente para gestionar consultas iniciales sin perder el contexto de las personas.",
+    "fr": "Linea AI est un projet en développement : un assistant pour gérer les premières demandes sans perdre le contexte des personnes."
+  },
+  "Ogni azienda definisce le informazioni affidabili su cui rispondere, i dati utili da raccogliere e il referente a cui preparare la richiesta. Settori e campi possono evolvere senza creare un sito separato.": {
+    "en": "Each business defines reliable information, useful data to collect and the person handling enquiries. Sectors and fields can evolve without a separate website.",
+    "es": "Cada empresa define información fiable, datos útiles y un referente. Los sectores y campos pueden evolucionar sin crear otro sitio.",
+    "fr": "Chaque entreprise définit les informations fiables, les données utiles et le référent. Secteurs et champs peuvent évoluer sans créer un autre site."
+  },
+  "OGGI · PROTOTIPO": {
+    "en": "TODAY · PROTOTYPE",
+    "es": "HOY · PROTOTIPO",
+    "fr": "AUJOURD’HUI · PROTOTYPE"
+  },
+  "Conversazioni e richieste ordinate": {
+    "en": "Organised conversations and enquiries",
+    "es": "Conversaciones y solicitudes organizadas",
+    "fr": "Conversations et demandes organisées"
+  },
+  "Account aziendali, chat personalizzabile, richieste nella dashboard privata e feedback sull’esperienza.": {
+    "en": "Company accounts, customisable chat, enquiries in a private dashboard and experience feedback.",
+    "es": "Cuentas empresariales, chat personalizable, solicitudes en un panel privado y opiniones.",
+    "fr": "Comptes d’entreprise, chat personnalisable, demandes dans un tableau de bord privé et avis."
+  },
+  "IN PROGETTO": {
+    "en": "PLANNED",
+    "es": "EN PROYECTO",
+    "fr": "EN PROJET"
+  },
+  "Un servizio che impara dall’ascolto": {
+    "en": "A service shaped by listening",
+    "es": "Un servicio que mejora escuchando",
+    "fr": "Un service guidé par l’écoute"
+  },
+  "Feedback dopo il servizio e report con temi ricorrenti e percentuali. Contatti WhatsApp da progettare e attivare separatamente.": {
+    "en": "Post-service feedback and reports with recurring topics and percentages. WhatsApp contacts require separate design and activation.",
+    "es": "Opiniones tras el servicio e informes con temas recurrentes y porcentajes. WhatsApp requiere diseño y activación separados.",
+    "fr": "Avis après service et rapports avec thèmes récurrents et pourcentages. WhatsApp reste à concevoir et activer séparément."
+  },
+  "PARLIAMO DELLA TUA AZIENDA": {
+    "en": "LET'S TALK ABOUT YOUR BUSINESS",
+    "es": "HABLEMOS DE TU EMPRESA",
+    "fr": "PARLONS DE VOTRE ENTREPRISE"
+  },
+  "Vediamolo": {
+    "en": "Let's see it",
+    "es": "Veámoslo",
+    "fr": "Voyons-le"
+  },
+  "all’opera,": {
+    "en": "in action,",
+    "es": "en acción,",
+    "fr": "à l’œuvre,"
+  },
+  "insieme.": {
+    "en": "together.",
+    "es": "juntos.",
+    "fr": "ensemble."
+  },
+  "Raccontaci come gestisci oggi le nuove richieste. Prepariamo una prova adatta alla tua azienda.": {
+    "en": "Tell us how you handle new enquiries. We'll prepare a trial for your business.",
+    "es": "Cuéntanos cómo gestionas las consultas. Prepararemos una prueba para tu empresa.",
+    "fr": "Dites-nous comment vous gérez les demandes. Nous préparerons un essai adapté."
+  },
+  "In questa anteprima le richieste vengono conservate privatamente. Le email di conferma richiedono un servizio mittente configurato; in questa anteprima non è ancora attivo.": {
+    "en": "Enquiries are stored privately in this preview. Confirmation emails require a configured sender, which is not active yet.",
+    "es": "Las solicitudes se guardan de forma privada. Los emails requieren un servicio de envío, aún no activo.",
+    "fr": "Les demandes sont conservées en privé. Les emails nécessitent un service d’envoi, pas encore actif."
+  },
+  "Il tuo nome": {
+    "en": "Your name",
+    "es": "Tu nombre",
+    "fr": "Votre nom"
+  },
+  "Studio o azienda": {
+    "en": "Business or practice",
+    "es": "Empresa o consulta",
+    "fr": "Entreprise ou cabinet"
+  },
+  "Email di lavoro": {
+    "en": "Work email",
+    "es": "Email de trabajo",
+    "fr": "Email professionnel"
+  },
+  "Cosa vorresti migliorare?": {
+    "en": "What would you like to improve?",
+    "es": "¿Qué te gustaría mejorar?",
+    "fr": "Que souhaitez-vous améliorer ?"
+  },
+  "Come usiamo i dati": {
+    "en": "How we use data",
+    "es": "Cómo usamos los datos",
+    "fr": "Utilisation des données"
+  },
+  "Leggi l’informativa prima di scegliere. Il link non seleziona il consenso.": {
+    "en": "Read the notice before choosing. Opening the link does not give consent.",
+    "es": "Lee el aviso antes de elegir. Abrir el enlace no da consentimiento.",
+    "fr": "Lisez la notice avant de choisir. Le lien ne vaut pas consentement."
+  },
+  "Acconsento alla conservazione e all’utilizzo dei dati inseriti per gestire questa richiesta di prova, come descritto nell’informativa dell’anteprima. Nessun consenso al marketing.": {
+    "en": "I agree to storage and use of these details to handle this trial request, as described in the preview privacy notice. No marketing consent.",
+    "es": "Acepto guardar y usar estos datos para gestionar la solicitud de prueba según el aviso de privacidad. Sin consentimiento de marketing.",
+    "fr": "J’accepte la conservation et l’utilisation de ces données pour gérer cet essai selon la notice. Aucun consentement marketing."
+  },
+  "IL PROSSIMO PASSO, PER LA TUA AZIENDA": {
+    "en": "THE NEXT STEP FOR YOUR BUSINESS",
+    "es": "EL SIGUIENTE PASO PARA TU EMPRESA",
+    "fr": "LA PROCHAINE ÉTAPE POUR VOTRE ENTREPRISE"
+  },
+  "Scegli come iniziare.": {
+    "en": "Choose how to start.",
+    "es": "Elige cómo empezar.",
+    "fr": "Choisissez comment commencer."
+  },
+  "Esplora lo Spazio Aziendale con la Demo, oppure scegli la prova di Base, Plus o Advanced.": {
+    "en": "Explore your workspace with the Demo, or try Base, Plus or Advanced.",
+    "es": "Explora tu espacio con la Demo o prueba Base, Plus o Advanced.",
+    "fr": "Explorez votre espace avec la démo ou essayez Base, Plus ou Advanced."
+  },
+  "Mensile": {
+    "en": "Monthly",
+    "es": "Mensual",
+    "fr": "Mensuel"
+  },
+  "Annuale": {
+    "en": "Annual",
+    "es": "Anual",
+    "fr": "Annuel"
+  },
+  "Risparmia il 15%": {
+    "en": "Save 15%",
+    "es": "Ahorra un 15%",
+    "fr": "Économisez 15 %"
+  },
+  "Anteprima locale: prove e rinnovi sono simulati. Nessun addebito reale. I servizi inclusi nei piani sono ancora da definire.": {
+    "en": "Local preview: trials and renewals are simulated. No real charges. Plan services are still to be defined.",
+    "es": "Vista previa local: pruebas y renovaciones simuladas, sin cobros reales. Servicios de los planes por definir.",
+    "fr": "Aperçu local : essais et renouvellements simulés, sans débit réel. Services des offres à définir."
+  },
+  "Gestisci il piano e la disdetta →": {
+    "en": "Manage your plan and cancellation →",
+    "es": "Gestiona el plan y la cancelación →",
+    "fr": "Gérer l’offre et la résiliation →"
+  },
+  "Il primo contatto. Con più attenzione.": {
+    "en": "First contact. With more care.",
+    "es": "El primer contacto. Con más atención.",
+    "fr": "Le premier contact. Avec plus d’attention."
+  },
+  "Torna alla demo ↑": {
+    "en": "Back to the demo ↑",
+    "es": "Volver a la demo ↑",
+    "fr": "Retour à la démo ↑"
+  },
+  "Privacy e utilizzo dei dati": {
+    "en": "Privacy and data use",
+    "es": "Privacidad y uso de datos",
+    "fr": "Confidentialité et données"
+  },
+  "Cookie e tecnologie": {
+    "en": "Cookies and technologies",
+    "es": "Cookies y tecnologías",
+    "fr": "Cookies et technologies"
+  },
+  "Condizioni della demo": {
+    "en": "Demo terms",
+    "es": "Condiciones de la demo",
+    "fr": "Conditions de la démo"
+  },
+  "Anteprima locale: documentazione provvisoria. Identità del titolare e tempi di conservazione devono essere completati prima dell’apertura a utenti esterni.": {
+    "en": "Local preview: provisional documentation. Controller identity and retention periods must be completed before external access.",
+    "es": "Vista previa local: documentación provisional. Identidad del responsable y plazos de conservación pendientes antes del acceso externo.",
+    "fr": "Aperçu local : documentation provisoire. Identité du responsable et durées de conservation à compléter avant accès externe."
+  },
+  "© 2026 Linea AI · Nome provvisorio del progetto": {
+    "en": "© 2026 Linea AI · Provisional project name",
+    "es": "© 2026 Linea AI · Nombre provisional",
+    "fr": "© 2026 Linea AI · Nom provisoire du projet"
+  },
+  "Anteprima privata · Azienda dimostrativa": {
+    "en": "Private preview · Demonstration business",
+    "es": "Vista previa privada · Empresa de demostración",
+    "fr": "Aperçu privé · Entreprise de démonstration"
+  },
+  "ESPLORA": {
+    "en": "EXPLORE",
+    "es": "EXPLORA",
+    "fr": "EXPLOREZ"
+  },
+  "IL PRIMO PASSO": {
+    "en": "THE FIRST STEP",
+    "es": "EL PRIMER PASO",
+    "fr": "LE PREMIER PAS"
+  },
+  "Piano Base": {
+    "en": "Base Plan",
+    "es": "Plan Base",
+    "fr": "Offre Base"
+  },
+  "Piano Plus": {
+    "en": "Plus Plan",
+    "es": "Plan Plus",
+    "fr": "Offre Plus"
+  },
+  "Piano Advanced": {
+    "en": "Advanced Plan",
+    "es": "Plan Advanced",
+    "fr": "Offre Advanced"
+  },
+  "Accedi o registrati per vedere la tariffa": {
+    "en": "Log in or register to see prices",
+    "es": "Accede o regístrate para ver precios",
+    "fr": "Connectez-vous ou inscrivez-vous pour voir les tarifs"
+  },
+  "giorni gratuiti": {
+    "en": "free days",
+    "es": "días gratis",
+    "fr": "jours gratuits"
+  },
+  "al mese": {
+    "en": "per month",
+    "es": "al mes",
+    "fr": "par mois"
+  },
+  "all’anno": {
+    "en": "per year",
+    "es": "al año",
+    "fr": "par an"
+  },
+  "Accesso al tuo Spazio Aziendale": {
+    "en": "Access to your company workspace",
+    "es": "Acceso a tu espacio empresarial",
+    "fr": "Accès à votre espace entreprise"
+  },
+  "Una prova per email registrata": {
+    "en": "One trial per registered email",
+    "es": "Una prueba por email registrado",
+    "fr": "Un essai par email inscrit"
+  },
+  "Nessun metodo di pagamento richiesto": {
+    "en": "No payment method required",
+    "es": "Sin método de pago",
+    "fr": "Aucun moyen de paiement requis"
+  },
+  "Servizi inclusi da definire": {
+    "en": "Included services to be defined",
+    "es": "Servicios incluidos por definir",
+    "fr": "Services inclus à définir"
+  },
+  "Verifica dei dati aziendali": {
+    "en": "Company details review",
+    "es": "Verificación de datos de empresa",
+    "fr": "Vérification des données d’entreprise"
+  },
+  "Metodo compatibile con il rinnovo automatico": {
+    "en": "Method supporting automatic renewal",
+    "es": "Método compatible con renovación automática",
+    "fr": "Moyen compatible avec le renouvellement automatique"
+  },
+  "Inizia subito": {
+    "en": "Start now",
+    "es": "Empieza ahora",
+    "fr": "Commencer"
+  },
+  "Prova gratuita di 14 giorni": {
+    "en": "14-day free trial",
+    "es": "Prueba gratuita de 14 días",
+    "fr": "Essai gratuit de 14 jours"
+  },
+  "Scrivi il tuo messaggio…": {
+    "en": "Write your message…",
+    "es": "Escribe tu mensaje…",
+    "fr": "Écrivez votre message…"
+  },
+  "Nome e cognome": {
+    "en": "Full name",
+    "es": "Nombre y apellidos",
+    "fr": "Nom et prénom"
+  },
+  "Nome dello studio": {
+    "en": "Company name",
+    "es": "Nombre de la empresa",
+    "fr": "Nom de l’entreprise"
+  },
+  "Parla della chat, senza dati personali o sanitari.": {
+    "en": "Tell us about the chat, without personal or health data.",
+    "es": "Habla del chat sin datos personales ni sanitarios.",
+    "fr": "Parlez du chat sans données personnelles ou de santé."
+  },
+  "Preferenze cookie": {
+    "en": "Cookie preferences",
+    "es": "Preferencias de cookies",
+    "fr": "Préférences de cookies"
+  },
+  "Cookie: scegli come proseguire": {
+    "en": "Cookies: choose how to continue",
+    "es": "Cookies: elige cómo continuar",
+    "fr": "Cookies : choisissez comment continuer"
+  },
+  "Usiamo solo tecnologie necessarie per accesso e preferenze. Non ci sono cookie pubblicitari o di analisi. Rifiuta e Solo obbligatori mantengono attive le funzioni necessarie; Accetta non attiva tracciatori né autorizza servizi futuri.": {
+    "en": "We only use necessary technologies for login and preferences. There are no advertising or analytics cookies. Reject and Necessary only keep essential functions active; Accept does not enable trackers or authorise future services.",
+    "es": "Solo usamos tecnologías necesarias para acceso y preferencias. No hay cookies publicitarias ni analíticas. Rechazar y Solo necesarias mantienen las funciones esenciales; Aceptar no activa rastreadores ni autoriza servicios futuros.",
+    "fr": "Nous utilisons uniquement les technologies nécessaires à l’accès et aux préférences. Aucun cookie publicitaire ou analytique. Refuser et Nécessaires uniquement conservent les fonctions essentielles ; Accepter n’active aucun traceur ni service futur."
+  },
+  "Informazioni sui cookie": {
+    "en": "Cookie information",
+    "es": "Información sobre cookies",
+    "fr": "Informations sur les cookies"
+  },
+  "Accetta": {
+    "en": "Accept",
+    "es": "Aceptar",
+    "fr": "Accepter"
+  },
+  "Rifiuta": {
+    "en": "Reject",
+    "es": "Rechazar",
+    "fr": "Refuser"
+  },
+  "Solo obbligatori": {
+    "en": "Necessary only",
+    "es": "Solo necesarias",
+    "fr": "Nécessaires uniquement"
+  },
+  "Scelta salvata su questo browser per 180 giorni. Puoi modificarla dal fondo della pagina.": {
+    "en": "Choice stored in this browser for 180 days. Change it in the footer.",
+    "es": "Elección guardada en este navegador durante 180 días. Puedes cambiarla al pie de página.",
+    "fr": "Choix conservé dans ce navigateur pendant 180 jours. Modifiable en bas de page."
+  },
+  "Torna al sito": {
+    "en": "Back to the site",
+    "es": "Volver al sitio",
+    "fr": "Retour au site"
+  },
+  "Scelte e lingua": {
+    "en": "Choices and language",
+    "es": "Opciones e idioma",
+    "fr": "Choix et langue"
+  },
+  "Demo collegata al tuo assistente locale.": {
+    "en": "Demo connected to your local assistant.",
+    "es": "Demo conectada al asistente local.",
+    "fr": "Démo connectée à votre assistant local."
+  }
+}

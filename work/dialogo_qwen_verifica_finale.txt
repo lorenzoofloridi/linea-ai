@@ -1,0 +1,36 @@
+TU: ciao
+AI: Ti ascolto, possiamo procedere con calma.
+Per quale esigenza dentale vorresti essere ricontattato?
+DATI: {} ATTESO: trattamento
+TU: quali ci sono?
+AI: Nella demo puoi chiedere informazioni su sbiancamento dentale, implantologia, ortodonzia, allineatori trasparenti, faccette dentali, igiene dentale e visite odontoiatriche generali.
+Mi racconti in poche parole per cosa cerchi informazioni?
+DATI: {} ATTESO: trattamento
+TU: Vorrei togliere il dente del giudizio
+AI: Ho capito, raccolgo la tua richiesta per «Vorrei togliere il dente del giudizio».
+Hai già in mente quando vorresti occupartene, oppure è ancora da decidere?
+DATI: {"trattamento": "Vorrei togliere il dente del giudizio"} ATTESO: tempistica
+TU: Ho paura del dentista, mi vergogno un po'
+AI: Ti ascolto, possiamo procedere con calma. Quando te la senti, possiamo riprendere la richiesta di ricontatto.
+DATI: {"trattamento": "Vorrei togliere il dente del giudizio"} ATTESO: tempistica
+TU: quando torno dalle ferie
+AI: Va bene, tengo come riferimento «quando torno dalle ferie».
+Come ti chiami, così posso associare la richiesta a te?
+DATI: {"trattamento": "Vorrei togliere il dente del giudizio", "tempistica": "quando torno dalle ferie"} ATTESO: nome
+TU: Mi chiamo Anna Demo
+AI: Grazie, Anna Demo.
+Qual è il numero migliore per un eventuale ricontatto?
+DATI: {"trattamento": "Vorrei togliere il dente del giudizio", "tempistica": "quando torno dalle ferie", "nome": "Anna Demo"} ATTESO: telefono
+TU: Perché vi serve il telefono?
+AI: La richiesta viene salvata nel foglio Google collegato solo dopo il tuo consenso esplicito al ricontatto. In questa demo non vengono inviati messaggi né prenotati appuntamenti.
+A quale numero vorresti essere ricontattato, se decidi di lasciare la richiesta?
+DATI: {"trattamento": "Vorrei togliere il dente del giudizio", "tempistica": "quando torno dalle ferie", "nome": "Anna Demo"} ATTESO: telefono
+TU: +39 000 000 0000
+AI: Va bene.
+Riepilogo: Anna Demo; +39 000 000 0000; Vorrei togliere il dente del giudizio; quando torno dalle ferie.
+Sei d'accordo a essere ricontattato dal personale della clinica al numero che hai indicato?
+DATI: {"trattamento": "Vorrei togliere il dente del giudizio", "tempistica": "quando torno dalle ferie", "nome": "Anna Demo", "telefono": "+39 000 000 0000"} ATTESO: consenso
+TU: potete telefonarmi
+AI: Grazie, Anna Demo. Ho registrato la tua richiesta per il personale della clinica. Hai altre domande? Sono qui; puoi anche scrivere esci per chiudere.
+DATI: {"trattamento": "Vorrei togliere il dente del giudizio", "tempistica": "quando torno dalle ferie", "nome": "Anna Demo", "telefono": "+39 000 000 0000"} ATTESO: consenso
+PASS dialogo reale; scrittura Google simulata.

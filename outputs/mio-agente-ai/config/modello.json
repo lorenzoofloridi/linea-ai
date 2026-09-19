@@ -1,0 +1,9 @@
+{
+  "provider": "ollama",
+  "model": "qwen2.5:7b",
+  "candidate": null,
+  "comparison_models": [
+    "qwen2.5:7b"
+  ],
+  "status": "confronto_10_dialoghi_completato_qwen25_scelto_per_latenza"
+}

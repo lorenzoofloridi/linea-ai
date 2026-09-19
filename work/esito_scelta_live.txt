@@ -1,0 +1,2 @@
+{'nome': '', 'telefono': '', 'trattamento': '', 'tempistica': '', 'intento': 'dati', 'emozione': 'neutra', 'domanda': False, 'rifiuto_dati': False, 'consenso': 'non_espresso', 'modalita': 'visita'}
+PASS: la scelta visita non sovrascrive il trattamento.

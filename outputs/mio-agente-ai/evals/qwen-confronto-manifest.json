@@ -1,0 +1,34 @@
+{
+  "models": [
+    "qwen2.5:7b",
+    "qwen3:14b"
+  ],
+  "qwen3_think": false,
+  "cases": "prime 10 conversazioni, una per tipo",
+  "writes": "archivio simulato, nessuna scrittura Google",
+  "note": "Qwen 2.5 avviato durante il download di Qwen3; tempi non a condizioni hardware perfettamente identiche. Differenza prevista nel provider: think=false solo per Qwen3. Nessuna modifica alla logica durante il confronto.",
+  "sha256": {
+    "agente.py": "9062add901b1fc70ae11558eb92384976b156bbe35d33027c0c7f0957140a269",
+    "app.py": "21963238a54f0f49b0fbfc37205c37d202e35aa6a5370f56b6872ec396f820ec",
+    "bot_core.py": "329ddf7160f0e0351966e85ee9f161df565f842eeb873c3155dc9b0874f8587f",
+    "collega_google.py": "12333c1fec4c3fb068425b403ad11623bebd96eaa41325429ca32ae6c65e234d",
+    "comprensione.py": "2639d2f7c001d17acb145fe134da66658ab2aeb800ef46ec0ffe8a2a7bda61c6",
+    "config/azienda_demo.json": "9e874f9e0c90b726809cac22d334c77212cdb537f5a802767e50e1fd1e965b79",
+    "core/__init__.py": "a5cd19859efda21c527b24d5c254322cee9590f4129a0ca86a19af042b71b8f2",
+    "core/lead_outbox.py": "4bf84c4b8865f4c2c4a5950c6c3bd0a615f7df3a7a6e7f57b5c771a79f66bb92",
+    "core/planner.py": "af24dcf443675677d447eb4f35655d914c11f9aa853af976a2d226cfd0a1f23c",
+    "dialogo.py": "c950e281797d7a9a46152b3752c9b68a9870c479a76e0433bb3ee60981a39002",
+    "evals/conversazioni.json": "8c7b5b45b116456e5775327cd09ba2103355d03ac140bf403bab894f9bce3c0b",
+    "fatti_demo.py": "f33681fd6910484bfe53d234d9c66e7d84bed10774e8a21f4b8eb41dd0e40911",
+    "llm_locale.py": "943001dc9afefa46ad41fe4cb7bbfa5a567b1ca75fc14e063c7ca81ba80725fc",
+    "prompt.txt": "a19030a579e804d808e5520e2dbc669a4ecdbba6226fb9a5441904baf130d0ce",
+    "providers/__init__.py": "75a4c1ee62c1cbdb19e02987da61c42de5f3d7666b050b7dadfad9c97155255b",
+    "providers/ollama_provider.py": "6877808b59a5d398499047407e17f1244e435759f8417bcaf1416895284095ba",
+    "risposte_paziente.py": "5762be54a08280b18bf0973f8733639e607cc4af7716038825db5b0dbee4f7b8",
+    "seleziona_modello.py": "52cfb84120cafc3a6ac6f312ef8ffdd036b28f315d2c25006cf5ed6cf01afa4d",
+    "sheets_http.py": "5efd455612d340166b0dbd127488cea966a6993e9cee665b9b5d72d768d53842",
+    "sheets_store.py": "6a1c87bab0ed19c5e6ee142ec4fa8ca5177320fa847055bab841be4d0da0c117",
+    "tempistiche.py": "0976e03c5ae7d6f760d4cee332d34ecfc2111cf6d22ca82673e70111c08b8373",
+    "web_app.py": "21ac6735c5ad998d17c50bed3996bbe9aff9e225f3c044e36aac5a4dac1bde04"
+  }
+}

@@ -1,0 +1,17 @@
+voglio togliere una carie {'nome': '', 'telefono': '', 'trattamento': 'togliere una carie', 'tempistica': '', 'intento': 'dati', 'emozione': 'neutra', 'domanda': False, 'rifiuto_dati': False, 'consenso': 'non_espresso'}
+mi si è scheggiato un dente {'nome': '', 'telefono': '', 'trattamento': 'mi si è scheggiato un dente', 'tempistica': '', 'intento': 'dati', 'emozione': 'neutra', 'domanda': False, 'rifiuto_dati': False, 'consenso': 'non_espresso'}
+appena riesco a liberarmi dal lavoro {'nome': '', 'telefono': '', 'trattamento': '', 'tempistica': 'appena riesco a liberarmi dal lavoro', 'intento': 'dati', 'emozione': 'neutra', 'domanda': False, 'rifiuto_dati': False, 'consenso': 'non_espresso'}
+non ho ancora deciso {'nome': '', 'telefono': '', 'trattamento': '', 'tempistica': 'non ho ancora deciso', 'intento': 'dati', 'emozione': 'neutra', 'domanda': False, 'rifiuto_dati': False, 'consenso': 'non_espresso'}
+quali ci sono? {'nome': '', 'telefono': '', 'trattamento': '', 'tempistica': '', 'intento': 'servizi', 'emozione': 'neutra', 'domanda': True, 'rifiuto_dati': False, 'consenso': 'non_espresso'}
+ciao -> Ciao! Dimmi pure, ti ascolto.
+Vorrei togliere il dente del giudizio -> Ho capito, raccolgo la tua richiesta per «togliere il dente del giudizio».
+Hai già in mente quando vorresti occupartene, oppure è ancora da decidere?
+quando torno dalle ferie -> Va bene, tengo come riferimento «quando torno dalle ferie».
+Come ti chiami, così posso associare la richiesta a te?
+Anna Demo -> Grazie, Anna Demo.
+Qual è il numero migliore per un eventuale ricontatto?
++39 000 000 0000 -> Va bene.
+Riepilogo: Anna Demo; +39 000 000 0000; togliere il dente del giudizio; quando torno dalle ferie.
+Sei d'accordo a essere ricontattato dal personale della clinica al numero che hai indicato?
+potete telefonarmi -> Grazie, Anna Demo. Ho registrato la tua richiesta per il personale della clinica. Hai altre domande? Sono qui; puoi anche scrivere esci per chiudere.
+PASS: casi liberi e conversazione completa; nessun invio reale.

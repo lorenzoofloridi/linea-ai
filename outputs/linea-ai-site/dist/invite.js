@@ -1,0 +1,3 @@
+"use strict";
+const invitation=location.hash.slice(1);history.replaceState(null,'',location.pathname);
+document.querySelector('#invite-form').addEventListener('submit',async e=>{e.preventDefault();const button=e.target.querySelector('button');button.disabled=true;try{const f=new FormData(e.target),r=await fetch('/api/accept-invite',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:invitation,password:f.get('password'),accept:f.has('accept')})}),d=await r.json();if(!r.ok)throw Error(d.error);location.assign(d.redirect)}catch(err){document.querySelector('#result').textContent=err.message}finally{button.disabled=false}});

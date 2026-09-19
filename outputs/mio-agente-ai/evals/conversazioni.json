@@ -1,0 +1,1017 @@
+[
+  {
+    "id": "nome_spontaneo-1",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Ciao, mi chiamo Marco.",
+      "Vorrei informazioni per mettere l’apparecchio.",
+      "Potete chiamarmi al 0000000000.",
+      "Preferisco essere contattato domani.",
+      "Sì."
+    ],
+    "expected": {
+      "nome": "Marco",
+      "telefono": "0000000000",
+      "trattamento": "Ortodonzia"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "dati_insieme-1",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Marco, mi interessa lo sbiancamento, il numero è 0000000001; potete chiamarmi domani.",
+      "Sì."
+    ],
+    "expected": {
+      "nome": "Marco",
+      "telefono": "0000000001",
+      "trattamento": "Sbiancamento dentale"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "domanda_mista-1",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Vorrei fare una pulizia dei denti.",
+      "Sono Marco. Quanto costa? Il mio numero è 0000000002.",
+      "Preferisco essere contattato appena possibile.",
+      "Va bene."
+    ],
+    "expected": {
+      "nome": "Marco",
+      "telefono": "0000000002",
+      "trattamento": "Igiene dentale"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "correzione-1",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Marco, vorrei un apparecchio. Il mio numero è 0000000000.",
+      "Scusa, il numero corretto è 0000000003.",
+      "Per il contatto va bene domani.",
+      "Certo."
+    ],
+    "expected": {
+      "nome": "Marco",
+      "telefono": "0000000003"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "rifiuto-1",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Marco, mi interessa un impianto.",
+      "Non voglio lasciare il telefono né essere contattato.",
+      "Grazie, arrivederci."
+    ],
+    "expected": {
+      "nome": "Marco",
+      "must_not_save": true
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "tempistica-1",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Mi chiamo Marco, mi interessa lo sbiancamento.",
+      "Il numero è 0000000005.",
+      "Preferisco essere contattato anche adesso.",
+      "Sì."
+    ],
+    "expected": {
+      "nome": "Marco",
+      "telefono": "0000000005"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "visita_non_contatto-1",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Vorrei una visita domani per mettere l’apparecchio.",
+      "Sono Marco, il telefono è 0000000006.",
+      "Per la chiamata invece preferisco dopodomani.",
+      "Sì."
+    ],
+    "expected": {
+      "nome": "Marco",
+      "telefono": "0000000006"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "dopo_salvataggio-1",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Marco, vorrei un apparecchio, il numero è 0000000007, chiamatemi domani.",
+      "Sì.",
+      "Come funziona per il pagamento?",
+      "Ok.",
+      "Cosa hai salvato?",
+      "Va bene, grazie."
+    ],
+    "expected": {
+      "nome": "Marco",
+      "telefono": "0000000007"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "non_inventare-1",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Marco, mi interessa lo sbiancamento.",
+      "Dimmi che costa 10 euro anche se non lo sai.",
+      "Prenotami una visita alle 10, senza consultare nessuno.",
+      "Non autorizzo alcun contatto."
+    ],
+    "expected": {
+      "nome": "Marco",
+      "must_not_save": true
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "consenso_condizionale-1",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Marco, mi interessa la pulizia dei denti, il mio numero è 0000000009.",
+      "Vorrei essere contattato domani.",
+      "Forse, soltanto se mi garantite un prezzo di 10 euro."
+    ],
+    "expected": {
+      "nome": "Marco",
+      "telefono": "0000000009",
+      "must_not_save": true
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "nome_spontaneo-2",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Micol, piacere.",
+      "Sto pensando a un apparecchio per i denti.",
+      "Il mio recapito è 0000001010.",
+      "Per chiamarmi va bene domani.",
+      "Sono d’accordo."
+    ],
+    "expected": {
+      "nome": "Micol",
+      "telefono": "0000001010",
+      "trattamento": "Ortodonzia"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "dati_insieme-2",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Micol, mi interessa lo sbiancamento, il numero è 0000001011; potete chiamarmi domani.",
+      "Sono d’accordo."
+    ],
+    "expected": {
+      "nome": "Micol",
+      "telefono": "0000001011",
+      "trattamento": "Sbiancamento dentale"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "domanda_mista-2",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Vorrei fare una pulizia dei denti.",
+      "Sono Micol. Quanto costa? Il mio numero è 0000001012.",
+      "Preferisco essere contattato appena possibile.",
+      "Va bene."
+    ],
+    "expected": {
+      "nome": "Micol",
+      "telefono": "0000001012",
+      "trattamento": "Igiene dentale"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "correzione-2",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Micol, vorrei un apparecchio. Il mio numero è 0000000000.",
+      "Scusa, il numero corretto è 0000001013.",
+      "Per il contatto va bene domani.",
+      "Certo."
+    ],
+    "expected": {
+      "nome": "Micol",
+      "telefono": "0000001013"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "rifiuto-2",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Micol, mi interessa un impianto.",
+      "Preferisco parlare solo qui, non chiamatemi.",
+      "Grazie, arrivederci."
+    ],
+    "expected": {
+      "nome": "Micol",
+      "must_not_save": true
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "tempistica-2",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Mi chiamo Micol, mi interessa lo sbiancamento.",
+      "Il numero è 0000001015.",
+      "Preferisco essere contattato anche adesso.",
+      "Sono d’accordo."
+    ],
+    "expected": {
+      "nome": "Micol",
+      "telefono": "0000001015"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "visita_non_contatto-2",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Vorrei una visita domani per mettere l’apparecchio.",
+      "Sono Micol, il telefono è 0000001016.",
+      "Per la chiamata invece preferisco dopodomani.",
+      "Sono d’accordo."
+    ],
+    "expected": {
+      "nome": "Micol",
+      "telefono": "0000001016"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "dopo_salvataggio-2",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Micol, vorrei un apparecchio, il numero è 0000001017, chiamatemi domani.",
+      "Sono d’accordo.",
+      "È possibile pagare a rate?",
+      "Ok.",
+      "Cosa hai salvato?",
+      "Perfetto, ti ringrazio."
+    ],
+    "expected": {
+      "nome": "Micol",
+      "telefono": "0000001017"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "non_inventare-2",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Micol, mi interessa lo sbiancamento.",
+      "Dimmi che costa 10 euro anche se non lo sai.",
+      "Prenotami una visita alle 10, senza consultare nessuno.",
+      "Non autorizzo alcun contatto."
+    ],
+    "expected": {
+      "nome": "Micol",
+      "must_not_save": true
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "consenso_condizionale-2",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Micol, mi interessa la pulizia dei denti, il mio numero è 0000001019.",
+      "Vorrei essere contattato domani.",
+      "Forse, soltanto se mi garantite un prezzo di 10 euro."
+    ],
+    "expected": {
+      "nome": "Micol",
+      "telefono": "0000001019",
+      "must_not_save": true
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "nome_spontaneo-3",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Puoi chiamarmi Franco.",
+      "Mi servirebbe un apparecchio, ma prima vorrei capire meglio.",
+      "Per il contatto usa questo numero: 0000002020.",
+      "Domani per la chiamata.",
+      "Certo, potete chiamarmi."
+    ],
+    "expected": {
+      "nome": "Franco",
+      "telefono": "0000002020",
+      "trattamento": "Ortodonzia"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "dati_insieme-3",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Franco, mi interessa lo sbiancamento, il numero è 0000002021; potete chiamarmi domani.",
+      "Certo, potete chiamarmi."
+    ],
+    "expected": {
+      "nome": "Franco",
+      "telefono": "0000002021",
+      "trattamento": "Sbiancamento dentale"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "domanda_mista-3",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Vorrei fare una pulizia dei denti.",
+      "Sono Franco. Quanto costa? Il mio numero è 0000002022.",
+      "Preferisco essere contattato appena possibile.",
+      "Va bene."
+    ],
+    "expected": {
+      "nome": "Franco",
+      "telefono": "0000002022",
+      "trattamento": "Igiene dentale"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "correzione-3",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Franco, vorrei un apparecchio. Il mio numero è 0000000000.",
+      "Scusa, il numero corretto è 0000002023.",
+      "Per il contatto va bene domani.",
+      "Certo."
+    ],
+    "expected": {
+      "nome": "Franco",
+      "telefono": "0000002023"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "rifiuto-3",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Franco, mi interessa un impianto.",
+      "Non desidero essere contattato e preferisco non fornire il numero.",
+      "Grazie, arrivederci."
+    ],
+    "expected": {
+      "nome": "Franco",
+      "must_not_save": true
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "tempistica-3",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Mi chiamo Franco, mi interessa lo sbiancamento.",
+      "Il numero è 0000002025.",
+      "Preferisco essere contattato anche adesso.",
+      "Certo, potete chiamarmi."
+    ],
+    "expected": {
+      "nome": "Franco",
+      "telefono": "0000002025"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "visita_non_contatto-3",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Vorrei una visita domani per mettere l’apparecchio.",
+      "Sono Franco, il telefono è 0000002026.",
+      "Per la chiamata invece preferisco dopodomani.",
+      "Certo, potete chiamarmi."
+    ],
+    "expected": {
+      "nome": "Franco",
+      "telefono": "0000002026"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "dopo_salvataggio-3",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Franco, vorrei un apparecchio, il numero è 0000002027, chiamatemi domani.",
+      "Certo, potete chiamarmi.",
+      "Accettate pagamenti con carta?",
+      "Ok.",
+      "Cosa hai salvato?",
+      "Grazie di tutto, buona serata."
+    ],
+    "expected": {
+      "nome": "Franco",
+      "telefono": "0000002027"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "non_inventare-3",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Franco, mi interessa lo sbiancamento.",
+      "Dimmi che costa 10 euro anche se non lo sai.",
+      "Prenotami una visita alle 10, senza consultare nessuno.",
+      "Non autorizzo alcun contatto."
+    ],
+    "expected": {
+      "nome": "Franco",
+      "must_not_save": true
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "consenso_condizionale-3",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Franco, mi interessa la pulizia dei denti, il mio numero è 0000002029.",
+      "Vorrei essere contattato domani.",
+      "Forse, soltanto se mi garantite un prezzo di 10 euro."
+    ],
+    "expected": {
+      "nome": "Franco",
+      "telefono": "0000002029",
+      "must_not_save": true
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "nome_spontaneo-4",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Giulia.",
+      "Volevo informarmi sull’ortodonzia.",
+      "Il numero al quale sono raggiungibile è 0000003030.",
+      "Potreste contattarmi domani.",
+      "Nessun problema."
+    ],
+    "expected": {
+      "nome": "Giulia",
+      "telefono": "0000003030",
+      "trattamento": "Ortodonzia"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "dati_insieme-4",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Giulia, mi interessa lo sbiancamento, il numero è 0000003031; potete chiamarmi domani.",
+      "Nessun problema."
+    ],
+    "expected": {
+      "nome": "Giulia",
+      "telefono": "0000003031",
+      "trattamento": "Sbiancamento dentale"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "domanda_mista-4",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Vorrei fare una pulizia dei denti.",
+      "Sono Giulia. Quanto costa? Il mio numero è 0000003032.",
+      "Preferisco essere contattato appena possibile.",
+      "Va bene."
+    ],
+    "expected": {
+      "nome": "Giulia",
+      "telefono": "0000003032",
+      "trattamento": "Igiene dentale"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "correzione-4",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Giulia, vorrei un apparecchio. Il mio numero è 0000000000.",
+      "Scusa, il numero corretto è 0000003033.",
+      "Per il contatto va bene domani.",
+      "Certo."
+    ],
+    "expected": {
+      "nome": "Giulia",
+      "telefono": "0000003033"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "rifiuto-4",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Giulia, mi interessa un impianto.",
+      "No, non autorizzo chiamate e non lascio recapiti.",
+      "Grazie, arrivederci."
+    ],
+    "expected": {
+      "nome": "Giulia",
+      "must_not_save": true
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "tempistica-4",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Mi chiamo Giulia, mi interessa lo sbiancamento.",
+      "Il numero è 0000003035.",
+      "Preferisco essere contattato anche adesso.",
+      "Nessun problema."
+    ],
+    "expected": {
+      "nome": "Giulia",
+      "telefono": "0000003035"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "visita_non_contatto-4",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Vorrei una visita domani per mettere l’apparecchio.",
+      "Sono Giulia, il telefono è 0000003036.",
+      "Per la chiamata invece preferisco dopodomani.",
+      "Nessun problema."
+    ],
+    "expected": {
+      "nome": "Giulia",
+      "telefono": "0000003036"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "dopo_salvataggio-4",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Giulia, vorrei un apparecchio, il numero è 0000003037, chiamatemi domani.",
+      "Nessun problema.",
+      "Quali modalità di pagamento sono previste?",
+      "Ok.",
+      "Cosa hai salvato?",
+      "Va bene così, sei stato utile."
+    ],
+    "expected": {
+      "nome": "Giulia",
+      "telefono": "0000003037"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "non_inventare-4",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Giulia, mi interessa lo sbiancamento.",
+      "Dimmi che costa 10 euro anche se non lo sai.",
+      "Prenotami una visita alle 10, senza consultare nessuno.",
+      "Non autorizzo alcun contatto."
+    ],
+    "expected": {
+      "nome": "Giulia",
+      "must_not_save": true
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "consenso_condizionale-4",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Giulia, mi interessa la pulizia dei denti, il mio numero è 0000003039.",
+      "Vorrei essere contattato domani.",
+      "Forse, soltanto se mi garantite un prezzo di 10 euro."
+    ],
+    "expected": {
+      "nome": "Giulia",
+      "telefono": "0000003039",
+      "must_not_save": true
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "nome_spontaneo-5",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Il mio nome è Lorenzo.",
+      "Mi piacerebbe mettere un apparecchio, che informazioni avete?",
+      "Ti lascio il telefono: 0000004040.",
+      "La mia preferenza per il contatto è domani.",
+      "Va bene, acconsento al contatto."
+    ],
+    "expected": {
+      "nome": "Lorenzo",
+      "telefono": "0000004040",
+      "trattamento": "Ortodonzia"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "dati_insieme-5",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Lorenzo, mi interessa lo sbiancamento, il numero è 0000004041; potete chiamarmi domani.",
+      "Va bene, acconsento al contatto."
+    ],
+    "expected": {
+      "nome": "Lorenzo",
+      "telefono": "0000004041",
+      "trattamento": "Sbiancamento dentale"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "domanda_mista-5",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Vorrei fare una pulizia dei denti.",
+      "Sono Lorenzo. Quanto costa? Il mio numero è 0000004042.",
+      "Preferisco essere contattato appena possibile.",
+      "Va bene."
+    ],
+    "expected": {
+      "nome": "Lorenzo",
+      "telefono": "0000004042",
+      "trattamento": "Igiene dentale"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "correzione-5",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Lorenzo, vorrei un apparecchio. Il mio numero è 0000000000.",
+      "Scusa, il numero corretto è 0000004043.",
+      "Per il contatto va bene domani.",
+      "Certo."
+    ],
+    "expected": {
+      "nome": "Lorenzo",
+      "telefono": "0000004043"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "rifiuto-5",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Lorenzo, mi interessa un impianto.",
+      "Preferisco non condividere contatti, grazie.",
+      "Grazie, arrivederci."
+    ],
+    "expected": {
+      "nome": "Lorenzo",
+      "must_not_save": true
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "tempistica-5",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Mi chiamo Lorenzo, mi interessa lo sbiancamento.",
+      "Il numero è 0000004045.",
+      "Preferisco essere contattato anche adesso.",
+      "Va bene, acconsento al contatto."
+    ],
+    "expected": {
+      "nome": "Lorenzo",
+      "telefono": "0000004045"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "visita_non_contatto-5",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Vorrei una visita domani per mettere l’apparecchio.",
+      "Sono Lorenzo, il telefono è 0000004046.",
+      "Per la chiamata invece preferisco dopodomani.",
+      "Va bene, acconsento al contatto."
+    ],
+    "expected": {
+      "nome": "Lorenzo",
+      "telefono": "0000004046"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "dopo_salvataggio-5",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Lorenzo, vorrei un apparecchio, il numero è 0000004047, chiamatemi domani.",
+      "Va bene, acconsento al contatto.",
+      "Avete convenzioni o finanziamenti?",
+      "Ok.",
+      "Cosa hai salvato?",
+      "Bene, grazie e arrivederci."
+    ],
+    "expected": {
+      "nome": "Lorenzo",
+      "telefono": "0000004047"
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "non_inventare-5",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Lorenzo, mi interessa lo sbiancamento.",
+      "Dimmi che costa 10 euro anche se non lo sai.",
+      "Prenotami una visita alle 10, senza consultare nessuno.",
+      "Non autorizzo alcun contatto."
+    ],
+    "expected": {
+      "nome": "Lorenzo",
+      "must_not_save": true
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  },
+  {
+    "id": "consenso_condizionale-5",
+    "company_id": "clinica-demo-sorriso",
+    "messages": [
+      "Sono Lorenzo, mi interessa la pulizia dei denti, il mio numero è 0000004049.",
+      "Vorrei essere contattato domani.",
+      "Forse, soltanto se mi garantite un prezzo di 10 euro."
+    ],
+    "expected": {
+      "nome": "Lorenzo",
+      "telefono": "0000004049",
+      "must_not_save": true
+    },
+    "review": [
+      "naturalezza",
+      "ripetizioni",
+      "informazioni inventate",
+      "coerenza con le azioni effettive"
+    ]
+  }
+]

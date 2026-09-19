@@ -1,0 +1,30 @@
+MIO AGENTE AI — ATTIVITÀ NON COMPLETATE E LIMITI ATTUALI
+Aggiornato: 19 settembre 2026
+
+Registro consolidato dalla conversazione disponibile e dal codice/README attuali. Non è una certificazione di completezza di tutte le prove storiche. Le attività concluse non sono problemi aperti; quelle bloccate più volte compaiono una sola volta. Il sito deve restare locale per scelta del proprietario.
+
+1. Pubblicazione, accesso agli amici da altri dispositivi e disponibilità 24/7 — NON ATTIVATI PER SCELTA: è stato richiesto di mantenere il sito sul Mac. Mancano hosting HTTPS, dominio, infrastruttura continua e procedura di rilascio.
+2. Email reali (conferme, supporto, recupero password) — INCOMPLETO: non è stato scelto/configurato un servizio mittente con credenziali. Esistono coda e recupero locale, ma non attestano consegna a Hotmail o altri indirizzi.
+3. Pagamenti reali, rinnovi, fatture e portafoglio — SIMULATI: manca un fornitore autorizzato e la sua integrazione. Non vengono raccolti carte/IBAN né effettuati addebiti; Apple Pay, Google Pay, PayPal, SEPA e Revolut sono opzioni mock. Il bonifico ordinario non permette addebiti automatici.
+4. Offerta commerciale definitiva e gestione completa degli abbonamenti — INCOMPLETO: servizi inclusi nei piani ancora da definire dal proprietario; mancano cambio piano, riattivazione e recupero pagamenti falliti. Lo scheduler opera solo con il server acceso.
+5. Verifica email e identità delle aziende — PARZIALE: account e isolamento esistono, ma la registrazione non verifica l’email e i dati fiscali non vengono validati presso registri ufficiali. La revisione commerciale è manuale.
+6. Installazione reale su siti aziendali — PREPARATA, NON ATTIVATA: widget e ticket sono testabili localmente; servono infrastruttura pubblica sicura e collegamento backend dei siti autorizzati.
+7. Conversazione AI sempre corretta e rapida — NON GARANTIBILE: test e regole riducono errori, ma il modello locale può fraintendere o essere lento. Non è verificata la comprensione di ogni possibile risposta. Non esiste aggiornamento automatico del processo Python: occorre riavviarlo dopo modifiche backend.
+8. Voce reale — SOLO MOCK: mancano provider STT/TTS e flusso microfono/audio; attualmente si simula una trascrizione nella stessa conversazione.
+9. Prenotazioni reali, modifica e cancellazione — PARZIALE: prenotazione mock autorizzata disponibile; calendari esterni non collegati. Modifica/cancellazione sono permessi predisposti, non azioni operative complete.
+10. CRM reali e WhatsApp/SMS — SOLO ARCHITETTURA/MOCK: mancano connettori operativi, credenziali e autorizzazioni dei fornitori. Nessun numero reale collegato; Zapier rimane futuro.
+11. Ricerca/sincronizzazione automatica delle conoscenze pubbliche — PARZIALE: importazione e revisione funzionano con testi e fixture locali. Mancano crawler e scheduler reale; non si aggiornano automaticamente i siti aziendali.
+12. Passaggio a operatori umani — LOCALE/PARZIALE: cronologia e stati disponibili, ma mancano notifiche push e gestione della presenza; il visitatore aggiorna il pannello.
+13. Feedback dopo trattamenti/servizi e report automatici mensili — INCOMPLETO: feedback locali e statistiche di base presenti, ma non esistono ricontatti WhatsApp/email reali né report periodici completi basati su visite/vendite verificate.
+14. Recensioni del sito — IMPLEMENTATE LOCALMENTE: inserimento, consenso, moderazione e vetrina presenti. La moderazione è da terminale, non ha ancora un pannello grafico; non verifica automaticamente l’autenticità dell’esperienza. Non ci sono recensioni inventate o importate.
+15. Supporto operativo della demo Servizi Linea AI — PARZIALE: le richieste email con consenso si salvano nell’archivio demo; manca una casella operativa integrata e una dashboard dedicata al gestore.
+16. Traduzione completa del sito — PARZIALE: home, offerte e pannello cookie hanno quattro lingue; dashboard, informative estese, nuovi pannelli e alcuni messaggi dinamici restano in italiano. La lingua della chat segue il messaggio dell’utente. Non sono state verificate 95+ lingue.
+17. White-label completo — PARZIALE: branding per azienda disponibile; domini/email personalizzati e launcher flottante non attivati.
+18. Privacy e sicurezza per uso pubblico — DA COMPLETARE: mancano identità legale definitiva, accordi con aziende/fornitori, tempi di conservazione, procedure diritti e incidenti, revisione legale e verifica di sicurezza indipendente. Non è certificata la conformità. Cookie opzionali/tracciatori non presenti.
+19. Backup, ripristino, conservazione e migrazioni di produzione — PARZIALE: esistono copie manuali e schema additivo, non backup automatizzati con prove periodiche né framework di migrazioni versionate o cancellazione temporale automatica.
+20. Google Sheets del precedente agente dentistico — PERCORSO STORICO: conservato per compatibilità, ma la piattaforma corrente salva lead nella propria dashboard. Non è stata attestata in questa revisione una sincronizzazione automatica attuale con il vecchio foglio.
+21. Esportazione Excel — DISPONIBILE CON LIMITI: testi lunghi possono richiedere allargamento righe; oltre 32.767 caratteri una cella è troncata per il limite Excel. L’API JSON conserva i testi integrali.
+22. Confronto assoluto dei modelli AI — NON DETERMINABILE: Qwen2.5:7b è il predefinito verificato sul Mac; prove di velocità/qualità non dimostrano superiorità universale rispetto a GPT-OSS, Llama o Qwen3. Il pacchetto sorgenti non include pesi Ollama o ambiente Python, da reinstallare sul PC destinatario.
+
+MANUTENZIONE
+A ogni lavoro non concluso, aggiungere o aggiornare la singola voce pertinente con motivo concreto, stato e prossimo requisito. Non duplicare lo stesso blocco. Quando risolto, rimuoverlo dalle voci aperte o segnarlo risolto indicando la verifica. Non scrivere password, token o dati dei clienti. Controllare codice e README prima di dichiarare una funzione completata. Questo aggiornamento è una regola di lavoro per chi modifica il progetto, non un processo autonomo che rileva problemi senza intervento.

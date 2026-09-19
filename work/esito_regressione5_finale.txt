@@ -1,0 +1,15 @@
+UTENTE: devo mettere l'apparecchio 
+BOT: Ho capito: Ortodonzia. Conserverò anche la tua richiesta originale.
+Preferisci chiedere una visita oppure essere ricontattato per chiarimenti? Possiamo anche continuare con le tue domande qui. 
+STATO: {"trattamento": "Ortodonzia"}  False
+UTENTE: se registri come ortodonzia poi il dottore capisce quello che mi serve? 
+BOT: La categoria «Ortodonzia» sarà accompagnata dalle tue parole: «mettere l'apparecchio», così la richiesta mantiene il dettaglio. Per valutare il caso servirà comunque il confronto con un professionista. 
+STATO: {"trattamento": "Ortodonzia"}  False
+UTENTE: preferirei essere ricontattato per chiarimenti 
+BOT: Non riesco a elaborare il messaggio in questo momento. Verifica che Ollama sia aperto e riprova: non ho avviato alcun salvataggio. 
+STATO: {"trattamento": "Ortodonzia"}  False
+Traceback (most recent call last):
+  File "/Users/lorenzo/Documents/Codex/2026-09-09/ecco-la-guida-completa-passo-passo/outputs/mio-agente-ai/../../work/prova_regressione5_finale.py", line 17, in <module>
+    if i==2: assert c.modalita=='ricontatto' and not c.rifiutato and not c.terminata
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

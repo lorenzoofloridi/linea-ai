@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+.Rhistory
+credentials.json
+token.json
+google_sheets.json
+leads.txt
+data/
+logs/

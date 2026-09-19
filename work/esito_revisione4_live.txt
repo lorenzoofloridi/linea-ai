@@ -1,0 +1,18 @@
+ciao chi sei? -> Sono l’assistente virtuale di Clinica Demo Sorriso, una dimostrazione: posso rispondere sulle informazioni disponibili e raccogliere richieste di ricontatto.
+Su quale esigenza dentale vorresti informazioni? DATI {} MODALITA 
+mi devo mettere l'apparecchio -> Ho capito, raccolgo la tua richiesta per «Ortodonzia».
+Preferisci chiedere una visita oppure essere ricontattato per chiarimenti? Possiamo anche continuare con le tue domande qui. DATI {'trattamento': 'Ortodonzia'} MODALITA 
+preferisco una visita -> Ho capito, raccolgo la tua richiesta per «preferisco una visita».
+Hai già in mente quando vorresti occupartene, oppure è ancora da decidere? DATI {'trattamento': 'preferisco una visita'} MODALITA visita
+dopodomani -> Va bene, tengo come riferimento «dopodomani».
+Come ti chiami, così posso associare la richiesta a te? DATI {'trattamento': 'preferisco una visita', 'tempistica': 'dopodomani'} MODALITA visita
+anzi voglio tra tre giorni -> Va bene, tengo come riferimento «tra tre giorni».
+Posso chiederti il tuo nome per la richiesta? DATI {'trattamento': 'preferisco una visita', 'tempistica': 'tra tre giorni'} MODALITA visita
+Lorenzina -> Grazie, Lorenzina.
+Qual è il numero migliore per un eventuale ricontatto? DATI {'trattamento': 'preferisco una visita', 'tempistica': 'tra tre giorni', 'nome': 'Lorenzina'} MODALITA visita
+145756987 -> Grazie, ti mostro i dati prima di procedere.
+Riepilogo (visita): Lorenzina; 145756987; preferisco una visita; tra tre giorni.
+Sei d'accordo a essere ricontattato dal personale della clinica al numero che hai indicato? DATI {'trattamento': 'preferisco una visita', 'tempistica': 'tra tre giorni', 'nome': 'Lorenzina', 'telefono': '145756987'} MODALITA visita
+yes -> Grazie, Lorenzina. Ho registrato la tua richiesta per il personale della clinica. Hai altre domande? Sono qui; puoi anche scrivere esci per chiudere. DATI {'trattamento': 'preferisco una visita', 'tempistica': 'tra tre giorni', 'nome': 'Lorenzina', 'telefono': '145756987'} MODALITA visita
+si ho altre domande come quali altre date ci sono? -> Non ho orari o disponibilità verificati per questa demo e non posso confermare date. DATI {'trattamento': 'preferisco una visita', 'tempistica': 'tra tre giorni', 'nome': 'Lorenzina', 'telefono': '145756987'} MODALITA visita
+PASS: conversazione modello reale, Sheets simulato.

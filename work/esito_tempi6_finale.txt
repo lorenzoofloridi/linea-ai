@@ -1,0 +1,9 @@
+il prima possibile 10.38 Tengo come riferimento «il prima possibile».
+Come ti chiami, così posso associare la richiesta a te?
+Lorenzetta 9.65 Grazie, Lorenzetta.
+Qual è il numero migliore per un eventuale ricontatto?
+245654709 0.0 Grazie, ti mostro il riepilogo.
+Riepilogo (visita): Lorenzetta; 245654709; Ortodonzia — richiesta: mettere l'apparecchio — richiesta di visita; il prima possibile.
+Sei d'accordo a essere ricontattato dal personale della clinica al numero che hai indicato?
+si 0.0 Grazie, Lorenzetta. Ho registrato la tua richiesta per il personale della clinica. Hai altre domande? Sono qui; puoi anche scrivere esci per chiudere.
+PASS: modello reale, scrittura simulata.

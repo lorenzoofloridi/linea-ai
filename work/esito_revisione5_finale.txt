@@ -1,0 +1,15 @@
+UTENTE: devo mettere l'apparecchio 
+BOT: Capisco, stai chiedendo informazioni sull'apparecchio ortodontico. Posso spiegarti i passaggi generali e i tempi di trattamento, ma per una valutazione precisa serve un esame da parte di un ortodontista. Ti consigliamo di programmare una visita per una consulenza dettagliata. Ti ricontatterei con le informazioni richieste, ma per ora ti invio queste informazioni generali sull'ortodonzia.
+Preferisci chiedere una visita oppure essere ricontattato per chiarimenti? Possiamo anche continuare con le tue domande qui. 
+STATO: {"trattamento": "Ortodonzia"}  False
+UTENTE: se registri come ortodonzia poi il dottore capisce quello che mi serve? 
+BOT: La registrazione come ortodonzia aiuta a identificare la tua richiesta di informazioni sull'apparecchio. Il dottore sarà in grado di valutare il tuo caso e fornirti le informazioni necessarie per la tua trattazione. Ti consigliamo di programmare una visita per una consulenza dettagliata. Ti ricontatterei con le informazioni richieste, ma per ora ti invio queste informazioni generali sull'ortodonzia. 
+STATO: {"trattamento": "Ortodonzia"} informazioni False
+UTENTE: preferirei essere ricontattato per chiarimenti 
+BOT: Non riesco a elaborare il messaggio in questo momento. Verifica che Ollama sia aperto e riprova: non ho avviato alcun salvataggio. 
+STATO: {"trattamento": "Ortodonzia"} informazioni False
+Traceback (most recent call last):
+  File "/Users/lorenzo/Documents/Codex/2026-09-09/ecco-la-guida-completa-passo-passo/outputs/mio-agente-ai/../../work/prova_revisione5_live.py", line 17, in <module>
+    if i==2: assert c.modalita=='ricontatto' and not c.rifiutato and not c.terminata
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

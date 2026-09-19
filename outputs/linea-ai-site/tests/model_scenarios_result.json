@@ -1,0 +1,62 @@
+[
+  {
+    "user": "Sono Alex Rossi, cerco un trilocale in centro, budget 280000 euro. Il numero è +44 20 8366 1177. Preferisco essere contattato domani.",
+    "reply": "Vuoi aggiungere qualche altra informazione o richiesta da comunicare all’azienda?",
+    "seconds": 36.5,
+    "data": {
+      "nome": "Alex Rossi",
+      "telefono": "+442083661177",
+      "interesse": "un trilocale in centro",
+      "tempistica": "14/09/2026 (Europe/Rome)",
+      "budget": "280000 euro",
+      "zona": "centro"
+    },
+    "saved": false,
+    "closed": false
+  },
+  {
+    "user": "Non voglio aggiungere altro, potete procedere.",
+    "reply": "Ti riepilogo la richiesta:\nNome e cognome: Alex Rossi\nTelefono: +442083661177\nProdotto, servizio o esigenza: un trilocale in centro\nPreferenza per essere contattati: 14/09/2026 (Europe/Rome)\nBudget: 280000 euro\nZona: centro\nSei d’accordo a essere contattato da personale dell’azienda al numero indicato?",
+    "seconds": 22.4,
+    "data": {
+      "nome": "Alex Rossi",
+      "telefono": "+442083661177",
+      "interesse": "un trilocale in centro",
+      "tempistica": "14/09/2026 (Europe/Rome)",
+      "budget": "280000 euro",
+      "zona": "centro"
+    },
+    "saved": false,
+    "closed": false
+  },
+  {
+    "user": "Sì, autorizzo il contatto al numero indicato.",
+    "reply": "Grazie! La tua richiesta è stata registrata per personale dell’azienda. Posso aiutarti con altro?",
+    "seconds": 27.0,
+    "data": {
+      "nome": "Alex Rossi",
+      "telefono": "+442083661177",
+      "interesse": "un trilocale in centro",
+      "tempistica": "14/09/2026 (Europe/Rome)",
+      "budget": "280000 euro",
+      "zona": "centro"
+    },
+    "saved": true,
+    "closed": false
+  },
+  {
+    "user": "No grazie.",
+    "reply": "Va bene, grazie! La tua richiesta è registrata. Buona giornata!",
+    "seconds": 21.5,
+    "data": {
+      "nome": "Alex Rossi",
+      "telefono": "+442083661177",
+      "interesse": "un trilocale in centro",
+      "tempistica": "14/09/2026 (Europe/Rome)",
+      "budget": "280000 euro",
+      "zona": "centro"
+    },
+    "saved": true,
+    "closed": true
+  }
+]
