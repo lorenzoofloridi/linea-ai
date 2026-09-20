@@ -10,6 +10,82 @@ import { promisify } from "node:util";
 const scrypt = promisify(scryptCallback);
 const SESSION_COOKIE = "linea_session";
 
+const PLANS = {
+  demo: { name: "Demo", trial_days: 7, monthly_cents: 0, available: true },
+  base: { name: "Piano Base", trial_days: 14, monthly_cents: 29900, available: true },
+  plus: { name: "Piano Plus", trial_days: 14, monthly_cents: 59900, available: true },
+  advanced: { name: "Piano Advanced", trial_days: 14, monthly_cents: 99900, available: true }
+};
+
+const PLAN_DISCOUNT = 15;
+const GRACE_DAYS = 7;
+
+const PROFILE_FIELDS = {
+  legal_name: "Ragione sociale",
+  vat: "Partita IVA / identificativo fiscale",
+  website: "Sito ufficiale",
+  business_email: "Email aziendale",
+  business_phone: "Telefono aziendale",
+  contact_name: "Nome e cognome del referente",
+  contact_role: "Ruolo del referente",
+  address: "Sede legale",
+  city: "Città",
+  postal_code: "CAP",
+  country: "Paese (codice, es. IT)"
+};
+
+const FEATURES = [
+  "dashboard",
+  "conversations",
+  "leads",
+  "export",
+  "booking",
+  "crm",
+  "voice",
+  "handoff",
+  "whatsapp"
+];
+
+const PLAN_ENTITLEMENTS = Object.fromEntries(
+  ["demo", "base", "plus", "advanced"].map(plan => [
+    plan,
+    Object.fromEntries(FEATURES.map(feature => [feature, true]))
+  ])
+);
+
+const PAYMENT_METHODS = {
+  card: ["Carta — Visa, Mastercard, American Express", true],
+  apple_pay: ["Apple Pay", true],
+  google_pay: ["Google Pay", true],
+  sepa: ["Addebito SEPA", true],
+  paypal: ["PayPal", true],
+  revolut_pay: ["Revolut Pay", true],
+  bank_transfer: ["Bonifico bancario manuale", false]
+};
+
+function planAmount(code, period) {
+  const plan = PLANS[code];
+  if (!plan || !plan.available || !["monthly", "annual"].includes(period)) {
+    throw new Error("Piano o periodo non disponibile.");
+  }
+  return period === "monthly"
+    ? plan.monthly_cents
+    : Math.floor(plan.monthly_cents * 12 * (100 - PLAN_DISCOUNT) / 100);
+}
+
+function publicPlanCatalogue() {
+  return {
+    authenticated: false,
+    discount: PLAN_DISCOUNT,
+    plans: Object.entries(PLANS).map(([code, plan]) => ({
+      code,
+      name: plan.name,
+      trial_days: plan.trial_days,
+      available: plan.available
+    }))
+  };
+}
+
 function json(data, status = 200, headers = {}) {
   return Response.json(data, {
     status,
@@ -178,6 +254,238 @@ async function emailVerified(db, userId) {
   );
 
   return Boolean(result.rows[0]?.verified_at);
+}
+
+async function requestEmailVerification(db, user, baseUrl) {
+  if (await emailVerified(db, user.id)) return;
+
+  const value = token();
+  const tokenHash = digest(value);
+  const expires = Date.now() / 1000 + 86400;
+  const eventKey = `verify:${tokenHash}`;
+  const subject = "Verifica la tua email — Linea AI";
+  const verificationUrl =
+    `${baseUrl}/verifica-email.html#${value}`;
+  const body =
+    "Conferma il tuo indirizzo aprendo questo link entro 24 ore:\n" +
+    verificationUrl +
+    "\nSe non hai creato un account, ignora il messaggio.";
+
+  const client = await db.pool.connect();
+
+  try {
+    await client.query("BEGIN");
+
+    await client.query(
+      "DELETE FROM email_verification_tokens WHERE user_id=$1",
+      [user.id]
+    );
+
+    await client.query(
+      `INSERT INTO email_verification_tokens(hash,user_id,expires)
+       VALUES ($1,$2,$3)`,
+      [tokenHash, user.id, expires]
+    );
+
+    const outboxId = token();
+
+    await client.query(
+      `INSERT INTO email_outbox
+       (id,company_id,event_key,recipient,subject,body,status,created_at,error)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+       ON CONFLICT (company_id,event_key) DO NOTHING`,
+      [
+        outboxId,
+        user.company_id,
+        eventKey,
+        user.email,
+        subject,
+        body,
+        "not_configured",
+        new Date().toISOString(),
+        null
+      ]
+    );
+
+    await client.query(
+      `INSERT INTO email_details(id,html,mode)
+       SELECT $1,$2,$3
+       WHERE EXISTS (
+         SELECT 1 FROM email_outbox WHERE id=$1
+       )
+       ON CONFLICT (id) DO NOTHING`,
+      [
+        outboxId,
+        `<p>Conferma il tuo indirizzo aprendo questo link entro 24 ore:</p><p><a href="${verificationUrl}">${verificationUrl}</a></p><p>Se non hai creato un account, ignora il messaggio.</p>`,
+        "capture"
+      ]
+    );
+
+    await client.query("COMMIT");
+  } catch (error) {
+    await client.query("ROLLBACK");
+    throw error;
+  } finally {
+    client.release();
+  }
+}
+
+async function verifyEmailToken(db, value) {
+  if (
+    typeof value !== "string" ||
+    !value ||
+    value.length > 200
+  ) {
+    throw new Error("Token di verifica non valido o scaduto.");
+  }
+
+  const client = await db.pool.connect();
+
+  try {
+    await client.query("BEGIN");
+
+    const result = await client.query(
+      `SELECT user_id
+         FROM email_verification_tokens
+        WHERE hash=$1 AND expires>$2
+        FOR UPDATE`,
+      [digest(value), Date.now() / 1000]
+    );
+
+    const row = result.rows[0];
+
+    if (!row) {
+      throw new Error("Token di verifica non valido o scaduto.");
+    }
+
+    await client.query(
+      `INSERT INTO email_verification(user_id,verified_at)
+       VALUES ($1,$2)
+       ON CONFLICT (user_id)
+       DO UPDATE SET verified_at=EXCLUDED.verified_at`,
+      [row.user_id, new Date().toISOString()]
+    );
+
+    await client.query(
+      "DELETE FROM email_verification_tokens WHERE user_id=$1",
+      [row.user_id]
+    );
+
+    await client.query("COMMIT");
+  } catch (error) {
+    await client.query("ROLLBACK");
+    throw error;
+  } finally {
+    client.release();
+  }
+}
+
+async function companyVerificationStatus(db, companyId) {
+  const result = await db.pool.query(
+    "SELECT status FROM company_verification WHERE company_id=$1",
+    [companyId]
+  );
+  return result.rows[0]?.status || "pending";
+}
+
+async function companyVerificationHistory(db, companyId) {
+  const result = await db.pool.query(
+    `SELECT actor,previous,status,reason,created_at
+       FROM company_verification_audit
+      WHERE company_id=$1
+      ORDER BY id`,
+    [companyId]
+  );
+  return result.rows;
+}
+
+async function planEntitlements(db, companyId, stamp = Date.now() / 1000) {
+  const companyStatus = await companyVerificationStatus(db, companyId);
+
+  if (["suspended", "rejected"].includes(companyStatus)) {
+    return {};
+  }
+
+  const subscriptionResult = await db.pool.query(
+    "SELECT * FROM plan_subscriptions WHERE company_id=$1",
+    [companyId]
+  );
+  const subscription = subscriptionResult.rows[0] || null;
+
+  const demoResult = await db.pool.query(
+    `SELECT 1 FROM plan_demo_usage
+      WHERE company_id=$1 AND ends>$2`,
+    [companyId, stamp]
+  );
+  const demoActive = Boolean(demoResult.rows[0]);
+
+  const subscriptionActive = Boolean(
+    subscription &&
+    (
+      (
+        ["trial", "active"].includes(subscription.status) &&
+        Number(subscription.period_end) > stamp
+      ) ||
+      (
+        subscription.status === "past_due" &&
+        Number(subscription.grace_until || 0) > stamp
+      )
+    )
+  );
+
+  const plan = subscriptionActive
+    ? subscription.plan
+    : demoActive && !subscription
+      ? "demo"
+      : null;
+
+  return plan ? { ...PLAN_ENTITLEMENTS[plan] } : {};
+}
+
+async function planState(db, user) {
+  const stamp = Date.now() / 1000;
+
+  const [demoResult, profileResult, subscriptionResult, eventsResult] =
+    await Promise.all([
+      db.pool.query(
+        "SELECT * FROM plan_demo_usage WHERE email=$1",
+        [user.email]
+      ),
+      db.pool.query(
+        "SELECT data,status FROM plan_profiles WHERE company_id=$1",
+        [user.company_id]
+      ),
+      db.pool.query(
+        "SELECT * FROM plan_subscriptions WHERE company_id=$1",
+        [user.company_id]
+      ),
+      db.pool.query(
+        `SELECT id,actor,action,outcome,amount_cents,created
+           FROM plan_events
+          WHERE company_id=$1
+          ORDER BY created DESC`,
+        [user.company_id]
+      )
+    ]);
+
+  const profile = profileResult.rows[0] || null;
+
+  return {
+    demo: demoResult.rows[0] || null,
+    profile: profile
+      ? { data: profile.data, status: profile.status }
+      : null,
+    subscription: subscriptionResult.rows[0] || null,
+    company_status: await companyVerificationStatus(db, user.company_id),
+    events: eventsResult.rows,
+    mode: "mock",
+    entitlements: await planEntitlements(db, user.company_id, stamp),
+    grace_days: GRACE_DAYS,
+    fields: PROFILE_FIELDS,
+    methods: Object.entries(PAYMENT_METHODS).map(
+      ([code, [label, recurring]]) => ({ code, label, recurring })
+    )
+  };
 }
 
 async function register(db, body) {
@@ -406,6 +714,105 @@ export default async (request) => {
         },
         email_verified: await emailVerified(db, user.id)
       });
+    }
+
+    if (path === "/api/email-verification" && ["GET", "POST"].includes(method)) {
+      const user = await principal(db, request);
+
+      if (!user) {
+        return json(
+          { error: "Accedi al tuo account per continuare." },
+          401
+        );
+      }
+
+      if (method === "POST" && !(await emailVerified(db, user.id))) {
+        await requestEmailVerification(db, user, url.origin);
+      }
+
+      return json({
+        verified: await emailVerified(db, user.id)
+      });
+    }
+
+    if (path === "/api/email-verify" && method === "POST") {
+      const body = await requestBody(request);
+      const verificationToken = text(body, "token", 200);
+      await verifyEmailToken(db, verificationToken);
+
+      return json({
+        message: "Email verificata."
+      });
+    }
+
+    if (path === "/api/plans" && method === "GET") {
+      const user = await principal(db, request);
+
+      if (!user) {
+        return json(publicPlanCatalogue());
+      }
+
+      const current = await planState(db, user);
+      const now = Date.now() / 1000;
+      const cards = [];
+
+      for (const [code, plan] of Object.entries(PLANS)) {
+        if (
+          code === "demo" &&
+          current.demo &&
+          Number(current.demo.ends) <= now
+        ) {
+          continue;
+        }
+
+        const annualCents = plan.available
+          ? planAmount(code, "annual")
+          : null;
+
+        cards.push({
+          code,
+          ...plan,
+          annual_cents: annualCents,
+          annual_monthly_cents:
+            annualCents === null ? null : Math.floor(annualCents / 12)
+        });
+      }
+
+      return json({
+        authenticated: true,
+        plans: cards,
+        discount: PLAN_DISCOUNT,
+        ...current
+      });
+    }
+
+    if (path === "/api/company-verification" && method === "GET") {
+      const user = await principal(db, request);
+
+      if (!user) {
+        return json(
+          { error: "Accedi al tuo account per continuare." },
+          401
+        );
+      }
+
+      return json({
+        status: await companyVerificationStatus(db, user.company_id),
+        history: await companyVerificationHistory(db, user.company_id)
+      });
+    }
+
+    if (path === "/api/plan-state" && method === "GET") {
+      const user = await principal(db, request);
+
+      if (!user) {
+        return json(
+          { error: "Accedi al tuo account per continuare." },
+          401
+        );
+      }
+
+      return json(await planState(db, user));
     }
 
     return json({ error: "Operazione non disponibile." }, 404);
