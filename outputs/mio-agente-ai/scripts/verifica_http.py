@@ -31,6 +31,25 @@ def main():
      me=req('/api/me',cookie=cookie)[1];accounts.append((cookie,me['company']))
      assert req('/api/plan-demo',{},cookie)[0]==200
     a,company=accounts[0];b,_=accounts[1]
+    assert req('/api/email-verification',cookie=a)[1]['verified'] is False
+    with store.connection() as d:
+     message=d.execute("SELECT body FROM email_outbox WHERE company_id=? AND event_key LIKE 'verify:%'",(company['id'],)).fetchone()['body']
+    token=message.split('#')[1].split('\n')[0]
+    assert req('/api/email-verify',{'token':token})[0]==200
+    assert req('/api/email-verify',{'token':token})[0]==400
+    assert req('/api/email-verification',cookie=a)[1]['verified'] is True
+    assert req('/api/email-verification',cookie=b)[1]['verified'] is False
+    assert req('/api/payments')[0]==401
+    charge={'key':'http-test','amount':1000,'outcome':'succeeded'}
+    payment=req('/api/payment-mock',charge,a)[1]['id']
+    assert req('/api/payment-mock',charge,a)[1]['id']==payment
+    assert req('/api/payment-mock',dict(charge,card_number='not-accepted'),a)[0]==400
+    assert req('/api/payments',cookie=b)[1]['payments']==[]
+    refund={'payment_id':payment,'amount':1000,'key':'refund-test'}
+    assert req('/api/payment-refund',refund,b)[0]==404
+    assert req('/api/payment-refund',refund,a)[0]==200
+    assert req('/api/payment-refund',refund,a)[0]==200
+    assert req('/api/payments',cookie=a)[1]['payments'][0]['status']=='refunded'
     assert 'Richieste da gestire' in req('/dashboard.html',cookie=a)[1]
     cfg=company['config'];cfg['fields'].append(store.field('budget','Budget'))
     assert req('/api/config',cfg,a)[0]==200
@@ -57,6 +76,6 @@ def main():
     detail=req('/api/leads/'+leads[0]['id'],cookie=a)[1];assert detail['messages'] and detail['data']['budget']=='1000 euro'
     assert req('/api/leads/'+leads[0]['id'],{'status':'In lavorazione'},a)[0]==200
     assert req('/api/leads/'+leads[0]['id'],cookie=a)[1]['status']=='In lavorazione'
-    print('HTTP OK: avvio, registrazione, login, dashboard, campi personalizzati, chat simulata, lead e isolamento tra aziende. Archivio temporaneo eliminato alla chiusura.')
+    print('HTTP OK: avvio, registrazione, login, dashboard, campi personalizzati, chat simulata, lead, verifica email, pagamenti/rimborsi mock e isolamento tra aziende. Archivio temporaneo eliminato alla chiusura.')
    finally:server.shutdown();server.server_close();thread.join();store.DB=original
 if __name__=='__main__':main()

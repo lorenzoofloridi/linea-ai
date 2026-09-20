@@ -8,3 +8,5 @@ Mantenere il sito locale: non pubblicare o attivare tunnel senza richiesta espli
 Preservare archivi e segreti; aggiornare tutti i riferimenti quando si spostano file. Eseguire i controlli proporzionati; non usare i dati reali per i test. Rigenerare la consegna sorgenti con prepara-consegna.py quando cambia il materiale consegnabile.
 
 Mantenere anche DA-COMPLETARE.txt nella radice del progetto: per ogni attività non conclusa aggiornare una sola voce con stato e motivo verificato, senza duplicati. Rimuovere o segnare risolti i limiti superati dopo verifica.
+
+La cartella operativa unica è Documenti/GitHub/linea-ai. Non modificare la precedente copia Desktop. Dopo modifiche verificare test, documentazione e diff prima del commit; aprire/aggiornare GitHub Desktop sul repository corretto. L’invio a GitHub è autorizzato senza pubblicazione automatica: usare un ramo dedicato senza aggiornare il ramo dell’host né aprire PR che possano attivare anteprime automatiche. Non includere dati o segreti.

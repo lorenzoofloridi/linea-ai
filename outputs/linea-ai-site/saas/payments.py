@@ -14,9 +14,9 @@ def create(d,cid,key,amount):
  identifier=store.token();d.execute("INSERT INTO payment_ledger VALUES (?,?,?,?,'EUR','pending',0,?)",(identifier,cid,key,amount,time.time()))
  return dict(d.execute('SELECT * FROM payment_ledger WHERE id=?',(identifier,)).fetchone())
 def apply(d,event):
- if set(event)!={'event_id','payment_id','kind','amount','currency'}:raise ValueError('Evento non valido.')
+ if not isinstance(event,dict) or set(event)!={'event_id','payment_id','kind','amount','currency'}:raise ValueError('Evento non valido.')
  eid=event['event_id'];kind=event['kind'];amount=event['amount']
- if not isinstance(eid,str) or not 1<=len(eid)<=200 or type(amount)!=int or amount<=0 or event['currency']!='EUR':raise ValueError('Evento non valido.')
+ if not isinstance(eid,str) or not 1<=len(eid)<=200 or type(amount)!=int or amount<=0 or event['currency']!='EUR' or not isinstance(event['payment_id'],str) or not isinstance(kind,str):raise ValueError('Evento non valido.')
  encoded=json.dumps(event,sort_keys=True,separators=(',',':'));digest=store.digest(encoded)
  previous=d.execute('SELECT digest FROM payment_events WHERE event_id=?',(eid,)).fetchone()
  if previous:

@@ -14,7 +14,7 @@ La chat **Servizi Linea AI** nella home informa sulla piattaforma e indirizza a 
 
 Per iniziare sul Mac già configurato, apri **Apri il sito.command** nella cartella principale del progetto, due livelli sopra questa cartella. Lascia aperto il Terminale che lo avvia. Visita http://127.0.0.1:8765/. Se spegni il Mac o chiudi il server, riapri lo stesso file per riavviarlo. Questo indirizzo funziona solo sul Mac che ospita il sito.
 
-La cartella completa si trova su **Desktop → Mio Agente AI**. Il vecchio percorso in Documents/Codex mantiene collegamenti agli stessi file per compatibilità: le modifiche riguardano un unico progetto.
+La cartella operativa è **Documenti → GitHub → linea-ai**. Non modificare più la precedente copia Desktop. GitHub Desktop visualizza commit e modifiche di questo repository; un push sul ramo di sviluppo non equivale a una richiesta di deployment. Il ramo collegato all’host non viene aggiornato in questa fase.
 
 ## Struttura: servono entrambe le cartelle
 
@@ -95,13 +95,25 @@ La configurazione condivisa è `runtime_config.py`. Copia `.env.example` dalla r
 
 Lo script `linea.py migrate-data` copia SQLite e configurazioni riservate nei nuovi percorsi senza sovrascrivere destinazioni esistenti; richiede server arrestato e backup preventivo. Gli originali rimangono conservati. Senza migrazione si mantiene il fallback ai percorsi storici. La separazione riguarda il runtime corrente; alcuni archivi e prove storiche restano conservati nei percorsi precedenti e sono esclusi dal SOURCE.
 
-### Email e recupero password
+### Email, verifica dell’indirizzo e recupero password
 
-Il mittente non è configurato. Le conferme sono accodate come non configurate; non significa che siano state spedite. “Password dimenticata?” prepara un messaggio di prova in `var/data/local-mail/`, leggibile solo dal gestore sul Mac; non lo espone tramite API né lo spedisce. Ogni nuova richiesta sostituisce il messaggio precedente per lo stesso account e invalida i vecchi collegamenti. Con un mittente configurato usa invece la coda email esistente.
+`saas/email_service.py` è il punto comune per preparare messaggi e accodarli; `mail.enqueue` rimane una facciata compatibile. Registrazione/verifica, recupero password, richiesta prova e conferme lead usano questo servizio. `notify` fornisce inoltre tipi riutilizzabili per appuntamenti, supporto, notifiche e report: i relativi flussi completi/scheduler non sono tutti presenti e non vengono simulati come già operativi. `email_transport.py` separa il trasporto SMTP dal prodotto.
 
-Quando verrà scelto un servizio compatibile, `var/secrets/email.json` (o LINEA_SMTP_FILE) dovrà contenere i campi `host`, `port`, `username`, `password`, `sender`. Nessun valore reale è riportato qui. Porta 465 usa TLS diretto; le altre porte usano STARTTLS. La configurazione richiede un account mittente autorizzato, non basta conoscere l’indirizzo del destinatario. Conservare il file fuori da `dist`, con permessi riservati; riavviare il sito dopo la configurazione. Non inserire credenziali nella chat o nella consegna sorgenti.
+Senza configurazione SMTP i messaggi rimangono catturati nel database con destinatario, oggetto, testo e HTML escapato. Dalla radice eseguire `python3 linea.py emails`: viene stampato il percorso di `email-preview/index.html` nella directory dati. Aprirlo localmente per vedere testo, anteprima HTML e codice HTML; copiarne i link per provare verifica/reset. Rigenerarlo dopo nuove email. È riservato al gestore, contiene collegamenti sensibili e non è servito dal sito né incluso nel SOURCE. I messaggi catturati non vengono spediti retroattivamente quando si configura SMTP. Il reset mantiene anche il precedente file in `local-mail` per compatibilità.
 
-Il recupero usa collegamenti monouso validi 30 minuti e revoca le sessioni dopo il cambio. L’URL è intenzionalmente localhost. Le conferme chat sono facoltative e richiedono che l’azienda le abiliti e che il cliente abbia fornito email. “Accettata dal servizio email” non certifica consegna nella posta in arrivo. WhatsApp e SMS non sono attivi.
+La registrazione prepara una verifica valida 24 ore; **Account** mostra lo stato e permette un nuovo invio limitato. Il link richiede una conferma esplicita sulla pagina `verifica-email.html`: una semplice apertura non consuma il token. Token casuali crittograficamente sicuri, hash nel database, scadenza e uso singolo sono verificati lato server; un nuovo invio invalida i precedenti. Token e messaggio di verifica sono creati nella stessa transazione. La verifica attesta il possesso dell’email, non l’identità aziendale. Per compatibilità dell’anteprima non blocca ancora login o prove per gli account non verificati.
+
+Il recupero password usa token monouso di 30 minuti e revoca tutte le sessioni dopo il cambio. I link usano `LINEA_BASE_URL`. Le copie email contengono necessariamente il token originale: proteggere database e cartella di anteprima come dati privati. Non sono esposte API pubbliche per leggere la posta.
+
+Per invii futuri, `LINEA_SMTP_*` oppure `var/secrets/email.json`/`LINEA_SMTP_FILE` richiedono `host`, `port`, `username`, `password`, `sender`. Porta 465 usa TLS, le altre STARTTLS. Nessun mittente è stato attivato in questa attività. Accettazione SMTP non garantisce consegna nella posta in arrivo. Un esito incerto non viene reinviato automaticamente: serve una procedura di riconciliazione con il futuro provider. SPF, DKIM, DMARC e reputazione spettano alla configurazione futura del mittente, non a un mail server pubblico creato sul Mac.
+
+### Registro pagamenti e webhook locali
+
+`subscriptions.PaymentProvider` mantiene il contratto del provider e l’implementazione mock; `saas/payments.py` conserva operazioni ed eventi nelle nuove tabelle `payment_ledger` e `payment_events`. Supporta esiti riuscito/fallito/annullato, rimborsi parziali/totali, chiavi idempotenti per azienda, deduplicazione e rifiuto di eventi discordanti. I rinnovi mock degli abbonamenti alimentano il registro nella stessa transazione. La disdetta impedisce il prossimo rinnovo; un rimborso non cambia automaticamente i diritti del piano.
+
+**Portafoglio → Laboratorio pagamenti** consente operazioni fittizie di 10 € e rimborso residuo, mostrando esclusivamente la propria azienda. Le operazioni del laboratorio non attivano piani. API locali autenticate: GET `/api/payments`, POST `/api/payment-mock` (`key`, `amount` in centesimi, `outcome`) e `/api/payment-refund` (`payment_id`, `amount`, `key`). Non accettano numeri di carta o CVV.
+
+POST `/api/payment-webhook-mock` usa un protocollo di test, non quello di un provider reale: JSON esatto `event_id`, `payment_id`, `kind`, `amount`, `currency` (EUR); header `X-Mock-Timestamp` Unix e `X-Mock-Signature` HMAC-SHA256 esadecimale su `timestamp + '.' + JSON` ordinato, compatto. `LINEA_PAYMENT_WEBHOOK_SECRET` deve contenere almeno 32 caratteri casuali; vuoto disabilita il webhook. La finestra temporale è 5 minuti. L’azienda deriva dal pagamento preesistente, mai dal corpo della richiesta. Un provider reale richiederà un adapter per firma sul payload originale, checkout ospitato/token, riconciliazione, rimborsi esterni e gestione degli eventi fuori ordine. Nessun provider reale è stato collegato.
 
 ## Avvio e uso
 

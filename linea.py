@@ -28,13 +28,14 @@ def install(environment,wheels=None):
 
 def main(argv=None):
  p=argparse.ArgumentParser(description='Linea AI: installazione e avvio locali su Mac, Windows e Linux.')
- p.add_argument('command',choices=['install','check','doctor','backup','migrate-data','start','chat'])
+ p.add_argument('command',choices=['install','check','doctor','backup','migrate-data','start','chat','emails'])
  p.add_argument('--environment',type=Path,default=BOT/'.venv',help='Ambiente Python locale (non trasferire tra PC).')
  p.add_argument('--wheels',type=Path,help='Cartella di wheel per installazione offline.')
  a=p.parse_args(argv);python=interpreter(a.environment.resolve())
  if a.command=='install':return install(a.environment,a.wheels)
  if not python.exists():raise ValueError('Ambiente assente: esegui prima linea.py install.')
  if a.command=='migrate-data':return run([python,'-X','utf8','-B','-m','scripts.migrate_data'],BOT)
+ if a.command=='emails':return run([python,'-X','utf8','-B','-m','saas.email_service'],SITE)
  if a.command=='doctor':return run([python,'-X','utf8','-B','-m','scripts.doctor'],BOT)
  if a.command=='backup':return run([python,'-X','utf8','-B',ROOT/'backup-privato.py'])
  if a.command=='check':
