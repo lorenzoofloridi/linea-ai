@@ -1,5 +1,13 @@
 # Mio Agente AI — Linea AI
 
+## Migrazione online Netlify in corso
+
+Il progetto ufficiale online usa `netlify/functions/api.mjs`, PostgreSQL Netlify e il frontend `outputs/linea-ai-site/dist`. Il ramo operativo è `dev/netlify-backend`; il merge in `main` richiede conferma del proprietario. Registrazione/sessioni sono portate parzialmente; chat, lead e integrazioni non sono ancora operative online. La verifica aggiornata e il contratto delle API sono in [Audit Netlify](../../netlify/AUDIT.md).
+
+Le sezioni seguenti descrivono il **backend Python locale conservato come riferimento**, non il server online: Ollama/Qwen non devono essere necessari al sito Netlify. I test Python non certificano le nuove Functions. Per il controllo HTTP online non distruttivo: `python3 netlify/tests/live-audit.py`; al momento segnala correttamente il fallimento della chat pubblica.
+
+## Versione locale di riferimento
+
 Piattaforma locale per aiutare le aziende a gestire il primo contatto con i clienti. L’assistente conversa, raccoglie informazioni configurabili e, dopo il consenso al contatto, crea una richiesta nella dashboard dell’azienda corretta.
 
 **Stato verificato: anteprima privata sul Mac.** Nessuna pubblicazione Internet, nessun servizio email mittente configurato. Il modello predefinito è `qwen2.5:7b` su Ollama. Il prodotto è multi-settore; i precedenti moduli dentistici sono conservati per compatibilità e test.
