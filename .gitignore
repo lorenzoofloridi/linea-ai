@@ -19,3 +19,4 @@ var/
 .netlify
 node_modules/
 netlify/functions/api.mjs.backup
+deno.lock
