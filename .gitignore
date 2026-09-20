@@ -1,0 +1,16 @@
+.venv/
+.env
+.env.*
+!.env.example
+var/
+**/private-data/
+**/__pycache__/
+**/logs/
+**/data/
+**/credentials.json
+**/token.json
+**/google_sheets.json
+*.sqlite3*
+*.db
+*.log
+*.zip

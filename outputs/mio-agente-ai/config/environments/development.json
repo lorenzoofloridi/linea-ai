@@ -1,0 +1,7 @@
+{
+  "host": "127.0.0.1",
+  "port": 8765,
+  "workers": true,
+  "data_dir": "var/data",
+  "secrets_dir": "var/secrets"
+}

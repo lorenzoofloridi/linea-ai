@@ -1,5 +1,5 @@
 MIO AGENTE AI — ATTIVITÀ NON COMPLETATE E LIMITI ATTUALI
-Aggiornato: 19 settembre 2026
+Aggiornato: 20 settembre 2026
 
 Registro consolidato dalla conversazione disponibile e dal codice/README attuali. Non è una certificazione di completezza di tutte le prove storiche. Le attività concluse non sono problemi aperti; quelle bloccate più volte compaiono una sola volta. Il sito deve restare locale per scelta del proprietario.
 
@@ -21,10 +21,13 @@ Registro consolidato dalla conversazione disponibile e dal codice/README attuali
 16. Traduzione completa del sito — PARZIALE: home, offerte e pannello cookie hanno quattro lingue; dashboard, informative estese, nuovi pannelli e alcuni messaggi dinamici restano in italiano. La lingua della chat segue il messaggio dell’utente. Non sono state verificate 95+ lingue.
 17. White-label completo — PARZIALE: branding per azienda disponibile; domini/email personalizzati e launcher flottante non attivati.
 18. Privacy e sicurezza per uso pubblico — DA COMPLETARE: mancano identità legale definitiva, accordi con aziende/fornitori, tempi di conservazione, procedure diritti e incidenti, revisione legale e verifica di sicurezza indipendente. Non è certificata la conformità. Cookie opzionali/tracciatori non presenti.
-19. Backup, ripristino, conservazione e migrazioni di produzione — PARZIALE: esistono copie manuali e schema additivo, non backup automatizzati con prove periodiche né framework di migrazioni versionate o cancellazione temporale automatica.
+19. Backup, ripristino, conservazione e migrazioni di produzione — PARZIALE: esistono snapshot verificati SHA-256 con copie SQLite consistenti e controllo di integrità, più schema additivo, script BACKUP PRIVATO e doctor disponibili, ma non backup schedulati con prove periodiche né framework di migrazioni versionate o cancellazione temporale automatica.
 20. Google Sheets del precedente agente dentistico — PERCORSO STORICO: conservato per compatibilità, ma la piattaforma corrente salva lead nella propria dashboard. Non è stata attestata in questa revisione una sincronizzazione automatica attuale con il vecchio foglio.
 21. Esportazione Excel — DISPONIBILE CON LIMITI: testi lunghi possono richiedere allargamento righe; oltre 32.767 caratteri una cella è troncata per il limite Excel. L’API JSON conserva i testi integrali.
 22. Confronto assoluto dei modelli AI — NON DETERMINABILE: Qwen2.5:7b è il predefinito verificato sul Mac; prove di velocità/qualità non dimostrano superiorità universale rispetto a GPT-OSS, Llama o Qwen3. Il pacchetto sorgenti non include pesi Ollama o ambiente Python, da reinstallare sul PC destinatario.
 
+23. Portabilità eseguita su Windows/Linux — DA VERIFICARE SU SISTEMI REALI: installatore Python 3.14, launcher e lock runtime universale con hash predisposti; ambiente pulito e test eseguiti su macOS. Mancano host Windows/Linux in questa sessione per verificare avvio, ACL, installazioni storiche e Ollama end-to-end. Non si può dichiarare compatibilità completa solo dai percorsi simulati.
+
 MANUTENZIONE
-A ogni lavoro non concluso, aggiungere o aggiornare la singola voce pertinente con motivo concreto, stato e prossimo requisito. Non duplicare lo stesso blocco. Quando risolto, rimuoverlo dalle voci aperte o segnarlo risolto indicando la verifica. Non scrivere password, token o dati dei clienti. Controllare codice e README prima di dichiarare una funzione completata. Questo aggiornamento è una regola di lavoro per chi modifica il progetto, non un processo autonomo che rileva problemi senza intervento.
+A ogni lavoro non concluso, aggiungere o aggiornare la singola voce pertinente con motivo concreto, stato e prossimo requisito. Non duplicare lo stesso blocco. Quando risolto, rimuoverlo dalle voci aperte o segnarlo risolto indicando la verifica. Non scrivere password, token o dati dei clienti. Doctor e SOURCE portabile sono predisposti; un vero clean-install Windows e il controllo ACL richiedono ancora un host Windows. Le migrazioni versionate e l’inferenza di collaudo del modello non sono incluse nel doctor.
+Controllare codice e README prima di dichiarare una funzione completata. Questo aggiornamento è una regola di lavoro per chi modifica il progetto, non un processo autonomo che rileva problemi senza intervento.

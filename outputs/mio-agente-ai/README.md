@@ -58,13 +58,13 @@ I moduli `bot_core.py`, `comprensione.py`, `dialogo.py`, `fatti_demo.py`, `rispo
 
 Frontend HTML, CSS e JavaScript senza compilazione; backend Python con libreria standard HTTP e SQLite; Ollama locale; `phonenumbers` per i numeri internazionali. Google OAuth/Sheets e DDGS servono i percorsi precedenti. Non è necessario Node per avviare il sito.
 
-Ambiente verificato su questo Mac: Python 3.14. Il file `requirements.txt` conserva le versioni dell’ambiente esistente, incluse le dipendenze storiche; non sono state disinstallate librerie durante il riordino.
+Ambiente verificato su questo Mac: Python 3.14. Installazione consigliata portabile: dalla radice completa usare `python3 -X utf8 linea.py install`, poi `python3 -X utf8 linea.py check` e `python3 -X utf8 linea.py start`. Su Windows usare `py -3.14` oppure i launcher `.bat`. Il runtime essenziale usa `requirements-runtime.lock` con versioni e hash e crea una nuova `.venv`; comprende phonenumbers e tzdata. Non richiede Google/DDGS né l’SDK Ollama. Il file `requirements.txt` conserva le versioni dell’ambiente esistente, incluse le dipendenze storiche; non sono state disinstallate librerie durante il riordino.
 
 Su una nuova copia, dalla cartella `mio-agente-ai`:
 
 ```sh
 python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m pip install --require-hashes --only-binary=:all: -r requirements-runtime.lock
 ollama pull qwen2.5:7b
 ```
 
@@ -77,15 +77,29 @@ Ollama deve essere installato e in esecuzione. Il download del modello richiede 
 - `config/azienda_demo.json` e `prompt.txt`: riguardano soltanto il motore dentistico precedente.
 - `credentials.json`, `token.json`, `google_sheets.json`: precedente collegamento Google. Sono privati e conservati nel percorso originario; non servono per creare lead nella nuova dashboard.
 
+### Profili e confini architetturali
+
+`LINEA_ENV=development|test|production` sceglie i default in `config/environments/`. Test usa percorsi propri, non recupera credenziali storiche e disabilita worker automatici/SMTP. Production è predisposto ma l’avvio del runtime è esplicitamente bloccato. I file sono senza segreti; `.env` e variabili del processo restano configurazione dell’installazione.
+
+`saas/lifecycle.py` inizializza database e worker una sola volta e gestisce l’arresto. Importare `server_api` non avvia più thread né crea archivi. `mail.py` gestisce la coda mentre `email_transport.py` contiene il contratto EmailTransport e SMTPTransport. Moduli e limiti di accoppiamento sono descritti in [ARCHITETTURA.md](documentazione/ARCHITETTURA.md), incluso ciò che richiederà davvero il futuro deployment.
+
 ### Variabili d’ambiente
 
-**Nessuna variabile d’ambiente applicativa obbligatoria è prevista nel codice corrente.** Non esiste un `.env` da compilare e non vengono lette variabili `SMTP_*`, `DATABASE_URL` o `SECRET_KEY`. Modello, database e mail usano i percorsi sopra descritti. I launcher impostano `PATH` per trovare i programmi installati; non contiene credenziali. Non aggiungere variabili alla documentazione se il codice non le legge.
+La configurazione condivisa è `runtime_config.py`. Copia `.env.example` dalla radice in `.env`, poi imposta i valori. L’ambiente del processo prevale sul file; non viene eseguito codice né espansione shell. Percorsi relativi risolti dalla radice, non dalla directory del terminale. `LINEA_ENV_FILE` può indicare un file alternativo.
+
+- `LINEA_HOST`, `LINEA_PORT`, `LINEA_BASE_URL`: server e link di invito/reset; solo localhost/127.0.0.1 autorizzati in questa fase. BASE_URL vuoto deriva da host/porta.
+- `LINEA_DATA_DIR`, `LINEA_DATABASE`: dati persistenti/SQLite; `LINEA_SECRETS_DIR`: segreti; `LINEA_LOG_DIR`, `LINEA_CACHE_DIR`, `LINEA_TEMP_DIR`, `LINEA_BACKUP_DIR`: log, cache, temporanei e backup, separati sotto `var/` per default. I percorsi privati dentro `dist/` sono rifiutati.
+- `LINEA_OLLAMA_URL`, `LINEA_MODEL`, `LINEA_MODEL_CONFIG`: servizio locale e modello; la variabile modello prevale sul JSON. Ollama e pesi restano installazioni esterne.
+- `LINEA_SMTP_HOST/PORT/USER/PASSWORD/SENDER` oppure `LINEA_SMTP_FILE`: mittente opzionale; nessuna credenziale di esempio reale. Non viene inventata una secret key: le sessioni usano token casuali hashati già nel database.
+- `LINEA_GOOGLE_SHEET_ID`, `LINEA_GOOGLE_WORKSHEET`: integrazione storica facoltativa; credenziali/token OAuth cercati nella directory segreti, poi nel percorso storico per compatibilità. `LINEA_CA_FILE` opzionale per CA personalizzata.
+
+Lo script `linea.py migrate-data` copia SQLite e configurazioni riservate nei nuovi percorsi senza sovrascrivere destinazioni esistenti; richiede server arrestato e backup preventivo. Gli originali rimangono conservati. Senza migrazione si mantiene il fallback ai percorsi storici. La separazione riguarda il runtime corrente; alcuni archivi e prove storiche restano conservati nei percorsi precedenti e sono esclusi dal SOURCE.
 
 ### Email e recupero password
 
-Il mittente non è configurato. Le conferme sono accodate come non configurate; non significa che siano state spedite. “Password dimenticata?” prepara un messaggio di prova in `linea-ai-site/private-data/local-mail/`, leggibile solo dal gestore sul Mac; non lo espone tramite API né lo spedisce. Ogni nuova richiesta sostituisce il messaggio precedente per lo stesso account e invalida i vecchi collegamenti. Con un mittente configurato usa invece la coda email esistente.
+Il mittente non è configurato. Le conferme sono accodate come non configurate; non significa che siano state spedite. “Password dimenticata?” prepara un messaggio di prova in `var/data/local-mail/`, leggibile solo dal gestore sul Mac; non lo espone tramite API né lo spedisce. Ogni nuova richiesta sostituisce il messaggio precedente per lo stesso account e invalida i vecchi collegamenti. Con un mittente configurato usa invece la coda email esistente.
 
-Quando verrà scelto un servizio compatibile, `linea-ai-site/private-data/email.json` dovrà contenere i campi `host`, `port`, `username`, `password`, `sender`. Nessun valore reale è riportato qui. Porta 465 usa TLS diretto; le altre porte usano STARTTLS. La configurazione richiede un account mittente autorizzato, non basta conoscere l’indirizzo del destinatario. Conservare il file fuori da `dist`, con permessi riservati; riavviare il sito dopo la configurazione. Non inserire credenziali nella chat o nella consegna sorgenti.
+Quando verrà scelto un servizio compatibile, `var/secrets/email.json` (o LINEA_SMTP_FILE) dovrà contenere i campi `host`, `port`, `username`, `password`, `sender`. Nessun valore reale è riportato qui. Porta 465 usa TLS diretto; le altre porte usano STARTTLS. La configurazione richiede un account mittente autorizzato, non basta conoscere l’indirizzo del destinatario. Conservare il file fuori da `dist`, con permessi riservati; riavviare il sito dopo la configurazione. Non inserire credenziali nella chat o nella consegna sorgenti.
 
 Il recupero usa collegamenti monouso validi 30 minuti e revoca le sessioni dopo il cambio. L’URL è intenzionalmente localhost. Le conferme chat sono facoltative e richiedono che l’azienda le abiliti e che il cliente abbia fornito email. “Accettata dal servizio email” non certifica consegna nella posta in arrivo. WhatsApp e SMS non sono attivi.
 
@@ -222,15 +236,15 @@ Una guida e il rapporto completo sono in [RAPPORTO-AGENTE-IBRIDO-2026-09-14.md](
 
 ## Database, dati e log
 
-- `../linea-ai-site/private-data/platform.sqlite3`: aziende, account, sessioni, recuperi password, conversazioni, messaggi, lead, moduli di prova, feedback e coda email; inoltre schede di verifica, fonti, inviti, installazioni, ticket temporanei, feedback aziendali e registro delle operazioni del gestore. Le nuove tabelle `action_audit`, `booking_slots`, `bookings`, `lead_intelligence`, `crm_mock`, `channel_bindings`, `channel_sessions`, `public_sources`, `public_revisions` mantengono dati e azioni aziendali separati.
+- `../../var/data/platform.sqlite3` (oppure LINEA_DATABASE; fallback storico conservato): aziende, account, sessioni, recuperi password, conversazioni, messaggi, lead, moduli di prova, feedback e coda email; inoltre schede di verifica, fonti, inviti, installazioni, ticket temporanei, feedback aziendali e registro delle operazioni del gestore. Le nuove tabelle `action_audit`, `booking_slots`, `bookings`, `lead_intelligence`, `crm_mock`, `channel_bindings`, `channel_sessions`, `public_sources`, `public_revisions` mantengono dati e azioni aziendali separati.
 - `../linea-ai-site/private-data/backups/pre-company-management.sqlite3`: copia privata manuale precedente all’aggiunta della gestione aziende; non viene aggiornata automaticamente e non è inclusa nella consegna.
 - `../linea-ai-site/private-data/website.sqlite3`: vecchio archivio del sito, mantenuto separato.
-- `data/agente.db`, `leads.txt` e Google: dati precedenti, conservati; nessuna migrazione automatica nella nuova piattaforma.
-- `logs/diagnostica.log`: diagnostica del motore dentistico precedente. Il server attuale non genera un access log persistente; eventuali errori di processo sono nel Terminale. Non confondere la cronologia chat nel database con un log tecnico.
+- `../../var/data/agente.db` è la coda storica copiata; originali in `data/agente.db`, `leads.txt` e Google conservati; nessuna migrazione automatica nella nuova piattaforma.
+- `../../var/logs/diagnostica.log` (LINEA_LOG_DIR): diagnostica del motore dentistico precedente. Il server attuale non genera un access log persistente; eventuali errori di processo sono nel Terminale. Non confondere la cronologia chat nel database con un log tecnico.
 
 Le cancellazioni delle conversazioni eliminano anche prenotazioni mock, scoring, esportazioni CRM mock, associazioni canale e audit relativo alla conversazione; le fonti e il calendario aziendale rimangono.
 
-La dashboard permette esportazione e cancellazione dei dati della propria azienda; cancellare una conversazione elimina anche richiesta e feedback associati. Copie esportate e archivi storici non vengono cancellati automaticamente. La conservazione temporale automatica e i backup non sono configurati. Una sessione scaduta non implica cancellazione della cronologia.
+La dashboard permette esportazione e cancellazione dei dati della propria azienda; cancellare una conversazione elimina anche richiesta e feedback associati. Copie esportate e archivi storici non vengono cancellati automaticamente. La conservazione temporale automatica e i backup schedulati non sono configurati; lo script di BACKUP PRIVATO è disponibile. Una sessione scaduta non implica cancellazione della cronologia.
 
 ## Test e verifiche
 
@@ -240,7 +254,7 @@ Dalla cartella `mio-agente-ai`, esegui tutti i controlli automatici senza chiama
 .venv/bin/python -m scripts.verifica_progetto
 ```
 
-Le due suite sono `tests/` (25 test) e `../linea-ai-site/tests/test_platform.py` (21 test di compatibilità, 14 test in `test_hybrid.py` 5 test in `test_accounts.py` e 15 test in `test_subscriptions.py`, per 84 test complessivi (inclusi 2 test recensioni), inclusi 2 controlli del catalogo lingue e dei riferimenti alle preferenze). Comprendono autenticazione, separazione tra aziende, campi personalizzati, lead, consenso, recupero password, esportazione/cancellazione, telefono e coda email simulata. I numeri non sono obiettivi fissi: nuovi test possono aumentarli.
+Le due suite sono `tests/` (30 test) e `../linea-ai-site/tests/test_platform.py` (21 test di compatibilità, 14 test in `test_hybrid.py` 5 test in `test_accounts.py` e 15 test in `test_subscriptions.py`, per 92 test complessivi, inclusi 3 test di architettura (inclusi 2 test recensioni), inclusi 2 controlli del catalogo lingue e dei riferimenti alle preferenze). Comprendono autenticazione, separazione tra aziende, campi personalizzati, lead, consenso, recupero password, esportazione/cancellazione, telefono e coda email simulata. I numeri non sono obiettivi fissi: nuovi test possono aumentarli.
 
 Per verificare anche il server HTTP con registrazione, login, dashboard e lead in un database temporaneo, senza email e con risposte AI simulate:
 
@@ -261,9 +275,23 @@ La verifica reale delle cinque lingue si esegue invece con `python tests/model_l
 
 Il test model_scenarios scrive un report con dati fittizi in `tests/model_scenarios_result.json`; richiede il modello attivo e può impiegare minuti. Non avviare indiscriminatamente gli script in `work/`: sono prove storiche esterne alla cartella, alcune riferite ad API non più presenti.
 
+## Audit e snapshot di portabilità
+
+L’audit verificato è in [AUDIT-PORTABILITA-2026-09-20.md](documentazione/AUDIT-PORTABILITA-2026-09-20.md). Prima degli interventi è stato creato uno snapshot privato di 216 file con tre copie SQLite consistenti e manifest SHA-256. `verifica-snapshot.py` nella radice controlla archivio e file senza ripristinarli. Il backup include segreti e rimane escluso dalla consegna. Sono stati verificati un ambiente nuovo con sole dipendenze runtime, la risoluzione del fuso orario senza database del sistema e la consegna ZIP estratta in una cartella indipendente con spazi e accenti: 87 test e controllo HTTP passati anche lì. Windows/Linux non sono ancora stati eseguiti realmente: gli avvii sono preparati, non certificati su hardware non disponibile.
+
+`linea.py` usa percorsi relativi al file, seleziona Scripts/python.exe o bin/python, avvia i figli in UTF-8 e mantiene il binding a 127.0.0.1. Installa-Windows.bat/Avvia-Windows.bat e installa.sh/avvia.sh richiamano lo stesso codice. `--environment` permette un ambiente di prova separato; `--wheels` installa offline da wheel già scaricate. Ollama e i pesi restano installazioni esterne.
+
 ## Trasferire su un altro computer
 
 Vedi [TRASFERIRE-SU-UN-ALTRO-PC.md](../../TRASFERIRE-SU-UN-ALTRO-PC.md) nella cartella principale. Il progetto contiene codice e dati locali, ma Python, Ollama e i pesi Qwen sono installazioni esterne. Sul computer destinatario occorre creare un nuovo ambiente; non riutilizzare la `.venv` di questo Mac. Lo ZIP per un informatico esclude dati e credenziali.
+
+## Doctor, SOURCE e BACKUP PRIVATO
+
+Dalla radice `python3 -X utf8 linea.py doctor` (Windows: `py -3.14`) controlla Python 3.14, versioni delle dipendenze, configurazione, directory scrivibili, permessi POSIX, almeno 1 GiB libero, integrità SQLite, tabelle/colonne attese confrontate con uno schema temporaneo, porta HTTP, Ollama e disponibilità/metadati del modello. Non invia messaggi né esegue inferenza. Una porta già utilizzata da un HTTP compatibile viene segnalata; non prova l’identità del processo. Su Windows segnala la necessità di controllare ACL: non certifica permessi NTFS. Le migrazioni versionate restano da implementare; il doctor rileva discrepanze dello schema additivo senza migrare il database reale.
+
+`python3 prepara-consegna.py` produce **Linea-AI-SOURCE.zip**, senza ambiente, dati, segreti o backup, con `.env.example`. Il vecchio nome Consegna-informatico-senza-dati.zip è una copia compatibile dello stesso SOURCE. Il pacchetto usa inclusioni consentite e filtri aggiuntivi; non aggiungere file riservati alle directory dei sorgenti. `.gitignore` esclude dati e segreti dalle future aggiunte Git.
+
+`python3 -X utf8 linea.py backup` produce un **PRIVATE-.../snapshot.zip** con manifest SHA-256 in `LINEA_BACKUP_DIR`, includendo codice, configurazione locale e dati/segreti, con copie SQLite coerenti e controllo integrità. Esclude .venv, cache e backup precedenti. È un backup riservato, non cifrato: proteggerne l’accesso e non inviarlo come SOURCE. I file sono sotto `project/`; eventuali dati/segreti configurati esternamente sono sotto `external/`. Il ripristino va eseguito a server fermo in una nuova cartella, ricreando venv e collocando eventuali file external nei percorsi configurati. `verifica-snapshot.py CARTELLA_BACKUP` controlla hash senza ripristino. Variabili segrete presenti soltanto nell’ambiente del sistema non vengono esportate: vanno conservate separatamente in un gestore sicuro.
 
 ## Consegna e limiti attuali
 

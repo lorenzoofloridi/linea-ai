@@ -1,3 +1,4 @@
+from runtime_config import LOGS
 """Dialogo libero guidato dal modello; dati e scritture controllati dal programma."""
 import re
 import os,json
@@ -210,8 +211,8 @@ class Conversazione:
                 except Exception:pass
             # Diagnostica riservata, senza nome, telefono, token o contenuto HTTP.
             try:
-                (BASE/'logs').mkdir(mode=0o700,exist_ok=True)
-                fd=os.open(BASE/'logs/diagnostica.log',os.O_WRONLY|os.O_CREAT|os.O_APPEND,0o600)
+                (LOGS).mkdir(mode=0o700,exist_ok=True)
+                fd=os.open(LOGS/'diagnostica.log',os.O_WRONLY|os.O_CREAT|os.O_APPEND,0o600)
                 with os.fdopen(fd,'a') as log:
                     log.write(json.dumps({'ora':datetime.now(timezone.utc).isoformat(),'evento':'salvataggio_non_confermato','tipo':type(error).__name__,'http':getattr(error,'code',None)})+'\n')
             except Exception:pass

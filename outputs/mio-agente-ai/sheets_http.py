@@ -14,11 +14,12 @@ class SheetsHTTP:
             headers['Content-Type']='application/x-www-form-urlencoded' if form else 'application/json'
             data=(urlencode(data) if form else json.dumps(data)).encode()
         context=ssl.create_default_context()
-        if Path('/etc/ssl/cert.pem').exists(): context.load_verify_locations('/etc/ssl/cert.pem')
+        if os.environ.get('LINEA_CA_FILE'):context.load_verify_locations(os.environ['LINEA_CA_FILE'])
         with urlopen(Request(url,data=data,headers=headers,method=method),timeout=12,context=context) as response:
             return json.load(response)
     def token(self):
-        path=self.base/'token.json'
+        from runtime_config import BOT,secret_file
+        path=secret_file('token.json') if self.base.resolve()==BOT.resolve() else self.base/'token.json'
         d=json.loads(path.read_text())
         expiry=datetime.fromisoformat(d.get('expiry','1970-01-01T00:00:00Z').replace('Z','+00:00'))
         if expiry.tzinfo is None: expiry=expiry.replace(tzinfo=timezone.utc)

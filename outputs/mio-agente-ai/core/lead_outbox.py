@@ -1,10 +1,11 @@
+from runtime_config import DATA
 """Registro locale delle consegne: conserva il lead autorizzato, non tutta la chat."""
 import json,os,sqlite3,uuid
 from datetime import datetime,timezone
 from pathlib import Path
 class LeadOutbox:
     def __init__(self,path=None):
-        self.path=Path(path) if path else Path(__file__).resolve().parents[1]/'data/agente.db'
+        self.path=Path(path) if path else (DATA/'agente.db' if (DATA/'agente.db').exists() or not (Path(__file__).resolve().parents[1]/'data/agente.db').exists() else Path(__file__).resolve().parents[1]/'data/agente.db')
         self.path.parent.mkdir(mode=0o700,parents=True,exist_ok=True)
     def connect(self):
         db=sqlite3.connect(self.path,timeout=5)

@@ -10,8 +10,8 @@ _override=ContextVar('modello_test',default=None)
 _metrics=ContextVar('metriche_test',default=None)
 
 def settings():
-    p=BASE/'config/modello.json'
-    d=json.loads(p.read_text()) if p.exists() else {}
+    from runtime_config import model_settings
+    d=model_settings()
     if d.get('provider','ollama')!='ollama':raise ValueError('Provider non configurato')
     return d
 
@@ -24,7 +24,9 @@ def usa_modello(name):
     finally:_metrics.reset(mt);_override.reset(token)
 
 class Client:
-    def __init__(self,host='http://127.0.0.1:11434',timeout=90):self.host=host.rstrip('/');self.timeout=timeout
+    def __init__(self,host=None,timeout=90):
+        from runtime_config import OLLAMA_URL
+        self.host=(host or OLLAMA_URL).rstrip('/');self.timeout=timeout
     def chat(self,**kwargs):
         model=_override.get() or kwargs.get('model') or settings().get('model','qwen2.5:7b')
         kwargs['model']=model

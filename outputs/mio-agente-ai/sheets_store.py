@@ -1,3 +1,4 @@
+from runtime_config import secret_file
 """Tool Add to sheet: scrive cinque celle e verifica la ricevuta di Google."""
 import json
 import os
@@ -28,8 +29,8 @@ def service(interactive=False):
     import google_auth_httplib2
     import httplib2
 
-    credential_file = BASE / 'credentials.json'
-    token_file = BASE / 'token.json'
+    credential_file = secret_file('credentials.json')
+    token_file = secret_file('token.json')
     credentials = None
     if credential_file.exists():
         metadata = json.loads(credential_file.read_text())
@@ -53,7 +54,7 @@ def service(interactive=False):
 
 class GoogleSheets:
     def __init__(self):
-        self.config_file = BASE / 'google_sheets.json'
+        self.config_file = secret_file('google_sheets.json')
 
     def configuration(self):
         if not self.config_file.exists():

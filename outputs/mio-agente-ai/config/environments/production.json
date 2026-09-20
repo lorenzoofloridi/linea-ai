@@ -1,0 +1,7 @@
+{
+  "host": "127.0.0.1",
+  "port": 8765,
+  "workers": false,
+  "data_dir": "var/production/data",
+  "secrets_dir": "var/production/secrets"
+}

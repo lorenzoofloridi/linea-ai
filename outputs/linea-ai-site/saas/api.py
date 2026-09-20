@@ -1,3 +1,4 @@
+from runtime_config import BASE_URL,OLLAMA_URL
 import json,re,time,threading,sqlite3
 from http.cookies import SimpleCookie
 from urllib.parse import urlsplit
@@ -46,6 +47,20 @@ def route(h):
   if h.command=='POST':
    limit(('reviews',ip),5,3600);reviews.submit(b);return 201,{'ok':True}
   return 405,{'error':'Operazione non disponibile.'}
+ if path=='/api/payment-webhook-mock' and h.command=='POST':
+  from . import payments
+  limit(('payment-hook',ip),100,900);payments.webhook(b,h.headers.get('X-Mock-Signature'),h.headers.get('X-Mock-Timestamp'));return 200,{'ok':True}
+ if path in ('/api/payments','/api/payment-mock','/api/payment-refund'):
+  from . import payments
+  u=store.principal(cookie(h));limit(('payments',u['id']),30,900)
+  if path=='/api/payments' and h.command=='GET':return 200,{'payments':payments.listing(u),'mode':'mock'}
+  if path=='/api/payment-mock' and h.command=='POST':
+   if set(b)!={'key','amount','outcome'}:raise ValueError('Non inserire dati bancari.')
+   return 201,{'id':payments.mock_charge(u,b['key'],b['amount'],b['outcome'])}
+  if path=='/api/payment-refund' and h.command=='POST':
+   if set(b)!={'payment_id','amount','key'}:raise ValueError('Richiesta non valida.')
+   payments.refund(u,b['payment_id'],b['amount'],text(b,'key',100));return 200,{'ok':True}
+  return 405,{'error':'Operazione non disponibile.'}
  if path in subscriptions.PATHS:
   limit(('plans',ip),100,900)
   return subscriptions.route(h,path,b)
@@ -60,9 +75,18 @@ def route(h):
   try:
    from urllib.request import urlopen
    from llm_locale import modello_attivo
-   with urlopen('http://127.0.0.1:11434/api/tags',timeout=2) as r:ready=any(x['name']==modello_attivo() for x in json.load(r)['models'])
+   with urlopen(OLLAMA_URL+'/api/tags',timeout=2) as r:ready=any(x['name']==modello_attivo() for x in json.load(r)['models'])
   except Exception:pass
   return 200,{'mode':'local','model_ready':ready,'email_configured':bool(mail.config())}
+ if path=='/api/email-verify' and h.command=='POST':
+  from . import email_service
+  limit(('verify',ip),10,900);email_service.verify(text(b,'token',100));return 200,{'message':'Email verificata.'}
+ if path=='/api/email-verification':
+  from . import email_service
+  user=store.principal(cookie(h))
+  if h.command=='POST':
+   limit(('verify-send',user['id']),3,3600);email_service.request_verification(user)
+  return 200,{'verified':email_service.verified(user)}
  if path=='/api/password-request' and h.command=='POST':
   limit(('reset',ip),5,900)
   email=text(b,'email')
@@ -70,10 +94,11 @@ def route(h):
   if reset:
    user,value=reset
    if mail.config():
-    mail.enqueue(user['company_id'],'reset:'+store.digest(value),user['email'],'Reimposta la password — Linea AI','Apri sul Mac questa pagina entro 30 minuti: http://127.0.0.1:8765/recupera-password.html#'+value+'\nSe non hai richiesto il cambio, ignora il messaggio.')
+    mail.enqueue(user['company_id'],'reset:'+store.digest(value),user['email'],'Reimposta la password — Linea AI','Apri sul Mac questa pagina entro 30 minuti: '+BASE_URL+'/recupera-password.html#'+value+'\nSe non hai richiesto il cambio, ignora il messaggio.')
    else:
     from .reset_mail import save_local
     save_local(user,value)
+    mail.enqueue(user['company_id'],'reset:'+store.digest(value),user['email'],'Reimposta la password — Linea AI','Link monouso valido 30 minuti: '+BASE_URL+'/recupera-password.html#'+value)
   return 200,{'message':'Se l’account esiste, riceverai un collegamento per scegliere una nuova password.' if mail.config() else 'Se l’account esiste, il messaggio di recupero è disponibile al gestore nella cartella privata local-mail sul Mac. Nessuna email è stata spedita.'}
  if path=='/api/password-reset' and h.command=='POST':
   limit(('reset-complete',ip),10,900)
@@ -86,6 +111,8 @@ def route(h):
    if b.get('terms') is not True or b.get('privacy') is not True:raise ValueError('Accetta i termini e conferma di aver letto l’informativa privacy.')
    if b.get('password_confirm')!=password:raise ValueError('Le password non coincidono.')
    value=store.register(email,password,text(b,'company',120),consents=b)
+   from . import email_service
+   email_service.request_verification(store.principal(value))
   else:value=store.login(email,password,b.get('remember') is True)
   set_cookie(h,value,remember=path=='/api/login' and b.get('remember') is True);return 200,{'ok':True,'redirect':'/#contatti'}
  if path=='/api/accept-invite' and h.command=='POST':

@@ -37,3 +37,6 @@ typing_extensions==4.16.0
 uritemplate==4.2.0
 urllib3==2.7.0
 phonenumbers==9.0.39
+
+# Fusi orari anche su Windows
+tzdata==2026.4

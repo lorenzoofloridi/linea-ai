@@ -1,6 +1,7 @@
-"""Punto di ingresso della piattaforma multi-azienda locale."""
-from saas import store,mail,subscriptions
-from saas.api import handle
-store.init()
-mail.start()
-subscriptions.start_worker()
+"""HTTP application adapter, with explicit lazy startup for existing callers."""
+from saas import lifecycle
+from saas.api import handle as dispatch
+
+def handle(request):
+ lifecycle.start()
+ return dispatch(request)

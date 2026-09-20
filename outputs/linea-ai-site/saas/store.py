@@ -2,7 +2,8 @@ import sqlite3,json,secrets,hashlib,hmac,time,re
 from pathlib import Path
 from contextlib import contextmanager
 ROOT=Path(__file__).resolve().parents[1]
-DB=ROOT/'private-data/platform.sqlite3'
+from runtime_config import DATABASE
+DB=DATABASE
 STATUSES=('Nuova','Da contattare','In lavorazione','Completata')
 def now():
  from datetime import datetime,timezone
@@ -81,6 +82,10 @@ def init():
   subscriptions.init(d)
   from . import reviews
   reviews.init(d)
+  from . import email_service
+  email_service.init(d)
+  from . import payments
+  payments.init(d)
   d.execute('CREATE TABLE IF NOT EXISTS registration_consents(user_id TEXT PRIMARY KEY REFERENCES users(id), terms_version TEXT NOT NULL, privacy_version TEXT NOT NULL, marketing_analysis INTEGER NOT NULL CHECK(marketing_analysis IN (0,1)), recorded_at TEXT NOT NULL)')
  DB.chmod(0o600)
 def password_hash(password,salt=None):

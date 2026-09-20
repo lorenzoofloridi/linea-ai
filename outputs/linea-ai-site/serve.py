@@ -3,6 +3,9 @@ import json,os
 from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
 from pathlib import Path
 BASE=Path(__file__).resolve().parent
+import sys
+sys.path.insert(0,str(BASE.parent/'mio-agente-ai'))
+from runtime_config import HOST,PORT,require_local_runtime
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self,*a,**kw):super().__init__(*a,directory=str(BASE/'dist'),**kw)
     def end_headers(self):
@@ -16,7 +19,7 @@ class Handler(SimpleHTTPRequestHandler):
         super().end_headers()
     def valid_origin(self):
         host=self.headers.get('Host','')
-        return host==f'127.0.0.1:{self.server.server_port}' and self.headers.get('Origin',f'http://{host}' if self.command=='GET' else '')==f'http://{host}'
+        return host==f'{HOST}:{self.server.server_port}' and self.headers.get('Origin',f'http://{host}' if self.command=='GET' else '')==f'http://{host}'
     def api(self):
         if not self.valid_origin():return self.send_error(403)
         try:
@@ -54,9 +57,13 @@ class Handler(SimpleHTTPRequestHandler):
         self.api()
     def log_message(self,*a):pass
 if __name__=='__main__':
+    require_local_runtime()
     os.umask(0o077)
-    server=ThreadingHTTPServer(('127.0.0.1',8765),Handler)
+    server=ThreadingHTTPServer((HOST,PORT),Handler)
     server.daemon_threads=True
-    print('Anteprima privata: http://127.0.0.1:8765',flush=True)
+    print(f'Anteprima locale: http://{HOST}:{PORT}',flush=True)
+    from saas import lifecycle
+    lifecycle.start()
     try:server.serve_forever()
-    except KeyboardInterrupt:server.server_close()
+    except KeyboardInterrupt:pass
+    finally:server.server_close();lifecycle.stop()

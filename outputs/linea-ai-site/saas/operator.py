@@ -1,3 +1,4 @@
+from runtime_config import BASE_URL,OLLAMA_URL
 """Strumento del gestore: eseguire localmente, mai esporre via HTTP."""
 import argparse,json
 from pathlib import Path
@@ -31,11 +32,11 @@ def main():
  elif cmd=='verify':companies.verify(args.company);result={'verified':True}
  elif cmd=='show':result=companies.overview(args.company)
  elif cmd=='configure':result=store.save_config(args.company,json.loads(Path(args.file).read_text()))
- elif cmd=='invite':result={'invitation_url':'http://127.0.0.1:8765/invito.html#'+companies.invite(args.company,args.email),'expires':'24 ore; monouso; non condividere con altri'}
+ elif cmd=='invite':result={'invitation_url':BASE_URL+'/invito.html#'+companies.invite(args.company,args.email),'expires':'24 ore; monouso; non condividere con altri'}
  elif cmd=='knowledge':result={'entry':companies.add_knowledge(args.company,args.kind,Path(args.file).read_text(),args.source),'status':'Bozza: non utilizzata dall’AI'}
  elif cmd=='approve-knowledge':companies.review_knowledge(args.company,args.entry,Path(args.file).read_text(),args.allow_ai);result={'verified':True,'ai_allowed':args.allow_ai}
  elif cmd=='install':result={'installation':companies.installation(args.company,args.origin)}
- elif cmd=='ticket':result={'preview_url':'http://127.0.0.1:8765/widget.html?installation='+args.installation+'#'+companies.issue_ticket(args.installation),'expires':'120 secondi; monouso'}
+ elif cmd=='ticket':result={'preview_url':BASE_URL+'/widget.html?installation='+args.installation+'#'+companies.issue_ticket(args.installation),'expires':'120 secondi; monouso'}
  elif cmd=='revoke':companies.revoke(args.installation);result={'revoked':True}
  print(json.dumps(result,ensure_ascii=False,indent=2))
 if __name__=='__main__':main()

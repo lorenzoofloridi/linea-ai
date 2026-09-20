@@ -125,6 +125,8 @@ def process_due(cid=None,at=None,provider=None):
    if s['status']=='past_due':continue
    key=company+':'+str(s['period_end'])
    ok=provider.charge(s['customer_ref'],s['method_ref'],s['amount_cents'],key)
+   from .payments import renewal
+   renewal(d,company,'subscription:'+key,s['amount_cents'],ok)
    # The local provider is transactional. A future external provider must use an outbox + idempotency key.
    end=next_period(stamp,s['period']) if ok else s['period_end']
    d.execute('UPDATE plan_subscriptions SET status=?,period_end=? WHERE company_id=?',('active' if ok else 'past_due',end,company))
@@ -155,12 +157,13 @@ def catalogue(user):
   cards.append(dict(code=code,**p,annual_cents=amount(code,'annual') if p['available'] else None,annual_monthly_cents=amount(code,'annual')//12 if p['available'] else None))
  return dict(authenticated=True,plans=cards,discount=DISCOUNT,**current)
 
-def worker():
- while True:
+def worker(stop):
+ while not stop.is_set():
   try:process_due()
   except Exception:pass
-  time.sleep(30)
-def start_worker():threading.Thread(target=worker,daemon=True).start()
+  stop.wait(30)
+def start_worker(stop=None):
+ stop=stop or threading.Event();thread=threading.Thread(target=worker,args=(stop,),daemon=True);thread.start();return thread
 
 PATHS={'/api/plans','/api/plan-state','/api/plan-profile','/api/plan-demo','/api/plan-base','/api/plan-cancel','/api/plan-method'}
 def route(h,path,b):
