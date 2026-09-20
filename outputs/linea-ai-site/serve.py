@@ -55,7 +55,7 @@ class Handler(SimpleHTTPRequestHandler):
     def log_message(self,*a):pass
 if __name__=='__main__':
     os.umask(0o077)
-    server=ThreadingHTTPServer(('127.0.0.1',8765),Handler)
+    server=ThreadingHTTPServer((os.environ.get('HOST','127.0.0.1'),int(os.environ.get('PORT','8765'))),Handler)
     server.daemon_threads=True
     print('Anteprima privata: http://127.0.0.1:8765',flush=True)
     try:server.serve_forever()
