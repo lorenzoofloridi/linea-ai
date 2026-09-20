@@ -14,7 +14,7 @@ La chat **Servizi Linea AI** nella home informa sulla piattaforma e indirizza a 
 
 Per iniziare sul Mac già configurato, apri **Apri il sito.command** nella cartella principale del progetto, due livelli sopra questa cartella. Lascia aperto il Terminale che lo avvia. Visita http://127.0.0.1:8765/. Se spegni il Mac o chiudi il server, riapri lo stesso file per riavviarlo. Questo indirizzo funziona solo sul Mac che ospita il sito.
 
-La cartella operativa è **Documenti → GitHub → linea-ai**. Non modificare più la precedente copia Desktop. GitHub Desktop visualizza commit e modifiche di questo repository; un push sul ramo di sviluppo non equivale a una richiesta di deployment. Il ramo collegato all’host non viene aggiornato in questa fase.
+La cartella operativa è **Documenti → GitHub → linea-ai**. Non modificare più la precedente copia Desktop. GitHub Desktop visualizza commit e modifiche di questo repository; il ramo **main** è la versione ufficiale con le funzionalità integrate. Un push non autorizza deployment: prima di inviarlo occorre escludere automatismi di pubblicazione.
 
 ## Struttura: servono entrambe le cartelle
 
