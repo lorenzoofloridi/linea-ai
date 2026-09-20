@@ -1,0 +1,3 @@
+[build]
+  publish = "outputs/linea-ai-site/dist"
+  functions = "netlify/functions"
