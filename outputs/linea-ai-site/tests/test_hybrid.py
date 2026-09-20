@@ -8,6 +8,8 @@ class HybridTests(unittest.TestCase):
  def setUp(self):
   self.tmp=tempfile.TemporaryDirectory();self.old=store.DB;store.DB=Path(self.tmp.name)/'db';store.init();api.RATES.clear()
   self.a=store.register('a@example.invalid','Local-test-password','A');self.b=store.register('b@example.invalid','Local-test-password','B');self.ca=store.principal(self.a)['company_id'];self.cb=store.principal(self.b)['company_id']
+  from account_fixtures import verify_session
+  verify_session(self.a);verify_session(self.b)
   from saas.subscriptions import start_demo
   start_demo(store.principal(self.a));start_demo(store.principal(self.b))
  def tearDown(self):store.DB=self.old;self.tmp.cleanup()

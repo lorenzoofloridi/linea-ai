@@ -29,16 +29,15 @@ def main():
      req('/api/logout',{},cookie)
      status,data,cookie=req('/api/login',{'email':n+'@example.invalid','password':'HTTP-check-only-123'});assert status==200
      me=req('/api/me',cookie=cookie)[1];accounts.append((cookie,me['company']))
+     assert req('/api/plan-demo',{},cookie)[0]==403
+     with store.connection() as d:
+      message=d.execute("SELECT body FROM email_outbox WHERE company_id=? AND event_key LIKE 'verify:%'",(me['company']['id'],)).fetchone()['body']
+     token=message.split('#')[1].split('\n')[0]
+     assert req('/api/email-verify',{'token':token})[0]==200
+     assert req('/api/email-verify',{'token':token})[0]==400
      assert req('/api/plan-demo',{},cookie)[0]==200
     a,company=accounts[0];b,_=accounts[1]
-    assert req('/api/email-verification',cookie=a)[1]['verified'] is False
-    with store.connection() as d:
-     message=d.execute("SELECT body FROM email_outbox WHERE company_id=? AND event_key LIKE 'verify:%'",(company['id'],)).fetchone()['body']
-    token=message.split('#')[1].split('\n')[0]
-    assert req('/api/email-verify',{'token':token})[0]==200
-    assert req('/api/email-verify',{'token':token})[0]==400
     assert req('/api/email-verification',cookie=a)[1]['verified'] is True
-    assert req('/api/email-verification',cookie=b)[1]['verified'] is False
     assert req('/api/payments')[0]==401
     charge={'key':'http-test','amount':1000,'outcome':'succeeded'}
     payment=req('/api/payment-mock',charge,a)[1]['id']

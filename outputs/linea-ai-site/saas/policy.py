@@ -43,7 +43,10 @@ def validate(raw):
 def settings(cfg):return validate(cfg.get('agent',{}))
 def effective(cid,cfg):
  live=settings(store.company(cid)['config'])['capabilities'];snapshot=settings(cfg)['capabilities']
- return {k:live[k] and snapshot[k] for k in CAPABILITIES}
+ from .subscriptions import entitlements
+ from .plan_entitlements import CAPABILITY_FEATURE
+ features={k:True for k in CAPABILITY_FEATURE.values()} if cid=='demo' else entitlements(cid)
+ return {k:live[k] and snapshot[k] and features.get(CAPABILITY_FEATURE[k],False) for k in CAPABILITIES}
 def require(cid,cfg,cap):
  if not effective(cid,cfg).get(cap,False):raise ValueError('Azione non autorizzata per questa azienda.')
 def filtered(cid,cfg):

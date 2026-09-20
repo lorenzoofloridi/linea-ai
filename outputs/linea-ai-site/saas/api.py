@@ -3,6 +3,7 @@ import json,re,time,threading,sqlite3
 from http.cookies import SimpleCookie
 from urllib.parse import urlsplit
 from . import store,engine,mail,companies,subscriptions
+from .email_service import VerificationRequired,verified,request_verification
 MODEL_LOCK=threading.Lock();RATE_LOCK=threading.Lock();RATES={}
 def limit(key,maximum,window=3600):
  now=time.monotonic()
@@ -32,6 +33,7 @@ def set_cookie(h,value,clear=False,remember=False):
  h.extra_headers=[('Set-Cookie','linea_session='+value+'; Path=/; HttpOnly; SameSite=Strict'+('; Max-Age=0' if clear else '; Max-Age=2592000' if remember else ''))]
 def handle(h):
  try:return route(h)
+ except VerificationRequired:return 403,{'error':'Verifica il tuo indirizzo email dalla pagina Account.','redirect':'/account.html','code':'email_verification_required'}
  except subscriptions.AccessRequired:return 402,{'error':'Attiva una Demo o un piano per accedere al tuo Spazio Aziendale.','redirect':'/#contatti'}
  except store.Unauthorized:return 401,{'error':'Accedi al tuo account per continuare.'}
  except store.Missing:return 404,{'error':'Risorsa non disponibile.'}
@@ -81,6 +83,10 @@ def route(h):
  if path=='/api/email-verify' and h.command=='POST':
   from . import email_service
   limit(('verify',ip),10,900);email_service.verify(text(b,'token',100));return 200,{'message':'Email verificata.'}
+ if path=='/api/company-verification' and h.command=='GET':
+  from . import verification
+  user=store.principal(cookie(h));cid=user['company_id']
+  return 200,{'status':verification.status(cid),'history':verification.history(cid)}
  if path=='/api/email-verification':
   from . import email_service
   user=store.principal(cookie(h))
@@ -114,12 +120,12 @@ def route(h):
    from . import email_service
    email_service.request_verification(store.principal(value))
   else:value=store.login(email,password,b.get('remember') is True)
-  set_cookie(h,value,remember=path=='/api/login' and b.get('remember') is True);return 200,{'ok':True,'redirect':'/#contatti'}
+  set_cookie(h,value,remember=path=='/api/login' and b.get('remember') is True);return 200,{'ok':True,'redirect':'/#contatti' if verified(store.principal(value)) else '/account.html'}
  if path=='/api/accept-invite' and h.command=='POST':
   limit(('invite',ip),10,900)
   if b.get('accept') is not True:raise ValueError('Leggi e accetta le condizioni dell’anteprima.')
-  value=companies.accept_invite(text(b,'token',100),text(b,'password',256));set_cookie(h,value)
-  return 200,{'redirect':'/dashboard.html'}
+  value=companies.accept_invite(text(b,'token',100),text(b,'password',256));request_verification(store.principal(value));set_cookie(h,value)
+  return 200,{'redirect':'/account.html'}
  if path=='/api/installation-session' and h.command=='POST':
   limit(('sessions',ip),40)
   access,cfg=companies.start_installation(text(b,'installation',100),text(b,'ticket',100))
@@ -135,6 +141,9 @@ def route(h):
  if path in ('/api/me','/api/config','/api/leads','/api/conversations','/api/email-status','/api/data-export','/api/data-export.xlsx','/api/data-delete') or path.startswith('/api/leads/') or path.startswith('/api/conversations/'):
   u=store.principal(cookie(h));cid=u['company_id']
   if path!='/api/me':subscriptions.require_access(u)
+  if path=='/api/leads' or path.startswith('/api/leads/'):subscriptions.require_feature(cid,'leads')
+  if path=='/api/conversations' or path.startswith('/api/conversations/'):subscriptions.require_feature(cid,'conversations')
+  if path in ('/api/data-export.xlsx','/api/data-export'):subscriptions.require_feature(cid,'export')
   if path=='/api/data-export.xlsx' and h.command=='GET':
    from .excel_export import workbook
    return 200,workbook(store.export_company(cid))
@@ -142,7 +151,7 @@ def route(h):
   if path=='/api/data-delete' and h.command=='POST':
    if b.get('confirm') is not True:raise ValueError('Conferma la cancellazione.')
    store.delete_conversation(cid,text(b,'conversation',100));return 200,{'ok':True}
-  if path=='/api/me' and h.command=='GET':return 200,dict(email=u['email'],company=store.company(cid))
+  if path=='/api/me' and h.command=='GET':return 200,dict(email=u['email'],company=store.company(cid),email_verified=verified(u))
   if path=='/api/config' and h.command=='POST':return 200,{'config':store.save_config(cid,b)}
   if path=='/api/leads' and h.command=='GET':return 200,{'leads':store.list_leads(cid)}
   if path=='/api/conversations' and h.command=='GET':return 200,{'conversations':store.list_conversations(cid)}

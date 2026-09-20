@@ -7,6 +7,8 @@ class PlatformTests(unittest.TestCase):
   self.tmp=tempfile.TemporaryDirectory();self.original=store.DB;store.DB=Path(self.tmp.name)/'test.sqlite3';store.init();api.RATES.clear()
   self.a=store.register('a@example.invalid','A-test-password-123','Azienda A');self.b=store.register('b@example.invalid','B-test-password-123','Azienda B')
   self.ca=store.principal(self.a)['company_id'];self.cb=store.principal(self.b)['company_id']
+  from account_fixtures import verify_session
+  verify_session(self.a);verify_session(self.b)
   from saas.subscriptions import start_demo
   start_demo(store.principal(self.a));start_demo(store.principal(self.b))
  def tearDown(self):store.DB=self.original;self.tmp.cleanup()

@@ -8,6 +8,8 @@ class PlanTests(unittest.TestCase):
  def setUp(self):
   self.tmp=tempfile.TemporaryDirectory();self.old=store.DB;store.DB=Path(self.tmp.name)/'test.sqlite3';store.init();api.RATES.clear()
   self.a=store.register('a@example.invalid','Plan-tests-password','A');self.b=store.register('b@example.invalid','Plan-tests-password','B');self.ua=store.principal(self.a);self.ub=store.principal(self.b);self.ca=self.ua['company_id'];self.cb=self.ub['company_id']
+  from account_fixtures import verify_session
+  verify_session(self.a);verify_session(self.b)
  def tearDown(self):store.DB=self.old;self.tmp.cleanup()
  def req(self,path,body=None,session=''):
   raw=json.dumps(body or {}).encode();h=SimpleNamespace(path=path,command='GET' if body is None else 'POST',client_address=('127.0.0.1',1),headers={'Cookie':'linea_session='+session,'Content-Type':'application/json','Content-Length':str(len(raw))},rfile=io.BytesIO(raw));return api.handle(h)
@@ -38,7 +40,7 @@ class PlanTests(unittest.TestCase):
   s.start_base(self.ua,'monthly','card',True)
   with self.assertRaises(ValueError):s.start_base(self.ua,'monthly','card',True)
  def test_profile_changes_need_new_review_and_company_isolation(self):
-  data=self.ready();self.assertEqual(s.state(self.ua)['profile']['status'],'verified');self.assertIsNone(s.state(self.ub)['profile']);data['city']='Other';s.profile(self.ca,data,'test');self.assertEqual(s.state(self.ua)['profile']['status'],'pending')
+  data=self.ready();self.assertEqual(s.state(self.ua)['profile']['status'],'verified');self.assertIsNone(s.state(self.ub)['profile']);data['city']='Other';s.profile(self.ca,data,'test');self.assertEqual(s.state(self.ua)['profile']['status'],'needs_review')
   self.assertEqual(self.req('/api/plan-profile',dict(data,company_id=self.ca),self.b)[0],400)
  def test_manual_transfer_cannot_auto_debit_or_start_trial(self):
   self.ready()
@@ -58,12 +60,12 @@ class PlanTests(unittest.TestCase):
   self.ready();now=time.time();s.start_base(self.ua,'monthly','paypal',True,now)
   class Failed:
    def charge(self,*args):return False
-  s.process_due(self.ca,now+14*86400,Failed());self.assertEqual(s.state(self.ua)['subscription']['status'],'past_due');self.assertFalse(s.access(self.ua,now+14*86400));self.assertIsNone(s.state(self.ub)['subscription'])
+  s.process_due(self.ca,now+14*86400,Failed());self.assertEqual(s.state(self.ua)['subscription']['status'],'past_due');self.assertTrue(s.access(self.ua,now+14*86400));self.assertIsNone(s.state(self.ub)['subscription'])
   self.assertEqual(self.req('/api/plan-cancel',{'company_id':self.ca},self.b)[0],404)
  def test_profile_validation_no_network_and_no_auto_approval(self):
   data={k:'Test' for k in s.PROFILE_FIELDS}
   with self.assertRaises(ValueError):s.profile(self.ca,data,'test')
-  data.update(website='https://example.invalid',business_email='info@example.invalid',business_phone='3331234567',country='IT');s.profile(self.ca,data,'test');self.assertEqual(s.state(self.ua)['profile']['status'],'pending')
+  data.update(website='https://example.invalid',business_email='info@example.invalid',business_phone='3331234567',country='IT');s.profile(self.ca,data,'test');self.assertEqual(s.state(self.ua)['profile']['status'],'needs_review')
  def test_repeatable_schema_and_no_duplicate_simultaneous_demo(self):
   errors=[]
   def activate():

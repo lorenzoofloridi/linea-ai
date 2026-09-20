@@ -40,10 +40,8 @@ def create(name):
  return cid
 
 def verify(cid):
- store.company(cid)
- with store.connection() as d:
-  d.execute('INSERT INTO company_management(company_id,verified) VALUES (?,1) ON CONFLICT(company_id) DO UPDATE SET verified=1',(cid,))
-  audit(d,cid,'verified_by_operator')
+ from .verification import review
+ review(cid,'verified','Verifica locale di azienda e referente')
 
 def is_verified(d,cid):
  row=d.execute('SELECT verified FROM company_management WHERE company_id=?',(cid,)).fetchone()

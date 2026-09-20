@@ -86,6 +86,8 @@ def init():
   email_service.init(d)
   from . import payments
   payments.init(d)
+  from . import verification
+  verification.init(d)
   d.execute('CREATE TABLE IF NOT EXISTS registration_consents(user_id TEXT PRIMARY KEY REFERENCES users(id), terms_version TEXT NOT NULL, privacy_version TEXT NOT NULL, marketing_analysis INTEGER NOT NULL CHECK(marketing_analysis IN (0,1)), recorded_at TEXT NOT NULL)')
  DB.chmod(0o600)
 def password_hash(password,salt=None):
@@ -156,9 +158,17 @@ def conversation(access):
   blocked=d.execute('SELECT 1 FROM installation_sessions s JOIN installations i ON i.id=s.installation_id JOIN company_management m ON m.company_id=i.company_id WHERE s.access_hash=? AND (i.enabled=0 OR m.verified=0)',(digest(access),)).fetchone()
   if blocked:raise Missing()
  if not r:raise Missing()
+ from .verification import allowed
+ if not allowed(r['company_id']):raise Missing()
+ if r['company_id']!='demo':
+  from .subscriptions import require_feature
+  require_feature(r['company_id'],'conversations')
  return dict(r),json.loads(r['state']),json.loads(r['config'])
 def persist_turn(row,state,user,reply,lead=None):
  stamp=now();cid=row['company_id'];sid=row['id']
+ if lead and cid!='demo':
+  from .subscriptions import require_feature
+  require_feature(cid,'leads')
  with connection() as d:
   if lead:
    from . import policy

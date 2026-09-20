@@ -36,7 +36,9 @@ def after_lead(d,row,state,cfg,lead):
  d.execute('INSERT INTO lead_intelligence(company_id,lead_id,score,reasons,department) VALUES (?,?,?,?,?) ON CONFLICT(company_id,lead_id) DO UPDATE SET score=excluded.score,reasons=excluded.reasons,department=excluded.department',(cid,lid,info['score'],json.dumps(info['reasons']),json.dumps(info['department'])))
  # Same transaction as the lead. Local mock only, current permissions must allow it.
  current=json.loads(d.execute('SELECT config FROM companies WHERE id=?',(cid,)).fetchone()[0]);caps=policy.settings(cfg)['capabilities'];live=policy.settings(current)['capabilities']
- if policy.settings(cfg)['crm_auto'] and policy.settings(current)['crm_auto'] and caps['can_send_to_crm'] and live['can_send_to_crm']:
+ from .subscriptions import entitlements
+ features=entitlements(cid,connection=d)
+ if features.get('crm') and policy.settings(cfg)['crm_auto'] and policy.settings(current)['crm_auto'] and caps['can_send_to_crm'] and live['can_send_to_crm']:
   from .adapters import MockCRM
   MockCRM().send(d,cid,lid,dict(company_id=cid,lead_id=lid,data=lead['data'],consent=lead['consent'],summary=lead['display'],intelligence=info,origin=state.get('channel','web'),conversation_id=row['id'],conversation=[dict(m) for m in d.execute('SELECT role,content,created_at FROM messages WHERE company_id=? AND conversation_id=? ORDER BY seq',(cid,row['id']))]))
   audit(d,cid,row['id'],'agent','crm_mock','saved')
@@ -56,6 +58,8 @@ def stage(cid,lid,value,actor):
   d.execute('INSERT OR IGNORE INTO lead_intelligence VALUES (?,?,0,\'[]\',\'{}\',\'nuovo\')',(cid,lid))
   d.execute('UPDATE lead_intelligence SET stage=? WHERE company_id=? AND lead_id=?',(value,cid,lid));audit(d,cid,None,actor,'lead_stage',value)
 def handoff(cid,sid,mode,actor,message=''):
+ from .subscriptions import require_feature
+ require_feature(cid,'handoff')
  if mode not in MODES:raise ValueError('Stato non valido.')
  with store.connection() as d:
   d.execute('BEGIN IMMEDIATE')

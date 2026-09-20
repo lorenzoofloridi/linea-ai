@@ -56,3 +56,7 @@ def preview():
   cards.append('<article><h2>'+html.escape(row['subject'])+'</h2><p>A: '+html.escape(row['recipient'])+' · '+html.escape(row['mode'])+' · '+html.escape(row['created_at'])+'</p><pre style="white-space:pre-wrap">'+html.escape(row['body'])+'</pre><details><summary>Codice HTML del messaggio</summary><pre>'+html.escape(row['html'])+'</pre></details><h3>Anteprima HTML</h3><h2>'+html.escape(row['subject'])+'</h2><div style="white-space:pre-wrap">'+html.escape(row['body'])+'</div></article>')
  path=folder/'index.html';path.write_text('<!doctype html><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#39;none&#39;; style-src &#39;unsafe-inline&#39;"><title>Email locali Linea AI</title><style>body{font:16px system-ui;max-width:960px;margin:40px auto;padding:20px}article{border:1px solid #ddd;padding:20px;margin:20px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style><h1>Email locali — riservato al gestore</h1><p>Nessun invio Internet in modalità capture. I link/token sono riservati: copia il collegamento nel browser per provarlo.</p>'+''.join(cards),encoding='utf-8');path.chmod(0o600);return path
 if __name__=='__main__':store.init();print(preview())
+
+class VerificationRequired(ValueError):pass
+def require_verified(user):
+ if not verified(user):raise VerificationRequired('Verifica il tuo indirizzo email dalla pagina Account prima di continuare.')
