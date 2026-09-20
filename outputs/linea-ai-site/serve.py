@@ -16,10 +16,7 @@ class Handler(SimpleHTTPRequestHandler):
         super().end_headers()
     def valid_origin(self):
         host=self.headers.get('Host','')
-        origin=self.headers.get('Origin','')
-        if not origin:
-            return self.command=='GET'
-        return origin in (f'http://{host}',f'https://{host}')
+        return host==f'127.0.0.1:{self.server.server_port}' and self.headers.get('Origin',f'http://{host}' if self.command=='GET' else '')==f'http://{host}'
     def api(self):
         if not self.valid_origin():return self.send_error(403)
         try:
@@ -58,7 +55,7 @@ class Handler(SimpleHTTPRequestHandler):
     def log_message(self,*a):pass
 if __name__=='__main__':
     os.umask(0o077)
-    server=ThreadingHTTPServer((os.environ.get('HOST','0.0.0.0'),int(os.environ.get('PORT','8765'))),Handler)
+    server=ThreadingHTTPServer(('127.0.0.1',8765),Handler)
     server.daemon_threads=True
     print('Anteprima privata: http://127.0.0.1:8765',flush=True)
     try:server.serve_forever()
