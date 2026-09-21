@@ -1,7 +1,46 @@
 "use strict";
 
-const token = location.hash.slice(1);
+/*
+ * Il token di verifica arriva nel fragment:
+ * #TOKEN
+ *
+ * L'eventuale intenzione Demo arriva invece
+ * nella query:
+ * ?plan=demo
+ *
+ * È importante leggerli entrambi PRIMA
+ * di ripulire l'URL.
+ */
+const token =
+  location.hash.slice(1);
 
+const params =
+  new URLSearchParams(
+    location.search
+  );
+
+const planFromEmail =
+  params.get('plan') === 'demo'
+    ? 'demo'
+    : null;
+
+/*
+ * Se il link email contiene plan=demo,
+ * conserviamo anche l'intenzione nella
+ * sessione corrente.
+ */
+if (planFromEmail === 'demo') {
+  sessionStorage.setItem(
+    'linea_plan_intent',
+    'demo'
+  );
+}
+
+/*
+ * Dopo aver recuperato token e piano,
+ * togliamo entrambi dall'indirizzo visibile
+ * nel browser.
+ */
 history.replaceState(
   null,
   '',
@@ -9,10 +48,14 @@ history.replaceState(
 );
 
 const button =
-  document.querySelector('#verify-email');
+  document.querySelector(
+    '#verify-email'
+  );
 
 const status =
-  document.querySelector('#verify-status');
+  document.querySelector(
+    '#verify-status'
+  );
 
 button.disabled = !token;
 
@@ -21,21 +64,25 @@ button.onclick = async () => {
   status.textContent = '';
 
   try {
-    const response = await fetch(
-      '/api/email-verify',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type':
-            'application/json'
-        },
-        body: JSON.stringify({
-          token
-        })
-      }
-    );
+    const response =
+      await fetch(
+        '/api/email-verify',
+        {
+          method: 'POST',
 
-    const data = await response.json();
+          headers: {
+            'Content-Type':
+              'application/json'
+          },
+
+          body: JSON.stringify({
+            token
+          })
+        }
+      );
+
+    const data =
+      await response.json();
 
     if (!response.ok) {
       throw Error(
@@ -45,28 +92,44 @@ button.onclick = async () => {
     }
 
     status.textContent =
-      data.message || 'Email verificata.';
+      data.message ||
+      'Email verificata.';
 
     /*
-     * Se l'utente aveva scelto la Demo prima
-     * della registrazione, torniamo alla pagina
-     * Account mantenendo esplicitamente
-     * l'intenzione.
+     * Prima controlliamo l'intenzione
+     * ricevuta direttamente dal link email.
      *
-     * workspace.js vedrà che l'email è verificata,
-     * attiverà /api/plan-demo e porterà poi
-     * l'utente alla Dashboard.
+     * Se non c'è, manteniamo la compatibilità
+     * con l'intenzione già presente nella
+     * sessione del browser.
      */
     const intent =
+      planFromEmail ||
       sessionStorage.getItem(
         'linea_plan_intent'
       );
 
     await new Promise(
       resolve =>
-        setTimeout(resolve, 700)
+        setTimeout(
+          resolve,
+          700
+        )
     );
 
+    /*
+     * DEMO
+     *
+     * Torniamo ad Account con ?plan=demo.
+     *
+     * workspace.js rileverà:
+     * - email verificata;
+     * - richiesta Demo.
+     *
+     * Quindi chiamerà /api/plan-demo
+     * e porterà automaticamente
+     * l'utente alla Dashboard.
+     */
     if (intent === 'demo') {
       location.assign(
         '/account.html?plan=demo'
@@ -76,17 +139,20 @@ button.onclick = async () => {
     }
 
     /*
-     * Se era stato scelto un piano a pagamento,
-     * torniamo al relativo percorso.
+     * Manteniamo il comportamento esistente
+     * per gli eventuali piani a pagamento
+     * conservati nella sessione.
      */
     if (intent) {
       const [plan, period] =
         intent.split(':');
 
       if (
-        ['base', 'plus', 'advanced'].includes(
-          plan
-        )
+        [
+          'base',
+          'plus',
+          'advanced'
+        ].includes(plan)
       ) {
         sessionStorage.removeItem(
           'linea_plan_intent'
@@ -106,10 +172,12 @@ button.onclick = async () => {
     }
 
     /*
-     * Verifica normale, senza un piano
-     * precedentemente richiesto.
+     * Verifica normale senza una
+     * precedente richiesta di piano.
      */
-    location.assign('/account.html');
+    location.assign(
+      '/account.html'
+    );
   } catch (error) {
     status.textContent =
       error.message ||

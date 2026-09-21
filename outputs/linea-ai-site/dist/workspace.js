@@ -33,24 +33,34 @@
     return d;
   }
 
-  const workspaceStatus = q('#workspace-status');
+  const workspaceStatus =
+    q('#workspace-status');
 
   const show = e => {
     if (workspaceStatus) {
       workspaceStatus.textContent =
-        e?.message || 'Operazione non riuscita.';
+        e?.message ||
+        'Operazione non riuscita.';
     }
   };
 
   /*
    * Recupera l'eventuale piano scelto prima
    * della registrazione/login.
+   *
+   * Se plan=demo è presente nell'URL,
+   * conserviamo anche l'intenzione nella
+   * sessione corrente.
    */
   function getPlanIntent() {
     const params =
-      new URLSearchParams(location.search);
+      new URLSearchParams(
+        location.search
+      );
 
-    if (params.get('plan') === 'demo') {
+    if (
+      params.get('plan') === 'demo'
+    ) {
       sessionStorage.setItem(
         'linea_plan_intent',
         'demo'
@@ -65,16 +75,18 @@
   }
 
   /*
-   * Imposta correttamente il menu "Il tuo spazio".
+   * Imposta correttamente il menu
+   * "Il tuo spazio".
    *
    * Email non verificata:
    * - Dashboard porta ad Account.
-   * - Il menu resta utilizzabile.
    *
    * Email verificata:
-   * - Dashboard torna a puntare alla Dashboard.
+   * - Dashboard torna alla Dashboard.
    */
-  function configureWorkspaceMenu(verified) {
+  function configureWorkspaceMenu(
+    verified
+  ) {
     const menus =
       document.querySelectorAll(
         '.workspace-menu'
@@ -87,7 +99,9 @@
         ).find(link =>
           link
             .getAttribute('href')
-            ?.includes('dashboard.html')
+            ?.includes(
+              'dashboard.html'
+            )
         );
 
       if (dashboardLink) {
@@ -98,7 +112,9 @@
       }
 
       const summary =
-        menu.querySelector('summary');
+        menu.querySelector(
+          'summary'
+        );
 
       if (
         summary &&
@@ -117,16 +133,18 @@
 
   /*
    * Attiva la Demo soltanto quando:
-   * - l'utente l'aveva richiesta;
-   * - l'email è già verificata.
+   * - l'utente aveva richiesto la Demo;
+   * - l'email è verificata.
    *
-   * Il backend applica comunque i controlli
-   * definitivi sulla durata e sull'utilizzo unico.
+   * Il backend mantiene comunque
+   * il controllo definitivo sull'utilizzo
+   * unico e sulla durata di 7 giorni.
    */
   async function activateRequestedDemo(
     verification
   ) {
-    const intent = getPlanIntent();
+    const intent =
+      getPlanIntent();
 
     if (
       intent !== 'demo' ||
@@ -141,7 +159,10 @@
     }
 
     try {
-      await api('plan-demo', {});
+      await api(
+        'plan-demo',
+        {}
+      );
 
       sessionStorage.removeItem(
         'linea_plan_intent'
@@ -154,58 +175,71 @@
       return true;
     } catch (e) {
       /*
-       * Non cancelliamo l'intenzione se
-       * l'attivazione fallisce.
+       * Se l'attivazione fallisce,
+       * conserviamo l'intenzione Demo.
        */
       show(e);
+
       return false;
     }
   }
 
-  const logout = q('#logout');
+  /*
+   * Logout.
+   */
+  const logout =
+    q('#logout');
 
   if (logout) {
-    logout.onclick = async () => {
-      try {
-        await api('logout', {});
+    logout.onclick =
+      async () => {
+        try {
+          await api(
+            'logout',
+            {}
+          );
 
-        sessionStorage.removeItem(
-          'linea_plan_intent'
-        );
+          sessionStorage.removeItem(
+            'linea_plan_intent'
+          );
 
-        location.assign(
-          '/login.html'
-        );
-      } catch (e) {
-        show(e);
-      }
-    };
+          location.assign(
+            '/login.html'
+          );
+        } catch (e) {
+          show(e);
+        }
+      };
   }
 
+  /*
+   * Inizializzazione dello spazio
+   * aziendale.
+   */
   (async () => {
-    const me = await api('me');
+    const me =
+      await api('me');
 
     /*
-     * Recuperiamo subito lo stato di verifica.
-     * Serve anche per controllare il menu
-     * "Il tuo spazio".
+     * Recuperiamo subito lo stato
+     * di verifica dell'email.
      */
     const verification =
-      await api('email-verification');
+      await api(
+        'email-verification'
+      );
 
     configureWorkspaceMenu(
       verification.verified
     );
 
     /*
-     * Se l'utente non ha verificato l'email
-     * e si trova su una pagina operativa
-     * dello spazio aziendale, lo riportiamo
-     * direttamente alla pagina Account.
+     * Se l'email non è verificata,
+     * le pagine operative non devono
+     * essere accessibili.
      *
-     * Account resta sempre accessibile perché
-     * è proprio lì che deve completare
-     * la verifica.
+     * L'Account resta accessibile
+     * per completare la verifica.
      */
     const currentPage =
       location.pathname
@@ -229,6 +263,7 @@
       location.replace(
         '/account.html'
       );
+
       return;
     }
 
@@ -250,27 +285,56 @@
         resend.disabled =
           verification.verified;
 
-        resend.onclick = async () => {
-          try {
-            await api(
-              'email-verification',
-              {}
-            );
+        resend.onclick =
+          async () => {
+            resend.disabled = true;
 
-            if (workspaceStatus) {
-              workspaceStatus.textContent =
-                'Messaggio di verifica preparato. Controlla la tua email per continuare.';
+            try {
+              /*
+               * Comunichiamo al backend
+               * anche l'eventuale intenzione
+               * di attivare la Demo.
+               *
+               * Il backend potrà così
+               * inserirla nel link contenuto
+               * nell'email di verifica.
+               */
+              await api(
+                'email-verification',
+                {
+                  plan:
+                    getPlanIntent() ===
+                    'demo'
+                      ? 'demo'
+                      : null
+                }
+              );
+
+              if (
+                workspaceStatus
+              ) {
+                workspaceStatus.textContent =
+                  'Email di verifica inviata. ' +
+                  'Controlla la tua casella di posta ' +
+                  'e apri il messaggio “Verifica la tua email — Linea AI”. ' +
+                  'Se non lo trovi, controlla anche Spam, Posta indesiderata, ' +
+                  'Promozioni o altre cartelle. ' +
+                  'La consegna può richiedere qualche minuto.';
+              }
+            } catch (e) {
+              show(e);
+
+              resend.disabled =
+                false;
             }
-          } catch (e) {
-            show(e);
-          }
-        };
+          };
       }
 
       /*
-       * Se l'utente aveva scelto la Demo
-       * e ora l'email è verificata,
-       * attiviamo la Demo e passiamo
+       * Se l'utente aveva richiesto
+       * la Demo e l'email è verificata,
+       * attiviamo automaticamente
+       * i 7 giorni e passiamo
        * alla Dashboard.
        */
       if (
@@ -282,7 +346,9 @@
       }
 
       const state =
-        await api('plan-state');
+        await api(
+          'plan-state'
+        );
 
       const companyReview =
         await api(
@@ -293,12 +359,19 @@
         [
           'Stato azienda',
           ({
-            pending: 'In attesa',
-            under_review: 'In revisione',
-            verified: 'Verificata',
-            rejected: 'Non approvata',
-            suspended: 'Sospesa'
-          })[companyReview.status]
+            pending:
+              'In attesa',
+            under_review:
+              'In revisione',
+            verified:
+              'Verificata',
+            rejected:
+              'Non approvata',
+            suspended:
+              'Sospesa'
+          })[
+            companyReview.status
+          ]
         ],
         [
           'Email account',
@@ -317,11 +390,13 @@
       for (
         const [key, value]
         of Object.entries(
-          state.profile?.data || {}
+          state.profile?.data ||
+            {}
         )
       ) {
         entries.push([
-          state.fields[key] || key,
+          state.fields[key] ||
+            key,
           value
         ]);
       }
@@ -329,36 +404,54 @@
       entries.push([
         'Verifica dei dati',
         ({
-          pending: 'In attesa',
-          verified: 'Approvata',
-          rejected: 'Non approvata',
-          needs_review: 'Da integrare'
-        })[state.profile?.status] ||
+          pending:
+            'In attesa',
+          verified:
+            'Approvata',
+          rejected:
+            'Non approvata',
+          needs_review:
+            'Da integrare'
+        })[
+          state.profile?.status
+        ] ||
           'Dati non ancora presentati'
       ]);
 
-      for (const [key, value] of entries) {
+      for (
+        const [key, value]
+        of entries
+      ) {
         const dt =
-          document.createElement('dt');
+          document.createElement(
+            'dt'
+          );
 
         const dd =
-          document.createElement('dd');
+          document.createElement(
+            'dd'
+          );
 
         dt.textContent = key;
-        dd.textContent = value ?? '';
 
-        q('#account-data').append(
+        dd.textContent =
+          value ?? '';
+
+        q(
+          '#account-data'
+        ).append(
           dt,
           dd
         );
       }
 
       /*
-       * Demo richiesta ma email non ancora
-       * verificata.
+       * Demo richiesta ma email
+       * non ancora verificata.
        */
       if (
-        getPlanIntent() === 'demo' &&
+        getPlanIntent() ===
+          'demo' &&
         !verification.verified &&
         workspaceStatus
       ) {
@@ -372,7 +465,9 @@
      */
     if (q('#wallet-form')) {
       const state =
-        await api('plan-state');
+        await api(
+          'plan-state'
+        );
 
       q(
         '#wallet-state'
@@ -382,22 +477,35 @@
           : 'Attiva prima un piano per associargli un metodo di pagamento.';
 
       for (
-        const m of state.methods.filter(
+        const m
+        of state.methods.filter(
           m => m.recurring
         )
       ) {
         const o =
-          document.createElement('option');
+          document.createElement(
+            'option'
+          );
 
-        o.value = m.code;
-        o.textContent = m.label;
+        o.value =
+          m.code;
 
-        q('#wallet-method').append(o);
+        o.textContent =
+          m.label;
+
+        q(
+          '#wallet-method'
+        ).append(o);
       }
 
-      if (state.subscription) {
-        q('#wallet-method').value =
-          state.subscription.method_kind;
+      if (
+        state.subscription
+      ) {
+        q(
+          '#wallet-method'
+        ).value =
+          state.subscription
+            .method_kind;
       }
 
       q(
@@ -405,7 +513,9 @@
       ).disabled =
         !state.subscription;
 
-      q('#wallet-form').onsubmit =
+      q(
+        '#wallet-form'
+      ).onsubmit =
         async e => {
           e.preventDefault();
 
@@ -420,7 +530,9 @@
               }
             );
 
-            if (workspaceStatus) {
+            if (
+              workspaceStatus
+            ) {
               workspaceStatus.textContent =
                 'Metodo simulato aggiornato. Nessun addebito reale.';
             }

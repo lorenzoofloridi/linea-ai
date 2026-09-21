@@ -98,7 +98,9 @@ function planAmount(code, period) {
     !plan.available ||
     !["monthly", "annual"].includes(period)
   ) {
-    throw new Error("Piano o periodo non disponibile.");
+    throw new Error(
+      "Piano o periodo non disponibile."
+    );
   }
 
   return period === "monthly"
@@ -209,7 +211,9 @@ async function passwordHash(
 }
 
 async function passwordMatches(password, stored) {
-  if (typeof stored !== "string") return false;
+  if (typeof stored !== "string") {
+    return false;
+  }
 
   const parts = stored.split(":");
 
@@ -236,14 +240,18 @@ async function passwordMatches(password, stored) {
 }
 
 function readCookie(request, name) {
-  const raw = request.headers.get("cookie") || "";
+  const raw =
+    request.headers.get("cookie") || "";
 
   for (const part of raw.split(";")) {
     const index = part.indexOf("=");
 
-    if (index === -1) continue;
+    if (index === -1) {
+      continue;
+    }
 
-    const key = part.slice(0, index).trim();
+    const key =
+      part.slice(0, index).trim();
 
     if (key === name) {
       return decodeURIComponent(
@@ -257,7 +265,10 @@ function readCookie(request, name) {
 
 function sessionCookie(
   value,
-  { clear = false, remember = false } = {}
+  {
+    clear = false,
+    remember = false
+  } = {}
 ) {
   let cookie =
     `${SESSION_COOKIE}=${encodeURIComponent(value)}` +
@@ -274,21 +285,33 @@ function sessionCookie(
 
 async function requestBody(request) {
   const type =
-    (request.headers.get("content-type") || "")
+    (
+      request.headers.get(
+        "content-type"
+      ) || ""
+    )
       .split(";")[0]
       .trim();
 
   if (type !== "application/json") {
-    throw new Error("Formato non valido.");
+    throw new Error(
+      "Formato non valido."
+    );
   }
 
-  const raw = await request.text();
+  const raw =
+    await request.text();
 
   if (
     !raw ||
-    Buffer.byteLength(raw, "utf8") > 32000
+    Buffer.byteLength(
+      raw,
+      "utf8"
+    ) > 32000
   ) {
-    throw new Error("Richiesta troppo grande.");
+    throw new Error(
+      "Richiesta troppo grande."
+    );
   }
 
   let body;
@@ -296,7 +319,9 @@ async function requestBody(request) {
   try {
     body = JSON.parse(raw);
   } catch {
-    throw new Error("Richiesta non valida.");
+    throw new Error(
+      "Richiesta non valida."
+    );
   }
 
   if (
@@ -304,7 +329,9 @@ async function requestBody(request) {
     typeof body !== "object" ||
     Array.isArray(body)
   ) {
-    throw new Error("Formato non valido.");
+    throw new Error(
+      "Formato non valido."
+    );
   }
 
   return body;
@@ -316,12 +343,16 @@ function text(
   maximum = 200,
   required = true
 ) {
-  const value = body[key] ?? "";
+  const value =
+    body[key] ?? "";
 
   if (
     typeof value !== "string" ||
     value.length > maximum ||
-    (required && !value.trim())
+    (
+      required &&
+      !value.trim()
+    )
   ) {
     throw new Error(
       "Controlla i campi richiesti."
@@ -340,7 +371,11 @@ async function createSession(
 
   const expires =
     Date.now() / 1000 +
-    (remember ? 30 * 86400 : 8 * 3600);
+    (
+      remember
+        ? 30 * 86400
+        : 8 * 3600
+    );
 
   await client.query(
     "DELETE FROM auth_sessions WHERE expires < $1",
@@ -350,41 +385,57 @@ async function createSession(
   await client.query(
     `INSERT INTO auth_sessions(hash,user_id,expires)
      VALUES ($1,$2,$3)`,
-    [digest(value), userId, expires]
+    [
+      digest(value),
+      userId,
+      expires
+    ]
   );
 
   return value;
 }
 
-async function principal(db, request) {
-  const value = readCookie(
-    request,
-    SESSION_COOKIE
-  );
+async function principal(
+  db,
+  request
+) {
+  const value =
+    readCookie(
+      request,
+      SESSION_COOKIE
+    );
 
-  if (!value) return null;
+  if (!value) {
+    return null;
+  }
 
-  const result = await db.pool.query(
-    `SELECT u.id,u.company_id,u.email
-       FROM auth_sessions s
-       JOIN users u ON s.user_id=u.id
-      WHERE s.hash=$1 AND s.expires>$2`,
-    [
-      digest(value),
-      Date.now() / 1000
-    ]
-  );
+  const result =
+    await db.pool.query(
+      `SELECT u.id,u.company_id,u.email
+         FROM auth_sessions s
+         JOIN users u ON s.user_id=u.id
+        WHERE s.hash=$1
+          AND s.expires>$2`,
+      [
+        digest(value),
+        Date.now() / 1000
+      ]
+    );
 
   return result.rows[0] || null;
 }
 
-async function emailVerified(db, userId) {
-  const result = await db.pool.query(
-    `SELECT verified_at
-       FROM email_verification
-      WHERE user_id=$1`,
-    [userId]
-  );
+async function emailVerified(
+  db,
+  userId
+) {
+  const result =
+    await db.pool.query(
+      `SELECT verified_at
+         FROM email_verification
+        WHERE user_id=$1`,
+      [userId]
+    );
 
   return Boolean(
     result.rows[0]?.verified_at
@@ -394,9 +445,15 @@ async function emailVerified(db, userId) {
 async function requestEmailVerification(
   db,
   user,
-  baseUrl
+  baseUrl,
+  plan = null
 ) {
-  if (await emailVerified(db, user.id)) {
+  if (
+    await emailVerified(
+      db,
+      user.id
+    )
+  ) {
     return;
   }
 
@@ -409,11 +466,24 @@ async function requestEmailVerification(
     );
   }
 
+  /*
+   * Accettiamo esclusivamente l'intenzione
+   * Demo. Qualsiasi altro valore viene
+   * ignorato.
+   */
+  const requestedPlan =
+    plan === "demo"
+      ? "demo"
+      : null;
+
   const value = token();
-  const tokenHash = digest(value);
+
+  const tokenHash =
+    digest(value);
 
   const expires =
-    Date.now() / 1000 + 86400;
+    Date.now() / 1000 +
+    86400;
 
   const eventKey =
     `verify:${tokenHash}`;
@@ -421,8 +491,19 @@ async function requestEmailVerification(
   const subject =
     "Verifica la tua email — Linea AI";
 
+  /*
+   * Se l'utente stava attivando la Demo,
+   * l'informazione viaggia nel link email.
+   *
+   * Il token resta nel fragment (#TOKEN),
+   * quindi non viene inviato al server
+   * come parte della normale richiesta
+   * della pagina HTML.
+   */
   const verificationUrl =
-    `${baseUrl}/verifica-email.html#${value}`;
+    requestedPlan === "demo"
+      ? `${baseUrl}/verifica-email.html?plan=demo#${value}`
+      : `${baseUrl}/verifica-email.html#${value}`;
 
   const body =
     "Conferma il tuo indirizzo aprendo questo link entro 24 ore:\n" +
@@ -430,21 +511,24 @@ async function requestEmailVerification(
     "\nSe non hai creato un account, ignora il messaggio.";
 
   const html =
-    `<p>Conferma il tuo indirizzo aprendo questo link entro 24 ore:</p>` +
+    "<p>Conferma il tuo indirizzo aprendo questo link entro 24 ore:</p>" +
     `<p><a href="${verificationUrl}">Verifica il tuo indirizzo email</a></p>` +
-    `<p>Se non hai creato un account, ignora il messaggio.</p>`;
+    "<p>Se non hai creato un account, ignora il messaggio.</p>";
 
-  const outboxId = token();
+  const outboxId =
+    token();
 
   /*
-   * Salviamo prima il token e registriamo
+   * Prima salviamo il token e registriamo
    * l'email come in attesa di invio.
    */
   const client =
     await db.pool.connect();
 
   try {
-    await client.query("BEGIN");
+    await client.query(
+      "BEGIN"
+    );
 
     await client.query(
       `DELETE FROM email_verification_tokens
@@ -501,9 +585,14 @@ async function requestEmailVerification(
       ]
     );
 
-    await client.query("COMMIT");
+    await client.query(
+      "COMMIT"
+    );
   } catch (error) {
-    await client.query("ROLLBACK");
+    await client.query(
+      "ROLLBACK"
+    );
+
     throw error;
   } finally {
     client.release();
@@ -513,8 +602,8 @@ async function requestEmailVerification(
    * Invio reale tramite Resend.
    *
    * Finché linea-ai.it non sarà acquistato
-   * e verificato su Resend utilizziamo
-   * il mittente di test.
+   * e verificato utilizziamo il mittente
+   * di test fornito da Resend.
    */
   try {
     await db.pool.query(
@@ -533,22 +622,30 @@ async function requestEmailVerification(
         "https://api.resend.com/emails",
         {
           method: "POST",
+
           headers: {
             "Authorization":
               `Bearer ${resendApiKey}`,
+
             "Content-Type":
               "application/json",
+
             "Idempotency-Key":
               eventKey
           },
+
           body: JSON.stringify({
             from:
               "Linea AI <onboarding@resend.dev>",
+
             to: [
               user.email
             ],
+
             subject,
+
             text: body,
+
             html
           })
         }
@@ -565,7 +662,8 @@ async function requestEmailVerification(
 
     if (!response.ok) {
       const message =
-        typeof result?.message === "string"
+        typeof result?.message ===
+        "string"
           ? result.message
           : "Invio email non riuscito.";
 
@@ -576,7 +674,10 @@ async function requestEmailVerification(
           WHERE id=$3`,
         [
           "uncertain",
-          message.slice(0, 1000),
+          message.slice(
+            0,
+            1000
+          ),
           outboxId
         ]
       );
@@ -610,7 +711,10 @@ async function requestEmailVerification(
         String(
           error?.message ||
           "Invio email non riuscito."
-        ).slice(0, 1000),
+        ).slice(
+          0,
+          1000
+        ),
         outboxId,
         "sent"
       ]
@@ -638,21 +742,25 @@ async function verifyEmailToken(
     await db.pool.connect();
 
   try {
-    await client.query("BEGIN");
-
-    const result = await client.query(
-      `SELECT user_id
-         FROM email_verification_tokens
-        WHERE hash=$1
-          AND expires>$2
-        FOR UPDATE`,
-      [
-        digest(value),
-        Date.now() / 1000
-      ]
+    await client.query(
+      "BEGIN"
     );
 
-    const row = result.rows[0];
+    const result =
+      await client.query(
+        `SELECT user_id
+           FROM email_verification_tokens
+          WHERE hash=$1
+            AND expires>$2
+          FOR UPDATE`,
+        [
+          digest(value),
+          Date.now() / 1000
+        ]
+      );
+
+    const row =
+      result.rows[0];
 
     if (!row) {
       throw new Error(
@@ -679,9 +787,14 @@ async function verifyEmailToken(
       [row.user_id]
     );
 
-    await client.query("COMMIT");
+    await client.query(
+      "COMMIT"
+    );
   } catch (error) {
-    await client.query("ROLLBACK");
+    await client.query(
+      "ROLLBACK"
+    );
+
     throw error;
   } finally {
     client.release();
@@ -692,12 +805,13 @@ async function companyVerificationStatus(
   db,
   companyId
 ) {
-  const result = await db.pool.query(
-    `SELECT status
-       FROM company_verification
-      WHERE company_id=$1`,
-    [companyId]
-  );
+  const result =
+    await db.pool.query(
+      `SELECT status
+         FROM company_verification
+        WHERE company_id=$1`,
+      [companyId]
+    );
 
   return (
     result.rows[0]?.status ||
@@ -709,18 +823,19 @@ async function companyVerificationHistory(
   db,
   companyId
 ) {
-  const result = await db.pool.query(
-    `SELECT
-       actor,
-       previous,
-       status,
-       reason,
-       created_at
-     FROM company_verification_audit
-     WHERE company_id=$1
-     ORDER BY id`,
-    [companyId]
-  );
+  const result =
+    await db.pool.query(
+      `SELECT
+         actor,
+         previous,
+         status,
+         reason,
+         created_at
+       FROM company_verification_audit
+       WHERE company_id=$1
+       ORDER BY id`,
+      [companyId]
+    );
 
   return result.rows;
 }
@@ -737,7 +852,10 @@ async function planEntitlements(
     );
 
   if (
-    ["suspended", "rejected"].includes(
+    [
+      "suspended",
+      "rejected"
+    ].includes(
       companyStatus
     )
   ) {
@@ -753,7 +871,8 @@ async function planEntitlements(
     );
 
   const subscription =
-    subscriptionResult.rows[0] || null;
+    subscriptionResult.rows[0] ||
+    null;
 
   const demoResult =
     await db.pool.query(
@@ -768,14 +887,19 @@ async function planEntitlements(
     );
 
   const demoActive =
-    Boolean(demoResult.rows[0]);
+    Boolean(
+      demoResult.rows[0]
+    );
 
   const subscriptionActive =
     Boolean(
       subscription &&
       (
         (
-          ["trial", "active"].includes(
+          [
+            "trial",
+            "active"
+          ].includes(
             subscription.status
           ) &&
           Number(
@@ -786,7 +910,8 @@ async function planEntitlements(
           subscription.status ===
             "past_due" &&
           Number(
-            subscription.grace_until || 0
+            subscription.grace_until ||
+            0
           ) > stamp
         )
       )
@@ -795,16 +920,24 @@ async function planEntitlements(
   const plan =
     subscriptionActive
       ? subscription.plan
-      : demoActive && !subscription
+      : demoActive &&
+          !subscription
         ? "demo"
         : null;
 
   return plan
-    ? { ...PLAN_ENTITLEMENTS[plan] }
+    ? {
+        ...PLAN_ENTITLEMENTS[
+          plan
+        ]
+      }
     : {};
 }
 
-async function planState(db, user) {
+async function planState(
+  db,
+  user
+) {
   const stamp =
     Date.now() / 1000;
 
@@ -851,21 +984,27 @@ async function planState(db, user) {
   ]);
 
   const profile =
-    profileResult.rows[0] || null;
+    profileResult.rows[0] ||
+    null;
 
   return {
     demo:
-      demoResult.rows[0] || null,
+      demoResult.rows[0] ||
+      null,
 
-    profile: profile
-      ? {
-          data: profile.data,
-          status: profile.status
-        }
-      : null,
+    profile:
+      profile
+        ? {
+            data:
+              profile.data,
+            status:
+              profile.status
+          }
+        : null,
 
     subscription:
-      subscriptionResult.rows[0] || null,
+      subscriptionResult.rows[0] ||
+      null,
 
     company_status:
       await companyVerificationStatus(
@@ -873,9 +1012,11 @@ async function planState(db, user) {
         user.company_id
       ),
 
-    events: eventsResult.rows,
+    events:
+      eventsResult.rows,
 
-    mode: "mock",
+    mode:
+      "mock",
 
     entitlements:
       await planEntitlements(
@@ -884,15 +1025,25 @@ async function planState(db, user) {
         stamp
       ),
 
-    grace_days: GRACE_DAYS,
+    grace_days:
+      GRACE_DAYS,
 
-    fields: PROFILE_FIELDS,
+    fields:
+      PROFILE_FIELDS,
 
     methods:
       Object.entries(
         PAYMENT_METHODS
       ).map(
-        ([code, [label, recurring]]) => ({
+        (
+          [
+            code,
+            [
+              label,
+              recurring
+            ]
+          ]
+        ) => ({
           code,
           label,
           recurring
@@ -901,15 +1052,29 @@ async function planState(db, user) {
   };
 }
 
-async function register(db, body) {
+async function register(
+  db,
+  body
+) {
   const email =
-    text(body, "email").toLowerCase();
+    text(
+      body,
+      "email"
+    ).toLowerCase();
 
   const password =
-    text(body, "password", 256);
+    text(
+      body,
+      "password",
+      256
+    );
 
   const companyName =
-    text(body, "company", 120);
+    text(
+      body,
+      "company",
+      120
+    );
 
   if (
     !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
@@ -922,7 +1087,9 @@ async function register(db, body) {
     );
   }
 
-  if (password.length < 12) {
+  if (
+    password.length < 12
+  ) {
     throw new Error(
       "Scegli una password di almeno 12 caratteri."
     );
@@ -950,7 +1117,9 @@ async function register(db, body) {
     await db.pool.connect();
 
   try {
-    await client.query("BEGIN");
+    await client.query(
+      "BEGIN"
+    );
 
     const existing =
       await client.query(
@@ -960,18 +1129,27 @@ async function register(db, body) {
         [email]
       );
 
-    if (existing.rowCount) {
+    if (
+      existing.rowCount
+    ) {
       throw new Error(
         "Registrazione non disponibile con questi dati. Prova ad accedere."
       );
     }
 
-    const companyId = token();
-    const userId = token();
-    const publicId = token();
+    const companyId =
+      token();
+
+    const userId =
+      token();
+
+    const publicId =
+      token();
 
     const encodedPassword =
-      await passwordHash(password);
+      await passwordHash(
+        password
+      );
 
     await client.query(
       `INSERT INTO companies
@@ -981,7 +1159,9 @@ async function register(db, body) {
         companyId,
         publicId,
         JSON.stringify(
-          defaultConfig(companyName)
+          defaultConfig(
+            companyName
+          )
         ),
         new Date().toISOString()
       ]
@@ -1020,7 +1200,8 @@ async function register(db, body) {
         userId,
         "local-2026-09-19",
         "local-2026-09-19",
-        body.marketing === true,
+        body.marketing ===
+          true,
         new Date().toISOString()
       ]
     );
@@ -1032,7 +1213,9 @@ async function register(db, body) {
         false
       );
 
-    await client.query("COMMIT");
+    await client.query(
+      "COMMIT"
+    );
 
     return {
       session,
@@ -1043,7 +1226,10 @@ async function register(db, body) {
       "ROLLBACK"
     );
 
-    if (error?.code === "23505") {
+    if (
+      error?.code ===
+      "23505"
+    ) {
       throw new Error(
         "Registrazione non disponibile con questi dati. Prova ad accedere."
       );
@@ -1055,14 +1241,26 @@ async function register(db, body) {
   }
 }
 
-async function login(db, body) {
+async function login(
+  db,
+  body
+) {
   const email =
-    text(body, "email").toLowerCase();
+    text(
+      body,
+      "email"
+    ).toLowerCase();
 
   const password =
-    text(body, "password", 256);
+    text(
+      body,
+      "password",
+      256
+    );
 
-  if (password.length > 256) {
+  if (
+    password.length > 256
+  ) {
     throw new Error(
       "Email o password non corrette."
     );
@@ -1076,14 +1274,17 @@ async function login(db, body) {
       [email]
     );
 
-  const user = result.rows[0];
+  const user =
+    result.rows[0];
 
   if (
     !user ||
-    !(await passwordMatches(
-      password,
-      user.password
-    ))
+    !(
+      await passwordMatches(
+        password,
+        user.password
+      )
+    )
   ) {
     throw new Error(
       "Email o password non corrette."
@@ -1104,7 +1305,10 @@ async function login(db, body) {
           user.id,
           remember
         ),
-      userId: user.id,
+
+      userId:
+        user.id,
+
       remember
     };
   } finally {
@@ -1117,7 +1321,9 @@ export default async (
   context = {}
 ) => {
   const url =
-    new URL(request.url);
+    new URL(
+      request.url
+    );
 
   const path =
     url.pathname;
@@ -1126,7 +1332,8 @@ export default async (
     request.method.toUpperCase();
 
   try {
-    const db = getDatabase();
+    const db =
+      getDatabase();
 
     if (
       path === "/api/health" &&
@@ -1150,15 +1357,21 @@ export default async (
       method === "POST"
     ) {
       const body =
-        await requestBody(request);
+        await requestBody(
+          request
+        );
 
       const result =
-        await register(db, body);
+        await register(
+          db,
+          body
+        );
 
       return json(
         {
           ok: true,
-          redirect: "/account.html"
+          redirect:
+            "/account.html"
         },
         200,
         {
@@ -1175,10 +1388,15 @@ export default async (
       method === "POST"
     ) {
       const body =
-        await requestBody(request);
+        await requestBody(
+          request
+        );
 
       const result =
-        await login(db, body);
+        await login(
+          db,
+          body
+        );
 
       const verified =
         await emailVerified(
@@ -1189,9 +1407,11 @@ export default async (
       return json(
         {
           ok: true,
-          redirect: verified
-            ? "/#contatti"
-            : "/account.html"
+
+          redirect:
+            verified
+              ? "/#contatti"
+              : "/account.html"
         },
         200,
         {
@@ -1221,18 +1441,24 @@ export default async (
         await db.pool.query(
           `DELETE FROM auth_sessions
             WHERE hash=$1`,
-          [digest(value)]
+          [
+            digest(value)
+          ]
         );
       }
 
       return json(
-        { ok: true },
+        {
+          ok: true
+        },
         200,
         {
           "Set-Cookie":
             sessionCookie(
               "",
-              { clear: true }
+              {
+                clear: true
+              }
             )
         }
       );
@@ -1263,7 +1489,9 @@ export default async (
           `SELECT id,public_id,config
              FROM companies
             WHERE id=$1`,
-          [user.company_id]
+          [
+            user.company_id
+          ]
         );
 
       const company =
@@ -1280,14 +1508,20 @@ export default async (
       }
 
       return json({
-        email: user.email,
+        email:
+          user.email,
+
         company: {
-          id: company.id,
+          id:
+            company.id,
+
           public_id:
             company.public_id,
+
           config:
             company.config
         },
+
         email_verified:
           await emailVerified(
             db,
@@ -1299,7 +1533,10 @@ export default async (
     if (
       path ===
         "/api/email-verification" &&
-      ["GET", "POST"].includes(
+      [
+        "GET",
+        "POST"
+      ].includes(
         method
       )
     ) {
@@ -1321,15 +1558,32 @@ export default async (
 
       if (
         method === "POST" &&
-        !(await emailVerified(
-          db,
-          user.id
-        ))
+        !(
+          await emailVerified(
+            db,
+            user.id
+          )
+        )
       ) {
+        const body =
+          await requestBody(
+            request
+          );
+
+        /*
+         * Accettiamo esclusivamente Demo.
+         * Qualunque altro valore viene ignorato.
+         */
+        const requestedPlan =
+          body.plan === "demo"
+            ? "demo"
+            : null;
+
         await requestEmailVerification(
           db,
           user,
-          url.origin
+          url.origin,
+          requestedPlan
         );
       }
 
@@ -1348,7 +1602,9 @@ export default async (
       method === "POST"
     ) {
       const body =
-        await requestBody(request);
+        await requestBody(
+          request
+        );
 
       const verificationToken =
         text(
@@ -1393,8 +1649,13 @@ export default async (
       const cards = [];
 
       for (
-        const [code, plan]
-        of Object.entries(PLANS)
+        const [
+          code,
+          plan
+        ]
+        of Object.entries(
+          PLANS
+        )
       ) {
         if (
           code === "demo" &&
@@ -1414,22 +1675,30 @@ export default async (
         cards.push({
           code,
           ...plan,
+
           annual_cents:
             annualCents,
+
           annual_monthly_cents:
             annualCents === null
               ? null
               : Math.floor(
-                  annualCents / 12
+                  annualCents /
+                  12
                 )
         });
       }
 
       return json({
-        authenticated: true,
-        plans: cards,
+        authenticated:
+          true,
+
+        plans:
+          cards,
+
         discount:
           PLAN_DISCOUNT,
+
         ...current
       });
     }
@@ -1461,6 +1730,7 @@ export default async (
             db,
             user.company_id
           ),
+
         history:
           await companyVerificationHistory(
             db,
@@ -1470,7 +1740,8 @@ export default async (
     }
 
     if (
-      path === "/api/plan-demo" &&
+      path ===
+        "/api/plan-demo" &&
       method === "POST"
     ) {
       const user =
@@ -1490,10 +1761,12 @@ export default async (
       }
 
       if (
-        !(await emailVerified(
-          db,
-          user.id
-        ))
+        !(
+          await emailVerified(
+            db,
+            user.id
+          )
+        )
       ) {
         return json(
           {
@@ -1516,7 +1789,9 @@ export default async (
           ]
         );
 
-      if (existing.rowCount) {
+      if (
+        existing.rowCount
+      ) {
         return json(
           {
             error:
@@ -1529,6 +1804,10 @@ export default async (
       const started =
         Date.now() / 1000;
 
+      /*
+       * La Demo scade esattamente
+       * 7 giorni dopo l'attivazione.
+       */
       const ends =
         started +
         7 * 24 * 60 * 60;
@@ -1547,7 +1826,8 @@ export default async (
         );
       } catch (error) {
         if (
-          error?.code === "23505"
+          error?.code ===
+          "23505"
         ) {
           return json(
             {
@@ -1604,7 +1884,9 @@ export default async (
         request,
         db,
         principal,
-        { context }
+        {
+          context
+        }
       );
 
     if (chatResponse) {
@@ -1619,9 +1901,14 @@ export default async (
       404
     );
   } catch (error) {
-    if (error.httpStatus) {
+    if (
+      error.httpStatus
+    ) {
       return json(
-        { error: error.message },
+        {
+          error:
+            error.message
+        },
         error.httpStatus
       );
     }
