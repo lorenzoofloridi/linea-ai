@@ -45,9 +45,6 @@
   /*
    * Recupera l'eventuale piano scelto prima
    * della registrazione/login.
-   *
-   * Per la Demo l'informazione può arrivare
-   * sia dall'URL ?plan=demo sia da sessionStorage.
    */
   function getPlanIntent() {
     const params =
@@ -68,12 +65,63 @@
   }
 
   /*
+   * Imposta correttamente il menu "Il tuo spazio".
+   *
+   * Email non verificata:
+   * - Dashboard porta ad Account.
+   * - Il menu resta utilizzabile.
+   *
+   * Email verificata:
+   * - Dashboard torna a puntare alla Dashboard.
+   */
+  function configureWorkspaceMenu(verified) {
+    const menus =
+      document.querySelectorAll(
+        '.workspace-menu'
+      );
+
+    for (const menu of menus) {
+      const dashboardLink =
+        Array.from(
+          menu.querySelectorAll('a')
+        ).find(link =>
+          link
+            .getAttribute('href')
+            ?.includes('dashboard.html')
+        );
+
+      if (dashboardLink) {
+        dashboardLink.href =
+          verified
+            ? '/dashboard.html'
+            : '/account.html';
+      }
+
+      const summary =
+        menu.querySelector('summary');
+
+      if (
+        summary &&
+        !verified
+      ) {
+        summary.onclick = event => {
+          event.preventDefault();
+
+          location.assign(
+            '/account.html'
+          );
+        };
+      }
+    }
+  }
+
+  /*
    * Attiva la Demo soltanto quando:
    * - l'utente l'aveva richiesta;
    * - l'email è già verificata.
    *
-   * Il backend continua ad applicare i controlli
-   * definitivi: una sola Demo e durata 7 giorni.
+   * Il backend applica comunque i controlli
+   * definitivi sulla durata e sull'utilizzo unico.
    */
   async function activateRequestedDemo(
     verification
@@ -99,14 +147,15 @@
         'linea_plan_intent'
       );
 
-      location.assign('/dashboard.html');
+      location.assign(
+        '/dashboard.html'
+      );
 
       return true;
     } catch (e) {
       /*
        * Non cancelliamo l'intenzione se
-       * l'attivazione fallisce: così non perdiamo
-       * il percorso dell'utente.
+       * l'attivazione fallisce.
        */
       show(e);
       return false;
@@ -120,14 +169,13 @@
       try {
         await api('logout', {});
 
-        /*
-         * Il logout conclude il percorso corrente.
-         */
         sessionStorage.removeItem(
           'linea_plan_intent'
         );
 
-        location.assign('/login.html');
+        location.assign(
+          '/login.html'
+        );
       } catch (e) {
         show(e);
       }
@@ -138,12 +186,56 @@
     const me = await api('me');
 
     /*
+     * Recuperiamo subito lo stato di verifica.
+     * Serve anche per controllare il menu
+     * "Il tuo spazio".
+     */
+    const verification =
+      await api('email-verification');
+
+    configureWorkspaceMenu(
+      verification.verified
+    );
+
+    /*
+     * Se l'utente non ha verificato l'email
+     * e si trova su una pagina operativa
+     * dello spazio aziendale, lo riportiamo
+     * direttamente alla pagina Account.
+     *
+     * Account resta sempre accessibile perché
+     * è proprio lì che deve completare
+     * la verifica.
+     */
+    const currentPage =
+      location.pathname
+        .split('/')
+        .pop()
+        .toLowerCase();
+
+    const protectedWorkspacePages =
+      new Set([
+        'dashboard.html',
+        'portafoglio.html',
+        'supporto.html'
+      ]);
+
+    if (
+      !verification.verified &&
+      protectedWorkspacePages.has(
+        currentPage
+      )
+    ) {
+      location.replace(
+        '/account.html'
+      );
+      return;
+    }
+
+    /*
      * PAGINA ACCOUNT
      */
     if (q('#account-data')) {
-      const verification =
-        await api('email-verification');
-
       q(
         '#email-verified-state'
       ).textContent =
@@ -154,13 +246,32 @@
       const resend =
         q('#resend-verification');
 
-      resend.disabled =
-        verification.verified;
+      if (resend) {
+        resend.disabled =
+          verification.verified;
+
+        resend.onclick = async () => {
+          try {
+            await api(
+              'email-verification',
+              {}
+            );
+
+            if (workspaceStatus) {
+              workspaceStatus.textContent =
+                'Messaggio di verifica preparato. Controlla la tua email per continuare.';
+            }
+          } catch (e) {
+            show(e);
+          }
+        };
+      }
 
       /*
-       * Se l'utente era arrivato dalla Demo
-       * e l'email risulta già verificata,
-       * possiamo attivarla immediatamente.
+       * Se l'utente aveva scelto la Demo
+       * e ora l'email è verificata,
+       * attiviamo la Demo e passiamo
+       * alla Dashboard.
        */
       if (
         await activateRequestedDemo(
@@ -169,22 +280,6 @@
       ) {
         return;
       }
-
-      resend.onclick = async () => {
-        try {
-          await api(
-            'email-verification',
-            {}
-          );
-
-          if (workspaceStatus) {
-            workspaceStatus.textContent =
-              'Messaggio di verifica preparato. Controlla la tua email per continuare.';
-          }
-        } catch (e) {
-          show(e);
-        }
-      };
 
       const state =
         await api('plan-state');
@@ -259,9 +354,8 @@
       }
 
       /*
-       * Se l'utente aveva richiesto la Demo
-       * ma deve ancora verificare l'email,
-       * glielo diciamo chiaramente.
+       * Demo richiesta ma email non ancora
+       * verificata.
        */
       if (
         getPlanIntent() === 'demo' &&

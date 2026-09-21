@@ -20,26 +20,49 @@ async function request(path, data) {
     data
       ? {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify(data)
         }
       : {}
   );
 
-  const d = await r.json();
+  let d = {};
+
+  try {
+    d = await r.json();
+  } catch {
+    d = {};
+  }
 
   if (r.status === 401) {
     location.replace('/login.html');
     throw Error('Sessione scaduta.');
   }
 
+  /*
+   * Un 402 significa che l'account è autenticato
+   * ma non dispone di un piano/Demo operativo.
+   *
+   * La verifica dell'email viene controllata
+   * separatamente prima di inizializzare
+   * la Dashboard.
+   */
   if (r.status === 402) {
-    location.assign('/#contatti');
-    throw Error(d.error);
+    location.replace('/#contatti');
+
+    throw Error(
+      d.error ||
+      'Attiva un piano per continuare.'
+    );
   }
 
   if (!r.ok) {
-    throw Error(d.error || 'Operazione non riuscita.');
+    throw Error(
+      d.error ||
+      'Operazione non riuscita.'
+    );
   }
 
   return d;
@@ -60,21 +83,33 @@ const node = (tag, text, className) => {
 };
 
 function date(s) {
-  return new Intl.DateTimeFormat('it-IT', {
-    dateStyle: 'short',
-    timeStyle: 'short',
-    timeZone: 'Europe/Rome'
-  }).format(new Date(s));
+  return new Intl.DateTimeFormat(
+    'it-IT',
+    {
+      dateStyle: 'short',
+      timeStyle: 'short',
+      timeZone: 'Europe/Rome'
+    }
+  ).format(new Date(s));
 }
 
 function showMessages(messages) {
   $('#detail-messages').replaceChildren();
 
   for (const m of messages) {
-    const div = node('div', undefined, 'dialog-message');
+    const div = node(
+      'div',
+      undefined,
+      'dialog-message'
+    );
 
     div.append(
-      node('strong', m.role === 'user' ? 'Cliente' : 'Assistente'),
+      node(
+        'strong',
+        m.role === 'user'
+          ? 'Cliente'
+          : 'Assistente'
+      ),
       node('p', m.content)
     );
 
@@ -84,9 +119,14 @@ function showMessages(messages) {
 
 async function openLead(id) {
   try {
-    const d = await request('leads/' + encodeURIComponent(id));
+    const d = await request(
+      'leads/' +
+      encodeURIComponent(id)
+    );
 
-    selectedConversation = d.conversation_id;
+    selectedConversation =
+      d.conversation_id;
+
     selectedLead = id;
 
     $('#detail-title').textContent =
@@ -104,7 +144,8 @@ async function openLead(id) {
 
     $('#lead-detail').showModal();
   } catch (e) {
-    $('#dash-status').textContent = e.message;
+    $('#dash-status').textContent =
+      e.message;
   }
 }
 
@@ -112,64 +153,100 @@ async function refresh() {
   const d = await request('leads');
 
   $('#lead-rows').replaceChildren();
-  $('#no-leads').hidden = d.leads.length > 0;
+
+  $('#no-leads').hidden =
+    d.leads.length > 0;
 
   for (const l of d.leads) {
     const row = node('tr');
 
     for (const value of [
-      (l.kind === 'test'
-        ? 'TEST · '
-        : l.kind === 'public_demo'
-          ? 'DEMO · '
-          : '') + (l.data.nome || '—'),
+      (
+        l.kind === 'test'
+          ? 'TEST · '
+          : l.kind === 'public_demo'
+            ? 'DEMO · '
+            : ''
+      ) +
+        (l.data.nome || '—'),
+
       l.data.telefono || '—',
+
       l.data.interesse || '—',
+
       date(l.created_at)
     ]) {
-      row.append(node('td', value));
+      row.append(
+        node('td', value)
+      );
     }
 
     const cell = node('td');
-    const select = node('select', undefined, 'status-select');
+
+    const select = node(
+      'select',
+      undefined,
+      'status-select'
+    );
 
     select.setAttribute(
       'aria-label',
-      'Stato della richiesta di ' + (l.data.nome || 'cliente')
+      'Stato della richiesta di ' +
+        (l.data.nome || 'cliente')
     );
 
     for (const status of states) {
-      const option = node('option', status);
+      const option =
+        node('option', status);
+
       option.value = status;
+
       select.append(option);
     }
 
     select.value = l.status;
 
-    select.addEventListener('change', async () => {
-      select.disabled = true;
+    select.addEventListener(
+      'change',
+      async () => {
+        select.disabled = true;
 
-      try {
-        await request(
-          'leads/' + encodeURIComponent(l.id),
-          { status: select.value }
-        );
+        try {
+          await request(
+            'leads/' +
+              encodeURIComponent(
+                l.id
+              ),
+            {
+              status:
+                select.value
+            }
+          );
 
-        l.status = select.value;
-        $('#dash-status').textContent = 'Stato aggiornato.';
-      } catch (e) {
-        select.value = l.status;
-        $('#dash-status').textContent = e.message;
-      } finally {
-        select.disabled = false;
+          l.status =
+            select.value;
+
+          $('#dash-status').textContent =
+            'Stato aggiornato.';
+        } catch (e) {
+          select.value =
+            l.status;
+
+          $('#dash-status').textContent =
+            e.message;
+        } finally {
+          select.disabled = false;
+        }
       }
-    });
+    );
 
     cell.append(select);
     row.append(cell);
 
     const action = node('td');
-    const button = node('button', 'Apri');
+
+    const button =
+      node('button', 'Apri');
 
     button.addEventListener(
       'click',
@@ -184,9 +261,11 @@ async function refresh() {
 }
 
 async function conversations() {
-  const d = await request('conversations');
+  const d =
+    await request('conversations');
 
-  $('#conversation-list').replaceChildren();
+  $('#conversation-list')
+    .replaceChildren();
 
   if (!d.conversations.length) {
     $('#conversation-list').append(
@@ -201,304 +280,444 @@ async function conversations() {
   for (const c of d.conversations) {
     const b = node(
       'button',
-      (c.kind === 'test' ? 'TEST · ' : '') +
+      (
+        c.kind === 'test'
+          ? 'TEST · '
+          : ''
+      ) +
         'Conversazione del ' +
         date(c.created_at),
       'button small dark'
     );
 
-    b.addEventListener('click', async () => {
-      try {
-        const r = await request(
-          'conversations/' + encodeURIComponent(c.id)
-        );
+    b.addEventListener(
+      'click',
+      async () => {
+        try {
+          const r =
+            await request(
+              'conversations/' +
+                encodeURIComponent(
+                  c.id
+                )
+            );
 
-        selectedConversation = c.id;
-        selectedLead = null;
+          selectedConversation =
+            c.id;
 
-        $('#detail-title').textContent =
-          'Conversazione';
+          selectedLead = null;
 
-        $('#detail-summary').textContent =
-          'Iniziata il ' + date(c.created_at);
+          $('#detail-title')
+            .textContent =
+            'Conversazione';
 
-        showMessages(r.messages);
+          $('#detail-summary')
+            .textContent =
+            'Iniziata il ' +
+            date(c.created_at);
 
-        $('#lead-detail').showModal();
-      } catch (e) {
-        $('#dash-status').textContent = e.message;
+          showMessages(
+            r.messages
+          );
+
+          $('#lead-detail')
+            .showModal();
+        } catch (e) {
+          $('#dash-status')
+            .textContent =
+            e.message;
+        }
       }
-    });
+    );
 
     const p = node('p');
+
     p.append(b);
 
-    $('#conversation-list').append(p);
+    $('#conversation-list')
+      .append(p);
   }
 }
 
 function renderFields() {
-  const root = $('#field-rows');
+  const root =
+    $('#field-rows');
 
   root.replaceChildren();
 
-  fields.forEach((f, index) => {
-    const row = node(
-      'div',
-      undefined,
-      'field-row'
-    );
+  fields.forEach(
+    (f, index) => {
+      const row = node(
+        'div',
+        undefined,
+        'field-row'
+      );
 
-    const label = node(
-      'label',
-      'Informazione'
-    );
+      const label =
+        node(
+          'label',
+          'Informazione'
+        );
 
-    const input = node('input');
+      const input =
+        node('input');
 
-    input.value = f.label;
-    input.maxLength = 100;
-    input.required = true;
+      input.value =
+        f.label;
 
-    input.addEventListener(
-      'input',
-      () => {
-        f.label = input.value;
+      input.maxLength = 100;
+      input.required = true;
+
+      input.addEventListener(
+        'input',
+        () => {
+          f.label =
+            input.value;
+        }
+      );
+
+      label.append(input);
+
+      const typelabel =
+        node(
+          'label',
+          'Formato'
+        );
+
+      const select =
+        node('select');
+
+      for (
+        const [v, t] of [
+          ['text', 'Testo'],
+          ['phone', 'Telefono'],
+          ['email', 'Email']
+        ]
+      ) {
+        const o =
+          node('option', t);
+
+        o.value = v;
+
+        select.append(o);
       }
-    );
 
-    label.append(input);
+      select.value =
+        f.kind;
 
-    const typelabel = node(
-      'label',
-      'Formato'
-    );
+      select.disabled =
+        [
+          'nome',
+          'telefono',
+          'interesse'
+        ].includes(f.key);
 
-    const select = node('select');
+      select.addEventListener(
+        'change',
+        () => {
+          f.kind =
+            select.value;
+        }
+      );
 
-    for (const [v, t] of [
-      ['text', 'Testo'],
-      ['phone', 'Telefono'],
-      ['email', 'Email']
-    ]) {
-      const o = node('option', t);
-      o.value = v;
-      select.append(o);
+      typelabel.append(select);
+
+      const required =
+        node(
+          'label',
+          undefined,
+          'required-label'
+        );
+
+      const check =
+        node('input');
+
+      check.type =
+        'checkbox';
+
+      check.checked =
+        f.required;
+
+      check.disabled =
+        [
+          'nome',
+          'telefono',
+          'interesse'
+        ].includes(f.key);
+
+      check.addEventListener(
+        'change',
+        () => {
+          f.required =
+            check.checked;
+        }
+      );
+
+      required.append(
+        check,
+        document.createTextNode(
+          'Obbligatorio'
+        )
+      );
+
+      const del =
+        node(
+          'button',
+          'Rimuovi'
+        );
+
+      del.type =
+        'button';
+
+      del.disabled =
+        [
+          'nome',
+          'telefono',
+          'interesse'
+        ].includes(f.key);
+
+      del.addEventListener(
+        'click',
+        () => {
+          fields.splice(
+            index,
+            1
+          );
+
+          renderFields();
+        }
+      );
+
+      row.append(
+        label,
+        typelabel,
+        required,
+        del
+      );
+
+      root.append(row);
     }
-
-    select.value = f.kind;
-
-    select.disabled =
-      ['nome', 'telefono', 'interesse']
-        .includes(f.key);
-
-    select.addEventListener(
-      'change',
-      () => {
-        f.kind = select.value;
-      }
-    );
-
-    typelabel.append(select);
-
-    const required = node(
-      'label',
-      undefined,
-      'required-label'
-    );
-
-    const check = node('input');
-
-    check.type = 'checkbox';
-    check.checked = f.required;
-
-    check.disabled =
-      ['nome', 'telefono', 'interesse']
-        .includes(f.key);
-
-    check.addEventListener(
-      'change',
-      () => {
-        f.required = check.checked;
-      }
-    );
-
-    required.append(
-      check,
-      document.createTextNode('Obbligatorio')
-    );
-
-    const del = node(
-      'button',
-      'Rimuovi'
-    );
-
-    del.type = 'button';
-
-    del.disabled =
-      ['nome', 'telefono', 'interesse']
-        .includes(f.key);
-
-    del.addEventListener(
-      'click',
-      () => {
-        fields.splice(index, 1);
-        renderFields();
-      }
-    );
-
-    row.append(
-      label,
-      typelabel,
-      required,
-      del
-    );
-
-    root.append(row);
-  });
+  );
 }
 
-$('#add-field').addEventListener(
-  'click',
-  () => {
-    if (fields.length >= 18) {
-      $('#config-status').textContent =
-        'Puoi configurare al massimo 18 campi.';
-      return;
+$('#add-field')
+  .addEventListener(
+    'click',
+    () => {
+      if (fields.length >= 18) {
+        $('#config-status')
+          .textContent =
+          'Puoi configurare al massimo 18 campi.';
+
+        return;
+      }
+
+      fields.push({
+        key:
+          'campo_' +
+          crypto
+            .randomUUID()
+            .replaceAll('-', '')
+            .slice(0, 12),
+
+        label:
+          'Nuova informazione',
+
+        kind: 'text',
+
+        required: false
+      });
+
+      renderFields();
     }
+  );
 
-    fields.push({
-      key:
-        'campo_' +
-        crypto
-          .randomUUID()
-          .replaceAll('-', '')
-          .slice(0, 12),
-      label: 'Nuova informazione',
-      kind: 'text',
-      required: false
-    });
+$('#sector-template')
+  .addEventListener(
+    'change',
+    e => {
+      const presets = {
+        immobiliare: [
+          ['zona', 'Zona'],
+          ['budget', 'Budget'],
+          [
+            'immobile',
+            'Tipologia di immobile'
+          ],
+          [
+            'operazione',
+            'Acquisto o affitto'
+          ],
+          [
+            'caratteristiche',
+            'Caratteristiche richieste'
+          ]
+        ],
 
-    renderFields();
-  }
-);
+        auto: [
+          [
+            'auto',
+            'Auto di interesse'
+          ],
+          ['budget', 'Budget'],
+          [
+            'condizione',
+            'Nuovo o usato'
+          ],
+          [
+            'finanziamento',
+            'Interesse per finanziamento'
+          ],
+          [
+            'permuta',
+            'Eventuale permuta'
+          ]
+        ],
 
-$('#sector-template').addEventListener(
-  'change',
-  e => {
-    const presets = {
-      immobiliare: [
-        ['zona', 'Zona'],
-        ['budget', 'Budget'],
-        ['immobile', 'Tipologia di immobile'],
-        ['operazione', 'Acquisto o affitto'],
-        ['caratteristiche', 'Caratteristiche richieste']
-      ],
+        estetica: [
+          [
+            'trattamento',
+            'Trattamento di interesse'
+          ],
+          [
+            'informazioni',
+            'Informazioni richieste'
+          ]
+        ]
+      };
 
-      auto: [
-        ['auto', 'Auto di interesse'],
-        ['budget', 'Budget'],
-        ['condizione', 'Nuovo o usato'],
-        ['finanziamento', 'Interesse per finanziamento'],
-        ['permuta', 'Eventuale permuta']
-      ],
-
-      estetica: [
-        ['trattamento', 'Trattamento di interesse'],
-        ['informazioni', 'Informazioni richieste']
-      ]
-    };
-
-    for (const [key, label] of presets[e.target.value] || []) {
-      if (
-        !fields.some(f => f.key === key) &&
-        fields.length < 18
+      for (
+        const [key, label]
+        of presets[
+          e.target.value
+        ] || []
       ) {
-        fields.push({
-          key,
-          label,
-          kind: 'text',
-          required: false
-        });
+        if (
+          !fields.some(
+            f => f.key === key
+          ) &&
+          fields.length < 18
+        ) {
+          fields.push({
+            key,
+            label,
+            kind: 'text',
+            required: false
+          });
+        }
+      }
+
+      renderFields();
+
+      e.target.value = '';
+    }
+  );
+
+$('#config-form')
+  .addEventListener(
+    'submit',
+    async e => {
+      e.preventDefault();
+
+      const button =
+        e.target.querySelector(
+          '[type=submit]'
+        );
+
+      button.disabled = true;
+
+      const form =
+        new FormData(
+          e.target
+        );
+
+      const cfg =
+        Object.fromEntries(
+          form
+        );
+
+      cfg.confirmation_email =
+        form.get(
+          'confirmation_email'
+        ) === 'on';
+
+      cfg.fields = fields;
+
+      try {
+        await request(
+          'config',
+          cfg
+        );
+
+        $('#company-title')
+          .textContent =
+          cfg.name;
+
+        $('#config-status')
+          .textContent =
+          'Configurazione salvata. Inizia una nuova conversazione per provarla.';
+      } catch (err) {
+        $('#config-status')
+          .textContent =
+          err.message;
+      } finally {
+        button.disabled = false;
       }
     }
+  );
 
-    renderFields();
-    e.target.value = '';
-  }
-);
-
-$('#config-form').addEventListener(
-  'submit',
-  async e => {
-    e.preventDefault();
-
-    const button =
-      e.target.querySelector('[type=submit]');
-
-    button.disabled = true;
-
-    const form =
-      new FormData(e.target);
-
-    const cfg =
-      Object.fromEntries(form);
-
-    cfg.confirmation_email =
-      form.get('confirmation_email') === 'on';
-
-    cfg.fields = fields;
-
-    try {
-      await request('config', cfg);
-
-      $('#company-title').textContent =
-        cfg.name;
-
-      $('#config-status').textContent =
-        'Configurazione salvata. Inizia una nuova conversazione per provarla.';
-    } catch (err) {
-      $('#config-status').textContent =
-        err.message;
-    } finally {
-      button.disabled = false;
-    }
-  }
-);
-
-for (const b of document.querySelectorAll('[data-tab]')) {
+for (
+  const b of
+  document.querySelectorAll(
+    '[data-tab]'
+  )
+) {
   b.addEventListener(
     'click',
     async () => {
       for (
         const x of
-        document.querySelectorAll('[data-tab]')
+        document.querySelectorAll(
+          '[data-tab]'
+        )
       ) {
-        const active = x === b;
+        const active =
+          x === b;
 
         x.setAttribute(
           'aria-selected',
           String(active)
         );
 
-        $('#tab-' + x.dataset.tab).hidden =
+        $(
+          '#tab-' +
+          x.dataset.tab
+        ).hidden =
           !active;
       }
 
-      if (b.dataset.tab === 'company') {
+      if (
+        b.dataset.tab ===
+        'company'
+      ) {
         try {
           await overview();
         } catch (e) {
-          $('#dash-status').textContent =
+          $('#dash-status')
+            .textContent =
             e.message;
         }
       }
 
-      if (b.dataset.tab === 'conversations') {
+      if (
+        b.dataset.tab ===
+        'conversations'
+      ) {
         try {
           await conversations();
         } catch (e) {
-          $('#dash-status').textContent =
+          $('#dash-status')
+            .textContent =
             e.message;
         }
       }
@@ -506,98 +725,170 @@ for (const b of document.querySelectorAll('[data-tab]')) {
   );
 }
 
-$('#close-detail').addEventListener(
-  'click',
-  () => $('#lead-detail').close()
-);
+$('#close-detail')
+  .addEventListener(
+    'click',
+    () =>
+      $('#lead-detail')
+        .close()
+  );
 
-$('#refresh').addEventListener(
-  'click',
-  () =>
-    refresh().catch(
-      e =>
-        $('#dash-status').textContent =
-          e.message
-    )
-);
+$('#refresh')
+  .addEventListener(
+    'click',
+    () =>
+      refresh().catch(
+        e => {
+          $('#dash-status')
+            .textContent =
+            e.message;
+        }
+      )
+  );
 
-$('#logout').addEventListener(
-  'click',
-  async () => {
-    await request('logout', {});
-    location.assign('/login.html');
-  }
-);
+$('#logout')
+  .addEventListener(
+    'click',
+    async () => {
+      await request(
+        'logout',
+        {}
+      );
 
+      sessionStorage.removeItem(
+        'linea_plan_intent'
+      );
+
+      location.assign(
+        '/login.html'
+      );
+    }
+  );
+
+/*
+ * Inizializzazione Dashboard.
+ *
+ * Ordine importante:
+ *
+ * 1. Controlliamo la sessione.
+ * 2. Controlliamo l'email.
+ * 3. Solo dopo iniziamo a chiamare
+ *    le API operative della Dashboard.
+ *
+ * In questo modo un account non verificato
+ * non entra più nel ciclo:
+ * Dashboard -> Offerte -> Dashboard.
+ */
 (async () => {
   try {
-    const me = await request('me');
+    const me =
+      await request('me');
+
+    /*
+     * Questa informazione arriva già da /api/me.
+     * Non serve fare una seconda richiesta
+     * soltanto per sapere se l'email è verificata.
+     */
+    if (!me.email_verified) {
+      location.replace(
+        '/account.html'
+      );
+
+      return;
+    }
 
     company = me.company;
 
-    $('#company-title').textContent =
+    $('#company-title')
+      .textContent =
       company.config.name;
 
-    $('#account-email').textContent =
+    $('#account-email')
+      .textContent =
       me.email;
 
     $('#company-chat').href =
       '/?azienda=' +
-      encodeURIComponent(company.public_id) +
+      encodeURIComponent(
+        company.public_id
+      ) +
       '#demo';
 
-    const form = $('#config-form');
+    const form =
+      $('#config-form');
 
-    for (const k of [
-      'name',
-      'sector',
-      'recipient',
-      'knowledge',
-      'region'
-    ]) {
+    for (
+      const k of [
+        'name',
+        'sector',
+        'recipient',
+        'knowledge',
+        'region'
+      ]
+    ) {
       form.elements[k].value =
         company.config[k];
     }
 
-    form.elements.confirmation_email.checked =
-      company.config.confirmation_email;
+    form.elements
+      .confirmation_email
+      .checked =
+      company.config
+        .confirmation_email;
 
     fields =
-      structuredClone(company.config.fields);
+      structuredClone(
+        company.config.fields
+      );
 
     renderFields();
 
     /*
-     * La Demo permette di utilizzare lo Spazio Aziendale
-     * e provare l'assistente, ma non mostra la sezione
-     * Installazioni.
+     * Controllo del piano.
      *
-     * La sezione viene resa disponibile soltanto quando
-     * esiste un piano Base, Plus o Advanced effettivamente
-     * attivo.
+     * La Demo può usare lo Spazio Aziendale
+     * ma non può usare la sezione Installazioni.
+     *
+     * Base / Plus / Advanced attivi
+     * possono mostrare Installazioni.
      */
     try {
-      const plan = await request('plan-state');
+      const plan =
+        await request(
+          'plan-state'
+        );
 
-      const subscription = plan.subscription;
+      const subscription =
+        plan.subscription;
 
       const paidPlanActive =
         Boolean(subscription) &&
-        ['base', 'plus', 'advanced'].includes(
+        [
+          'base',
+          'plus',
+          'advanced'
+        ].includes(
           subscription.plan
         ) &&
         (
           (
-            ['trial', 'active'].includes(
+            [
+              'trial',
+              'active'
+            ].includes(
               subscription.status
             ) &&
-            Number(subscription.period_end) >
+            Number(
+              subscription.period_end
+            ) >
               Date.now() / 1000
           ) ||
           (
-            subscription.status === 'past_due' &&
+            subscription.status ===
+              'past_due' &&
             Number(
-              subscription.grace_until || 0
+              subscription
+                .grace_until || 0
             ) >
               Date.now() / 1000
           )
@@ -615,31 +906,53 @@ $('#logout').addEventListener(
         $('#installation-section');
 
       if (installationSection) {
-        installationSection.hidden = true;
+        installationSection.hidden =
+          true;
       }
     }
 
+    /*
+     * Da questo punto partono le API
+     * operative. Se non esiste Demo/piano
+     * attivo, il backend può rispondere 402
+     * e l'utente verificato viene mandato
+     * alle offerte.
+     */
     await refresh();
 
     const mail =
-      await request('email-status');
+      await request(
+        'email-status'
+      );
 
     const labels = {
-      not_configured: 'Mittente da configurare',
-      pending: 'In attesa',
-      sending: 'Invio in corso',
-      sent: 'Accettate dal servizio email',
-      uncertain: 'Esito da verificare'
+      not_configured:
+        'Mittente da configurare',
+
+      pending:
+        'In attesa',
+
+      sending:
+        'Invio in corso',
+
+      sent:
+        'Accettate dal servizio email',
+
+      uncertain:
+        'Esito da verificare'
     };
 
-    $('#email-state').textContent =
+    $('#email-state')
+      .textContent =
       (
         mail.configured
           ? 'Servizio mittente configurato. '
           : 'Invio reale non attivo: manca il servizio mittente. '
       ) +
       Object
-        .entries(mail.counts)
+        .entries(
+          mail.counts
+        )
         .map(
           ([k, v]) =>
             (labels[k] || k) +
@@ -648,87 +961,124 @@ $('#logout').addEventListener(
         )
         .join(' · ');
   } catch (e) {
-    $('#dash-status').textContent =
+    $('#dash-status')
+      .textContent =
       e.message;
   }
 })();
 
-$('#export-data').addEventListener(
-  'click',
-  async () => {
-    try {
-      const r =
-        await fetch('/api/data-export.xlsx');
+$('#export-data')
+  .addEventListener(
+    'click',
+    async () => {
+      try {
+        const r =
+          await fetch(
+            '/api/data-export.xlsx'
+          );
 
-      if (!r.ok) {
-        throw Error(
-          'Esportazione non disponibile. Verifica l’accesso e riprova.'
+        if (r.status === 401) {
+          location.replace(
+            '/login.html'
+          );
+
+          return;
+        }
+
+        if (r.status === 402) {
+          location.replace(
+            '/#contatti'
+          );
+
+          return;
+        }
+
+        if (!r.ok) {
+          throw Error(
+            'Esportazione non disponibile. Verifica l’accesso e riprova.'
+          );
+        }
+
+        const url =
+          URL.createObjectURL(
+            await r.blob()
+          );
+
+        const a =
+          node('a');
+
+        a.href = url;
+
+        a.download =
+          'dati-azienda.xlsx';
+
+        a.click();
+
+        setTimeout(
+          () =>
+            URL.revokeObjectURL(
+              url
+            ),
+          1000
         );
+      } catch (e) {
+        $('#dash-status')
+          .textContent =
+          e.message;
+      }
+    }
+  );
+
+$('#delete-data')
+  .addEventListener(
+    'click',
+    async () => {
+      if (
+        !selectedConversation ||
+        !confirm(
+          'Eliminare definitivamente questa conversazione, la richiesta e il feedback associati?'
+        )
+      ) {
+        return;
       }
 
-      const url =
-        URL.createObjectURL(
-          await r.blob()
+      try {
+        await request(
+          'data-delete',
+          {
+            conversation:
+              selectedConversation,
+
+            confirm: true
+          }
         );
 
-      const a = node('a');
+        $('#lead-detail')
+          .close();
 
-      a.href = url;
-      a.download = 'dati-azienda.xlsx';
-      a.click();
+        await refresh();
 
-      setTimeout(
-        () => URL.revokeObjectURL(url),
-        1000
-      );
-    } catch (e) {
-      $('#dash-status').textContent =
-        e.message;
+        await conversations();
+
+        $('#dash-status')
+          .textContent =
+          'Dati della conversazione eliminati.';
+      } catch (e) {
+        $('#dash-status')
+          .textContent =
+          e.message;
+      }
     }
-  }
-);
-
-$('#delete-data').addEventListener(
-  'click',
-  async () => {
-    if (
-      !selectedConversation ||
-      !confirm(
-        'Eliminare definitivamente questa conversazione, la richiesta e il feedback associati?'
-      )
-    ) {
-      return;
-    }
-
-    try {
-      await request(
-        'data-delete',
-        {
-          conversation:
-            selectedConversation,
-          confirm: true
-        }
-      );
-
-      $('#lead-detail').close();
-
-      await refresh();
-      await conversations();
-
-      $('#dash-status').textContent =
-        'Dati della conversazione eliminati.';
-    } catch (e) {
-      $('#dash-status').textContent =
-        e.message;
-    }
-  }
-);
+  );
 
 async function overview() {
   const d =
-    await request('company-overview');
+    await request(
+      'company-overview'
+    );
 
-  $('#verification').textContent =
+  $('#verification')
+    .textContent =
     (
       d.verified
         ? 'Azienda verificata dal gestore.'
@@ -738,9 +1088,11 @@ async function overview() {
     d.config_version +
     '.';
 
-  const s = d.statistics;
+  const s =
+    d.statistics;
 
-  $('#statistics').textContent =
+  $('#statistics')
+    .textContent =
     s.conversations +
     ' conversazioni · ' +
     s.leads +
@@ -752,30 +1104,47 @@ async function overview() {
           '% delle conversazioni ha prodotto una richiesta'
     ) +
     ' · Valutazione media visitatori: ' +
-    (s.feedback_average ?? 'nessuna');
+    (
+      s.feedback_average ??
+      'nessuna'
+    );
 
-  for (const id of [
-    'knowledge-list',
-    'installation-list',
-    'visitor-feedback',
-    'team-feedback'
-  ]) {
-    $('#' + id).replaceChildren();
+  for (
+    const id of [
+      'knowledge-list',
+      'installation-list',
+      'visitor-feedback',
+      'team-feedback'
+    ]
+  ) {
+    $('#' + id)
+      .replaceChildren();
   }
 
   for (const k of d.knowledge) {
-    const box = node('article');
+    const box =
+      node('article');
 
     box.append(
       node(
         'strong',
         ({
-          public: 'Fonte pubblica',
-          private: 'Informazione fornita dall’azienda',
-          rule: 'Regola aziendale'
+          public:
+            'Fonte pubblica',
+
+          private:
+            'Informazione fornita dall’azienda',
+
+          rule:
+            'Regola aziendale'
         })[k.kind]
       ),
-      node('p', k.content),
+
+      node(
+        'p',
+        k.content
+      ),
+
       node(
         'small',
         k.source +
@@ -794,14 +1163,10 @@ async function overview() {
       )
     );
 
-    $('#knowledge-list').append(box);
+    $('#knowledge-list')
+      .append(box);
   }
 
-  /*
-   * Le installazioni vengono caricate nel DOM soltanto
-   * quando la sezione è effettivamente disponibile.
-   * Durante la Demo la sezione rimane nascosta.
-   */
   const installationSection =
     $('#installation-section');
 
@@ -809,73 +1174,89 @@ async function overview() {
     installationSection &&
     !installationSection.hidden
   ) {
-    for (const i of d.installations) {
-      $('#installation-list').append(
-        node(
-          'p',
-          i.origin +
-            ' — ' +
-            (
-              i.enabled
-                ? 'Abilitata'
-                : 'Disattivata'
-            )
-        )
-      );
+    for (
+      const i of d.installations
+    ) {
+      $('#installation-list')
+        .append(
+          node(
+            'p',
+            i.origin +
+              ' — ' +
+              (
+                i.enabled
+                  ? 'Abilitata'
+                  : 'Disattivata'
+              )
+          )
+        );
     }
   }
 
   for (const f of d.feedback) {
-    $('#visitor-feedback').append(
-      node(
-        'p',
-        f.rating +
-          '/5 — ' +
-          f.comment
-      )
-    );
+    $('#visitor-feedback')
+      .append(
+        node(
+          'p',
+          f.rating +
+            '/5 — ' +
+            f.comment
+        )
+      );
   }
 
   for (const f of d.reviews) {
-    $('#team-feedback').append(
-      node(
-        'p',
-        f.comment +
-          ' — ' +
-          date(f.updated_at)
-      )
-    );
+    $('#team-feedback')
+      .append(
+        node(
+          'p',
+          f.comment +
+            ' — ' +
+            date(
+              f.updated_at
+            )
+        )
+      );
   }
 }
 
-$('#team-review').addEventListener(
-  'submit',
-  async e => {
-    e.preventDefault();
+$('#team-review')
+  .addEventListener(
+    'submit',
+    async e => {
+      e.preventDefault();
 
-    if (!selectedConversation) {
-      return;
+      if (
+        !selectedConversation
+      ) {
+        return;
+      }
+
+      try {
+        await request(
+          'company-review',
+          {
+            conversation:
+              selectedConversation,
+
+            comment:
+              new FormData(
+                e.target
+              ).get(
+                'comment'
+              )
+          }
+        );
+
+        $('#review-status')
+          .textContent =
+          'Feedback salvato per la tua azienda.';
+
+        e.target.reset();
+      } catch (err) {
+        $('#review-status')
+          .textContent =
+          err.message;
+      }
     }
-
-    try {
-      await request(
-        'company-review',
-        {
-          conversation:
-            selectedConversation,
-          comment:
-            new FormData(e.target)
-              .get('comment')
-        }
-      );
-
-      $('#review-status').textContent =
-        'Feedback salvato per la tua azienda.';
-
-      e.target.reset();
-    } catch (err) {
-      $('#review-status').textContent =
-        err.message;
-    }
-  }
-);
+  );
