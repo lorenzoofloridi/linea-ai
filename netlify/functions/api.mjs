@@ -400,8 +400,18 @@ async function requestEmailVerification(
     return;
   }
 
+  const resendApiKey =
+    process.env.RESEND_API_KEY;
+
+  if (!resendApiKey) {
+    throw new Error(
+      "Servizio email non configurato."
+    );
+  }
+
   const value = token();
   const tokenHash = digest(value);
+
   const expires =
     Date.now() / 1000 + 86400;
 
@@ -419,6 +429,17 @@ async function requestEmailVerification(
     verificationUrl +
     "\nSe non hai creato un account, ignora il messaggio.";
 
+  const html =
+    `<p>Conferma il tuo indirizzo aprendo questo link entro 24 ore:</p>` +
+    `<p><a href="${verificationUrl}">Verifica il tuo indirizzo email</a></p>` +
+    `<p>Se non hai creato un account, ignora il messaggio.</p>`;
+
+  const outboxId = token();
+
+  /*
+   * Salviamo prima il token e registriamo
+   * l'email come in attesa di invio.
+   */
   const client =
     await db.pool.connect();
 
@@ -442,8 +463,6 @@ async function requestEmailVerification(
       ]
     );
 
-    const outboxId = token();
-
     await client.query(
       `INSERT INTO email_outbox
        (
@@ -457,9 +476,7 @@ async function requestEmailVerification(
          created_at,
          error
        )
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
-       ON CONFLICT (company_id,event_key)
-       DO NOTHING`,
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
       [
         outboxId,
         user.company_id,
@@ -467,7 +484,7 @@ async function requestEmailVerification(
         user.email,
         subject,
         body,
-        "not_configured",
+        "pending",
         new Date().toISOString(),
         null
       ]
@@ -476,18 +493,11 @@ async function requestEmailVerification(
     await client.query(
       `INSERT INTO email_details
        (id,html,mode)
-       SELECT $1,$2,$3
-       WHERE EXISTS (
-         SELECT 1
-           FROM email_outbox
-          WHERE id=$1
-       )
-       ON CONFLICT (id)
-       DO NOTHING`,
+       VALUES ($1,$2,$3)`,
       [
         outboxId,
-        `<p>Conferma il tuo indirizzo aprendo questo link entro 24 ore:</p><p><a href="${verificationUrl}">${verificationUrl}</a></p><p>Se non hai creato un account, ignora il messaggio.</p>`,
-        "capture"
+        html,
+        "resend"
       ]
     );
 
@@ -497,6 +507,116 @@ async function requestEmailVerification(
     throw error;
   } finally {
     client.release();
+  }
+
+  /*
+   * Invio reale tramite Resend.
+   *
+   * Finché linea-ai.it non sarà acquistato
+   * e verificato su Resend utilizziamo
+   * il mittente di test.
+   */
+  try {
+    await db.pool.query(
+      `UPDATE email_outbox
+          SET status=$1,
+              error=NULL
+        WHERE id=$2`,
+      [
+        "sending",
+        outboxId
+      ]
+    );
+
+    const response =
+      await fetch(
+        "https://api.resend.com/emails",
+        {
+          method: "POST",
+          headers: {
+            "Authorization":
+              `Bearer ${resendApiKey}`,
+            "Content-Type":
+              "application/json",
+            "Idempotency-Key":
+              eventKey
+          },
+          body: JSON.stringify({
+            from:
+              "Linea AI <onboarding@resend.dev>",
+            to: [
+              user.email
+            ],
+            subject,
+            text: body,
+            html
+          })
+        }
+      );
+
+    let result = {};
+
+    try {
+      result =
+        await response.json();
+    } catch {
+      result = {};
+    }
+
+    if (!response.ok) {
+      const message =
+        typeof result?.message === "string"
+          ? result.message
+          : "Invio email non riuscito.";
+
+      await db.pool.query(
+        `UPDATE email_outbox
+            SET status=$1,
+                error=$2
+          WHERE id=$3`,
+        [
+          "uncertain",
+          message.slice(0, 1000),
+          outboxId
+        ]
+      );
+
+      throw new Error(
+        "Invio email non riuscito."
+      );
+    }
+
+    await db.pool.query(
+      `UPDATE email_outbox
+          SET status=$1,
+              error=NULL
+        WHERE id=$2`,
+      [
+        "sent",
+        outboxId
+      ]
+    );
+
+    return result;
+  } catch (error) {
+    await db.pool.query(
+      `UPDATE email_outbox
+          SET status=$1,
+              error=COALESCE(error,$2)
+        WHERE id=$3
+          AND status<>$4`,
+      [
+        "uncertain",
+        String(
+          error?.message ||
+          "Invio email non riuscito."
+        ).slice(0, 1000),
+        outboxId,
+        "sent"
+      ]
+    );
+
+    throw error;
   }
 }
 
