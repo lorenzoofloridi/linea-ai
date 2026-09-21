@@ -380,9 +380,19 @@
             ? 'Il tuo Spazio'
             : 'Accedi';
 
+        /*
+         * Lo Spazio deve restare raggiungibile
+         * anche quando la Demo o il piano
+         * non sono più attivi.
+         *
+         * Account è la porta di ingresso
+         * persistente dell'utente.
+         * La Dashboard mantiene invece
+         * i propri controlli sul piano attivo.
+         */
         account.href =
           data.authenticated
-            ? '/dashboard.html'
+            ? '/account.html'
             : '/login.html';
 
         render();
