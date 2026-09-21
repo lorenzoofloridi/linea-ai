@@ -1,4 +1,339 @@
 "use strict";
-(()=>{const q=s=>document.querySelector(s);async function api(path,body){const r=await fetch('/api/'+path,body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{});if(r.status===401){location.assign('/login.html');throw Error('Accedi per continuare.')}const d=await r.json();if(!r.ok)throw Error(d.error);return d}q('#logout').onclick=async()=>{await api('logout',{});location.assign('/login.html')};const show=e=>q('#workspace-status').textContent=e.message;
-(async()=>{const me=await api('me');if(q('#account-data')){const verification=await api('email-verification');q('#email-verified-state').textContent=verification.verified?'Email verificata':'Email non ancora verificata';q('#resend-verification').disabled=verification.verified;q('#resend-verification').onclick=async()=>{try{await api('email-verification',{});q('#workspace-status').textContent='Messaggio di verifica preparato. In modalità locale è consultabile dal gestore.'}catch(e){show(e)}};const state=await api('plan-state');const companyReview=await api('company-verification');const entries=[['Stato azienda',({pending:'In attesa',under_review:'In revisione',verified:'Verificata',rejected:'Non approvata',suspended:'Sospesa'})[companyReview.status]],['Email account',me.email],['Azienda',me.company.config.name],['Settore',me.company.config.sector]];for(const [key,value] of Object.entries(state.profile?.data||{}))entries.push([state.fields[key]||key,value]);entries.push(['Verifica dei dati',({pending:'In attesa',verified:'Approvata',rejected:'Non approvata',needs_review:'Da integrare'})[state.profile?.status]||'Dati non ancora presentati']);for(const [key,value] of entries){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=key;dd.textContent=value;q('#account-data').append(dt,dd)}}if(q('#wallet-form')){const state=await api('plan-state');q('#wallet-state').textContent=state.subscription?'Metodo del tuo piano (simulato).':'Attiva prima un piano per associargli un metodo di pagamento.';for(const m of state.methods.filter(m=>m.recurring)){const o=document.createElement('option');o.value=m.code;o.textContent=m.label;q('#wallet-method').append(o)}if(state.subscription)q('#wallet-method').value=state.subscription.method_kind;q('#wallet-form button').disabled=!state.subscription;q('#wallet-form').onsubmit=async e=>{e.preventDefault();try{await api('plan-method',{method:q('#wallet-method').value});q('#workspace-status').textContent='Metodo simulato aggiornato. Nessun addebito reale.'}catch(e){show(e)}}}})().catch(show);
+
+(() => {
+  const q = s => document.querySelector(s);
+
+  async function api(path, body) {
+    const r = await fetch(
+      '/api/' + path,
+      body
+        ? {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+          }
+        : {}
+    );
+
+    if (r.status === 401) {
+      location.assign('/login.html');
+      throw Error('Accedi per continuare.');
+    }
+
+    const d = await r.json();
+
+    if (!r.ok) {
+      throw Error(
+        d.error || 'Operazione non riuscita.'
+      );
+    }
+
+    return d;
+  }
+
+  const workspaceStatus = q('#workspace-status');
+
+  const show = e => {
+    if (workspaceStatus) {
+      workspaceStatus.textContent =
+        e?.message || 'Operazione non riuscita.';
+    }
+  };
+
+  /*
+   * Recupera l'eventuale piano scelto prima
+   * della registrazione/login.
+   *
+   * Per la Demo l'informazione può arrivare
+   * sia dall'URL ?plan=demo sia da sessionStorage.
+   */
+  function getPlanIntent() {
+    const params =
+      new URLSearchParams(location.search);
+
+    if (params.get('plan') === 'demo') {
+      sessionStorage.setItem(
+        'linea_plan_intent',
+        'demo'
+      );
+
+      return 'demo';
+    }
+
+    return sessionStorage.getItem(
+      'linea_plan_intent'
+    );
+  }
+
+  /*
+   * Attiva la Demo soltanto quando:
+   * - l'utente l'aveva richiesta;
+   * - l'email è già verificata.
+   *
+   * Il backend continua ad applicare i controlli
+   * definitivi: una sola Demo e durata 7 giorni.
+   */
+  async function activateRequestedDemo(
+    verification
+  ) {
+    const intent = getPlanIntent();
+
+    if (
+      intent !== 'demo' ||
+      !verification?.verified
+    ) {
+      return false;
+    }
+
+    if (workspaceStatus) {
+      workspaceStatus.textContent =
+        'Attivazione della Demo in corso...';
+    }
+
+    try {
+      await api('plan-demo', {});
+
+      sessionStorage.removeItem(
+        'linea_plan_intent'
+      );
+
+      location.assign('/dashboard.html');
+
+      return true;
+    } catch (e) {
+      /*
+       * Non cancelliamo l'intenzione se
+       * l'attivazione fallisce: così non perdiamo
+       * il percorso dell'utente.
+       */
+      show(e);
+      return false;
+    }
+  }
+
+  const logout = q('#logout');
+
+  if (logout) {
+    logout.onclick = async () => {
+      try {
+        await api('logout', {});
+
+        /*
+         * Il logout conclude il percorso corrente.
+         */
+        sessionStorage.removeItem(
+          'linea_plan_intent'
+        );
+
+        location.assign('/login.html');
+      } catch (e) {
+        show(e);
+      }
+    };
+  }
+
+  (async () => {
+    const me = await api('me');
+
+    /*
+     * PAGINA ACCOUNT
+     */
+    if (q('#account-data')) {
+      const verification =
+        await api('email-verification');
+
+      q(
+        '#email-verified-state'
+      ).textContent =
+        verification.verified
+          ? 'Email verificata'
+          : 'Email non ancora verificata';
+
+      const resend =
+        q('#resend-verification');
+
+      resend.disabled =
+        verification.verified;
+
+      /*
+       * Se l'utente era arrivato dalla Demo
+       * e l'email risulta già verificata,
+       * possiamo attivarla immediatamente.
+       */
+      if (
+        await activateRequestedDemo(
+          verification
+        )
+      ) {
+        return;
+      }
+
+      resend.onclick = async () => {
+        try {
+          await api(
+            'email-verification',
+            {}
+          );
+
+          if (workspaceStatus) {
+            workspaceStatus.textContent =
+              'Messaggio di verifica preparato. Controlla la tua email per continuare.';
+          }
+        } catch (e) {
+          show(e);
+        }
+      };
+
+      const state =
+        await api('plan-state');
+
+      const companyReview =
+        await api(
+          'company-verification'
+        );
+
+      const entries = [
+        [
+          'Stato azienda',
+          ({
+            pending: 'In attesa',
+            under_review: 'In revisione',
+            verified: 'Verificata',
+            rejected: 'Non approvata',
+            suspended: 'Sospesa'
+          })[companyReview.status]
+        ],
+        [
+          'Email account',
+          me.email
+        ],
+        [
+          'Azienda',
+          me.company.config.name
+        ],
+        [
+          'Settore',
+          me.company.config.sector
+        ]
+      ];
+
+      for (
+        const [key, value]
+        of Object.entries(
+          state.profile?.data || {}
+        )
+      ) {
+        entries.push([
+          state.fields[key] || key,
+          value
+        ]);
+      }
+
+      entries.push([
+        'Verifica dei dati',
+        ({
+          pending: 'In attesa',
+          verified: 'Approvata',
+          rejected: 'Non approvata',
+          needs_review: 'Da integrare'
+        })[state.profile?.status] ||
+          'Dati non ancora presentati'
+      ]);
+
+      for (const [key, value] of entries) {
+        const dt =
+          document.createElement('dt');
+
+        const dd =
+          document.createElement('dd');
+
+        dt.textContent = key;
+        dd.textContent = value ?? '';
+
+        q('#account-data').append(
+          dt,
+          dd
+        );
+      }
+
+      /*
+       * Se l'utente aveva richiesto la Demo
+       * ma deve ancora verificare l'email,
+       * glielo diciamo chiaramente.
+       */
+      if (
+        getPlanIntent() === 'demo' &&
+        !verification.verified &&
+        workspaceStatus
+      ) {
+        workspaceStatus.textContent =
+          'Per iniziare la Demo di 7 giorni verifica prima il tuo indirizzo email.';
+      }
+    }
+
+    /*
+     * PAGINA PORTAFOGLIO
+     */
+    if (q('#wallet-form')) {
+      const state =
+        await api('plan-state');
+
+      q(
+        '#wallet-state'
+      ).textContent =
+        state.subscription
+          ? 'Metodo del tuo piano (simulato).'
+          : 'Attiva prima un piano per associargli un metodo di pagamento.';
+
+      for (
+        const m of state.methods.filter(
+          m => m.recurring
+        )
+      ) {
+        const o =
+          document.createElement('option');
+
+        o.value = m.code;
+        o.textContent = m.label;
+
+        q('#wallet-method').append(o);
+      }
+
+      if (state.subscription) {
+        q('#wallet-method').value =
+          state.subscription.method_kind;
+      }
+
+      q(
+        '#wallet-form button'
+      ).disabled =
+        !state.subscription;
+
+      q('#wallet-form').onsubmit =
+        async e => {
+          e.preventDefault();
+
+          try {
+            await api(
+              'plan-method',
+              {
+                method:
+                  q(
+                    '#wallet-method'
+                  ).value
+              }
+            );
+
+            if (workspaceStatus) {
+              workspaceStatus.textContent =
+                'Metodo simulato aggiornato. Nessun addebito reale.';
+            }
+          } catch (e) {
+            show(e);
+          }
+        };
+    }
+  })().catch(show);
 })();
