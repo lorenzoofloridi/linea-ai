@@ -1,3 +1,5 @@
+import { chatApi } from "../lib/chat-api.mjs";
+import { ready as aiReady } from "../lib/online-ai.mjs";
 import { getDatabase } from "@netlify/database";
 import {
   createHash,
@@ -11,10 +13,30 @@ const scrypt = promisify(scryptCallback);
 const SESSION_COOKIE = "linea_session";
 
 const PLANS = {
-  demo: { name: "Demo", trial_days: 7, monthly_cents: 0, available: true },
-  base: { name: "Piano Base", trial_days: 14, monthly_cents: 29900, available: true },
-  plus: { name: "Piano Plus", trial_days: 14, monthly_cents: 59900, available: true },
-  advanced: { name: "Piano Advanced", trial_days: 14, monthly_cents: 99900, available: true }
+  demo: {
+    name: "Demo",
+    trial_days: 7,
+    monthly_cents: 0,
+    available: true
+  },
+  base: {
+    name: "Piano Base",
+    trial_days: 14,
+    monthly_cents: 29900,
+    available: true
+  },
+  plus: {
+    name: "Piano Plus",
+    trial_days: 14,
+    monthly_cents: 59900,
+    available: true
+  },
+  advanced: {
+    name: "Piano Advanced",
+    trial_days: 14,
+    monthly_cents: 99900,
+    available: true
+  }
 };
 
 const PLAN_DISCOUNT = 15;
@@ -49,12 +71,17 @@ const FEATURES = [
 const PLAN_ENTITLEMENTS = Object.fromEntries(
   ["demo", "base", "plus", "advanced"].map(plan => [
     plan,
-    Object.fromEntries(FEATURES.map(feature => [feature, true]))
+    Object.fromEntries(
+      FEATURES.map(feature => [feature, true])
+    )
   ])
 );
 
 const PAYMENT_METHODS = {
-  card: ["Carta — Visa, Mastercard, American Express", true],
+  card: [
+    "Carta — Visa, Mastercard, American Express",
+    true
+  ],
   apple_pay: ["Apple Pay", true],
   google_pay: ["Google Pay", true],
   sepa: ["Addebito SEPA", true],
@@ -65,24 +92,37 @@ const PAYMENT_METHODS = {
 
 function planAmount(code, period) {
   const plan = PLANS[code];
-  if (!plan || !plan.available || !["monthly", "annual"].includes(period)) {
+
+  if (
+    !plan ||
+    !plan.available ||
+    !["monthly", "annual"].includes(period)
+  ) {
     throw new Error("Piano o periodo non disponibile.");
   }
+
   return period === "monthly"
     ? plan.monthly_cents
-    : Math.floor(plan.monthly_cents * 12 * (100 - PLAN_DISCOUNT) / 100);
+    : Math.floor(
+        plan.monthly_cents *
+          12 *
+          (100 - PLAN_DISCOUNT) /
+          100
+      );
 }
 
 function publicPlanCatalogue() {
   return {
     authenticated: false,
     discount: PLAN_DISCOUNT,
-    plans: Object.entries(PLANS).map(([code, plan]) => ({
-      code,
-      name: plan.name,
-      trial_days: plan.trial_days,
-      available: plan.available
-    }))
+    plans: Object.entries(PLANS).map(
+      ([code, plan]) => ({
+        code,
+        name: plan.name,
+        trial_days: plan.trial_days,
+        available: plan.available
+      })
+    )
   };
 }
 
@@ -101,7 +141,9 @@ function token() {
 }
 
 function digest(value) {
-  return createHash("sha256").update(value).digest("hex");
+  return createHash("sha256")
+    .update(value)
+    .digest("hex");
 }
 
 function defaultConfig(name) {
@@ -113,22 +155,56 @@ function defaultConfig(name) {
     region: "IT",
     confirmation_email: false,
     fields: [
-      { key: "nome", label: "Nome e cognome", required: true, kind: "text" },
-      { key: "telefono", label: "Telefono", required: true, kind: "phone" },
-      { key: "email", label: "Email", required: false, kind: "email" },
-      { key: "interesse", label: "Prodotto, servizio o esigenza", required: true, kind: "text" },
-      { key: "tempistica", label: "Preferenza per essere contattati", required: true, kind: "text" }
+      {
+        key: "nome",
+        label: "Nome e cognome",
+        required: true,
+        kind: "text"
+      },
+      {
+        key: "telefono",
+        label: "Telefono",
+        required: true,
+        kind: "phone"
+      },
+      {
+        key: "email",
+        label: "Email",
+        required: false,
+        kind: "email"
+      },
+      {
+        key: "interesse",
+        label: "Prodotto, servizio o esigenza",
+        required: true,
+        kind: "text"
+      },
+      {
+        key: "tempistica",
+        label: "Preferenza per essere contattati",
+        required: true,
+        kind: "text"
+      }
     ]
   };
 }
 
-async function passwordHash(password, salt = randomBytes(16).toString("hex")) {
-  const derived = await scrypt(password, Buffer.from(salt, "hex"), 64, {
-    N: 16384,
-    r: 8,
-    p: 1,
-    maxmem: 64 * 1024 * 1024
-  });
+async function passwordHash(
+  password,
+  salt = randomBytes(16).toString("hex")
+) {
+  const derived = await scrypt(
+    password,
+    Buffer.from(salt, "hex"),
+    64,
+    {
+      N: 16384,
+      r: 8,
+      p: 1,
+      maxmem: 64 * 1024 * 1024
+    }
+  );
+
   return `${salt}:${derived.toString("hex")}`;
 }
 
@@ -136,15 +212,27 @@ async function passwordMatches(password, stored) {
   if (typeof stored !== "string") return false;
 
   const parts = stored.split(":");
-  if (parts.length !== 2 || !/^[0-9a-f]{32}$/i.test(parts[0]) || !/^[0-9a-f]{128}$/i.test(parts[1])) {
+
+  if (
+    parts.length !== 2 ||
+    !/^[0-9a-f]{32}$/i.test(parts[0]) ||
+    !/^[0-9a-f]{128}$/i.test(parts[1])
+  ) {
     return false;
   }
 
-  const candidate = await passwordHash(password, parts[0]);
+  const candidate = await passwordHash(
+    password,
+    parts[0]
+  );
+
   const a = Buffer.from(candidate);
   const b = Buffer.from(stored);
 
-  return a.length === b.length && timingSafeEqual(a, b);
+  return (
+    a.length === b.length &&
+    timingSafeEqual(a, b)
+  );
 }
 
 function readCookie(request, name) {
@@ -152,28 +240,43 @@ function readCookie(request, name) {
 
   for (const part of raw.split(";")) {
     const index = part.indexOf("=");
+
     if (index === -1) continue;
 
     const key = part.slice(0, index).trim();
+
     if (key === name) {
-      return decodeURIComponent(part.slice(index + 1).trim());
+      return decodeURIComponent(
+        part.slice(index + 1).trim()
+      );
     }
   }
 
   return "";
 }
 
-function sessionCookie(value, { clear = false, remember = false } = {}) {
-  let cookie = `${SESSION_COOKIE}=${encodeURIComponent(value)}; Path=/; HttpOnly; Secure; SameSite=Strict`;
+function sessionCookie(
+  value,
+  { clear = false, remember = false } = {}
+) {
+  let cookie =
+    `${SESSION_COOKIE}=${encodeURIComponent(value)}` +
+    "; Path=/; HttpOnly; Secure; SameSite=Strict";
 
-  if (clear) cookie += "; Max-Age=0";
-  else if (remember) cookie += "; Max-Age=2592000";
+  if (clear) {
+    cookie += "; Max-Age=0";
+  } else if (remember) {
+    cookie += "; Max-Age=2592000";
+  }
 
   return cookie;
 }
 
 async function requestBody(request) {
-  const type = (request.headers.get("content-type") || "").split(";")[0].trim();
+  const type =
+    (request.headers.get("content-type") || "")
+      .split(";")[0]
+      .trim();
 
   if (type !== "application/json") {
     throw new Error("Formato non valido.");
@@ -181,7 +284,10 @@ async function requestBody(request) {
 
   const raw = await request.text();
 
-  if (!raw || Buffer.byteLength(raw, "utf8") > 32000) {
+  if (
+    !raw ||
+    Buffer.byteLength(raw, "utf8") > 32000
+  ) {
     throw new Error("Richiesta troppo grande.");
   }
 
@@ -193,14 +299,23 @@ async function requestBody(request) {
     throw new Error("Richiesta non valida.");
   }
 
-  if (!body || typeof body !== "object" || Array.isArray(body)) {
+  if (
+    !body ||
+    typeof body !== "object" ||
+    Array.isArray(body)
+  ) {
     throw new Error("Formato non valido.");
   }
 
   return body;
 }
 
-function text(body, key, maximum = 200, required = true) {
+function text(
+  body,
+  key,
+  maximum = 200,
+  required = true
+) {
   const value = body[key] ?? "";
 
   if (
@@ -208,16 +323,24 @@ function text(body, key, maximum = 200, required = true) {
     value.length > maximum ||
     (required && !value.trim())
   ) {
-    throw new Error("Controlla i campi richiesti.");
+    throw new Error(
+      "Controlla i campi richiesti."
+    );
   }
 
   return value.trim();
 }
 
-async function createSession(client, userId, remember = false) {
+async function createSession(
+  client,
+  userId,
+  remember = false
+) {
   const value = token();
+
   const expires =
-    Date.now() / 1000 + (remember ? 30 * 86400 : 8 * 3600);
+    Date.now() / 1000 +
+    (remember ? 30 * 86400 : 8 * 3600);
 
   await client.query(
     "DELETE FROM auth_sessions WHERE expires < $1",
@@ -225,7 +348,8 @@ async function createSession(client, userId, remember = false) {
   );
 
   await client.query(
-    "INSERT INTO auth_sessions(hash,user_id,expires) VALUES ($1,$2,$3)",
+    `INSERT INTO auth_sessions(hash,user_id,expires)
+     VALUES ($1,$2,$3)`,
     [digest(value), userId, expires]
   );
 
@@ -233,7 +357,11 @@ async function createSession(client, userId, remember = false) {
 }
 
 async function principal(db, request) {
-  const value = readCookie(request, SESSION_COOKIE);
+  const value = readCookie(
+    request,
+    SESSION_COOKIE
+  );
+
   if (!value) return null;
 
   const result = await db.pool.query(
@@ -241,7 +369,10 @@ async function principal(db, request) {
        FROM auth_sessions s
        JOIN users u ON s.user_id=u.id
       WHERE s.hash=$1 AND s.expires>$2`,
-    [digest(value), Date.now() / 1000]
+    [
+      digest(value),
+      Date.now() / 1000
+    ]
   );
 
   return result.rows[0] || null;
@@ -249,51 +380,86 @@ async function principal(db, request) {
 
 async function emailVerified(db, userId) {
   const result = await db.pool.query(
-    "SELECT verified_at FROM email_verification WHERE user_id=$1",
+    `SELECT verified_at
+       FROM email_verification
+      WHERE user_id=$1`,
     [userId]
   );
 
-  return Boolean(result.rows[0]?.verified_at);
+  return Boolean(
+    result.rows[0]?.verified_at
+  );
 }
 
-async function requestEmailVerification(db, user, baseUrl) {
-  if (await emailVerified(db, user.id)) return;
+async function requestEmailVerification(
+  db,
+  user,
+  baseUrl
+) {
+  if (await emailVerified(db, user.id)) {
+    return;
+  }
 
   const value = token();
   const tokenHash = digest(value);
-  const expires = Date.now() / 1000 + 86400;
-  const eventKey = `verify:${tokenHash}`;
-  const subject = "Verifica la tua email — Linea AI";
+  const expires =
+    Date.now() / 1000 + 86400;
+
+  const eventKey =
+    `verify:${tokenHash}`;
+
+  const subject =
+    "Verifica la tua email — Linea AI";
+
   const verificationUrl =
     `${baseUrl}/verifica-email.html#${value}`;
+
   const body =
     "Conferma il tuo indirizzo aprendo questo link entro 24 ore:\n" +
     verificationUrl +
     "\nSe non hai creato un account, ignora il messaggio.";
 
-  const client = await db.pool.connect();
+  const client =
+    await db.pool.connect();
 
   try {
     await client.query("BEGIN");
 
     await client.query(
-      "DELETE FROM email_verification_tokens WHERE user_id=$1",
+      `DELETE FROM email_verification_tokens
+        WHERE user_id=$1`,
       [user.id]
     );
 
     await client.query(
-      `INSERT INTO email_verification_tokens(hash,user_id,expires)
+      `INSERT INTO email_verification_tokens
+       (hash,user_id,expires)
        VALUES ($1,$2,$3)`,
-      [tokenHash, user.id, expires]
+      [
+        tokenHash,
+        user.id,
+        expires
+      ]
     );
 
     const outboxId = token();
 
     await client.query(
       `INSERT INTO email_outbox
-       (id,company_id,event_key,recipient,subject,body,status,created_at,error)
+       (
+         id,
+         company_id,
+         event_key,
+         recipient,
+         subject,
+         body,
+         status,
+         created_at,
+         error
+       )
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
-       ON CONFLICT (company_id,event_key) DO NOTHING`,
+       ON CONFLICT (company_id,event_key)
+       DO NOTHING`,
       [
         outboxId,
         user.company_id,
@@ -308,12 +474,16 @@ async function requestEmailVerification(db, user, baseUrl) {
     );
 
     await client.query(
-      `INSERT INTO email_details(id,html,mode)
+      `INSERT INTO email_details
+       (id,html,mode)
        SELECT $1,$2,$3
        WHERE EXISTS (
-         SELECT 1 FROM email_outbox WHERE id=$1
+         SELECT 1
+           FROM email_outbox
+          WHERE id=$1
        )
-       ON CONFLICT (id) DO NOTHING`,
+       ON CONFLICT (id)
+       DO NOTHING`,
       [
         outboxId,
         `<p>Conferma il tuo indirizzo aprendo questo link entro 24 ore:</p><p><a href="${verificationUrl}">${verificationUrl}</a></p><p>Se non hai creato un account, ignora il messaggio.</p>`,
@@ -330,16 +500,22 @@ async function requestEmailVerification(db, user, baseUrl) {
   }
 }
 
-async function verifyEmailToken(db, value) {
+async function verifyEmailToken(
+  db,
+  value
+) {
   if (
     typeof value !== "string" ||
     !value ||
     value.length > 200
   ) {
-    throw new Error("Token di verifica non valido o scaduto.");
+    throw new Error(
+      "Token di verifica non valido o scaduto."
+    );
   }
 
-  const client = await db.pool.connect();
+  const client =
+    await db.pool.connect();
 
   try {
     await client.query("BEGIN");
@@ -347,27 +523,39 @@ async function verifyEmailToken(db, value) {
     const result = await client.query(
       `SELECT user_id
          FROM email_verification_tokens
-        WHERE hash=$1 AND expires>$2
+        WHERE hash=$1
+          AND expires>$2
         FOR UPDATE`,
-      [digest(value), Date.now() / 1000]
+      [
+        digest(value),
+        Date.now() / 1000
+      ]
     );
 
     const row = result.rows[0];
 
     if (!row) {
-      throw new Error("Token di verifica non valido o scaduto.");
+      throw new Error(
+        "Token di verifica non valido o scaduto."
+      );
     }
 
     await client.query(
-      `INSERT INTO email_verification(user_id,verified_at)
+      `INSERT INTO email_verification
+       (user_id,verified_at)
        VALUES ($1,$2)
        ON CONFLICT (user_id)
-       DO UPDATE SET verified_at=EXCLUDED.verified_at`,
-      [row.user_id, new Date().toISOString()]
+       DO UPDATE SET
+         verified_at=EXCLUDED.verified_at`,
+      [
+        row.user_id,
+        new Date().toISOString()
+      ]
     );
 
     await client.query(
-      "DELETE FROM email_verification_tokens WHERE user_id=$1",
+      `DELETE FROM email_verification_tokens
+        WHERE user_id=$1`,
       [row.user_id]
     );
 
@@ -380,146 +568,277 @@ async function verifyEmailToken(db, value) {
   }
 }
 
-async function companyVerificationStatus(db, companyId) {
+async function companyVerificationStatus(
+  db,
+  companyId
+) {
   const result = await db.pool.query(
-    "SELECT status FROM company_verification WHERE company_id=$1",
+    `SELECT status
+       FROM company_verification
+      WHERE company_id=$1`,
     [companyId]
   );
-  return result.rows[0]?.status || "pending";
+
+  return (
+    result.rows[0]?.status ||
+    "pending"
+  );
 }
 
-async function companyVerificationHistory(db, companyId) {
+async function companyVerificationHistory(
+  db,
+  companyId
+) {
   const result = await db.pool.query(
-    `SELECT actor,previous,status,reason,created_at
-       FROM company_verification_audit
-      WHERE company_id=$1
-      ORDER BY id`,
+    `SELECT
+       actor,
+       previous,
+       status,
+       reason,
+       created_at
+     FROM company_verification_audit
+     WHERE company_id=$1
+     ORDER BY id`,
     [companyId]
   );
+
   return result.rows;
 }
 
-async function planEntitlements(db, companyId, stamp = Date.now() / 1000) {
-  const companyStatus = await companyVerificationStatus(db, companyId);
+async function planEntitlements(
+  db,
+  companyId,
+  stamp = Date.now() / 1000
+) {
+  const companyStatus =
+    await companyVerificationStatus(
+      db,
+      companyId
+    );
 
-  if (["suspended", "rejected"].includes(companyStatus)) {
+  if (
+    ["suspended", "rejected"].includes(
+      companyStatus
+    )
+  ) {
     return {};
   }
 
-  const subscriptionResult = await db.pool.query(
-    "SELECT * FROM plan_subscriptions WHERE company_id=$1",
-    [companyId]
-  );
-  const subscription = subscriptionResult.rows[0] || null;
+  const subscriptionResult =
+    await db.pool.query(
+      `SELECT *
+         FROM plan_subscriptions
+        WHERE company_id=$1`,
+      [companyId]
+    );
 
-  const demoResult = await db.pool.query(
-    `SELECT 1 FROM plan_demo_usage
-      WHERE company_id=$1 AND ends>$2`,
-    [companyId, stamp]
-  );
-  const demoActive = Boolean(demoResult.rows[0]);
+  const subscription =
+    subscriptionResult.rows[0] || null;
 
-  const subscriptionActive = Boolean(
-    subscription &&
-    (
+  const demoResult =
+    await db.pool.query(
+      `SELECT 1
+         FROM plan_demo_usage
+        WHERE company_id=$1
+          AND ends>$2`,
+      [
+        companyId,
+        stamp
+      ]
+    );
+
+  const demoActive =
+    Boolean(demoResult.rows[0]);
+
+  const subscriptionActive =
+    Boolean(
+      subscription &&
       (
-        ["trial", "active"].includes(subscription.status) &&
-        Number(subscription.period_end) > stamp
-      ) ||
-      (
-        subscription.status === "past_due" &&
-        Number(subscription.grace_until || 0) > stamp
+        (
+          ["trial", "active"].includes(
+            subscription.status
+          ) &&
+          Number(
+            subscription.period_end
+          ) > stamp
+        ) ||
+        (
+          subscription.status ===
+            "past_due" &&
+          Number(
+            subscription.grace_until || 0
+          ) > stamp
+        )
       )
-    )
-  );
+    );
 
-  const plan = subscriptionActive
-    ? subscription.plan
-    : demoActive && !subscription
-      ? "demo"
-      : null;
+  const plan =
+    subscriptionActive
+      ? subscription.plan
+      : demoActive && !subscription
+        ? "demo"
+        : null;
 
-  return plan ? { ...PLAN_ENTITLEMENTS[plan] } : {};
+  return plan
+    ? { ...PLAN_ENTITLEMENTS[plan] }
+    : {};
 }
 
 async function planState(db, user) {
-  const stamp = Date.now() / 1000;
+  const stamp =
+    Date.now() / 1000;
 
-  const [demoResult, profileResult, subscriptionResult, eventsResult] =
-    await Promise.all([
-      db.pool.query(
-        "SELECT * FROM plan_demo_usage WHERE email=$1",
-        [user.email]
-      ),
-      db.pool.query(
-        "SELECT data,status FROM plan_profiles WHERE company_id=$1",
-        [user.company_id]
-      ),
-      db.pool.query(
-        "SELECT * FROM plan_subscriptions WHERE company_id=$1",
-        [user.company_id]
-      ),
-      db.pool.query(
-        `SELECT id,actor,action,outcome,amount_cents,created
-           FROM plan_events
-          WHERE company_id=$1
-          ORDER BY created DESC`,
-        [user.company_id]
-      )
-    ]);
+  const [
+    demoResult,
+    profileResult,
+    subscriptionResult,
+    eventsResult
+  ] = await Promise.all([
+    db.pool.query(
+      `SELECT *
+         FROM plan_demo_usage
+        WHERE email=$1`,
+      [user.email]
+    ),
 
-  const profile = profileResult.rows[0] || null;
+    db.pool.query(
+      `SELECT data,status
+         FROM plan_profiles
+        WHERE company_id=$1`,
+      [user.company_id]
+    ),
+
+    db.pool.query(
+      `SELECT *
+         FROM plan_subscriptions
+        WHERE company_id=$1`,
+      [user.company_id]
+    ),
+
+    db.pool.query(
+      `SELECT
+         id,
+         actor,
+         action,
+         outcome,
+         amount_cents,
+         created
+       FROM plan_events
+       WHERE company_id=$1
+       ORDER BY created DESC`,
+      [user.company_id]
+    )
+  ]);
+
+  const profile =
+    profileResult.rows[0] || null;
 
   return {
-    demo: demoResult.rows[0] || null,
+    demo:
+      demoResult.rows[0] || null,
+
     profile: profile
-      ? { data: profile.data, status: profile.status }
+      ? {
+          data: profile.data,
+          status: profile.status
+        }
       : null,
-    subscription: subscriptionResult.rows[0] || null,
-    company_status: await companyVerificationStatus(db, user.company_id),
+
+    subscription:
+      subscriptionResult.rows[0] || null,
+
+    company_status:
+      await companyVerificationStatus(
+        db,
+        user.company_id
+      ),
+
     events: eventsResult.rows,
+
     mode: "mock",
-    entitlements: await planEntitlements(db, user.company_id, stamp),
+
+    entitlements:
+      await planEntitlements(
+        db,
+        user.company_id,
+        stamp
+      ),
+
     grace_days: GRACE_DAYS,
+
     fields: PROFILE_FIELDS,
-    methods: Object.entries(PAYMENT_METHODS).map(
-      ([code, [label, recurring]]) => ({ code, label, recurring })
-    )
+
+    methods:
+      Object.entries(
+        PAYMENT_METHODS
+      ).map(
+        ([code, [label, recurring]]) => ({
+          code,
+          label,
+          recurring
+        })
+      )
   };
 }
 
 async function register(db, body) {
-  const email = text(body, "email").toLowerCase();
-  const password = text(body, "password", 256);
-  const companyName = text(body, "company", 120);
+  const email =
+    text(body, "email").toLowerCase();
 
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 200) {
-    throw new Error("Email non valida.");
+  const password =
+    text(body, "password", 256);
+
+  const companyName =
+    text(body, "company", 120);
+
+  if (
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+      email
+    ) ||
+    email.length > 200
+  ) {
+    throw new Error(
+      "Email non valida."
+    );
   }
 
   if (password.length < 12) {
-    throw new Error("Scegli una password di almeno 12 caratteri.");
+    throw new Error(
+      "Scegli una password di almeno 12 caratteri."
+    );
   }
 
-  if (body.terms !== true || body.privacy !== true) {
+  if (
+    body.terms !== true ||
+    body.privacy !== true
+  ) {
     throw new Error(
       "Accetta i termini e conferma di aver letto l’informativa privacy."
     );
   }
 
-  if (body.password_confirm !== password) {
-    throw new Error("Le password non coincidono.");
+  if (
+    body.password_confirm !==
+    password
+  ) {
+    throw new Error(
+      "Le password non coincidono."
+    );
   }
 
-  const client = await db.pool.connect();
+  const client =
+    await db.pool.connect();
 
   try {
     await client.query("BEGIN");
 
-    const existing = await client.query(
-      "SELECT 1 FROM users WHERE email=$1",
-      [email]
-    );
+    const existing =
+      await client.query(
+        `SELECT 1
+           FROM users
+          WHERE email=$1`,
+        [email]
+      );
 
     if (existing.rowCount) {
       throw new Error(
@@ -530,32 +849,52 @@ async function register(db, body) {
     const companyId = token();
     const userId = token();
     const publicId = token();
-    const encodedPassword = await passwordHash(password);
+
+    const encodedPassword =
+      await passwordHash(password);
 
     await client.query(
-      `INSERT INTO companies(id,public_id,config,created_at)
+      `INSERT INTO companies
+       (id,public_id,config,created_at)
        VALUES ($1,$2,$3::jsonb,$4)`,
       [
         companyId,
         publicId,
-        JSON.stringify(defaultConfig(companyName)),
+        JSON.stringify(
+          defaultConfig(companyName)
+        ),
         new Date().toISOString()
       ]
     );
 
     await client.query(
-      "INSERT INTO company_management(company_id) VALUES ($1)",
+      `INSERT INTO company_management
+       (company_id)
+       VALUES ($1)`,
       [companyId]
     );
 
     await client.query(
-      "INSERT INTO users(id,company_id,email,password) VALUES ($1,$2,$3,$4)",
-      [userId, companyId, email, encodedPassword]
+      `INSERT INTO users
+       (id,company_id,email,password)
+       VALUES ($1,$2,$3,$4)`,
+      [
+        userId,
+        companyId,
+        email,
+        encodedPassword
+      ]
     );
 
     await client.query(
       `INSERT INTO registration_consents
-       (user_id,terms_version,privacy_version,marketing_analysis,recorded_at)
+       (
+         user_id,
+         terms_version,
+         privacy_version,
+         marketing_analysis,
+         recorded_at
+       )
        VALUES ($1,$2,$3,$4,$5)`,
       [
         userId,
@@ -566,13 +905,23 @@ async function register(db, body) {
       ]
     );
 
-    const session = await createSession(client, userId, false);
+    const session =
+      await createSession(
+        client,
+        userId,
+        false
+      );
 
     await client.query("COMMIT");
 
-    return { session, userId };
+    return {
+      session,
+      userId
+    };
   } catch (error) {
-    await client.query("ROLLBACK");
+    await client.query(
+      "ROLLBACK"
+    );
 
     if (error?.code === "23505") {
       throw new Error(
@@ -587,30 +936,54 @@ async function register(db, body) {
 }
 
 async function login(db, body) {
-  const email = text(body, "email").toLowerCase();
-  const password = text(body, "password", 256);
+  const email =
+    text(body, "email").toLowerCase();
+
+  const password =
+    text(body, "password", 256);
 
   if (password.length > 256) {
-    throw new Error("Email o password non corrette.");
+    throw new Error(
+      "Email o password non corrette."
+    );
   }
 
-  const result = await db.pool.query(
-    "SELECT id,password FROM users WHERE email=$1",
-    [email]
-  );
+  const result =
+    await db.pool.query(
+      `SELECT id,password
+         FROM users
+        WHERE email=$1`,
+      [email]
+    );
 
   const user = result.rows[0];
 
-  if (!user || !(await passwordMatches(password, user.password))) {
-    throw new Error("Email o password non corrette.");
+  if (
+    !user ||
+    !(await passwordMatches(
+      password,
+      user.password
+    ))
+  ) {
+    throw new Error(
+      "Email o password non corrette."
+    );
   }
 
-  const remember = body.remember === true;
-  const client = await db.pool.connect();
+  const remember =
+    body.remember === true;
+
+  const client =
+    await db.pool.connect();
 
   try {
     return {
-      session: await createSession(client, user.id, remember),
+      session:
+        await createSession(
+          client,
+          user.id,
+          remember
+        ),
       userId: user.id,
       remember
     };
@@ -619,60 +992,115 @@ async function login(db, body) {
   }
 }
 
-export default async (request) => {
-  const url = new URL(request.url);
-  const path = url.pathname;
-  const method = request.method.toUpperCase();
+export default async (
+  request,
+  context = {}
+) => {
+  const url =
+    new URL(request.url);
+
+  const path =
+    url.pathname;
+
+  const method =
+    request.method.toUpperCase();
 
   try {
     const db = getDatabase();
 
-    if (path === "/api/health" && method === "GET") {
-      await db.pool.query("SELECT 1");
+    if (
+      path === "/api/health" &&
+      method === "GET"
+    ) {
+      await db.pool.query(
+        "SELECT 1"
+      );
 
       return json({
         ok: true,
         service: "linea-ai",
-        database: "connected"
+        database: "connected",
+        model_ready: aiReady(),
+        ai_online: true
       });
     }
 
-    if (path === "/api/register" && method === "POST") {
-      const body = await requestBody(request);
-      const result = await register(db, body);
+    if (
+      path === "/api/register" &&
+      method === "POST"
+    ) {
+      const body =
+        await requestBody(request);
 
-      return json(
-        { ok: true, redirect: "/account.html" },
-        200,
-        { "Set-Cookie": sessionCookie(result.session) }
-      );
-    }
-
-    if (path === "/api/login" && method === "POST") {
-      const body = await requestBody(request);
-      const result = await login(db, body);
-      const verified = await emailVerified(db, result.userId);
+      const result =
+        await register(db, body);
 
       return json(
         {
           ok: true,
-          redirect: verified ? "/#contatti" : "/account.html"
+          redirect: "/account.html"
         },
         200,
         {
-          "Set-Cookie": sessionCookie(result.session, {
-            remember: result.remember
-          })
+          "Set-Cookie":
+            sessionCookie(
+              result.session
+            )
         }
       );
     }
 
-    if (path === "/api/logout" && method === "POST") {
-      const value = readCookie(request, SESSION_COOKIE);
+    if (
+      path === "/api/login" &&
+      method === "POST"
+    ) {
+      const body =
+        await requestBody(request);
+
+      const result =
+        await login(db, body);
+
+      const verified =
+        await emailVerified(
+          db,
+          result.userId
+        );
+
+      return json(
+        {
+          ok: true,
+          redirect: verified
+            ? "/#contatti"
+            : "/account.html"
+        },
+        200,
+        {
+          "Set-Cookie":
+            sessionCookie(
+              result.session,
+              {
+                remember:
+                  result.remember
+              }
+            )
+        }
+      );
+    }
+
+    if (
+      path === "/api/logout" &&
+      method === "POST"
+    ) {
+      const value =
+        readCookie(
+          request,
+          SESSION_COOKIE
+        );
 
       if (value) {
         await db.pool.query(
-          "DELETE FROM auth_sessions WHERE hash=$1",
+          `DELETE FROM auth_sessions
+            WHERE hash=$1`,
           [digest(value)]
         );
       }
@@ -680,160 +1108,437 @@ export default async (request) => {
       return json(
         { ok: true },
         200,
-        { "Set-Cookie": sessionCookie("", { clear: true }) }
+        {
+          "Set-Cookie":
+            sessionCookie(
+              "",
+              { clear: true }
+            )
+        }
       );
     }
 
-    if (path === "/api/me" && method === "GET") {
-      const user = await principal(db, request);
+    if (
+      path === "/api/me" &&
+      method === "GET"
+    ) {
+      const user =
+        await principal(
+          db,
+          request
+        );
 
       if (!user) {
         return json(
-          { error: "Accedi al tuo account per continuare." },
+          {
+            error:
+              "Accedi al tuo account per continuare."
+          },
           401
         );
       }
 
-      const companyResult = await db.pool.query(
-        "SELECT id,public_id,config FROM companies WHERE id=$1",
-        [user.company_id]
-      );
+      const companyResult =
+        await db.pool.query(
+          `SELECT id,public_id,config
+             FROM companies
+            WHERE id=$1`,
+          [user.company_id]
+        );
 
-      const company = companyResult.rows[0];
+      const company =
+        companyResult.rows[0];
 
       if (!company) {
-        return json({ error: "Risorsa non disponibile." }, 404);
+        return json(
+          {
+            error:
+              "Risorsa non disponibile."
+          },
+          404
+        );
       }
 
       return json({
         email: user.email,
         company: {
           id: company.id,
-          public_id: company.public_id,
-          config: company.config
+          public_id:
+            company.public_id,
+          config:
+            company.config
         },
-        email_verified: await emailVerified(db, user.id)
+        email_verified:
+          await emailVerified(
+            db,
+            user.id
+          )
       });
     }
 
-    if (path === "/api/email-verification" && ["GET", "POST"].includes(method)) {
-      const user = await principal(db, request);
+    if (
+      path ===
+        "/api/email-verification" &&
+      ["GET", "POST"].includes(
+        method
+      )
+    ) {
+      const user =
+        await principal(
+          db,
+          request
+        );
 
       if (!user) {
         return json(
-          { error: "Accedi al tuo account per continuare." },
+          {
+            error:
+              "Accedi al tuo account per continuare."
+          },
           401
         );
       }
 
-      if (method === "POST" && !(await emailVerified(db, user.id))) {
-        await requestEmailVerification(db, user, url.origin);
+      if (
+        method === "POST" &&
+        !(await emailVerified(
+          db,
+          user.id
+        ))
+      ) {
+        await requestEmailVerification(
+          db,
+          user,
+          url.origin
+        );
       }
 
       return json({
-        verified: await emailVerified(db, user.id)
+        verified:
+          await emailVerified(
+            db,
+            user.id
+          )
       });
     }
 
-    if (path === "/api/email-verify" && method === "POST") {
-      const body = await requestBody(request);
-      const verificationToken = text(body, "token", 200);
-      await verifyEmailToken(db, verificationToken);
+    if (
+      path ===
+        "/api/email-verify" &&
+      method === "POST"
+    ) {
+      const body =
+        await requestBody(request);
+
+      const verificationToken =
+        text(
+          body,
+          "token",
+          200
+        );
+
+      await verifyEmailToken(
+        db,
+        verificationToken
+      );
 
       return json({
-        message: "Email verificata."
+        message:
+          "Email verificata."
       });
     }
 
-    if (path === "/api/plans" && method === "GET") {
-      const user = await principal(db, request);
+    if (
+      path === "/api/plans" &&
+      method === "GET"
+    ) {
+      const user =
+        await principal(
+          db,
+          request
+        );
 
       if (!user) {
-        return json(publicPlanCatalogue());
+        return json(
+          publicPlanCatalogue()
+        );
       }
 
-      const current = await planState(db, user);
-      const now = Date.now() / 1000;
+      const current =
+        await planState(
+          db,
+          user
+        );
+
       const cards = [];
 
-      for (const [code, plan] of Object.entries(PLANS)) {
+      for (
+        const [code, plan]
+        of Object.entries(PLANS)
+      ) {
         if (
           code === "demo" &&
-          current.demo &&
-          Number(current.demo.ends) <= now
+          current.demo
         ) {
           continue;
         }
 
-        const annualCents = plan.available
-          ? planAmount(code, "annual")
-          : null;
+        const annualCents =
+          plan.available
+            ? planAmount(
+                code,
+                "annual"
+              )
+            : null;
 
         cards.push({
           code,
           ...plan,
-          annual_cents: annualCents,
+          annual_cents:
+            annualCents,
           annual_monthly_cents:
-            annualCents === null ? null : Math.floor(annualCents / 12)
+            annualCents === null
+              ? null
+              : Math.floor(
+                  annualCents / 12
+                )
         });
       }
 
       return json({
         authenticated: true,
         plans: cards,
-        discount: PLAN_DISCOUNT,
+        discount:
+          PLAN_DISCOUNT,
         ...current
       });
     }
 
-    if (path === "/api/company-verification" && method === "GET") {
-      const user = await principal(db, request);
+    if (
+      path ===
+        "/api/company-verification" &&
+      method === "GET"
+    ) {
+      const user =
+        await principal(
+          db,
+          request
+        );
 
       if (!user) {
         return json(
-          { error: "Accedi al tuo account per continuare." },
+          {
+            error:
+              "Accedi al tuo account per continuare."
+          },
           401
         );
       }
 
       return json({
-        status: await companyVerificationStatus(db, user.company_id),
-        history: await companyVerificationHistory(db, user.company_id)
+        status:
+          await companyVerificationStatus(
+            db,
+            user.company_id
+          ),
+        history:
+          await companyVerificationHistory(
+            db,
+            user.company_id
+          )
       });
     }
 
-    if (path === "/api/plan-state" && method === "GET") {
-      const user = await principal(db, request);
+    if (
+      path === "/api/plan-demo" &&
+      method === "POST"
+    ) {
+      const user =
+        await principal(
+          db,
+          request
+        );
 
       if (!user) {
         return json(
-          { error: "Accedi al tuo account per continuare." },
+          {
+            error:
+              "Accedi al tuo account per continuare."
+          },
           401
         );
       }
 
-      return json(await planState(db, user));
+      if (
+        !(await emailVerified(
+          db,
+          user.id
+        ))
+      ) {
+        return json(
+          {
+            error:
+              "Verifica prima il tuo indirizzo email."
+          },
+          403
+        );
+      }
+
+      const existing =
+        await db.pool.query(
+          `SELECT 1
+             FROM plan_demo_usage
+            WHERE email=$1
+               OR company_id=$2`,
+          [
+            user.email,
+            user.company_id
+          ]
+        );
+
+      if (existing.rowCount) {
+        return json(
+          {
+            error:
+              "La Demo 7 giorni è già stata utilizzata per questo account o azienda."
+          },
+          409
+        );
+      }
+
+      const started =
+        Date.now() / 1000;
+
+      const ends =
+        started +
+        7 * 24 * 60 * 60;
+
+      try {
+        await db.pool.query(
+          `INSERT INTO plan_demo_usage
+           (email,company_id,started,ends)
+           VALUES ($1,$2,$3,$4)`,
+          [
+            user.email,
+            user.company_id,
+            started,
+            ends
+          ]
+        );
+      } catch (error) {
+        if (
+          error?.code === "23505"
+        ) {
+          return json(
+            {
+              error:
+                "La Demo 7 giorni è già stata utilizzata per questo account o azienda."
+            },
+            409
+          );
+        }
+
+        throw error;
+      }
+
+      return json({
+        ok: true,
+        started,
+        ends,
+        redirect:
+          "/dashboard.html"
+      });
     }
 
-    return json({ error: "Operazione non disponibile." }, 404);
+    if (
+      path ===
+        "/api/plan-state" &&
+      method === "GET"
+    ) {
+      const user =
+        await principal(
+          db,
+          request
+        );
+
+      if (!user) {
+        return json(
+          {
+            error:
+              "Accedi al tuo account per continuare."
+          },
+          401
+        );
+      }
+
+      return json(
+        await planState(
+          db,
+          user
+        )
+      );
+    }
+
+    const chatResponse =
+      await chatApi(
+        request,
+        db,
+        principal,
+        { context }
+      );
+
+    if (chatResponse) {
+      return chatResponse;
+    }
+
+    return json(
+      {
+        error:
+          "Operazione non disponibile."
+      },
+      404
+    );
   } catch (error) {
-    console.error("Linea AI API error:", error);
+    if (error.httpStatus) {
+      return json(
+        { error: error.message },
+        error.httpStatus
+      );
+    }
 
-    const knownMessages = new Set([
-      "Formato non valido.",
-      "Richiesta troppo grande.",
-      "Richiesta non valida.",
-      "Controlla i campi richiesti.",
-      "Email non valida.",
-      "Scegli una password di almeno 12 caratteri.",
-      "Accetta i termini e conferma di aver letto l’informativa privacy.",
-      "Le password non coincidono.",
-      "Registrazione non disponibile con questi dati. Prova ad accedere.",
-      "Email o password non corrette."
-    ]);
+    console.error(
+      "Linea AI API error:",
+      error.code ||
+        error.name ||
+        "internal"
+    );
 
-    if (knownMessages.has(error?.message)) {
-      return json({ error: error.message }, 400);
+    const knownMessages =
+      new Set([
+        "Formato non valido.",
+        "Richiesta troppo grande.",
+        "Richiesta non valida.",
+        "Controlla i campi richiesti.",
+        "Email non valida.",
+        "Scegli una password di almeno 12 caratteri.",
+        "Accetta i termini e conferma di aver letto l’informativa privacy.",
+        "Le password non coincidono.",
+        "Registrazione non disponibile con questi dati. Prova ad accedere.",
+        "Email o password non corrette."
+      ]);
+
+    if (
+      knownMessages.has(
+        error?.message
+      )
+    ) {
+      return json(
+        {
+          error:
+            error.message
+        },
+        400
+      );
     }
 
     return json(
