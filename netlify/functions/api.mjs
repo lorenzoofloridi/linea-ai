@@ -599,11 +599,8 @@ async function requestEmailVerification(
   }
 
   /*
-   * Invio reale tramite Resend.
-   *
-   * Finché linea-ai.it non sarà acquistato
-   * e verificato utilizziamo il mittente
-   * di test fornito da Resend.
+   * Invio reale tramite Resend usando
+   * il dominio verificato linea-ai.it.
    */
   try {
     await db.pool.query(
@@ -636,7 +633,7 @@ async function requestEmailVerification(
 
           body: JSON.stringify({
             from:
-              "Linea AI <onboarding@resend.dev>",
+              "Linea AI <noreply@linea-ai.it>",
 
             to: [
               user.email
@@ -753,11 +750,11 @@ async function verifyEmailToken(
           WHERE hash=$1
             AND expires>$2
           FOR UPDATE`,
-        [
-          digest(value),
-          Date.now() / 1000
-        ]
-      );
+      [
+        digest(value),
+        Date.now() / 1000
+      ]
+    );
 
     const row =
       result.rows[0];
