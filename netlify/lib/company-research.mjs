@@ -315,10 +315,18 @@ Non aggiungere testo prima o dopo il JSON.
     );
 
   if (!response.ok) {
-    throw new Error(
-      "COMPANY_RESEARCH_UNAVAILABLE"
-    );
-  }
+  const errorText = await response.text();
+
+  console.error(
+    "Gemini research request failed:",
+    response.status,
+    errorText.slice(0, 2000)
+  );
+
+  throw new Error(
+    `COMPANY_RESEARCH_UNAVAILABLE_${response.status}`
+  );
+}
 
   const raw =
     await response.json();
