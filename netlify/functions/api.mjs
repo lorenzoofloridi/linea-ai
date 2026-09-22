@@ -1876,7 +1876,201 @@ export default async (
       );
     }
 
-    const chatResponse =
+        if (
+      path === "/api/plan-profile" &&
+      method === "POST"
+    ) {
+      const user =
+        await principal(
+          db,
+          request
+        );
+
+      if (!user) {
+        return json(
+          {
+            error:
+              "Accedi al tuo account per continuare."
+          },
+          401
+        );
+      }
+
+      if (
+        !(
+          await emailVerified(
+            db,
+            user.id
+          )
+        )
+      ) {
+        return json(
+          {
+            error:
+              "Verifica prima il tuo indirizzo email."
+          },
+          403
+        );
+      }
+
+      const body =
+        await requestBody(
+          request
+        );
+
+      const expectedKeys =
+        Object.keys(
+          PROFILE_FIELDS
+        );
+
+      const receivedKeys =
+        Object.keys(
+          body
+        );
+
+      if (
+        receivedKeys.length !==
+          expectedKeys.length ||
+        !expectedKeys.every(
+          key =>
+            Object.prototype.hasOwnProperty.call(
+              body,
+              key
+            )
+        )
+      ) {
+        return json(
+          {
+            error:
+              "Compila tutti i dati aziendali richiesti."
+          },
+          400
+        );
+      }
+
+      const profile = {};
+
+      for (
+        const [
+          key,
+          label
+        ] of Object.entries(
+          PROFILE_FIELDS
+        )
+      ) {
+        const value =
+          body[key];
+
+        if (
+          typeof value !== "string" ||
+          !value.trim() ||
+          value.trim().length > 250
+        ) {
+          return json(
+            {
+              error:
+                "Controlla: " +
+                label
+            },
+            400
+          );
+        }
+
+        profile[key] =
+          value.trim();
+      }
+
+      try {
+        const website =
+          new URL(
+            profile.website
+          );
+
+        if (
+          ![
+            "http:",
+            "https:"
+          ].includes(
+            website.protocol
+          ) ||
+          !website.hostname ||
+          website.username ||
+          website.password
+        ) {
+          throw new Error(
+            "Sito non valido."
+          );
+        }
+      } catch {
+        return json(
+          {
+            error:
+              "Indica un sito completo, ad esempio https://azienda.it."
+          },
+          400
+        );
+      }
+
+      if (
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+          profile.business_email
+        )
+      ) {
+        return json(
+          {
+            error:
+              "Controlla l’email aziendale."
+          },
+          400
+        );
+      }
+
+      profile.country =
+        profile.country.toUpperCase();
+
+      if (
+        !/^[A-Z]{2}$/.test(
+          profile.country
+        )
+      ) {
+        return json(
+          {
+            error:
+              "Indica il Paese con due lettere, ad esempio IT."
+          },
+          400
+        );
+      }
+
+      await db.pool.query(
+        `INSERT INTO plan_profiles
+         (
+           company_id,
+           data,
+           status,
+           updated_at
+         )
+         VALUES ($1,$2::jsonb,$3,$4)
+         ON CONFLICT (company_id)
+         DO UPDATE SET
+           data=EXCLUDED.data,
+           status=EXCLUDED.status,
+           updated_at=EXCLUDED.updated_at`,
+        [
+          user.company_id,
+          JSON.stringify(
+            profile
+          ),
+          "pending",
+          new Date().toISOString()
+        ]
+      );
+
+      return json({
+        ok: true
+      });
+    }
+const chatResponse =
       await chatApi(
         request,
         db,
