@@ -466,20 +466,13 @@ async function requestEmailVerification(
     );
   }
 
-  /*
-   * Accettiamo esclusivamente l'intenzione
-   * Demo. Qualsiasi altro valore viene
-   * ignorato.
-   */
   const requestedPlan =
     plan === "demo"
       ? "demo"
       : null;
 
   const value = token();
-
-  const tokenHash =
-    digest(value);
+  const tokenHash = digest(value);
 
   const expires =
     Date.now() / 1000 +
@@ -491,15 +484,6 @@ async function requestEmailVerification(
   const subject =
     "Verifica la tua email — Linea AI";
 
-  /*
-   * Se l'utente stava attivando la Demo,
-   * l'informazione viaggia nel link email.
-   *
-   * Il token resta nel fragment (#TOKEN),
-   * quindi non viene inviato al server
-   * come parte della normale richiesta
-   * della pagina HTML.
-   */
   const verificationUrl =
     requestedPlan === "demo"
       ? `${baseUrl}/verifica-email.html?plan=demo#${value}`
@@ -515,13 +499,8 @@ async function requestEmailVerification(
     `<p><a href="${verificationUrl}">Verifica il tuo indirizzo email</a></p>` +
     "<p>Se non hai creato un account, ignora il messaggio.</p>";
 
-  const outboxId =
-    token();
+  const outboxId = token();
 
-  /*
-   * Prima salviamo il token e registriamo
-   * l'email come in attesa di invio.
-   */
   const client =
     await db.pool.connect();
 
@@ -598,10 +577,6 @@ async function requestEmailVerification(
     client.release();
   }
 
-  /*
-   * Invio reale tramite Resend usando
-   * il dominio verificato linea-ai.it.
-   */
   try {
     await db.pool.query(
       `UPDATE email_outbox
@@ -942,7 +917,8 @@ async function planState(
     demoResult,
     profileResult,
     subscriptionResult,
-    eventsResult
+    eventsResult,
+    knowledgeResult
   ] = await Promise.all([
     db.pool.query(
       `SELECT *
@@ -977,11 +953,25 @@ async function planState(
        WHERE company_id=$1
        ORDER BY created DESC`,
       [user.company_id]
+    ),
+
+    db.pool.query(
+      `SELECT
+         status,
+         started_at,
+         completed_at
+       FROM company_knowledge
+       WHERE company_id=$1`,
+      [user.company_id]
     )
   ]);
 
   const profile =
     profileResult.rows[0] ||
+    null;
+
+  const research =
+    knowledgeResult.rows[0] ||
     null;
 
   return {
@@ -996,6 +986,18 @@ async function planState(
               profile.data,
             status:
               profile.status
+          }
+        : null,
+
+    research:
+      research
+        ? {
+            status:
+              research.status,
+            started_at:
+              research.started_at,
+            completed_at:
+              research.completed_at
           }
         : null,
 
@@ -1567,10 +1569,6 @@ export default async (
             request
           );
 
-        /*
-         * Accettiamo esclusivamente Demo.
-         * Qualunque altro valore viene ignorato.
-         */
         const requestedPlan =
           body.plan === "demo"
             ? "demo"
@@ -1801,10 +1799,6 @@ export default async (
       const started =
         Date.now() / 1000;
 
-      /*
-       * La Demo scade esattamente
-       * 7 giorni dopo l'attivazione.
-       */
       const ends =
         started +
         7 * 24 * 60 * 60;
@@ -1876,7 +1870,7 @@ export default async (
       );
     }
 
-        if (
+    if (
       path === "/api/plan-profile" &&
       method === "POST"
     ) {
@@ -2066,11 +2060,107 @@ export default async (
         ]
       );
 
+      await db.pool.query(
+        `INSERT INTO company_knowledge
+         (
+           company_id,
+           status,
+           knowledge,
+           sources,
+           started_at,
+           completed_at,
+           updated_at,
+           error
+         )
+         VALUES (
+           $1,
+           'pending',
+           '{}'::jsonb,
+           '[]'::jsonb,
+           NULL,
+           NULL,
+           NOW(),
+           NULL
+         )
+         ON CONFLICT (company_id)
+         DO UPDATE SET
+           status='pending',
+           knowledge='{}'::jsonb,
+           sources='[]'::jsonb,
+           started_at=NULL,
+           completed_at=NULL,
+           updated_at=NOW(),
+           error=NULL`,
+        [
+          user.company_id
+        ]
+      );
+
+      const backgroundResponse =
+        await fetch(
+          `${url.origin}/.netlify/functions/company-research-background`,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+              company_id:
+                user.company_id
+            })
+          }
+        );
+
+      if (
+        !backgroundResponse.ok
+      ) {
+        console.error(
+          "Unable to start company research:",
+          backgroundResponse.status
+        );
+
+        await db.pool.query(
+          `UPDATE company_knowledge
+              SET status='failed',
+                  updated_at=NOW(),
+                  error=$1
+            WHERE company_id=$2`,
+          [
+            "Impossibile avviare la ricerca.",
+            user.company_id
+          ]
+        );
+
+        await db.pool.query(
+          `UPDATE plan_profiles
+              SET status='needs_review',
+                  updated_at=NOW()
+            WHERE company_id=$1`,
+          [
+            user.company_id
+          ]
+        );
+
+        return json(
+          {
+            error:
+              "I dati sono stati salvati, ma la ricerca automatica non è partita. Riprova."
+          },
+          503
+        );
+      }
+
       return json({
-        ok: true
+        ok: true,
+        research_status:
+          "pending"
       });
     }
-const chatResponse =
+
+    const chatResponse =
       await chatApi(
         request,
         db,

@@ -20,3 +20,6 @@ var/
 node_modules/
 netlify/functions/api.mjs.backup
 deno.lock
+
+.DS_Store
+**/.DS_Store
