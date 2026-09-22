@@ -172,7 +172,7 @@ export async function researchCompany(
   const model =
     env.LINEA_RESEARCH_MODEL ||
     env.LINEA_AI_MODEL ||
-    "gemini-3.5-flash-lite";
+    "gemini-2.5-flash-lite";
 
   if (
     !/^[a-z0-9.-]+$/.test(model)
