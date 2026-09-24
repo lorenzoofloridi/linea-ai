@@ -1,4 +1,4 @@
-import { getDatabase } from "@netlify/database";
+import { getDatabase } from "../lib/db.mjs";
 import { researchCompany } from "../lib/company-research.mjs";
 import { internalRequestAuthorized } from "../lib/internal-auth.mjs";
 

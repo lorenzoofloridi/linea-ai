@@ -42,13 +42,13 @@ try {
   );
 
   for (
-    const file of (await readdir('netlify/database/migrations'))
+    const file of (await readdir('database/migrations'))
       .filter(f => f.endsWith('.sql'))
       .sort()
   ) {
     await pool.query(
       await readFile(
-        'netlify/database/migrations/' + file,
+        'database/migrations/' + file,
         'utf8'
       )
     );

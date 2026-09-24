@@ -2,11 +2,14 @@
   "name": "linea-ai",
   "private": true,
   "type": "module",
-  "dependencies": {
-    "@netlify/database": "2.0.1"
-  },
   "scripts": {
-    "test": "node --test netlify/tests/chat-state.test.mjs netlify/tests/ai-adapter.test.mjs",
-    "test:database": "node --test netlify/tests/chat-database.test.mjs"
+    "test": "node --test netlify/tests/chat-state.test.mjs netlify/tests/ai-adapter.test.mjs netlify/tests/db-config.test.mjs",
+    "test:database": "node --test netlify/tests/chat-database.test.mjs",
+    "db:status": "node --env-file=.env.supabase scripts/migrate.mjs status",
+    "db:migrate": "node --env-file=.env.supabase scripts/migrate.mjs migrate",
+    "db:check": "node --env-file=.env.supabase scripts/migrate.mjs check"
+  },
+  "dependencies": {
+    "pg": "^8.23.0"
   }
 }

@@ -6,6 +6,8 @@ site=root/'outputs/linea-ai-site';bot=root/'outputs/mio-agente-ai'
 files=[]
 files.extend(root/name for name in ["package.json", "package-lock.json", "netlify.toml"])
 files.extend(p for p in (root/"netlify").rglob("*") if p.is_file() and not p.is_symlink() and p.suffix in {".mjs", ".sql", ".md", ".py"})
+for folder in ["database", "scripts"]:
+    files.extend(p for p in (root/folder).rglob("*") if p.is_file() and not p.is_symlink() and p.suffix in {".mjs", ".sql", ".md"})
 for folder,extensions in [(site/'dist',{'.html','.css','.js','.svg','.woff','.woff2','.png','.jpg'}),(site/'saas',{'.py'}),(site/'tests',{'.py'}),(bot,{'.py'})]:
  files.extend(p for p in folder.rglob('*') if p.is_file() and not p.is_symlink() and '.venv' not in p.parts and '__pycache__' not in p.parts and p.suffix in extensions)
 for name in ['serve.py','server_api.py','cli.py','esporta_archivio.py','Avvia-sito.command','LEGGIMI.md']:files.append(site/name)

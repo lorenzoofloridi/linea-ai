@@ -61,3 +61,13 @@ Prossimo blocco: sessioni/chat e provider online autorizzato. Gli step E2E chat/
 ### Integrazione con le modifiche locali Ollama (24 settembre 2026)
 
 Le modifiche non committate sul Mac (provider Ollama Cloud, lettura del sito, `normalizeKnowledge`, validazioni della background function, `PUBLIC_SITE_URL`) sono state integrate: Gemini resta predefinito, Ollama diventa provider di riserva nell'adapter. La lettura del sito segue i redirect manualmente e verifica via DNS che ogni host risolva solo verso IP pubblici (IPv4/IPv6). Rimossi i log che includevano risposte Resend, oggetti errore completi, risposte del modello o corpi d'errore dei provider.
+
+## Aggiornamento 24 settembre 2026 — database su Supabase
+
+Motivo: il calcolo di Netlify Database ha consumato 30–60 crediti al giorno anche senza clienti (130 dei 331 crediti del 20–22 settembre, gli altri quasi tutti in deploy di produzione). Il database passa a PostgreSQL su Supabase (Frankfurt, piano Free), coerente con l'architettura PostgreSQL/pgvector.
+
+- `netlify/lib/db.mjs` sostituisce `@netlify/database` con `pg` e la stessa interfaccia `{ pool }`; TLS obbligatorio con verifica del certificato CA di Supabase; nessuna credenziale nei messaggi d'errore.
+- Migrazioni spostate in `database/migrations`: Netlify non le applica più durante il deploy. `scripts/migrate.mjs` (status/migrate/check) le applica dal Mac con checksum, una transazione per file e lock consultivo.
+- 0009: RLS su tutte le tabelle, revoca dei privilegi ad `anon`/`authenticated` anche per le tabelle future. Verificato su PostgreSQL 16 locale con ruoli simulati (182 privilegi → 0).
+- Si riparte da zero: i dati su Netlify Database erano solo account di prova. Netlify Database va rimosso dal progetto dopo il passaggio.
+- Latenza: le Functions restano a IAD (US East; la regione si cambia solo con piani superiori) e il database è a Frankfurt, circa 90 ms per query. Da misurare dopo il deploy; eventuale riduzione del numero di query per richiesta.

@@ -1,7 +1,7 @@
 import { chatApi } from "../lib/chat-api.mjs";
 import { ready as aiReady } from "../lib/online-ai.mjs";
 import { internalRequestHeaders } from "../lib/internal-auth.mjs";
-import { getDatabase } from "@netlify/database";
+import { getDatabase } from "../lib/db.mjs";
 import {
   createHash,
   randomBytes,
