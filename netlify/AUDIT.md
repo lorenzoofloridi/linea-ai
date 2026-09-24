@@ -48,3 +48,16 @@ AI Gateway: documentazione ufficiale https://docs.netlify.com/build/ai-gateway/o
 Test eseguito: python3 netlify/tests/auth-live.py, due account fittizi distinti, esito positivo. Il comando crea nuovi record di test; non eseguirlo come controllo periodico. Credenziali generate in var/audit (ignorato da Git), nessuna email inviata dal test.
 
 Prossimo blocco: sessioni/chat e provider online autorizzato. Gli step E2E chat/lead/isolation/Sheets/email non sono conclusi.
+
+## Aggiornamento 24 settembre 2026 — AI Gemini diretta e quote mensili
+
+- Adapter unico `netlify/lib/ai/provider.mjs` (`generate`, `aiReady`, `AIError`) con provider `gemini.mjs`: endpoint fisso `generativelanguage.googleapis.com`, chiave `LINEA_GEMINI_API_KEY` solo in header, corpo degli errori mai letto né loggato. Le variabili dell'AI Gateway non sono più usate.
+- `online-ai.mjs` (chat) e `company-research.mjs` (ricerca) passano dall'adapter; la ricerca non chiede più `responseMimeType` JSON insieme agli strumenti di ricerca (combinazione non supportata da Gemini) ed estrae il JSON dal testo.
+- Quote: migrazione additiva `0008_ai_usage.sql`; `ai-quota.mjs` calcola il piano effettivo solo dal database (abbonamento attivo, poi Demo), riserva il messaggio con un unico `INSERT … ON CONFLICT DO UPDATE … WHERE used < limite` prima di Gemini e lo rilascia se il modello fallisce. Il vecchio limite fisso 60/giorno per azienda è sostituito da quota mensile + anti-raffica al minuto; resta il tetto globale giornaliero `LINEA_AI_DAILY_LIMIT` (da alzare prima dei clienti reali).
+- `requireActivePlan` della chat usa la stessa funzione `effectivePlan`. `planEntitlements` in `api.mjs` usa ancora una regola propria (Demo solo senza abbonamento): da unificare.
+- `company-research-background` era invocabile pubblicamente con qualsiasi `company_id`: ora richiede l'header interno firmato con `LINEA_INTERNAL_SECRET` e una ricerca in stato `pending`.
+- Verifica: `npm test` (adapter, quote, periodo, segreto interno) e `npm run test:database` (quota prima del modello, isolamento tra aziende, rilascio su errore, cambio piano, `/api/ai-usage`). Nessuna chiamata reale a Gemini e nessun deploy in questa sessione.
+
+### Integrazione con le modifiche locali Ollama (24 settembre 2026)
+
+Le modifiche non committate sul Mac (provider Ollama Cloud, lettura del sito, `normalizeKnowledge`, validazioni della background function, `PUBLIC_SITE_URL`) sono state integrate: Gemini resta predefinito, Ollama diventa provider di riserva nell'adapter. La lettura del sito segue i redirect manualmente e verifica via DNS che ogni host risolva solo verso IP pubblici (IPv4/IPv6). Rimossi i log che includevano risposte Resend, oggetti errore completi, risposte del modello o corpi d'errore dei provider.

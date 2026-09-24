@@ -1,6 +1,7 @@
 import {randomBytes,createHash} from 'node:crypto';
 import {interpret,ready} from './online-ai.mjs';
 import {initialState,advance} from './chat-state.mjs';
+import {effectivePlan,reserveMessage,releaseMessage,recordTokens,usageSummary,QuotaError} from './ai-quota.mjs';
 
 const token=()=>randomBytes(32).toString('base64url');
 const hash=s=>createHash('sha256').update(s).digest('hex');
@@ -9,7 +10,7 @@ const json=(body,status=200)=>Response.json(body,{status,headers:{'Cache-Control
 const greeting=c=>c.agent?.branding?.greeting||`Ciao! Sono l’assistente di ${c.name}. Come posso aiutarti oggi?`;
 const validate=(b,k,max=2000)=>{if(typeof b[k]!=='string'||!b[k].trim()||b[k].length>max)fail(400,'Controlla i dati inseriti.');return b[k].trim();};
 
-async function limit(db,key,maximum,windowSeconds){
+async function limit(db,key,maximum,windowSeconds,message='Il limite temporaneo della demo è stato raggiunto. Riprova più tardi.'){
  const bucket=Math.floor(Date.now()/1000/windowSeconds);
  const r=await db.pool.query(
   `INSERT INTO chat_limits(key,bucket,count)
@@ -21,10 +22,7 @@ async function limit(db,key,maximum,windowSeconds){
  );
 
  if(r.rows[0].count>maximum){
-  fail(
-   429,
-   'Il limite temporaneo della demo è stato raggiunto. Riprova più tardi.'
-  );
+  fail(429,message);
  }
 }
 
@@ -51,7 +49,8 @@ export async function chatApi(
    '/api/leads',
    '/api/conversations',
    '/api/config',
-   '/api/email-status'
+   '/api/email-status',
+   '/api/ai-usage'
   ].includes(path)||
   /^\/api\/(leads|conversations)\/[^/]+$/.test(path);
 
@@ -123,55 +122,8 @@ export async function chatApi(
   * o lead quando la Demo scade.
   */
  const requireActivePlan=async cid=>{
-  const now=Date.now()/1000;
-
-  const demo=await db.pool.query(
-   `SELECT 1
-      FROM plan_demo_usage
-     WHERE company_id=$1
-       AND ends>$2`,
-   [cid,now]
-  );
-
-  if(demo.rowCount){
-   return;
-  }
-
-  const subscription=(
-   await db.pool.query(
-    `SELECT
-       plan,
-       status,
-       period_end,
-       grace_until
-     FROM plan_subscriptions
-     WHERE company_id=$1`,
-    [cid]
-   )
-  ).rows[0];
-
-  const active=Boolean(
-   subscription&&
-   ['base','plus','advanced'].includes(
-    subscription.plan
-   )&&
-   (
-    (
-     ['trial','active'].includes(
-      subscription.status
-     )&&
-     Number(subscription.period_end)>now
-    )||
-    (
-     subscription.status==='past_due'&&
-     Number(
-      subscription.grace_until||0
-     )>now
-    )
-   )
-  );
-
-  if(!active){
+  // Stessa regola usata per le quote AI (netlify/lib/ai-quota.mjs).
+  if(!(await effectivePlan(db,cid))){
    fail(
     402,
     'La Demo è terminata. Attiva un piano per continuare a utilizzare lo Spazio Aziendale.'
@@ -191,6 +143,13 @@ export async function chatApi(
   await requireActivePlan(user.company_id);
 
   const cid=user.company_id;
+
+  if(
+   path==='/api/ai-usage'&&
+   method==='GET'
+  ){
+   return json(await usageSummary(db,cid));
+  }
 
   if(
    path==='/api/email-status'&&
@@ -865,6 +824,7 @@ export async function chatApi(
  }
 
  try{
+  // Tetto globale giornaliero: protezione dei costi su tutta la piattaforma.
   await limit(
    db,
    'ai-total',
@@ -872,15 +832,18 @@ export async function chatApi(
     process.env.LINEA_AI_DAILY_LIMIT||
     100
    ),
-   86400
+   86400,
+   'L’assistente online non è momentaneamente disponibile. Riprova più tardi.'
   );
 
+  // Anti-raffica per azienda: evita che un abuso esaurisca la quota in pochi secondi.
   await limit(
    db,
-   'ai-company:'+
+   'ai-burst:'+
     conversation.company_id,
+   Number(process.env.LINEA_AI_COMPANY_PER_MINUTE||30),
    60,
-   86400
+   'Troppi messaggi in poco tempo. Riprova tra qualche secondo.'
   );
 
   const current=(
@@ -911,13 +874,71 @@ export async function chatApi(
    )
   ).rows.reverse();
 
-  const result=
-   await model(
-    current.config,
-    current.state,
-    history,
-    message
+  /*
+   * Quota mensile dell'azienda: riservata PRIMA della chiamata al modello.
+   * Piano, limite e periodo sono calcolati solo dal database.
+   */
+  let quota;
+
+  try{
+   quota=
+    await reserveMessage(
+     db,
+     current.company_id
+    );
+  }catch(e){
+   if(e instanceof QuotaError){
+    fail(
+     e.code==='NO_ACTIVE_PLAN'?402:429,
+     e.code==='NO_ACTIVE_PLAN'
+      ? 'La Demo è terminata. Attiva un piano per continuare a utilizzare lo Spazio Aziendale.'
+      : 'È stato raggiunto il limite mensile di messaggi previsto dal piano.'
+    );
+   }
+
+   throw e;
+  }
+
+  let result;
+
+  try{
+   result=
+    await model(
+     current.config,
+     current.state,
+     history,
+     message
+    );
+  }catch(e){
+   // Nessuna risposta generata: il messaggio non viene conteggiato.
+   // Nel log solo il codice normalizzato, mai contenuti o credenziali.
+   console.error(
+    'Linea AI model error:',
+    typeof e?.code==='string'?e.code:(e?.name||'unknown')
    );
+
+   await releaseMessage(
+    db,
+    current.company_id,
+    quota.period
+   );
+
+   if(!e.httpStatus){
+    fail(
+     503,
+     'L’assistente online non è momentaneamente disponibile.'
+    );
+   }
+
+   throw e;
+  }
+
+  await recordTokens(
+   db,
+   current.company_id,
+   quota.period,
+   result.usage
+  ).catch(()=>{});
 
   const turn=
    advance(

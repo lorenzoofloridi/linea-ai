@@ -1,5 +1,6 @@
 import { chatApi } from "../lib/chat-api.mjs";
 import { ready as aiReady } from "../lib/online-ai.mjs";
+import { internalRequestHeaders } from "../lib/internal-auth.mjs";
 import { getDatabase } from "@netlify/database";
 import {
   createHash,
@@ -652,6 +653,13 @@ async function requestEmailVerification(
           ),
           outboxId
         ]
+      );
+
+      // Il dettaglio di Resend resta in email_outbox.error;
+      // nei log solo lo stato HTTP (nessun indirizzo o contenuto).
+      console.error(
+        "Resend request failed:",
+        response.status
       );
 
       throw new Error(
@@ -1574,10 +1582,14 @@ export default async (
             ? "demo"
             : null;
 
+        const emailBaseUrl =
+          process.env.PUBLIC_SITE_URL ||
+          url.origin;
+
         await requestEmailVerification(
           db,
           user,
-          url.origin,
+          emailBaseUrl,
           requestedPlan
         );
       }
@@ -2096,15 +2108,24 @@ export default async (
         ]
       );
 
+      // Senza LINEA_INTERNAL_SECRET la ricerca non viene avviata
+      // e la richiesta segue il ramo di errore già esistente.
+      const internalHeaders =
+        internalRequestHeaders();
+
       const backgroundResponse =
-        await fetch(
+        !internalHeaders
+          ? { ok: false, status: "internal-secret-missing" }
+          : await fetch(
           `${url.origin}/.netlify/functions/company-research-background`,
           {
             method: "POST",
 
             headers: {
               "Content-Type":
-                "application/json"
+                "application/json",
+
+              ...internalHeaders
             },
 
             body: JSON.stringify({
@@ -2194,11 +2215,15 @@ export default async (
       );
     }
 
+    // Mai l'oggetto errore completo: può contenere dati di richiesta.
     console.error(
       "Linea AI API error:",
-      error.code ||
-        error.name ||
-        "internal"
+      error?.code ||
+        error?.name ||
+        "internal",
+      String(
+        error?.message || ""
+      ).slice(0, 300)
     );
 
     const knownMessages =

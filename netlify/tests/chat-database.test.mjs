@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import pg from 'pg';
 import { chatApi } from '../lib/chat-api.mjs';
+import { currentPeriod } from '../lib/ai-quota.mjs';
 
 const local = JSON.parse(
   await readFile('var/audit/local-database.json', 'utf8')
@@ -136,9 +137,14 @@ try {
       : null;
 
   let calls = 0;
+  let failModel = false;
 
   const model = async (_cfg, state, _history, msg) => {
     calls++;
+
+    if (failModel) {
+      throw Object.assign(new Error('AI_UPSTREAM'), { code: 'AI_UPSTREAM' });
+    }
 
     return {
       reply: 'Come posso aiutarti?',
@@ -446,6 +452,161 @@ try {
             null
           )
         ).session
+      );
+    }
+  );
+
+  /*
+   * Quote mensili AI: controllate nel backend prima del modello,
+   * per azienda e per periodo, senza influenza dal browser.
+   */
+  const period = currentPeriod();
+
+  const setUsage = (cid, used) =>
+    pool.query(
+      `INSERT INTO ai_usage(company_id,period,used)
+       VALUES($1,$2,$3)
+       ON CONFLICT(company_id,period) DO UPDATE SET used=EXCLUDED.used`,
+      [cid, period, used]
+    );
+
+  const usageOf = async cid =>
+    Number(
+      (
+        await pool.query(
+          'SELECT used FROM ai_usage WHERE company_id=$1 AND period=$2',
+          [cid, period]
+        )
+      ).rows[0]?.used ?? 0
+    );
+
+  await test(
+    'monthly quota blocks before the model and is isolated per company',
+    async () => {
+      await setUsage('b', 100); // Demo: 100 messaggi/mese
+
+      const sessionB = (
+        await api('session', { company: 'public-b' }, 'b')
+      ).session;
+
+      const before = calls;
+
+      await assert.rejects(
+        api(
+          'chat',
+          {
+            session: sessionB,
+            message: 'ciao',
+            request_id: 'quota-1',
+            limit: 999999,
+            plan: 'advanced'
+          },
+          'b'
+        ),
+        e => e.httpStatus === 429
+      );
+
+      assert.equal(calls, before, 'il modello non deve essere chiamato');
+      assert.equal(await usageOf('b'), 100);
+
+      const usedA = await usageOf('a');
+
+      const sessionA = (
+        await api('session', { company: 'public-a' })
+      ).session;
+
+      await api('chat', {
+        session: sessionA,
+        message: 'ciao',
+        request_id: 'quota-a'
+      });
+
+      assert.equal(await usageOf('a'), usedA + 1);
+      assert.equal(await usageOf('b'), 100);
+    }
+  );
+
+  await test(
+    'failed model call is released and not counted',
+    async () => {
+      await setUsage('b', 5);
+
+      const sessionB = (
+        await api('session', { company: 'public-b' }, 'b')
+      ).session;
+
+      failModel = true;
+
+      await assert.rejects(
+        api(
+          'chat',
+          { session: sessionB, message: 'ciao', request_id: 'fail-1' },
+          'b'
+        ),
+        e => e.httpStatus === 503
+      );
+
+      failModel = false;
+
+      assert.equal(await usageOf('b'), 5);
+
+      await api(
+        'chat',
+        { session: sessionB, message: 'ciao', request_id: 'fail-2' },
+        'b'
+      );
+
+      assert.equal(await usageOf('b'), 6);
+    }
+  );
+
+  await test(
+    'active subscription sets the limit; usage endpoint is read-only per tenant',
+    async () => {
+      const now = Date.now() / 1000;
+
+      await pool.query(
+        `INSERT INTO plan_subscriptions(
+           company_id,plan,period,status,trial_start,trial_end,period_end,
+           method_kind,customer_ref,method_ref,amount_cents
+         )
+         VALUES('b','base','monthly','active',$1,$1,$2,'card','c','m',29900)`,
+        [now, now + 86400 * 30]
+      );
+
+      await setUsage('b', 100);
+
+      const sessionB = (
+        await api('session', { company: 'public-b' }, 'b')
+      ).session;
+
+      await api(
+        'chat',
+        { session: sessionB, message: 'ciao', request_id: 'base-1' },
+        'b'
+      );
+
+      const summaryB = await api('ai-usage', null, 'b');
+
+      assert.equal(summaryB.plan, 'base');
+      assert.equal(summaryB.limit, 3000);
+      assert.equal(summaryB.used, 101);
+      assert.equal(summaryB.period, period);
+
+      const summaryA = await api('ai-usage', null, 'a');
+
+      assert.equal(summaryA.plan, 'demo');
+      assert.equal(summaryA.limit, 100);
+      assert.notEqual(summaryA.used, 101);
+
+      await assert.rejects(
+        api('ai-usage', null, null),
+        e => e.httpStatus === 401
+      );
+
+      await assert.rejects(
+        api('ai-usage', { used: 0 }, 'b'),
+        e => e.httpStatus === 405
       );
     }
   );

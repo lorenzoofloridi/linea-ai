@@ -23,9 +23,9 @@ test('capabilities prohibit gathering disabled data',()=>{
 for(const language of ['it','en','fr','es','de'])test('saved conversation can close in '+language,()=>{
  const s={...initialState(),saved:true,data:{nome:'Mario'}};const t=advance(cfg,s,'No thanks',r({language,action:'close'}));assert.equal(t.state.closed,true);assert.equal(t.state.language,language);assert.equal(t.save,false);
 });
-test('provider uses online gateway only and rejects malformed output',async()=>{
- let called=0;await assert.rejects(interpret(cfg,initialState(),[],'hello',{env:{},transport:()=>called++}));assert.equal(called,0);
- await assert.rejects(interpret(cfg,initialState(),[],'hello',{env:{GEMINI_API_KEY:'fake',GOOGLE_GEMINI_BASE_URL:'https://gateway.example.invalid'},transport:async(url,args)=>{assert.match(url,/gemini-2.5-flash-lite:generateContent$/);assert.equal(JSON.parse(args.body).generationConfig.maxOutputTokens,1000);return {ok:true,json:async()=>({candidates:[]})};}}));
+test('provider requires the direct Gemini key and rejects malformed output',async()=>{
+ let called=0;await assert.rejects(interpret(cfg,initialState(),[],'hello',{env:{GEMINI_API_KEY:'gateway',GOOGLE_GEMINI_BASE_URL:'https://gateway.example.invalid'},transport:()=>called++}));assert.equal(called,0);
+ await assert.rejects(interpret(cfg,initialState(),[],'hello',{env:{LINEA_GEMINI_API_KEY:'fake'},transport:async(url,args)=>{assert.equal(url,'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent');assert.equal(JSON.parse(args.body).generationConfig.maxOutputTokens,1000);return {ok:true,json:async()=>({candidates:[]})};}}));
 });
 
 test('phone embedded in evidence sentence remains valid',()=>{

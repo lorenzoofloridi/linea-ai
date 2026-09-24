@@ -6,7 +6,7 @@
     "@netlify/database": "2.0.1"
   },
   "scripts": {
-    "test": "node --test netlify/tests/chat-state.test.mjs",
+    "test": "node --test netlify/tests/chat-state.test.mjs netlify/tests/ai-adapter.test.mjs",
     "test:database": "node --test netlify/tests/chat-database.test.mjs"
   }
 }
