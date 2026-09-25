@@ -60,6 +60,30 @@ test('chat interpreter uses the adapter and rejects malformed output', async () 
   await assert.rejects(interpret(cfg, initialState(), [], 'ciao', { env, transport: async () => reply('{"reply":""}') }), e => e.code === 'AI_INVALID_RESPONSE');
 });
 
+test('chat interpreter retries once on a temporary Gemini error, never on permanent ones', async () => {
+  const cfg = { fields: [] };
+  const good = JSON.stringify({ reply: 'Ciao', language: 'it', action: 'continue', consent: 'none', consent_quote: '', extracted: [] });
+  let calls = 0;
+  const slowThenOk = async () => {
+    calls++;
+    if (calls === 1) { const e = new Error('slow'); e.name = 'TimeoutError'; throw e; }
+    return reply(good);
+  };
+  const r = await interpret(cfg, initialState(), [], 'ciao', { env, transport: slowThenOk });
+  assert.equal(r.reply, 'Ciao');
+  assert.equal(calls, 2);
+
+  calls = 0;
+  const alwaysSlow = async () => { calls++; const e = new Error('slow'); e.name = 'TimeoutError'; throw e; };
+  await assert.rejects(interpret(cfg, initialState(), [], 'ciao', { env, transport: alwaysSlow }), e => e.code === 'AI_TIMEOUT');
+  assert.equal(calls, 2);
+
+  calls = 0;
+  const denied = async () => { calls++; return { ok: false, status: 403, json: async () => ({}) }; };
+  await assert.rejects(interpret(cfg, initialState(), [], 'ciao', { env, transport: denied }), e => e.code === 'AI_AUTH');
+  assert.equal(calls, 1);
+});
+
 const publicLookup = async () => [{ address: '93.184.216.34', family: 4 }];
 const html = (body, extra = {}) => ({ ok: true, status: 200, headers: new Headers({ 'content-type': 'text/html; charset=utf-8', ...extra }), text: async () => body });
 
