@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import { requestPasswordReset, completePasswordReset } from '../lib/password-reset.mjs';
 import { knowledgeEntries, exportLeadsCsv } from '../lib/company-data.mjs';
 import { sendEmail } from '../lib/mailer.mjs';
+import { listPublicReviews, submitReview, moderateReview } from '../lib/site-reviews.mjs';
 
 const sha = v => createHash('sha256').update(v).digest('hex');
 
@@ -109,4 +110,63 @@ test('CSV export neutralizes spreadsheet formulas', async () => {
   assert.match(csv, /"'=HYPERLINK\(""x""\)"/);
   assert.match(csv, /"'\+39 333"/);
   assert.match(csv, /"Sito"/);
+});
+
+// Database finto per le recensioni del sito.
+function reviewsDb() {
+  const limits = new Map();
+  const reviews = [];
+  const query = async (sql, params = []) => {
+    const s = sql.replace(/\s+/g, ' ').trim();
+    if (s.startsWith('INSERT INTO chat_limits')) {
+      const key = params[0] + ':' + params[1];
+      limits.set(key, (limits.get(key) || 0) + 1);
+      return { rows: [{ count: limits.get(key) }], rowCount: 1 };
+    }
+    if (s.startsWith('INSERT INTO site_reviews')) {
+      reviews.push({ id: params[0], name: params[1], rating: params[2], comment: params[3], status: 'pending', consent: true, created_at: new Date() });
+      return { rows: [], rowCount: 1 };
+    }
+    if (s.startsWith('SELECT name, rating, comment, created_at FROM site_reviews')) {
+      assert.match(s, /status = 'approved' AND consent/);
+      const rows = reviews.filter(r => r.status === 'approved' && r.consent).sort((a, b) => b.rating - a.rating).slice(0, params[0]);
+      return { rows, rowCount: rows.length };
+    }
+    if (s.startsWith('UPDATE site_reviews SET status')) {
+      const r = reviews.find(x => x.id === params[0]);
+      if (r) r.status = params[1];
+      return { rows: [], rowCount: r ? 1 : 0 };
+    }
+    throw new Error('Query non prevista: ' + s);
+  };
+  return { reviews, pool: { query } };
+}
+
+test('site reviews need consent, valid data and approval before they are public', async () => {
+  const db = reviewsDb();
+  const ok = { name: 'Giulia', rating: 5, comment: 'Molto utile per la mia azienda.', consent: true };
+  await assert.rejects(submitReview(db, { ...ok, consent: false }), /consenso/);
+  await assert.rejects(submitReview(db, { ...ok, rating: 6 }), /valutazione/);
+  await assert.rejects(submitReview(db, { ...ok, rating: '5' }), /valutazione/);
+  await assert.rejects(submitReview(db, { ...ok, comment: 'corto' }), /10 e 1200/);
+  await assert.rejects(submitReview(db, { ...ok, name: ' ' }), /nome pubblico/);
+
+  await submitReview(db, ok, { ip: '1.2.3.4' });
+  assert.equal(db.reviews[0].status, 'pending');
+  assert.deepEqual((await listPublicReviews(db)).reviews, []);
+
+  await moderateReview(db, db.reviews[0].id, 'approved');
+  const pub = (await listPublicReviews(db)).reviews;
+  assert.equal(pub.length, 1);
+  assert.deepEqual(Object.keys(pub[0]).sort(), ['comment', 'created_at', 'name', 'rating']);
+  await assert.rejects(moderateReview(db, 'missing', 'approved'), /non trovata/);
+  await assert.rejects(moderateReview(db, db.reviews[0].id, 'published'), /non valido/);
+});
+
+test('site reviews are rate limited per address', async () => {
+  const db = reviewsDb();
+  const ok = { name: 'Marco', rating: 4, comment: 'Chat chiara e veloce.', consent: true };
+  for (let i = 0; i < 3; i++) await submitReview(db, ok, { ip: '5.6.7.8' });
+  await assert.rejects(submitReview(db, ok, { ip: '5.6.7.8' }), e => e.httpStatus === 429);
+  await submitReview(db, ok, { ip: '9.9.9.9' });
 });

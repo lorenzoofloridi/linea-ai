@@ -2,6 +2,7 @@ import { chatApi } from "../lib/chat-api.mjs";
 import { ready as aiReady } from "../lib/online-ai.mjs";
 import { internalRequestHeaders } from "../lib/internal-auth.mjs";
 import { requestPasswordReset, completePasswordReset } from "../lib/password-reset.mjs";
+import { listPublicReviews, submitReview } from "../lib/site-reviews.mjs";
 import { PLAN_MONTHLY_MESSAGES } from "../lib/ai-quota.mjs";
 import { getDatabase } from "../lib/db.mjs";
 import {
@@ -1513,6 +1514,22 @@ export default async (
           "Set-Cookie":
             sessionCookie("", { clear: true })
         }
+      );
+    }
+
+    if (path === "/api/site-reviews" && method === "GET") {
+      // Le recensioni approvate cambiano di rado: la CDN di Netlify le tiene
+      // per 5 minuti, così la home non invoca la Function a ogni visita.
+      return json(await listPublicReviews(db), 200, {
+        "Cache-Control": "public, max-age=60",
+        "Netlify-CDN-Cache-Control": "public, s-maxage=300"
+      });
+    }
+
+    if (path === "/api/site-reviews" && method === "POST") {
+      return json(
+        await submitReview(db, await requestBody(request), { ip: context.ip }),
+        201
       );
     }
 

@@ -7,7 +7,8 @@
     "test:database": "node --test netlify/tests/chat-database.test.mjs",
     "db:status": "node --env-file=.env.supabase scripts/migrate.mjs status",
     "db:migrate": "node --env-file=.env.supabase scripts/migrate.mjs migrate",
-    "db:check": "node --env-file=.env.supabase scripts/migrate.mjs check"
+    "db:check": "node --env-file=.env.supabase scripts/migrate.mjs check",
+    "reviews": "node --env-file=.env.supabase scripts/reviews.mjs"
   },
   "dependencies": {
     "pg": "^8.23.0"

@@ -56,14 +56,24 @@ const loginLink = document.querySelector(
 );
 
 if (loginLink && planIntent) {
+  /*
+   * Il link in fondo porta all'altra pagina:
+   * dal login alla registrazione e viceversa.
+   */
+  const other =
+    mode === 'registrati'
+      ? '/login.html'
+      : '/registrati.html';
+
   if (planIntent === 'demo') {
-    loginLink.href = '/login.html?plan=demo';
+    loginLink.href = other + '?plan=demo';
   } else {
     const [plan, period] =
       planIntent.split(':');
 
     loginLink.href =
-      '/login.html?plan=' +
+      other +
+      '?plan=' +
       encodeURIComponent(plan) +
       '&period=' +
       encodeURIComponent(period || 'monthly');

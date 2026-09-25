@@ -80,3 +80,9 @@ Motivo: il calcolo di Netlify Database ha consumato 30–60 crediti al giorno an
 - `netlify/lib/company-data.mjs`: `GET /api/company-overview`, `POST /api/company-review` (note), `POST /api/data-delete` (richiede `confirm: true`), `GET /api/data-export.csv` (CSV con protezione da formula injection). Ogni query è filtrata per `company_id` della sessione; test di isolamento in `chat-database.test.mjs`.
 - Frontend: rimossi pagamenti simulati, strumenti agente non collegati e recensioni (nascoste finché non esiste il backend); prezzi e quote pubblici; CTA unica «Prova gratis»; piani a pagamento attivati con il team; menu mobile; intestazione comune dell'area riservata; card consumi AI in dashboard e in «Piano e consumi»; informative privacy/condizioni/cookie riscritte con i fornitori reali (da completare con identità legale e revisione legale).
 - Login verificato → `/dashboard.html`. Verifica: `npm test` (33 test), `npm run test:database`, controllo Playwright desktop/mobile senza errori console, 404 o overflow orizzontale.
+
+### Correzioni 25 settembre 2026 (richieste del proprietario)
+
+- Prezzi visibili solo dopo il login: `publicPlanCatalogue` non invia più gli importi; gli ospiti vedono nome, messaggi inclusi e «Accedi o registrati per vedere la tariffa».
+- Recensioni ripristinate con backend online: `0012_site_reviews.sql` (RLS, consenso obbligatorio, stato pending/approved/rejected), `netlify/lib/site-reviews.mjs`, route `/api/site-reviews`, moderazione `scripts/reviews.mjs` (`npm run reviews`). Il testo è mostrato con textContent (nessun HTML interpretato).
+- Offerte: card centrate anche nella vista annuale (tre piani). Login: il link «Registrati» non rimanda più al login quando è salvata una scelta di piano.
