@@ -848,7 +848,7 @@ export async function chatApi(
  if(!modelReady()){
   fail(
    503,
-   'L’assistente online non è momentaneamente disponibile.'
+   'L’assistente è momentaneamente non disponibile. Riprova tra qualche secondo.'
   );
  }
 
@@ -899,7 +899,7 @@ export async function chatApi(
     100
    ),
    86400,
-   'L’assistente online non è momentaneamente disponibile. Riprova più tardi.'
+   'L’assistente è momentaneamente non disponibile. Riprova più tardi.'
   );
 
   // Anti-raffica per azienda: evita che un abuso esaurisca la quota in pochi secondi.
@@ -992,7 +992,7 @@ export async function chatApi(
    if(!e.httpStatus){
     fail(
      503,
-     'L’assistente online non è momentaneamente disponibile.'
+     'L’assistente è momentaneamente non disponibile. Riprova tra qualche secondo.'
     );
    }
 
@@ -1111,6 +1111,24 @@ export async function chatApi(
       ).join('\n'),
       turn.state.consent,
       current.kind
+     ]
+    );
+   }
+
+   // Correzione del cliente dopo il salvataggio: aggiorna la stessa richiesta.
+   if(turn.update){
+    await client.query(
+     `UPDATE leads
+         SET data=$1::jsonb,
+             summary=$2,
+             updated_at=NOW()
+       WHERE company_id=$3
+         AND conversation_id=$4`,
+     [
+      JSON.stringify(turn.state.data),
+      Object.entries(turn.state.data).map(([k,v])=>`${k}: ${v}`).join('\n'),
+      current.company_id,
+      current.id
      ]
     );
    }

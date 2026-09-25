@@ -4638,5 +4638,15 @@
     "en": "RECOMMENDED",
     "es": "RECOMENDADO",
     "fr": "RECOMMANDÉ"
+  },
+  "L’assistente è momentaneamente non disponibile. Riprova tra qualche secondo.": {
+    "en": "The assistant is temporarily unavailable. Please try again in a few seconds.",
+    "es": "El asistente no está disponible en este momento. Inténtalo de nuevo en unos segundos.",
+    "fr": "L’assistant est momentanément indisponible. Réessayez dans quelques secondes."
+  },
+  "L’assistente è momentaneamente non disponibile. Riprova più tardi.": {
+    "en": "The assistant is temporarily unavailable. Please try again later.",
+    "es": "El asistente no está disponible en este momento. Inténtalo más tarde.",
+    "fr": "L’assistant est momentanément indisponible. Réessayez plus tard."
   }
 }

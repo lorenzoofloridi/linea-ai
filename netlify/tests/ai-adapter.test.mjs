@@ -60,7 +60,7 @@ test('chat interpreter uses the adapter and rejects malformed output', async () 
   await assert.rejects(interpret(cfg, initialState(), [], 'ciao', { env, transport: async () => reply('{"reply":""}') }), e => e.code === 'AI_INVALID_RESPONSE');
 });
 
-test('chat interpreter retries once on a temporary Gemini error, never on permanent ones', async () => {
+test('chat interpreter retries temporary Gemini errors and invalid output, never permanent ones', async () => {
   const cfg = { fields: [] };
   const good = JSON.stringify({ reply: 'Ciao', language: 'it', action: 'continue', consent: 'none', consent_quote: '', extracted: [] });
   let calls = 0;
@@ -76,6 +76,12 @@ test('chat interpreter retries once on a temporary Gemini error, never on perman
   calls = 0;
   const alwaysSlow = async () => { calls++; const e = new Error('slow'); e.name = 'TimeoutError'; throw e; };
   await assert.rejects(interpret(cfg, initialState(), [], 'ciao', { env, transport: alwaysSlow }), e => e.code === 'AI_TIMEOUT');
+  assert.equal(calls, 3);
+
+  // Una risposta non valida viene ritentata.
+  calls = 0;
+  const badThenOk = async () => { calls++; return reply(calls === 1 ? 'non è json' : good); };
+  assert.equal((await interpret(cfg, initialState(), [], 'ciao', { env, transport: badThenOk })).reply, 'Ciao');
   assert.equal(calls, 2);
 
   calls = 0;

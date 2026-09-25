@@ -45,6 +45,7 @@ export function aiReady(env = process.env) {
  * @param {number} [request.temperature]
  * @param {number} [request.maxOutputTokens]
  * @param {boolean} [request.thinking]          false disattiva il ragionamento esteso
+ * @param {boolean} [request.relaxedSafety]     filtri di sicurezza solo per contenuti ad alto rischio
  * @param {number} [request.timeoutMs]
  * @param {string} [request.model]              override del modello (del provider attivo)
  * @returns {Promise<{text:string,sources:{url:string,title:string}[],usage:{inputTokens:number,outputTokens:number},model:string,provider:string}>}

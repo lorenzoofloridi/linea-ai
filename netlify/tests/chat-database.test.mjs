@@ -307,6 +307,30 @@ try {
   );
 
   await test(
+    'a correction after saving updates the same lead, in the same company',
+    async () => {
+      const correction = async () => ({
+        reply: 'Grazie, buona giornata.',
+        language: 'it',
+        action: 'close',
+        consent: 'none',
+        consent_quote: '',
+        extracted: [{ key: 'nome', quote: 'Mario Bianchi', value: 'Mario Bianchi' }]
+      });
+      const res = await (await chatApi(
+        request('chat', { session, message: 'hai sbagliato, mi chiamo Mario Bianchi', request_id: 'fix-1' }),
+        { pool }, auth, { model: correction, modelReady: () => true, context: { ip: '127.0.0.1' } }
+      )).json();
+      assert.equal(res.closed, false);
+      assert.match(res.reply, /aggiornato/);
+      const leads = (await api('leads')).leads;
+      assert.equal(leads.length, 1);
+      assert.equal(leads[0].data.nome, 'Mario Bianchi');
+      assert.deepEqual((await api('leads', null, 'b')).leads, []);
+    }
+  );
+
+  await test(
     'B cannot read/update A lead, history or chat bearer token',
     async () => {
       assert.deepEqual(

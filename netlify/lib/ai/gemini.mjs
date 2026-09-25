@@ -71,6 +71,12 @@ export async function generate(request, { env, transport, AIError }) {
     generationConfig
   };
   if (request.system) body.systemInstruction = { parts: [{ text: request.system }] };
+  // Chat commerciale: filtri di sicurezza solo sui contenuti ad alto rischio,
+  // così nomi e numeri di telefono non vengono bloccati per errore.
+  if (request.relaxedSafety) {
+    body.safetySettings = ['HARM_CATEGORY_HARASSMENT', 'HARM_CATEGORY_HATE_SPEECH', 'HARM_CATEGORY_SEXUALLY_EXPLICIT', 'HARM_CATEGORY_DANGEROUS_CONTENT']
+      .map(category => ({ category, threshold: 'BLOCK_ONLY_HIGH' }));
+  }
   const tools = [];
   if (request.tools?.urlContext) tools.push({ url_context: {} });
   if (request.tools?.webSearch) tools.push({ google_search: {} });
