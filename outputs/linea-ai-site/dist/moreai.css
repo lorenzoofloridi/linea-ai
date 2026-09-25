@@ -376,6 +376,7 @@ h1 em,h2 em,.contact-section h2 em{font-family:var(--serif);letter-spacing:-.01e
 .review-compose summary span{transition:transform .25s var(--ease)}
 .dashboard .eyebrow,.auth-card .eyebrow,.test-chat-intro .eyebrow{color:var(--violet-d)}
 .dash-tabs{background:#F1ECFD}
+.brand-joined .brand-mark{margin-right:2px}
 /* ---------- Responsive ---------- */
 @media(max-width:1100px){
  .m-hero-grid,.demo-grid,.contact-grid,.m-journey{grid-template-columns:1fr;gap:48px}
