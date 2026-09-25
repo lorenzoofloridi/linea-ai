@@ -1,4 +1,4 @@
-// Adapter AI di Linea AI: unico punto da cui il backend chiama un modello.
+// Adapter AI di MoreAI: unico punto da cui il backend chiama un modello.
 // Gira esclusivamente server-side. Le chiavi arrivano solo da variabili
 // d'ambiente e non vengono mai restituite, loggate o incluse negli errori.
 import * as gemini from './gemini.mjs';

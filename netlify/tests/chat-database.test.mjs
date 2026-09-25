@@ -436,7 +436,7 @@ try {
 
       assert.equal(
         pub.name,
-        'Servizi Linea AI'
+        'Servizi MoreAI'
       );
 
       assert.equal(

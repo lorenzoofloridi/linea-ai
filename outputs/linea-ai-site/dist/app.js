@@ -38,6 +38,6 @@ if(companyToken!=='demo'){
 
 window.lineaAgentSession=getSession;window.lineaAgentMessage=addMessage;
 
-// La scelta di giorno e fascia oraria serve solo agli assistenti delle aziende, non alla chat informativa di Linea AI.
+// La scelta di giorno e fascia oraria serve solo agli assistenti delle aziende, non alla chat informativa di MoreAI.
 (()=>{const bar=document.querySelector('.contact-picker-bar');if(bar&&companyToken==='demo')bar.hidden=true;
 if(companyToken!=='demo'){const copy=document.querySelector('.demo-copy');if(copy){const eyebrow=copy.querySelector('.eyebrow'),title=copy.querySelector('h2'),text=copy.querySelector('.body-lg'),tip=copy.querySelector('.demo-tip');if(eyebrow)eyebrow.textContent='CHAT DI PROVA';if(title)title.textContent='Prova il tuo assistente.';if(text)text.textContent='Scrivi come farebbe un tuo cliente: l’assistente risponde con le informazioni della tua azienda. Le richieste complete compaiono nella tua dashboard come richieste di prova.';if(tip)tip.hidden=true}}})();

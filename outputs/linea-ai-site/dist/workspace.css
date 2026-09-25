@@ -17,7 +17,7 @@
 .usage-card h2{margin:0;font-size:18px}
 .usage-card .usage-numbers{font-size:15px;color:var(--muted);text-align:right}
 .usage-card .usage-numbers strong{color:var(--ink);font-size:20px}
-.usage-bar{grid-column:1/-1;height:10px;border-radius:99px;background:#e8eef9;overflow:hidden}
+.usage-bar{grid-column:1/-1;height:10px;border-radius:99px;background:#f0edf4;overflow:hidden}
 .usage-bar span{display:block;height:100%;width:0;background:var(--blue);border-radius:99px;transition:width .6s ease}
 .usage-bar.warn span{background:#e39a18}
 .usage-bar.full span{background:#d4453b}

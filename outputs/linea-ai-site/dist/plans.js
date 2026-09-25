@@ -545,7 +545,7 @@
         base.name;
 
       document.title =
-        'Dati aziendali — Linea AI';
+        'Dati aziendali — MoreAI';
 
       q('#base-quote').textContent =
         money(

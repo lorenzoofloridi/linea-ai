@@ -177,7 +177,7 @@ export async function chatApi(
    return new Response(await exportLeadsCsv(db,cid),{
     headers:{
      'Content-Type':'text/csv; charset=utf-8',
-     'Content-Disposition':'attachment; filename="richieste-linea-ai.csv"',
+     'Content-Disposition':'attachment; filename="richieste-moreai.csv"',
      'Cache-Control':'no-store'
     }
    });
@@ -463,7 +463,7 @@ export async function chatApi(
   }
 
   /*
-   * La chat pubblica Linea AI ("demo") resta separata.
+   * La chat pubblica MoreAI ("demo") resta separata.
    * La chat di prova di una singola azienda richiede
    * invece l'account proprietario e una Demo/piano attivo.
    */
@@ -699,7 +699,7 @@ export async function chatApi(
  /*
   * Le conversazioni di prova dell'azienda vengono
   * bloccate alla scadenza della Demo/piano.
-  * La chat pubblica Linea AI resta disponibile.
+  * La chat pubblica MoreAI resta disponibile.
   */
  if(conversation.owner_user_id){
   await requireActivePlan(
@@ -742,7 +742,7 @@ export async function chatApi(
    ]
   );
 
-  // Solo per la chat della home di Linea AI: avvisa il gestore via email.
+  // Solo per la chat della home di MoreAI: avvisa il gestore via email.
   // Un errore di invio non blocca il salvataggio del feedback.
   if(conversation.kind==='public_demo'){
    await notifyHomeFeedback(db,{
@@ -956,7 +956,7 @@ export async function chatApi(
    // Nessuna risposta generata: il messaggio non viene conteggiato.
    // Nel log solo il codice normalizzato, mai contenuti o credenziali.
    console.error(
-    'Linea AI model error:',
+    'MoreAI model error:',
     typeof e?.code==='string'?e.code:(e?.name||'unknown')
    );
 

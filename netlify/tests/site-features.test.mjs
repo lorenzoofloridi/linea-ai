@@ -57,12 +57,12 @@ test('password request never reveals whether an account exists', async () => {
   const sent = [];
   const mail = async (_db, message) => { sent.push(message); return { sent: true }; };
   const db = fakeDb({ users: [user] });
-  const known = await requestPasswordReset(db, { email: 'Mario@Example.com' }, { baseUrl: 'https://www.linea-ai.it', mail });
-  const unknown = await requestPasswordReset(db, { email: 'nessuno@example.com' }, { baseUrl: 'https://www.linea-ai.it', mail });
+  const known = await requestPasswordReset(db, { email: 'Mario@Example.com' }, { baseUrl: 'https://www.moreai.it', mail });
+  const unknown = await requestPasswordReset(db, { email: 'nessuno@example.com' }, { baseUrl: 'https://www.moreai.it', mail });
   assert.deepEqual(known, unknown);
   assert.equal(sent.length, 1);
   assert.equal(sent[0].to, 'mario@example.com');
-  const link = sent[0].text.match(/https:\/\/www\.linea-ai\.it\/recupera-password\.html#([\w-]+)/);
+  const link = sent[0].text.match(/https:\/\/www\.moreai\.it\/recupera-password\.html#([\w-]+)/);
   assert.ok(link, 'il link usa il frammento # per il token');
   assert.equal(db.state.tokens[0].hash, sha(link[1]), 'nel database solo l’hash');
 });

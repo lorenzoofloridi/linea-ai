@@ -94,3 +94,9 @@ Motivo: il calcolo di Netlify Database ha consumato 30–60 crediti al giorno an
 - Richieste di supporto/attivazione piano: `POST /api/support-request` (`netlify/lib/support-request.mjs`), solo utenti autenticati, anche con Demo scaduta. Destinatario fisso lato server (`LINEA_SUPPORT_EMAIL`, predefinito lorenzoofloridi@gmail.com), `reply_to` = email dell'account, testo in escape, limiti 5/ora per utente e 100/giorno. Sostituisce i link mailto: un solo pulsante che funziona con qualsiasi posta.
 - Chat: `interpret` fa al massimo 2 tentativi da 13 s verso Gemini (solo per AI_TIMEOUT, AI_NETWORK, AI_UPSTREAM, AI_RATE_LIMITED), invece di uno da 22 s. Osservati AI_TIMEOUT a ~24 s sul piano gratuito il 25 settembre.
 - Dashboard: la chat di prova è ora in fondo alla dashboard (`dashboard-chat.js`, sezione `#prova-ai`); «Prova la tua AI» scorre alla sezione invece di aprire la home con `?azienda=`. L'azienda viene da `/api/me` (sessione), la chat usa le stesse API con isolamento per sessione. Dopo un feedback le statistiche si aggiornano subito. Nessuna recensione nella chat di prova; la vecchia pagina `?azienda=` nasconde comunque le recensioni.
+
+## Aggiornamento 25 settembre 2026 — nuovo nome MoreAI
+
+- Tutti i testi visibili "Linea AI" → "MoreAI" (sito, area riservata, pagine legali, email, prompt dell'assistente della home, traduzioni). Logo "more" + "ai" con marchio «Abbraccio» (M in un cerchio viola con arco sotto, senza puntini); colore principale da blu a viola (conversione automatica di tutte le tinte blu dei CSS e della favicon; i grigi/blu scuri neutri restano).
+- Dominio pubblico: www.moreai.it (`PUBLIC_SITE_URL`), mittente email `MoreAI <noreply@moreai.it>` (configurabile con `LINEA_MAIL_FROM`; il dominio deve essere verificato su Resend prima del deploy).
+- Invariati per compatibilità (non visibili): repository, progetto Netlify, database, cookie `linea_session`, chiavi del browser `linea.*`, variabili `LINEA_*`.

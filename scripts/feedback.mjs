@@ -1,4 +1,4 @@
-// Feedback dei visitatori sulla chat della home di Linea AI, dal Mac
+// Feedback dei visitatori sulla chat della home di MoreAI, dal Mac
 // (nessun credito Netlify). I feedback delle aziende clienti restano
 // nelle loro dashboard e non vengono mostrati qui.
 //

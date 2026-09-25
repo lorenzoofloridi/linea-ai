@@ -1,3 +1,17 @@
 [build]
   publish = "outputs/linea-ai-site/dist"
   functions = "netlify/functions"
+
+# Vecchio dominio: ogni indirizzo di linea-ai.it porta alla stessa pagina su moreai.it.
+# Attivo solo dopo aver collegato moreai.it al progetto su Netlify.
+[[redirects]]
+  from = "https://www.linea-ai.it/*"
+  to = "https://www.moreai.it/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://linea-ai.it/*"
+  to = "https://www.moreai.it/:splat"
+  status = 301
+  force = true

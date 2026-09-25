@@ -1,4 +1,4 @@
-// Avviso email al gestore di Linea AI quando un visitatore lascia un feedback
+// Avviso email al gestore di MoreAI quando un visitatore lascia un feedback
 // sulla chat della home. Attivo solo se LINEA_FEEDBACK_EMAIL è impostata.
 // Il feedback resta comunque salvato nel database: l'email è solo un avviso.
 import { sendEmail } from "./mailer.mjs";
@@ -16,12 +16,12 @@ export async function notifyHomeFeedback(
 
   const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
   const text =
-    `Nuovo feedback sulla chat della home di Linea AI.\n\n` +
+    `Nuovo feedback sulla chat della home di MoreAI.\n\n` +
     `Valutazione: ${rating}/5 ${stars}\n` +
     `Commento: ${comment.trim() || "(nessun commento)"}\n\n` +
     `Per leggere la conversazione, dal Mac: npm run feedback -- chat ${conversationId}`;
   const html =
-    `<p>Nuovo feedback sulla chat della home di Linea AI.</p>` +
+    `<p>Nuovo feedback sulla chat della home di MoreAI.</p>` +
     `<p><strong>Valutazione:</strong> ${rating}/5 ${stars}</p>` +
     `<p><strong>Commento:</strong> ${escapeHtml(comment.trim() || "(nessun commento)")}</p>` +
     `<p>Per leggere la conversazione, dal Mac:<br><code>npm run feedback -- chat ${escapeHtml(conversationId)}</code></p>`;
@@ -31,7 +31,7 @@ export async function notifyHomeFeedback(
       companyId,
       eventKey: `feedback:${conversationId}`,
       to,
-      subject: `Nuovo feedback: ${rating}/5 — Linea AI`,
+      subject: `Nuovo feedback: ${rating}/5 — MoreAI`,
       text,
       html
     }, { env });

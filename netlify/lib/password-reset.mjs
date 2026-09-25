@@ -62,13 +62,13 @@ export async function requestPasswordReset(db, body, { ip = "unknown", baseUrl, 
         companyId: user.company_id,
         eventKey: "reset:" + hash,
         to: user.email,
-        subject: "Scegli una nuova password — Linea AI",
+        subject: "Scegli una nuova password — MoreAI",
         text:
-          "Hai chiesto di reimpostare la password del tuo account Linea AI.\n\n" +
+          "Hai chiesto di reimpostare la password del tuo account MoreAI.\n\n" +
           `Apri questo link entro 30 minuti:\n${link}\n\n` +
           "Se non sei stato tu, ignora questa email: la password attuale resta valida.",
         html:
-          "<p>Hai chiesto di reimpostare la password del tuo account Linea AI.</p>" +
+          "<p>Hai chiesto di reimpostare la password del tuo account MoreAI.</p>" +
           `<p><a href="${link}">Scegli una nuova password</a> (link valido 30 minuti).</p>` +
           "<p>Se non sei stato tu, ignora questa email: la password attuale resta valida.</p>"
       }, { env });

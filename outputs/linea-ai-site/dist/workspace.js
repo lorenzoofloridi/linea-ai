@@ -358,7 +358,7 @@
                 workspaceStatus.textContent =
                   'Email di verifica inviata. ' +
                   'Controlla la tua casella di posta ' +
-                  'e apri il messaggio “Verifica la tua email — Linea AI”. ' +
+                  'e apri il messaggio “Verifica la tua email — MoreAI”. ' +
                   'Se non lo trovi, controlla anche Spam, Posta indesiderata, ' +
                   'Promozioni o altre cartelle. ' +
                   'La consegna può richiedere qualche minuto.';
@@ -565,7 +565,7 @@
       mailButton.href =
         'mailto:lorenzoofloridi@gmail.com?subject=' +
         encodeURIComponent(
-          'Richiesta di supporto — ' + (company || 'Linea AI')
+          'Richiesta di supporto — ' + (company || 'MoreAI')
         );
     }
 

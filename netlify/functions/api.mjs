@@ -491,7 +491,7 @@ async function requestEmailVerification(
     `verify:${tokenHash}`;
 
   const subject =
-    "Verifica la tua email — Linea AI";
+    "Verifica la tua email — MoreAI";
 
   const verificationUrl =
     requestedPlan === "demo"
@@ -617,7 +617,8 @@ async function requestEmailVerification(
 
           body: JSON.stringify({
             from:
-              "Linea AI <noreply@linea-ai.it>",
+              process.env.LINEA_MAIL_FROM ||
+              "MoreAI <noreply@moreai.it>",
 
             to: [
               user.email
@@ -2291,7 +2292,7 @@ export default async (
 
     // Mai l'oggetto errore completo: può contenere dati di richiesta.
     console.error(
-      "Linea AI API error:",
+      "MoreAI API error:",
       error?.code ||
         error?.name ||
         "internal",

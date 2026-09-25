@@ -84,10 +84,10 @@
     "es": "Tu empresa se dedica a los clientes.",
     "fr": "Votre entreprise se consacre aux clients."
   },
-  "Linea AI si occupa del primo messaggio: ascolta, raccoglie le informazioni e prepara il contatto.": {
-    "en": "Linea AI handles the first message: listening, collecting information and preparing the enquiry.",
-    "es": "Linea AI gestiona el primer mensaje: escucha, recoge información y prepara el contacto.",
-    "fr": "Linea AI gère le premier message : écoute, collecte des informations et prépare le contact."
+  "MoreAI si occupa del primo messaggio: ascolta, raccoglie le informazioni e prepara il contatto.": {
+    "en": "MoreAI handles the first message: listening, collecting information and preparing the enquiry.",
+    "es": "MoreAI gestiona el primer mensaje: escucha, recoge información y prepara el contacto.",
+    "fr": "MoreAI gère le premier message : écoute, collecte des informations et prépare le contact."
   },
   "Parla con la demo": {
     "en": "Talk to the demo",
@@ -199,10 +199,10 @@
     "es": "ocupar todo el día.",
     "fr": "occuper toute la journée."
   },
-  "Le richieste arrivano anche quando il team è impegnato o fuori orario. Linea AI conversa, raccoglie le informazioni utili e prepara il lavoro del referente aziendale.": {
-    "en": "Enquiries arrive even when your team is busy or off duty. Linea AI talks to visitors, collects useful information and prepares the work for your team.",
-    "es": "Las consultas llegan aunque el equipo esté ocupado o fuera de horario. Linea AI conversa, recoge información útil y prepara el trabajo del responsable.",
-    "fr": "Les demandes arrivent même lorsque l’équipe est occupée ou absente. Linea AI dialogue, recueille les informations utiles et prépare le travail du référent."
+  "Le richieste arrivano anche quando il team è impegnato o fuori orario. MoreAI conversa, raccoglie le informazioni utili e prepara il lavoro del referente aziendale.": {
+    "en": "Enquiries arrive even when your team is busy or off duty. MoreAI talks to visitors, collects useful information and prepares the work for your team.",
+    "es": "Las consultas llegan aunque el equipo esté ocupado o fuera de horario. MoreAI conversa, recoge información útil y prepara el trabajo del responsable.",
+    "fr": "Les demandes arrivent même lorsque l’équipe est occupée ou absente. MoreAI dialogue, recueille les informations utiles et prépare le travail du référent."
   },
   "Ascolta la richiesta": {
     "en": "Listens to the enquiry",
@@ -289,10 +289,10 @@
     "es": "El asistente no diagnostica ni confirma citas por su cuenta.",
     "fr": "L’assistant ne pose pas de diagnostic et ne confirme pas seul les rendez-vous."
   },
-  "LINEA AI / IL PERCORSO": {
-    "en": "LINEA AI / THE JOURNEY",
-    "es": "LINEA AI / EL RECORRIDO",
-    "fr": "LINEA AI / LE PARCOURS"
+  "MOREAI / IL PERCORSO": {
+    "en": "MOREAI / THE JOURNEY",
+    "es": "MOREAI / EL RECORRIDO",
+    "fr": "MOREAI / LE PARCOURS"
   },
   "Un filo diretto.": {
     "en": "A direct connection.",
@@ -414,35 +414,35 @@
     "es": "PRUÉBALO CON TUS PALABRAS",
     "fr": "ESSAYEZ AVEC VOS MOTS"
   },
-  "Conosci Linea AI.": {
-    "en": "Discover Linea AI.",
-    "es": "Conoce Linea AI.",
-    "fr": "Découvrez Linea AI."
+  "Conosci MoreAI.": {
+    "en": "Discover MoreAI.",
+    "es": "Conoce MoreAI.",
+    "fr": "Découvrez MoreAI."
   },
   "Chiedi al nostro assistente.": {
     "en": "Ask our assistant.",
     "es": "Pregunta a nuestro asistente.",
     "fr": "Interrogez notre assistant."
   },
-  "Scopri come Linea AI può aiutare la tua azienda: chiedi informazioni sul servizio, sulla personalizzazione e sul funzionamento della piattaforma. Per confrontare piani e tariffe, visita": {
-    "en": "Discover how Linea AI can help your business: ask about the service, customisation and platform. To compare plans and prices, visit",
-    "es": "Descubre cómo Linea AI puede ayudar a tu empresa: pregunta por el servicio, la personalización y la plataforma. Para comparar planes y precios, visita",
-    "fr": "Découvrez comment Linea AI peut aider votre entreprise : renseignez-vous sur le service, la personnalisation et la plateforme. Pour comparer offres et tarifs, consultez"
+  "Scopri come MoreAI può aiutare la tua azienda: chiedi informazioni sul servizio, sulla personalizzazione e sul funzionamento della piattaforma. Per confrontare piani e tariffe, visita": {
+    "en": "Discover how MoreAI can help your business: ask about the service, customisation and platform. To compare plans and prices, visit",
+    "es": "Descubre cómo MoreAI puede ayudar a tu empresa: pregunta por el servicio, la personalización y la plataforma. Para comparar planes y precios, visita",
+    "fr": "Découvrez comment MoreAI peut aider votre entreprise : renseignez-vous sur le service, la personnalisation et la plateforme. Pour comparer offres et tarifs, consultez"
   },
   ". Se serve supporto, puoi lasciare un’email e autorizzare un contatto.": {
     "en": ". If you need support, leave an email address and agree to be contacted.",
     "es": ". Si necesitas ayuda, deja tu email y autoriza el contacto.",
     "fr": ". Si vous avez besoin d’aide, laissez votre email et autorisez un contact."
   },
-  "Puoi scrivere: “Come può Linea AI aiutare la mia azienda?”.": {
-    "en": "You can write: “How can Linea AI help my business?”.",
-    "es": "Puedes escribir: «¿Cómo puede Linea AI ayudar a mi empresa?».",
-    "fr": "Vous pouvez écrire : « Comment Linea AI peut aider mon entreprise ? »."
+  "Puoi scrivere: “Come può MoreAI aiutare la mia azienda?”.": {
+    "en": "You can write: “How can MoreAI help my business?”.",
+    "es": "Puedes escribir: «¿Cómo puede MoreAI ayudar a mi empresa?».",
+    "fr": "Vous pouvez écrire : « Comment MoreAI peut aider mon entreprise ? »."
   },
-  "Questa chat presenta i servizi Linea AI. Le conversazioni vengono conservate per mostrare il funzionamento. Usa dati di prova e non inserire informazioni sensibili. Nessun appuntamento viene prenotato.": {
-    "en": "This chat presents Linea AI services. Conversations are stored to demonstrate the service. Use test data and do not enter sensitive information. No appointments are booked.",
-    "es": "Este chat presenta los servicios Linea AI. Las conversaciones se guardan para mostrar su funcionamiento. Usa datos de prueba, sin información sensible. No se reservan citas.",
-    "fr": "Ce chat présente les services Linea AI. Les conversations sont conservées pour démonstration. Utilisez des données fictives, sans informations sensibles. Aucun rendez-vous n’est réservé."
+  "Questa chat presenta i servizi MoreAI. Le conversazioni vengono conservate per mostrare il funzionamento. Usa dati di prova e non inserire informazioni sensibili. Nessun appuntamento viene prenotato.": {
+    "en": "This chat presents MoreAI services. Conversations are stored to demonstrate the service. Use test data and do not enter sensitive information. No appointments are booked.",
+    "es": "Este chat presenta los servicios MoreAI. Las conversaciones se guardan para mostrar su funcionamiento. Usa datos de prueba, sin información sensible. No se reservan citas.",
+    "fr": "Ce chat présente les services MoreAI. Les conversations sont conservées pour démonstration. Utilisez des données fictives, sans informations sensibles. Aucun rendez-vous n’est réservé."
   },
   "Leggi come vengono usati i dati della demo": {
     "en": "Read how demo data is used",
@@ -454,10 +454,10 @@
     "es": "Comprobando la demo…",
     "fr": "Vérification de la démo…"
   },
-  "Servizi Linea AI": {
-    "en": "Linea AI Services",
-    "es": "Servicios Linea AI",
-    "fr": "Services Linea AI"
+  "Servizi MoreAI": {
+    "en": "MoreAI Services",
+    "es": "Servicios MoreAI",
+    "fr": "Services MoreAI"
   },
   "Assistente virtuale · demo": {
     "en": "Virtual assistant · demo",
@@ -554,10 +554,10 @@
     "es": "un mejor primer contacto.",
     "fr": "un meilleur premier contact."
   },
-  "Linea AI è un progetto in sviluppo: un assistente per aiutare le aziende a gestire le richieste iniziali, senza perdere il contesto delle persone che le contattano.": {
-    "en": "Linea AI is a project in development: an assistant helping companies manage initial enquiries without losing the context of the people contacting them.",
-    "es": "Linea AI es un proyecto en desarrollo: un asistente para gestionar consultas iniciales sin perder el contexto de las personas.",
-    "fr": "Linea AI est un projet en développement : un assistant pour gérer les premières demandes sans perdre le contexte des personnes."
+  "MoreAI è un progetto in sviluppo: un assistente per aiutare le aziende a gestire le richieste iniziali, senza perdere il contesto delle persone che le contattano.": {
+    "en": "MoreAI is a project in development: an assistant helping companies manage initial enquiries without losing the context of the people contacting them.",
+    "es": "MoreAI es un proyecto en desarrollo: un asistente para gestionar consultas iniciales sin perder el contexto de las personas.",
+    "fr": "MoreAI est un projet en développement : un assistant pour gérer les premières demandes sans perdre le contexte des personnes."
   },
   "Ogni azienda definisce le informazioni affidabili su cui rispondere, i dati utili da raccogliere e il referente a cui preparare la richiesta. Settori e campi possono evolvere senza creare un sito separato.": {
     "en": "Each business defines reliable information, useful data to collect and the person handling enquiries. Sectors and fields can evolve without a separate website.",
@@ -729,10 +729,10 @@
     "es": "Vista previa local: documentación provisional. Identidad del responsable y plazos de conservación pendientes antes del acceso externo.",
     "fr": "Aperçu local : documentation provisoire. Identité du responsable et durées de conservation à compléter avant accès externe."
   },
-  "© 2026 Linea AI · Nome provvisorio del progetto": {
-    "en": "© 2026 Linea AI · Provisional project name",
-    "es": "© 2026 Linea AI · Nombre provisional",
-    "fr": "© 2026 Linea AI · Nom provisoire du projet"
+  "© 2026 MoreAI · Nome provvisorio del progetto": {
+    "en": "© 2026 MoreAI · Provisional project name",
+    "es": "© 2026 MoreAI · Nombre provisional",
+    "fr": "© 2026 MoreAI · Nom provisoire du projet"
   },
   "Anteprima privata · Azienda dimostrativa": {
     "en": "Private preview · Demonstration business",
@@ -944,10 +944,10 @@
     "es": "Son solo ejemplos: cada empresa elige qué información dar y qué datos recoger.",
     "fr": "Ce ne sont que des exemples : chaque entreprise choisit les informations à donner et les données à recueillir."
   },
-  "Scopri come Linea AI può aiutare la tua azienda: chiedi informazioni sul servizio, sulla personalizzazione e sul funzionamento della piattaforma. Per piani e prezzi trovi tutto in": {
-    "en": "See how Linea AI can help your business: ask about the service, customization and how the platform works. For plans and pricing, see",
-    "es": "Descubre cómo Linea AI puede ayudar a tu empresa: pregunta por el servicio, la personalización y el funcionamiento de la plataforma. Para planes y precios, consulta",
-    "fr": "Découvrez comment Linea AI peut aider votre entreprise : posez vos questions sur le service, la personnalisation et le fonctionnement de la plateforme. Pour les offres et les tarifs, consultez"
+  "Scopri come MoreAI può aiutare la tua azienda: chiedi informazioni sul servizio, sulla personalizzazione e sul funzionamento della piattaforma. Per piani e prezzi trovi tutto in": {
+    "en": "See how MoreAI can help your business: ask about the service, customization and how the platform works. For plans and pricing, see",
+    "es": "Descubre cómo MoreAI puede ayudar a tu empresa: pregunta por el servicio, la personalización y el funcionamiento de la plataforma. Para planes y precios, consulta",
+    "fr": "Découvrez comment MoreAI peut aider votre entreprise : posez vos questions sur le service, la personnalisation et le fonctionnement de la plateforme. Pour les offres et les tarifs, consultez"
   },
   ". Se vuoi essere ricontattato, puoi lasciare la tua email direttamente in chat.": {
     "en": ". If you’d like us to get back to you, just leave your email in the chat.",
@@ -979,10 +979,10 @@
     "es": "hecho con cuidado.",
     "fr": "soigné."
   },
-  "Linea AI nasce per aiutare le aziende a rispondere a chi le contatta, subito e con le informazioni giuste, senza perdere il contesto di ogni persona.": {
-    "en": "Linea AI helps businesses answer everyone who gets in touch, right away and with the right information, without losing track of each person.",
-    "es": "Linea AI ayuda a las empresas a responder a quien las contacta, al momento y con la información correcta, sin perder el contexto de cada persona.",
-    "fr": "Linea AI aide les entreprises à répondre à ceux qui les contactent, tout de suite et avec les bonnes informations, sans perdre le fil de chaque personne."
+  "MoreAI nasce per aiutare le aziende a rispondere a chi le contatta, subito e con le informazioni giuste, senza perdere il contesto di ogni persona.": {
+    "en": "MoreAI helps businesses answer everyone who gets in touch, right away and with the right information, without losing track of each person.",
+    "es": "MoreAI ayuda a las empresas a responder a quien las contacta, al momento y con la información correcta, sin perder el contexto de cada persona.",
+    "fr": "MoreAI aide les entreprises à répondre à ceux qui les contactent, tout de suite et avec les bonnes informations, sans perdre le fil de chaque personne."
   },
   "DISPONIBILE": {
     "en": "AVAILABLE",
@@ -1169,10 +1169,10 @@
     "es": "Cerrar menú",
     "fr": "Fermer le menu"
   },
-  "Linea AI, home": {
-    "en": "Linea AI, home",
-    "es": "Linea AI, inicio",
-    "fr": "Linea AI, accueil"
+  "MoreAI, home": {
+    "en": "MoreAI, home",
+    "es": "MoreAI, inicio",
+    "fr": "MoreAI, accueil"
   },
   "Nome dell’azienda": {
     "en": "Company name",
@@ -1424,10 +1424,10 @@
     "es": "Demasiados intentos. Inténtalo en unos minutos.",
     "fr": "Trop de tentatives. Réessayez dans quelques minutes."
   },
-  "© 2026 Linea AI": {
-    "en": "© 2026 Linea AI",
-    "es": "© 2026 Linea AI",
-    "fr": "© 2026 Linea AI"
+  "© 2026 MoreAI": {
+    "en": "© 2026 MoreAI",
+    "es": "© 2026 MoreAI",
+    "fr": "© 2026 MoreAI"
   },
   "Indica una preferenza. La segreteria non garantisce la disponibilità in quel momento. Orario italiano.": {
     "en": "Tell us your preference. Availability at that time is not guaranteed. Italian time.",
@@ -1479,10 +1479,10 @@
     "es": "Cerrar aviso",
     "fr": "Fermer la notice"
   },
-  "Ciao, sono l’assistente virtuale di Servizi Linea AI. Come posso aiutarti oggi?": {
-    "en": "Hi, I’m the virtual assistant of Servizi Linea AI. How can I help you today?",
-    "es": "Hola, soy el asistente virtual de Servizi Linea AI. ¿En qué puedo ayudarte hoy?",
-    "fr": "Bonjour, je suis l’assistant virtuel de Servizi Linea AI. Comment puis-je vous aider aujourd’hui ?"
+  "Ciao, sono l’assistente virtuale di Servizi MoreAI. Come posso aiutarti oggi?": {
+    "en": "Hi, I’m the virtual assistant of Servizi MoreAI. How can I help you today?",
+    "es": "Hola, soy el asistente virtual de Servizi MoreAI. ¿En qué puedo ayudarte hoy?",
+    "fr": "Bonjour, je suis l’assistant virtuel de Servizi MoreAI. Comment puis-je vous aider aujourd’hui ?"
   },
   "Grazie, la recensione è stata ricevuta e sarà visibile dopo la revisione.": {
     "en": "Thank you, your review has been received and will be visible after moderation.",

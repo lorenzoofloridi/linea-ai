@@ -127,6 +127,7 @@
       publicId = me.company.public_id;
       companyName = me.company.config?.name || companyName;
       $('#test-chat-name').textContent = companyName;
+      $('#test-chat-avatar').textContent = (companyName.trim()[0] || 'A').toUpperCase();
       greeting = me.company.config?.agent?.branding?.greeting ||
         'Ciao, sono l’assistente di ' + companyName + '. Come posso aiutarti oggi?';
       if (!busy && box.children.length <= 1) reset();

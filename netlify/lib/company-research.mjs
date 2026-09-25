@@ -474,7 +474,7 @@ async function fetchPage(
               "Accept":
                 "text/html,application/xhtml+xml",
               "User-Agent":
-                "LineaAI-Research/1.0"
+                "MoreAI-Research/1.0"
             },
             redirect: "manual",
             signal:
@@ -1081,7 +1081,7 @@ export async function researchCompany(
 
   // 2. Prepara il prompt per il modello.
   const prompt = `
-Sei il motore di ricerca aziendale di Linea AI.
+Sei il motore di ricerca aziendale di MoreAI.
 
 Devi costruire una knowledge base commerciale affidabile per UNA SOLA azienda.
 

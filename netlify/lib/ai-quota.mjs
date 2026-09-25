@@ -10,7 +10,7 @@ export const PLAN_MONTHLY_MESSAGES = Object.freeze({
   advanced: 50000 // limite tecnico di uso corretto
 });
 
-/** Tenant di servizio della chat pubblica Linea AI (companies.id='demo'). */
+/** Tenant di servizio della chat pubblica MoreAI (companies.id='demo'). */
 export const SERVICE_COMPANY_ID = 'demo';
 const SERVICE_DEFAULT_LIMIT = 1000;
 

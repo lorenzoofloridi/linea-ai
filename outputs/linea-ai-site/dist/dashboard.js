@@ -1005,7 +1005,7 @@ $('#export-data')
         a.href = url;
 
         a.download =
-          'richieste-linea-ai.csv';
+          'richieste-moreai.csv';
 
         a.click();
 

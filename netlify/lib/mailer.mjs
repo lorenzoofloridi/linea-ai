@@ -2,7 +2,10 @@
 // La chiave RESEND_API_KEY resta solo nel backend; nei log compare solo lo stato HTTP.
 import { randomBytes } from "node:crypto";
 
-const FROM = "Linea AI <noreply@linea-ai.it>";
+// Mittente: il dominio deve essere verificato su Resend.
+// LINEA_MAIL_FROM permette di cambiarlo senza modificare il codice.
+export const DEFAULT_FROM = "MoreAI <noreply@moreai.it>";
+const fromAddress = env => env.LINEA_MAIL_FROM || DEFAULT_FROM;
 
 export class MailError extends Error {
   constructor(code) {
@@ -49,7 +52,7 @@ export async function sendEmail(
         "Idempotency-Key": eventKey
       },
       signal: AbortSignal.timeout(10000),
-      body: JSON.stringify({ from: FROM, to: [to], subject, text, html, ...(replyTo ? { reply_to: replyTo } : {}) })
+      body: JSON.stringify({ from: fromAddress(env), to: [to], subject, text, html, ...(replyTo ? { reply_to: replyTo } : {}) })
     });
   } catch {
     await db.pool.query(

@@ -86,9 +86,9 @@ test('chat interpreter retries once on a temporary Gemini error, never on perman
 
 test('chat replies never contain exclamation marks', async () => {
   const cfg = { fields: [] };
-  const out = JSON.stringify({ reply: 'Ciao! Benvenuto!! ¡Hola! Tutto ok?! Visita www.linea-ai.it!', language: 'it', action: 'continue', consent: 'none', consent_quote: '', extracted: [] });
+  const out = JSON.stringify({ reply: 'Ciao! Benvenuto!! ¡Hola! Tutto ok?! Visita www.moreai.it!', language: 'it', action: 'continue', consent: 'none', consent_quote: '', extracted: [] });
   const r = await interpret(cfg, initialState(), [], 'ciao', { env, transport: async () => reply(out) });
-  assert.equal(r.reply, 'Ciao. Benvenuto. Hola. Tutto ok? Visita www.linea-ai.it.');
+  assert.equal(r.reply, 'Ciao. Benvenuto. Hola. Tutto ok? Visita www.moreai.it.');
 });
 
 const publicLookup = async () => [{ address: '93.184.216.34', family: 4 }];

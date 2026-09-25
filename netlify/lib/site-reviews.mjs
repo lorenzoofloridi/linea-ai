@@ -1,4 +1,4 @@
-// Recensioni pubbliche del sito Linea AI.
+// Recensioni pubbliche del sito MoreAI.
 // - Inserimento anonimo solo con consenso alla pubblicazione, sempre in stato "pending".
 // - In vetrina solo le recensioni approvate a mano (scripts/reviews.mjs dal Mac).
 // - Nessun dato personale oltre al nome pubblico scelto dall'autore; l'IP serve
