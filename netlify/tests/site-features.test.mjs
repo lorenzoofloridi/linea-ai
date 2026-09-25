@@ -190,6 +190,15 @@ test('home feedback notification is optional, escaped and never blocks saving', 
 
   const failing = async () => { throw Object.assign(new Error('x'), { code: 'MAIL_FAILED' }); };
   assert.deepEqual(await notifyHomeFeedback({}, input, { env: { LINEA_FEEDBACK_EMAIL: 'owner@example.com' }, mail: failing }), { failed: true });
+
+  // Chat di prova della dashboard: stesso destinatario, oggetto con il nome dell'azienda.
+  await notifyHomeFeedback({}, { ...input, conversationId: 'conv2', source: 'test', companyName: '<i>Rossi</i> Auto' }, { env: { LINEA_FEEDBACK_EMAIL: 'owner@example.com' }, mail });
+  const last = sent.at(-1);
+  assert.equal(last.to, 'owner@example.com');
+  assert.equal(last.eventKey, 'feedback:conv2');
+  assert.match(last.subject, /dashboard/);
+  assert.ok(!last.html.includes('<i>Rossi</i>'));
+  assert.ok(!last.text.includes('npm run feedback'));
 });
 
 test('support request goes only to the team, replies go to the account email', async () => {

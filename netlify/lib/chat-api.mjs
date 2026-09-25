@@ -721,7 +721,7 @@ export async function chatApi(
    );
   }
 
-  await db.pool.query(
+  const saved=await db.pool.query(
    `INSERT INTO feedback(
       company_id,
       conversation_id,
@@ -742,14 +742,26 @@ export async function chatApi(
    ]
   );
 
-  // Solo per la chat della home di MoreAI: avvisa il gestore via email.
-  // Un errore di invio non blocca il salvataggio del feedback.
-  if(conversation.kind==='public_demo'){
+  // Chat della home e chat di prova della dashboard: avvisa il gestore
+  // di MoreAI via email. I feedback dei visitatori sui siti delle aziende
+  // restano solo nella loro dashboard. Un errore di invio non blocca il salvataggio.
+  if(
+   saved.rowCount&&
+   (conversation.kind==='public_demo'||conversation.kind==='test')
+  ){
+   const companyName=conversation.kind==='test'
+    ?(await db.pool.query(
+      "SELECT config->>'name' AS name FROM companies WHERE id=$1",
+      [conversation.company_id]
+     )).rows[0]?.name
+    :'';
    await notifyHomeFeedback(db,{
     companyId:conversation.company_id,
     conversationId:conversation.id,
     rating:body.rating,
-    comment:body.comment
+    comment:body.comment,
+    source:conversation.kind==='test'?'test':'home',
+    companyName
    });
   }
 
