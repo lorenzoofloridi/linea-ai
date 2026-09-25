@@ -21,7 +21,7 @@ export function knowledgeEntries(row) {
   const firstSource = Array.isArray(row.sources) && row.sources[0]?.url ? row.sources[0].url : "Ricerca automatica";
   const verified = row.status === "verified";
   const entry = (content, source = firstSource) =>
-    content ? { kind: "public", content, source, verified, ai_allowed: false } : null;
+    content ? { kind: "public", content, source, verified, ai_allowed: verified } : null;
 
   const contacts = [k.contacts?.email, k.contacts?.phone].filter(Boolean).join(" · ");
   const entries = [

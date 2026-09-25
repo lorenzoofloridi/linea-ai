@@ -1134,6 +1134,10 @@ REGOLE:
 
 11. I dati identificativi forniti dall'applicazione sono la base dell'identità aziendale e non devono essere sostituiti arbitrariamente.
 
+PRIMA DI TUTTO verifica che l'azienda esista davvero: il sito ufficiale deve essere raggiungibile e riferito alla stessa ragione sociale o allo stesso marchio, e possibilmente ci devono essere riscontri esterni (registri, scheda Google, social, portali). In "verification" metti exists=true solo se hai riscontri concreti e scrivi in evidence quali; se non riesci a confermarlo metti exists=false e confidence "low".
+
+Cerca in modo approfondito: oltre al sito ufficiale usa la ricerca web per trovare altre fonti pubbliche affidabili sulla STESSA azienda (per esempio profili social ufficiali, scheda Google dell'attività, portali e directory di settore, articoli). Raccogli il maggior numero possibile di informazioni utili e verificabili, e prepara almeno 8 FAQ quando le fonti lo permettono.
+
 RACCOGLI:
 
 - identità;
@@ -1201,6 +1205,11 @@ Restituisci ESCLUSIVAMENTE JSON valido con questa struttura:
   "customer_information": [],
   "assistant_rules": [],
 
+  "verification": {
+    "exists": true,
+    "evidence": ""
+  },
+
   "research_summary": "",
 
   "confidence": "high|medium|low"
@@ -1238,7 +1247,7 @@ Non aggiungere testo prima o dopo il JSON.
 
           temperature: 0.1,
 
-          maxOutputTokens: 5000,
+          maxOutputTokens: 8000,
 
           // Background function: nessun limite stretto di tempo.
           timeoutMs: 120000
@@ -1325,6 +1334,7 @@ Non aggiungere testo prima o dopo il JSON.
     knowledge,
     sources,
     verified:
-      knowledge.confidence !== "low"
+      knowledge.confidence !== "low" &&
+      parsedKnowledge?.verification?.exists !== false
   };
 }

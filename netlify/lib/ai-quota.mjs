@@ -1,6 +1,7 @@
 // Quote mensili dei messaggi AI per azienda.
 // I limiti esistono solo qui (backend): nessun valore inviato dal browser
 // viene letto per decidere piano, limite o periodo.
+import { settleSubscription } from "./billing.mjs";
 
 /** Messaggi AI inclusi per mese di calendario (Europe/Rome). */
 export const PLAN_MONTHLY_MESSAGES = Object.freeze({
@@ -32,6 +33,7 @@ export function currentPeriod(date = new Date()) {
  * ha la precedenza; altrimenti Demo attiva; altrimenti nessun piano.
  */
 export async function effectivePlan(db, companyId, now = Date.now() / 1000) {
+  await settleSubscription(db, companyId, now);
   const [subscription, demo] = await Promise.all([
     db.pool.query(
       `SELECT plan,status,period_end,grace_until

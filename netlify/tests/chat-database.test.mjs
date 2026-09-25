@@ -3,7 +3,10 @@ import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import pg from 'pg';
 import { chatApi } from '../lib/chat-api.mjs';
-import { currentPeriod } from '../lib/ai-quota.mjs';
+import { widgetApi } from '../lib/widget.mjs';
+import { currentPeriod, effectivePlan } from '../lib/ai-quota.mjs';
+import { billingApi, settleSubscription } from '../lib/billing.mjs';
+import { adminApi, researchOutcome } from '../lib/company-review.mjs';
 
 const local = JSON.parse(
   await readFile('var/audit/local-database.json', 'utf8')
@@ -327,6 +330,36 @@ try {
       assert.equal(leads.length, 1);
       assert.equal(leads[0].data.nome, 'Mario Bianchi');
       assert.deepEqual((await api('leads', null, 'b')).leads, []);
+    }
+  );
+
+  await test(
+    'widget opens real conversations only for the ticket company and only on allowed sites',
+    async () => {
+      const env = { LINEA_INTERNAL_SECRET: 'w'.repeat(40) };
+      const call = async (path, body, user = null, query = '') =>
+        widgetApi(new Request('https://www.moreai.invalid/api/' + path + query, {
+          method: body ? 'POST' : 'GET',
+          headers: { 'Content-Type': 'application/json', ...(user ? { 'x-test-user': user } : {}) },
+          ...(body ? { body: JSON.stringify(body) } : {})
+        }), { pool }, auth, { env, context: { ip: '127.0.0.9' } });
+
+      const saved = await (await call('widget-settings', { origins: ['www.shop-a.it'] }, 'a')).json();
+      assert.deepEqual(saved.origins, ['https://www.shop-a.it']);
+      assert.match(saved.snippet, /data-company="public-a"/);
+      await assert.rejects(call('widget-settings', { origins: ['http://10.1.1.1'] }, 'a'), e => e.httpStatus === 400);
+      await assert.rejects(call('widget-settings', null, null), e => e.httpStatus === 401);
+
+      const frame = await call('widget-frame', null, null, '?c=public-a');
+      assert.match(frame.headers.get('content-security-policy'), /frame-ancestors https:\/\/www\.shop-a\.it/);
+      const ticket = (await frame.text()).match(/data-ticket="([^"]+)"/)[1];
+
+      // Il biglietto di A non apre la chat di B.
+      await assert.rejects(call('widget-session', { company: 'public-b', ticket }), e => e.httpStatus === 403);
+      const opened = await (await call('widget-session', { company: 'public-a', ticket })).json();
+      assert.ok(opened.session);
+      const row = (await pool.query("SELECT company_id, kind, owner_user_id FROM conversations WHERE access_hash=encode(sha256($1::bytea),'hex')", [opened.session])).rows[0];
+      assert.deepEqual(row, { company_id: 'a', kind: 'real', owner_user_id: null });
     }
   );
 
@@ -666,6 +699,140 @@ try {
       assert.equal(left.rowCount, 0);
     }
   );
+
+  /*
+   * Attivazione del piano (pagamenti simulati) e verifica dell'azienda.
+   */
+  const billingOptions = {
+    plans: {},
+    amount: (plan, period) => ({ base: 4900, plus: 9900, advanced: 19900 }[plan] * (period === 'annual' ? 10 : 1)),
+    methods: { card: ['Carta', true], transfer: ['Bonifico', false] },
+    emailVerified: async () => true,
+    trialDays: 14
+  };
+  const billing = async (path, body, user) => {
+    const res = await billingApi(request(path, body, user), { pool }, auth, billingOptions);
+    return res.json();
+  };
+  for (const id of ['c', 'd']) {
+    await pool.query('INSERT INTO companies VALUES($1,$2,$3,NOW())', [id, 'public-' + id, cfg]);
+    await pool.query('INSERT INTO users VALUES($1,$2,$3,$4)', ['user-' + id, id, id + '@example.invalid', 'unused']);
+    await pool.query('INSERT INTO company_management(company_id) VALUES($1)', [id]);
+  }
+
+  await test('checkout requires a verified company, one trial per company, lazy renewal', async () => {
+    const offer = await billing('plan-offer', null, 'c');
+    assert.equal(offer.approved, false);
+    assert.equal(offer.trial_available, true);
+    await assert.rejects(
+      billing('plan-checkout', { plan: 'base', period: 'monthly', method: 'card', trial: true, confirm: true }, 'c'),
+      e => e.httpStatus === 409
+    );
+
+    // L'analisi automatica verificata rende l'azienda approvata.
+    await pool.query("INSERT INTO company_knowledge(company_id, status) VALUES('c','verified')");
+    assert.equal((await billing('plan-offer', null, 'c')).approved, true);
+
+    await assert.rejects(
+      billing('plan-checkout', { plan: 'base', period: 'monthly', method: 'transfer', trial: true, confirm: true }, 'c'),
+      e => e.httpStatus === 400
+    );
+    await assert.rejects(
+      billing('plan-checkout', { plan: 'base', period: 'monthly', method: 'card', trial: true }, 'c'),
+      e => e.httpStatus === 400
+    );
+    const started = await billing('plan-checkout', { plan: 'plus', period: 'monthly', method: 'card', trial: true, confirm: true }, 'c');
+    assert.equal(started.status, 'trial');
+    assert.equal(started.charged_now_cents, 0);
+    assert.ok(Math.abs(started.next_charge_at - (Date.now() / 1000 + 14 * 86400)) < 60);
+    assert.equal(await effectivePlan({ pool }, 'c'), 'plus');
+    assert.equal(await effectivePlan({ pool }, 'd'), null);
+    await assert.rejects(
+      billing('plan-checkout', { plan: 'base', period: 'monthly', method: 'card', trial: false, confirm: true }, 'c'),
+      e => e.httpStatus === 409
+    );
+
+    // Al 15° giorno la prova diventa piano attivo con addebito (simulato).
+    const day15 = Date.now() / 1000 + 15 * 86400;
+    await settleSubscription({ pool }, 'c', day15);
+    const sub = (await pool.query("SELECT status, period_end FROM plan_subscriptions WHERE company_id='c'")).rows[0];
+    assert.equal(sub.status, 'active');
+    assert.ok(Number(sub.period_end) > day15);
+    const converted = await pool.query("SELECT amount_cents FROM plan_events WHERE company_id='c' AND action='trial_converted'");
+    assert.equal(converted.rows[0].amount_cents, 9900);
+
+    // Disdetta: alla scadenza il piano termina.
+    await billing('plan-cancel', {}, 'c');
+    await settleSubscription({ pool }, 'c', Number(sub.period_end) + 1);
+    assert.equal((await pool.query("SELECT status FROM plan_subscriptions WHERE company_id='c'")).rows[0].status, 'expired');
+
+    // La prova non si può riusare: il nuovo piano parte subito a pagamento.
+    const offerAgain = await billing('plan-offer', null, 'c');
+    assert.equal(offerAgain.trial_available, false);
+    await assert.rejects(
+      billing('plan-checkout', { plan: 'base', period: 'annual', method: 'card', trial: true, confirm: true }, 'c'),
+      e => e.httpStatus === 409
+    );
+    const paid = await billing('plan-checkout', { plan: 'base', period: 'annual', method: 'card', trial: false, confirm: true }, 'c');
+    assert.equal(paid.status, 'active');
+    assert.equal(paid.charged_now_cents, 49000);
+    // Nessun dato di pagamento di un'azienda compare nell'altra.
+    assert.equal((await pool.query("SELECT 1 FROM plan_events WHERE company_id='d'")).rowCount, 0);
+  });
+
+  await test('unconfirmed research goes to manual review with one email to the admin only', async () => {
+    const sent = [];
+    const env = { LINEA_ADMIN_EMAILS: 'gestore@example.invalid', PUBLIC_SITE_URL: 'https://moreai.invalid' };
+    const mail = async (_db, message) => { sent.push(message); };
+    await pool.query("INSERT INTO plan_profiles(company_id, data, status, updated_at) VALUES('d', $1, 'pending', NOW())", [{ legal_name: 'Delta Srl', website: 'https://delta.invalid' }]);
+    const r = await researchOutcome({ pool }, 'd', 'needs_review', { env, mail });
+    assert.equal(r.status, 'under_review');
+    assert.equal(sent.length, 1);
+    assert.equal(sent[0].to, 'gestore@example.invalid');
+    assert.match(sent[0].text, /admin\.html#d/);
+    assert.equal((await billing('plan-offer', null, 'd')).approved, false);
+    // Una decisione manuale non viene sovrascritta dall'analisi.
+    await pool.query("UPDATE company_verification SET status='rejected' WHERE company_id='d'");
+    assert.equal((await researchOutcome({ pool }, 'd', 'verified', { env, mail })).status, 'rejected');
+    await pool.query("UPDATE company_verification SET status='under_review' WHERE company_id='d'");
+  });
+
+  await test('admin panel is reserved to the MoreAI admin and edits only the chosen company', async () => {
+    const env = { LINEA_ADMIN_EMAILS: 'a@example.invalid' };
+    const adminAuth = async (_db, req) => {
+      const u = req.headers.get('x-test-user');
+      return u ? { id: 'user-' + u, company_id: u, email: u + '@example.invalid' } : null;
+    };
+    const admin = async (path, body, user = 'a') => {
+      const res = await adminApi(request('admin/' + path, body, user), { pool }, adminAuth, { env, emailVerified: async () => true, transport: async () => new Response(null, { status: 202 }) });
+      return res.json();
+    };
+    await assert.rejects(admin('companies', null, 'b'), e => e.httpStatus === 403);
+    await assert.rejects(admin('companies', null, null), e => e.httpStatus === 401);
+    await assert.rejects(
+      adminApi(request('admin/companies', null, 'a'), { pool }, adminAuth, { env, emailVerified: async () => false }),
+      e => e.httpStatus === 403
+    );
+    const list = await admin('companies');
+    assert.ok(list.companies.some(c => c.id === 'd' && c.verification === 'under_review'));
+    const detail = await admin('company?id=d');
+    assert.equal(detail.profile.legal_name, 'Delta Srl');
+
+    await admin('company-ai', { id: 'd', knowledge: 'Delta ripara biciclette. Orari 9-18.', origins: ['https://www.delta.invalid/negozio', 'https://www.delta.invalid'] });
+    const config = (await pool.query("SELECT config FROM companies WHERE id='d'")).rows[0].config;
+    assert.equal(config.knowledge, 'Delta ripara biciclette. Orari 9-18.');
+    assert.equal((await pool.query("SELECT config FROM companies WHERE id='c'")).rows[0].config.knowledge, cfg.knowledge);
+    const widget = (await pool.query("SELECT allowed_origins FROM widget_settings WHERE company_id='d'")).rows[0];
+    assert.deepEqual(widget.allowed_origins, ['https://www.delta.invalid']);
+    await assert.rejects(admin('company-ai', { id: 'd', knowledge: 'x', origins: ['javascript:alert(1)'] }), e => e.httpStatus === 400);
+
+    await assert.rejects(admin('verify', { id: 'd', status: 'boh' }), e => e.httpStatus === 400);
+    await admin('verify', { id: 'd', status: 'verified', reason: 'Controllata a mano.' });
+    assert.equal((await billing('plan-offer', null, 'd')).approved, true);
+    const history = (await admin('company?id=d')).history;
+    assert.equal(history[0].actor, 'gestore a@example.invalid');
+    await assert.rejects(admin('company?id=demo'), e => e.httpStatus === 404);
+  });
 
   /*
    * Quando la Demo aziendale scade:

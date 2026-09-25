@@ -1,4 +1,7 @@
 import { chatApi } from "../lib/chat-api.mjs";
+import { widgetApi } from "../lib/widget.mjs";
+import { billingApi, settleSubscription } from "../lib/billing.mjs";
+import { adminApi, researchOutcome } from "../lib/company-review.mjs";
 import { ready as aiReady } from "../lib/online-ai.mjs";
 import { internalRequestHeaders } from "../lib/internal-auth.mjs";
 import { requestPasswordReset, completePasswordReset } from "../lib/password-reset.mjs";
@@ -929,6 +932,13 @@ async function planState(
 ) {
   const stamp =
     Date.now() / 1000;
+
+  // Rinnovi simulati scaduti (fine prova, fine periodo) prima di leggere lo stato.
+  await settleSubscription(
+    db,
+    user.company_id,
+    stamp
+  );
 
   const [
     demoResult,
@@ -2240,6 +2250,13 @@ export default async (
           ]
         );
 
+        // L'azienda passa alla verifica manuale e il gestore riceve l'avviso.
+        await researchOutcome(
+          db,
+          user.company_id,
+          "failed"
+        );
+
         return json(
           {
             error:
@@ -2254,6 +2271,52 @@ export default async (
         research_status:
           "pending"
       });
+    }
+
+    const billingResponse =
+      await billingApi(
+        request,
+        db,
+        principal,
+        {
+          plans: PLANS,
+          amount: planAmount,
+          methods: PAYMENT_METHODS,
+          emailVerified,
+          trialDays: 14
+        }
+      );
+
+    if (billingResponse) {
+      return billingResponse;
+    }
+
+    const adminResponse =
+      await adminApi(
+        request,
+        db,
+        principal,
+        {
+          emailVerified
+        }
+      );
+
+    if (adminResponse) {
+      return adminResponse;
+    }
+
+    const widgetResponse =
+      await widgetApi(
+        request,
+        db,
+        principal,
+        {
+          context
+        }
+      );
+
+    if (widgetResponse) {
+      return widgetResponse;
     }
 
     const chatResponse =

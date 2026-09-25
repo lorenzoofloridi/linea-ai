@@ -4,6 +4,7 @@ import {initialState,advance} from './chat-state.mjs';
 import {effectivePlan,reserveMessage,releaseMessage,recordTokens,usageSummary,QuotaError} from './ai-quota.mjs';
 import {companyOverview,addCompanyNote,deleteConversation,exportLeadsCsv,exportLeadsXlsx} from './company-data.mjs';
 import {notifyHomeFeedback} from './feedback-notify.mjs';
+import {conversationConfig} from './widget.mjs';
 
 const token=()=>randomBytes(32).toString('base64url');
 const hash=s=>createHash('sha256').update(s).digest('hex');
@@ -497,7 +498,11 @@ export async function chatApi(
    await requireActivePlan(company.id);
   }
 
-  const cfg=company.config;
+  // Chat di prova: stessa configurazione del widget, comprese le
+  // informazioni verificate trovate sul web.
+  const cfg=publicId==='demo'
+   ?company.config
+   :await conversationConfig(db,company);
 
   if(path==='/api/public'){
    return json({
@@ -712,7 +717,7 @@ export async function chatApi(
   * bloccate alla scadenza della Demo/piano.
   * La chat pubblica MoreAI resta disponibile.
   */
- if(conversation.owner_user_id){
+ if(conversation.owner_user_id||conversation.kind==='real'){
   await requireActivePlan(
    conversation.company_id
   );

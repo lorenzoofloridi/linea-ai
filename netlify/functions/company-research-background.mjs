@@ -1,6 +1,7 @@
 import { getDatabase } from "../lib/db.mjs";
 import { researchCompany } from "../lib/company-research.mjs";
 import { internalRequestAuthorized } from "../lib/internal-auth.mjs";
+import { researchOutcome } from "../lib/company-review.mjs";
 
 function json(data, status = 200) {
   return Response.json(data, {
@@ -131,8 +132,21 @@ export default async request => {
       [companyId]
     );
 
-    const research =
-      await researchCompany(profile);
+    // Due tentativi: errori temporanei del modello o del sito non devono
+    // lasciare l'azienda senza verifica.
+    let research;
+    try {
+      research =
+        await researchCompany(profile);
+    } catch (firstError) {
+      console.error(
+        "Company research first attempt failed:",
+        firstError?.message || "unknown"
+      );
+      await new Promise(resolve => setTimeout(resolve, 5000));
+      research =
+        await researchCompany(profile);
+    }
 
     const finalStatus =
       research.verified
@@ -186,6 +200,12 @@ export default async request => {
           ? "Ricerca aziendale completata."
           : "Ricerca completata con verifica aggiuntiva necessaria."
       ]
+    );
+
+    await researchOutcome(
+      db,
+      companyId,
+      finalStatus
     );
 
     console.log(
@@ -248,6 +268,11 @@ export default async request => {
           companyId,
           "Ricerca aziendale non completata."
         ]
+      );
+      await researchOutcome(
+        db,
+        companyId,
+        "failed"
       );
     } catch (databaseError) {
       console.error(

@@ -159,6 +159,12 @@
               : '')
         );
 
+        if (p.code !== 'demo' && p.available) {
+          card.append(
+            node('span', '14 giorni di prova', 'trial-badge')
+          );
+        }
+
         card.append(
           node(
             'p',
@@ -273,7 +279,7 @@
             : p.code === 'demo'
               ? 'Prova gratis'
               : data.authenticated
-                ? 'Attiva con noi'
+                ? 'Attiva piano'
                 : 'Scopri la tariffa',
           'button ' +
             (p.code === 'base'
@@ -331,13 +337,15 @@
               }
 
               /*
-               * Piani Base / Plus / Advanced.
-               * Finché i pagamenti online non sono attivi,
-               * l'attivazione passa dal nostro team.
+               * Piani Base / Plus / Advanced:
+               * si passa ai dati aziendali e al pagamento.
                */
-              contactForPlan(p.name, period, p.code);
-
-              button.disabled = false;
+              location.assign(
+                '/attiva-piano.html?plan=' +
+                  encodeURIComponent(p.code) +
+                  '&period=' +
+                  encodeURIComponent(period)
+              );
             } catch (e) {
               q('#plans-status').textContent =
                 e.message;
@@ -353,7 +361,7 @@
           card.append(
             node(
               'small',
-              'Attivazione guidata con il nostro team'
+              'Carta richiesta, primo addebito al 15° giorno. Disdici quando vuoi.'
             )
           );
         } else if (
@@ -387,8 +395,6 @@
 
         q('#plans-area').hidden = false;
 
-        q('#manage-plan-link').hidden =
-          !data.authenticated;
 
         const cta = q(
           '.header-plan-cta'

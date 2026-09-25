@@ -160,8 +160,9 @@ function destinationAfterAuthentication(
      * l'utente alla sezione Offerte.
      */
     if (names[plan] && response.redirect !== '/account.html') {
+      const [, period] = intent.split(':');
       sessionStorage.removeItem('linea_plan_intent');
-      return '/#offerte';
+      return '/attiva-piano.html?plan=' + plan + '&period=' + (period === 'annual' ? 'annual' : 'monthly');
     }
   }
 

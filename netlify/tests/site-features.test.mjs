@@ -94,14 +94,15 @@ test('mailer refuses to send without RESEND_API_KEY and never logs the key', asy
   await assert.rejects(sendEmail({ pool: { query: async () => ({ rowCount: 1, rows: [] }) } }, { companyId: 'c', eventKey: 'e', to: 'a@b.it', subject: 's', text: 't', html: 'h' }, { env: {} }), e => e.code === 'MAIL_NOT_CONFIGURED');
 });
 
-test('knowledge from research becomes readable entries, never marked as used by the AI', () => {
+test('knowledge from research becomes readable entries, used by the AI only when verified', () => {
   const entries = knowledgeEntries({
     status: 'verified',
     sources: [{ url: 'https://acme.example/' }],
     knowledge: { identity: { description: 'Concessionaria a Milano' }, services: ['Vendita', 'Noleggio'], contacts: { email: 'info@acme.example' }, faq: [{ question: 'Aprite il sabato?', answer: 'Sì, fino alle 13.' }] }
   });
   assert.deepEqual(entries.map(e => e.content), ['Concessionaria a Milano', 'Servizi: Vendita, Noleggio', 'Contatti: info@acme.example', 'Aprite il sabato? — Sì, fino alle 13.']);
-  assert.ok(entries.every(e => e.source === 'https://acme.example/' && e.ai_allowed === false));
+  assert.ok(entries.every(e => e.source === 'https://acme.example/' && e.ai_allowed === true));
+  assert.ok(knowledgeEntries({ status: 'needs_review', sources: [], knowledge: { services: ['X'] } }).every(e => e.ai_allowed === false));
   assert.deepEqual(knowledgeEntries(null), []);
 });
 
@@ -258,4 +259,49 @@ test('Excel export is a real xlsx with text-only cells for the company', async (
   assert.match(sheet, /25\/09\/26, 12:00/);
   assert.match(sheet, />Sì</);
   assert.match(sheet, />Sito</);
+});
+
+test('widget: signed tickets, safe origins, verified research only', async () => {
+  const { createTicket, verifyTicket, normalizeOrigin, originsFromWebsite, researchForAssistant } = await import('../lib/widget.mjs');
+  const env = { LINEA_INTERNAL_SECRET: 'k'.repeat(40) };
+  const t = createTicket('company-a', { env });
+  assert.equal(verifyTicket(t, { env }), 'company-a');
+  assert.equal(verifyTicket(t, { env: { LINEA_INTERNAL_SECRET: 'z'.repeat(40) } }), null);
+  assert.equal(verifyTicket(t.slice(0, -2) + 'xx', { env }), null);
+  assert.equal(verifyTicket(t, { env, now: Date.now() + 7 * 3600 * 1000 }), null);
+  assert.equal(createTicket('company-a', { env: {} }), null);
+
+  assert.equal(normalizeOrigin('www.acme.it'), 'https://www.acme.it');
+  assert.equal(normalizeOrigin('https://acme.it/pagina?x=1'), 'https://acme.it');
+  for (const bad of ['http://acme.it', 'https://10.0.0.1', 'https://localhost', 'https://acme.it:8443', 'javascript:alert(1)', 'https://a@acme.it']) {
+    assert.equal(normalizeOrigin(bad), null, bad);
+  }
+  assert.deepEqual(originsFromWebsite('https://www.acme.it/'), ['https://www.acme.it', 'https://acme.it']);
+
+  const knowledge = { services: ['Vendita'], opening_hours: ['Lun-Ven 9-18'] };
+  assert.match(researchForAssistant({ status: 'verified', sources: [], knowledge }), /Servizi: Vendita/);
+  assert.equal(researchForAssistant({ status: 'needs_review', sources: [], knowledge }), '');
+});
+
+test('plan flow: "Attiva piano" opens the 4-step checkout, admin page is wired', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const { adminEmails } = await import('../lib/company-review.mjs');
+  const dist = 'outputs/linea-ai-site/dist/';
+  const plans = await readFile(dist + 'plans.js', 'utf8');
+  assert.match(plans, /'Attiva piano'/);
+  assert.doesNotMatch(plans, /'Attiva con noi'/);
+  assert.match(plans, /'14 giorni di prova'/);
+  assert.match(plans, /\/attiva-piano\.html\?plan=/);
+  const page = await readFile(dist + 'attiva-piano.html', 'utf8');
+  for (const id of ['step-data', 'analyze-button', 'step-method', 'step-trial', 'step-pay']) assert.match(page, new RegExp('id="' + id + '"'));
+  assert.match(page, /Salva e analizza/);
+  const admin = await readFile(dist + 'admin.html', 'utf8');
+  assert.match(admin, /admin\.js/);
+  assert.match(admin, /noindex/);
+  const tr = JSON.parse(await readFile(dist + 'translations.json', 'utf8'));
+  for (const k of ['Attiva piano', '14 giorni di prova', 'Verifica in corso', 'Inizia la prova gratuita']) assert.ok(tr[k]?.en && tr[k]?.es && tr[k]?.fr, k);
+
+  assert.deepEqual(adminEmails({ LINEA_FEEDBACK_EMAIL: 'Lorenzo@Example.com' }), ['lorenzo@example.com']);
+  assert.deepEqual(adminEmails({ LINEA_ADMIN_EMAILS: 'a@x.it, b@y.it', LINEA_FEEDBACK_EMAIL: 'c@z.it' }), ['a@x.it', 'b@y.it']);
+  assert.deepEqual(adminEmails({}), []);
 });

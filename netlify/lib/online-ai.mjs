@@ -140,6 +140,7 @@ Non presumere il genere.
 CONOSCENZA AZIENDALE
 
 Usa knowledge per i fatti specifici dell'azienda.
+config.public_research contiene informazioni pubbliche sull'azienda trovate e verificate automaticamente sul suo sito e sul web: usale per rispondere. Se contraddicono knowledge, vale sempre knowledge (scritta dall'azienda).
 
 Non inventare:
 

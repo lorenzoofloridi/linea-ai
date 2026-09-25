@@ -4648,5 +4648,665 @@
     "en": "The assistant is temporarily unavailable. Please try again later.",
     "es": "El asistente no está disponible en este momento. Inténtalo más tarde.",
     "fr": "L’assistant est momentanément indisponible. Réessayez plus tard."
+  },
+  "Salva e analizza": {
+    "en": "Save and analyse",
+    "es": "Guardar y analizar",
+    "fr": "Enregistrer et analyser"
+  },
+  "WIDGET PER IL TUO SITO": {
+    "en": "WIDGET FOR YOUR WEBSITE",
+    "es": "WIDGET PARA TU SITIO",
+    "fr": "WIDGET POUR VOTRE SITE"
+  },
+  "La tua chat, sul tuo sito.": {
+    "en": "Your chat, on your website.",
+    "es": "Tu chat, en tu sitio.",
+    "fr": "Votre chat, sur votre site."
+  },
+  "Il widget è l’assistente della tua azienda, pronto da inserire nel tuo sito: usa le informazioni della tua azienda e quelle trovate nell’analisi, e le richieste arrivano qui nella dashboard.": {
+    "en": "The widget is your company’s assistant, ready to add to your website: it uses your company information and what the analysis found, and requests arrive here in the dashboard.",
+    "es": "El widget es el asistente de tu empresa, listo para insertar en tu sitio: usa la información de tu empresa y la encontrada en el análisis, y las solicitudes llegan aquí al panel.",
+    "fr": "Le widget est l’assistant de votre entreprise, prêt à être ajouté à votre site : il utilise vos informations et celles trouvées par l’analyse, et les demandes arrivent ici dans le tableau de bord."
+  },
+  "Controlla i siti autorizzati.": {
+    "en": "Check the authorised websites.",
+    "es": "Revisa los sitios autorizados.",
+    "fr": "Vérifiez les sites autorisés."
+  },
+  "La chat si apre solo su questi indirizzi.": {
+    "en": "The chat only opens on these addresses.",
+    "es": "El chat solo se abre en estas direcciones.",
+    "fr": "Le chat ne s’ouvre que sur ces adresses."
+  },
+  "Copia il codice": {
+    "en": "Copy the code",
+    "es": "Copia el código",
+    "fr": "Copiez le code"
+  },
+  "e incollalo nel tuo sito, prima di": {
+    "en": "and paste it into your website, before",
+    "es": "y pégalo en tu sitio, antes de",
+    "fr": "et collez-le sur votre site, avant"
+  },
+  ", su tutte le pagine in cui vuoi la chat.": {
+    "en": ", on every page where you want the chat.",
+    "es": ", en todas las páginas donde quieras el chat.",
+    "fr": ", sur toutes les pages où vous voulez le chat."
+  },
+  "Fatto.": {
+    "en": "Done.",
+    "es": "Listo.",
+    "fr": "C’est fait."
+  },
+  "In basso a destra compare il pulsante della chat.": {
+    "en": "The chat button appears in the bottom right corner.",
+    "es": "Abajo a la derecha aparece el botón del chat.",
+    "fr": "Le bouton du chat apparaît en bas à droite."
+  },
+  "Siti autorizzati": {
+    "en": "Authorised websites",
+    "es": "Sitios autorizados",
+    "fr": "Sites autorisés"
+  },
+  "(uno per riga, massimo 5)": {
+    "en": "(one per line, up to 5)",
+    "es": "(uno por línea, máximo 5)",
+    "fr": "(un par ligne, 5 maximum)"
+  },
+  "Salva i siti": {
+    "en": "Save websites",
+    "es": "Guardar sitios",
+    "fr": "Enregistrer les sites"
+  },
+  "Siti salvati.": {
+    "en": "Websites saved.",
+    "es": "Sitios guardados.",
+    "fr": "Sites enregistrés."
+  },
+  "Codice da incollare nel sito": {
+    "en": "Code to paste into your website",
+    "es": "Código para pegar en el sitio",
+    "fr": "Code à coller sur le site"
+  },
+  "Codice copiato": {
+    "en": "Code copied",
+    "es": "Código copiado",
+    "fr": "Code copié"
+  },
+  "Il widget funziona con la Demo o con un piano attivo. Ogni risposta dell’assistente conta come un messaggio AI del mese. Le richieste dal sito compaiono in «Richieste» con origine «Sito».": {
+    "en": "The widget works with the Demo or an active plan. Each assistant reply counts as one AI message for the month. Requests from the website appear in “Requests” with origin “Website”.",
+    "es": "El widget funciona con la Demo o con un plan activo. Cada respuesta del asistente cuenta como un mensaje de IA del mes. Las solicitudes del sitio aparecen en «Solicitudes» con origen «Sitio».",
+    "fr": "Le widget fonctionne avec la Démo ou une offre active. Chaque réponse de l’assistant compte comme un message IA du mois. Les demandes du site apparaissent dans « Demandes » avec l’origine « Site »."
+  },
+  "Caricamento…": {
+    "en": "Loading…",
+    "es": "Cargando…",
+    "fr": "Chargement…"
+  },
+  "Analisi completata: pronto da installare": {
+    "en": "Analysis complete: ready to install",
+    "es": "Análisis completado: listo para instalar",
+    "fr": "Analyse terminée : prêt à installer"
+  },
+  "Analisi da controllare in «Statistiche e fonti»": {
+    "en": "Analysis to check in “Statistics and sources”",
+    "es": "Análisis por revisar en «Estadísticas y fuentes»",
+    "fr": "Analyse à vérifier dans « Statistiques et sources »"
+  },
+  "Analisi non riuscita: controlla il sito nei dati aziendali": {
+    "en": "Analysis failed: check the website in your company details",
+    "es": "Análisis fallido: revisa el sitio en los datos de la empresa",
+    "fr": "Analyse échouée : vérifiez le site dans les données de l’entreprise"
+  },
+  "Demo o piano non attivo: il widget è in pausa": {
+    "en": "Demo or plan not active: the widget is paused",
+    "es": "Demo o plan no activo: el widget está en pausa",
+    "fr": "Démo ou offre inactive : le widget est en pause"
+  },
+  "Aggiungi il sito della tua azienda": {
+    "en": "Add your company website",
+    "es": "Añade el sitio de tu empresa",
+    "fr": "Ajoutez le site de votre entreprise"
+  },
+  "Completa i dati aziendali per avviare l’analisi": {
+    "en": "Complete your company details to start the analysis",
+    "es": "Completa los datos de la empresa para iniciar el análisis",
+    "fr": "Complétez les données de l’entreprise pour lancer l’analyse"
+  },
+  "Le informazioni che abbiamo trovato sul tuo sito e sul web. Quando l’analisi è verificata l’assistente le usa già per rispondere; ciò che scrivi in «Informazioni per l’AI» ha sempre la precedenza.": {
+    "en": "The information we found on your website and on the web. Once the analysis is verified, the assistant already uses it to reply; what you write in “Information for the AI” always takes priority.",
+    "es": "La información que hemos encontrado en tu sitio y en la web. Cuando el análisis está verificado, el asistente ya la usa para responder; lo que escribes en «Información para la IA» siempre tiene prioridad.",
+    "fr": "Les informations trouvées sur votre site et sur le web. Une fois l’analyse vérifiée, l’assistant les utilise déjà pour répondre ; ce que vous écrivez dans « Informations pour l’IA » est toujours prioritaire."
+  },
+  "14 giorni di prova": {
+    "en": "14-day trial",
+    "es": "14 días de prueba",
+    "fr": "14 jours d’essai"
+  },
+  "AREA DEL GESTORE": {
+    "en": "ADMIN AREA",
+    "es": "ÁREA DEL GESTOR",
+    "fr": "ESPACE GESTIONNAIRE"
+  },
+  "ATTIVA IL TUO PIANO": {
+    "en": "ACTIVATE YOUR PLAN",
+    "es": "ACTIVA TU PLAN",
+    "fr": "ACTIVEZ VOTRE FORMULE"
+  },
+  "Abbiamo trovato la tua azienda e preparato il tuo assistente con le informazioni raccolte. Puoi proseguire.": {
+    "en": "We found your company and prepared your assistant with the information collected. You can continue.",
+    "es": "Hemos encontrado tu empresa y preparado tu asistente con la información recopilada. Puedes continuar.",
+    "fr": "Nous avons trouvé votre entreprise et préparé votre assistant avec les informations recueillies. Vous pouvez continuer."
+  },
+  "Aggiungi i dati trovati sul web": {
+    "en": "Add the data found on the web",
+    "es": "Añadir los datos encontrados en la web",
+    "fr": "Ajouter les données trouvées sur le web"
+  },
+  "Analisi": {
+    "en": "Analysis",
+    "es": "Análisis",
+    "fr": "Analyse"
+  },
+  "Analisi dell’AI sul web": {
+    "en": "AI web analysis",
+    "es": "Análisis de la IA en la web",
+    "fr": "Analyse de l’IA sur le web"
+  },
+  "Analisi in corso": {
+    "en": "Analysis in progress",
+    "es": "Análisis en curso",
+    "fr": "Analyse en cours"
+  },
+  "Analisi non ancora avviata.": {
+    "en": "Analysis not started yet.",
+    "es": "Análisis aún no iniciado.",
+    "fr": "Analyse pas encore lancée."
+  },
+  "Analisi rilanciata: ricarica la scheda tra qualche minuto.": {
+    "en": "Analysis restarted: reload this page in a few minutes.",
+    "es": "Análisis relanzado: recarga la ficha en unos minutos.",
+    "fr": "Analyse relancée : rechargez la fiche dans quelques minutes."
+  },
+  "Approva": {
+    "en": "Approve",
+    "es": "Aprobar",
+    "fr": "Approuver"
+  },
+  "Approvata": {
+    "en": "Approved",
+    "es": "Aprobada",
+    "fr": "Approuvée"
+  },
+  "Approvate": {
+    "en": "Approved",
+    "es": "Aprobadas",
+    "fr": "Approuvées"
+  },
+  "Assistente e widget dell’azienda": {
+    "en": "Company assistant and widget",
+    "es": "Asistente y widget de la empresa",
+    "fr": "Assistant et widget de l’entreprise"
+  },
+  "Attiva il": {
+    "en": "Activate the",
+    "es": "Activa el",
+    "fr": "Activez le"
+  },
+  "Attiva il piano — MoreAI": {
+    "en": "Activate your plan — MoreAI",
+    "es": "Activa el plan — MoreAI",
+    "fr": "Activer la formule — MoreAI"
+  },
+  "Attiva il tuo piano.": {
+    "en": "Activate your plan.",
+    "es": "Activa tu plan.",
+    "fr": "Activez votre formule."
+  },
+  "Attiva piano": {
+    "en": "Activate plan",
+    "es": "Activar plan",
+    "fr": "Activer la formule"
+  },
+  "Azienda approvata.": {
+    "en": "Company approved.",
+    "es": "Empresa aprobada.",
+    "fr": "Entreprise approuvée."
+  },
+  "Azienda rifiutata.": {
+    "en": "Company rejected.",
+    "es": "Empresa rechazada.",
+    "fr": "Entreprise refusée."
+  },
+  "Azienda sospesa.": {
+    "en": "Company suspended.",
+    "es": "Empresa suspendida.",
+    "fr": "Entreprise suspendue."
+  },
+  "Azienda verificata": {
+    "en": "Company verified",
+    "es": "Empresa verificada",
+    "fr": "Entreprise vérifiée"
+  },
+  "Aziende da verificare.": {
+    "en": "Companies to verify.",
+    "es": "Empresas por verificar.",
+    "fr": "Entreprises à vérifier."
+  },
+  "Carta richiesta, primo addebito al 15° giorno. Disdici quando vuoi.": {
+    "en": "Card required, first charge on day 15. Cancel anytime.",
+    "es": "Tarjeta necesaria, primer cargo el día 15. Cancela cuando quieras.",
+    "fr": "Carte requise, premier prélèvement le 15e jour. Résiliez quand vous voulez."
+  },
+  "Cerca": {
+    "en": "Search",
+    "es": "Buscar",
+    "fr": "Rechercher"
+  },
+  "Cerca per nome, sito o email": {
+    "en": "Search by name, website or email",
+    "es": "Buscar por nombre, sitio o email",
+    "fr": "Rechercher par nom, site ou e-mail"
+  },
+  "Città": {
+    "en": "City",
+    "es": "Ciudad",
+    "fr": "Ville"
+  },
+  "CAP": {
+    "en": "Postcode",
+    "es": "Código postal",
+    "fr": "Code postal"
+  },
+  "Paese": {
+    "en": "Country",
+    "es": "País",
+    "fr": "Pays"
+  },
+  "Codice": {
+    "en": "Code",
+    "es": "Código",
+    "fr": "Code"
+  },
+  "Come vuoi pagare?": {
+    "en": "How do you want to pay?",
+    "es": "¿Cómo quieres pagar?",
+    "fr": "Comment souhaitez-vous payer ?"
+  },
+  "Da verificare": {
+    "en": "To verify",
+    "es": "Por verificar",
+    "fr": "À vérifier"
+  },
+  "Dati inseriti dall’azienda": {
+    "en": "Data entered by the company",
+    "es": "Datos introducidos por la empresa",
+    "fr": "Données saisies par l’entreprise"
+  },
+  "Dopo il salvataggio l’AI cerca la tua azienda sul web: verifica che esista e raccoglie servizi, orari, contatti e domande frequenti per preparare il tuo assistente. Ci vogliono pochi minuti.": {
+    "en": "After saving, the AI searches for your company on the web: it checks that it exists and gathers services, opening hours, contacts and FAQs to prepare your assistant. It takes a few minutes.",
+    "es": "Tras guardar, la IA busca tu empresa en la web: comprueba que existe y recopila servicios, horarios, contactos y preguntas frecuentes para preparar tu asistente. Tarda unos minutos.",
+    "fr": "Après l’enregistrement, l’IA recherche votre entreprise sur le web : elle vérifie qu’elle existe et recueille services, horaires, contacts et questions fréquentes pour préparer votre assistant. Cela prend quelques minutes."
+  },
+  "Durante la prova non paghi nulla e i costi sono a carico di MoreAI. Dal 15° giorno parte il pagamento del piano scelto, salvo disdetta prima della scadenza.": {
+    "en": "During the trial you pay nothing and MoreAI covers the costs. From day 15 the chosen plan is charged, unless you cancel before the end of the trial.",
+    "es": "Durante la prueba no pagas nada y los costes corren a cargo de MoreAI. A partir del día 15 empieza el pago del plan elegido, salvo cancelación antes del vencimiento.",
+    "fr": "Pendant l’essai vous ne payez rien et les coûts sont pris en charge par MoreAI. À partir du 15e jour la formule choisie est facturée, sauf résiliation avant l’échéance."
+  },
+  "Email aziendale": {
+    "en": "Business email",
+    "es": "Email de empresa",
+    "fr": "E-mail professionnel"
+  },
+  "Filtro": {
+    "en": "Filter",
+    "es": "Filtro",
+    "fr": "Filtre"
+  },
+  "Gestione aziende — MoreAI": {
+    "en": "Company management — MoreAI",
+    "es": "Gestión de empresas — MoreAI",
+    "fr": "Gestion des entreprises — MoreAI"
+  },
+  "IL PIANO SCELTO": {
+    "en": "YOUR CHOSEN PLAN",
+    "es": "EL PLAN ELEGIDO",
+    "fr": "LA FORMULE CHOISIE"
+  },
+  "IL TUO PIANO": {
+    "en": "YOUR PLAN",
+    "es": "TU PLAN",
+    "fr": "VOTRE FORMULE"
+  },
+  "Il metodo viene usato per i rinnovi automatici. Puoi disdire quando vuoi dalla pagina del tuo piano.": {
+    "en": "The method is used for automatic renewals. You can cancel anytime from your plan page.",
+    "es": "El método se usa para las renovaciones automáticas. Puedes cancelar cuando quieras desde la página de tu plan.",
+    "fr": "Le moyen est utilisé pour les renouvellements automatiques. Vous pouvez résilier à tout moment depuis la page de votre formule."
+  },
+  "In attesa di analisi": {
+    "en": "Waiting for analysis",
+    "es": "Pendiente de análisis",
+    "fr": "En attente d’analyse"
+  },
+  "Inizia la prova gratuita": {
+    "en": "Start the free trial",
+    "es": "Empieza la prueba gratuita",
+    "fr": "Commencer l’essai gratuit"
+  },
+  "La prova gratuita di 14 giorni è già stata usata da questa azienda: il piano parte subito.": {
+    "en": "This company has already used the 14-day free trial: the plan starts immediately.",
+    "es": "Esta empresa ya ha usado la prueba gratuita de 14 días: el plan empieza de inmediato.",
+    "fr": "Cette entreprise a déjà utilisé l’essai gratuit de 14 jours : la formule démarre immédiatement."
+  },
+  "La tua dashboard": {
+    "en": "Your dashboard",
+    "es": "Tu panel",
+    "fr": "Votre tableau de bord"
+  },
+  "L’AI sta cercando la tua azienda sul web. Puoi restare su questa pagina: si aggiorna da sola.": {
+    "en": "The AI is searching for your company on the web. You can stay on this page: it updates by itself.",
+    "es": "La IA está buscando tu empresa en la web. Puedes quedarte en esta página: se actualiza sola.",
+    "fr": "L’IA recherche votre entreprise sur le web. Vous pouvez rester sur cette page : elle se met à jour toute seule."
+  },
+  "L’azienda non ha ancora inserito i suoi dati.": {
+    "en": "The company has not entered its data yet.",
+    "es": "La empresa aún no ha introducido sus datos.",
+    "fr": "L’entreprise n’a pas encore saisi ses données."
+  },
+  "Metodo": {
+    "en": "Method",
+    "es": "Método",
+    "fr": "Moyen"
+  },
+  "Metodo di pagamento": {
+    "en": "Payment method",
+    "es": "Método de pago",
+    "fr": "Moyen de paiement"
+  },
+  "Modalità di prova dei pagamenti: nessun addebito reale finché non attiviamo i pagamenti online.": {
+    "en": "Payments in test mode: no real charge until we enable online payments.",
+    "es": "Pagos en modo de prueba: ningún cargo real hasta que activemos los pagos online.",
+    "fr": "Paiements en mode test : aucun prélèvement réel tant que nous n’activons pas les paiements en ligne."
+  },
+  "Motivo (facoltativo, visibile solo a te)": {
+    "en": "Reason (optional, visible only to you)",
+    "es": "Motivo (opcional, visible solo para ti)",
+    "fr": "Motif (facultatif, visible uniquement par vous)"
+  },
+  "Nessuna azienda in questo elenco.": {
+    "en": "No companies in this list.",
+    "es": "Ninguna empresa en esta lista.",
+    "fr": "Aucune entreprise dans cette liste."
+  },
+  "Non adatto ai rinnovi automatici": {
+    "en": "Not suitable for automatic renewals",
+    "es": "No apto para renovaciones automáticas",
+    "fr": "Non adapté aux renouvellements automatiques"
+  },
+  "Non possiamo attivare un piano per questa azienda. Per informazioni scrivici dalla pagina Supporto.": {
+    "en": "We cannot activate a plan for this company. For information, write to us from the Support page.",
+    "es": "No podemos activar un plan para esta empresa. Para más información escríbenos desde la página Soporte.",
+    "fr": "Nous ne pouvons pas activer de formule pour cette entreprise. Pour plus d’informations, écrivez-nous depuis la page Assistance."
+  },
+  "Non siamo riusciti a confermare in automatico tutti i dati: il nostro team sta controllando. L’esito comparirà su questa pagina, di solito entro 1 giorno lavorativo.": {
+    "en": "We could not confirm all the data automatically: our team is checking. The outcome will appear on this page, usually within 1 business day.",
+    "es": "No hemos podido confirmar automáticamente todos los datos: nuestro equipo lo está revisando. El resultado aparecerá en esta página, normalmente en 1 día laborable.",
+    "fr": "Nous n’avons pas pu confirmer automatiquement toutes les données : notre équipe vérifie. Le résultat apparaîtra sur cette page, généralement sous 1 jour ouvré."
+  },
+  "Oggi paghi": {
+    "en": "You pay today",
+    "es": "Hoy pagas",
+    "fr": "Vous payez aujourd’hui"
+  },
+  "Ogni piano a pagamento include 14 giorni di prova. I pagamenti sono in modalità di prova: al momento non avviene alcun addebito reale.": {
+    "en": "Every paid plan includes a 14-day trial. Payments are in test mode: no real charge is made at the moment.",
+    "es": "Cada plan de pago incluye 14 días de prueba. Los pagos están en modo de prueba: por ahora no se realiza ningún cargo real.",
+    "fr": "Chaque formule payante comprend 14 jours d’essai. Les paiements sont en mode test : aucun prélèvement réel pour le moment."
+  },
+  "PASSO 1 · DATI DELLA TUA AZIENDA": {
+    "en": "STEP 1 · YOUR COMPANY DETAILS",
+    "es": "PASO 1 · DATOS DE TU EMPRESA",
+    "fr": "ÉTAPE 1 · DONNÉES DE VOTRE ENTREPRISE"
+  },
+  "PASSO 2 · METODO DI PAGAMENTO": {
+    "en": "STEP 2 · PAYMENT METHOD",
+    "es": "PASO 2 · MÉTODO DE PAGO",
+    "fr": "ÉTAPE 2 · MOYEN DE PAIEMENT"
+  },
+  "PASSO 4 · PAGA": {
+    "en": "STEP 4 · PAY",
+    "es": "PASO 4 · PAGAR",
+    "fr": "ÉTAPE 4 · PAYER"
+  },
+  "Paga": {
+    "en": "Pay",
+    "es": "Pagar",
+    "fr": "Payer"
+  },
+  "Pagamenti online con addebito reale, report periodici e nuovi canali di contatto.": {
+    "en": "Online payments with real charges, periodic reports and new contact channels.",
+    "es": "Pagos online con cargo real, informes periódicos y nuevos canales de contacto.",
+    "fr": "Paiements en ligne avec prélèvement réel, rapports périodiques et nouveaux canaux de contact."
+  },
+  "Partita IVA": {
+    "en": "VAT number",
+    "es": "NIF / CIF",
+    "fr": "Numéro de TVA"
+  },
+  "Piano attivato. Nessun addebito reale: i pagamenti sono in modalità di prova.": {
+    "en": "Plan activated. No real charge: payments are in test mode.",
+    "es": "Plan activado. Ningún cargo real: los pagos están en modo de prueba.",
+    "fr": "Formule activée. Aucun prélèvement réel : les paiements sont en mode test."
+  },
+  "Piano attivo": {
+    "en": "Active plan",
+    "es": "Plan activo",
+    "fr": "Formule active"
+  },
+  "Primo addebito": {
+    "en": "First charge",
+    "es": "Primer cargo",
+    "fr": "Premier prélèvement"
+  },
+  "Primo addebito il": {
+    "en": "First charge on",
+    "es": "Primer cargo el",
+    "fr": "Premier prélèvement le"
+  },
+  "Prossimi passi": {
+    "en": "Next steps",
+    "es": "Próximos pasos",
+    "fr": "Prochaines étapes"
+  },
+  "Prossimo rinnovo": {
+    "en": "Next renewal",
+    "es": "Próxima renovación",
+    "fr": "Prochain renouvellement"
+  },
+  "Prossimo rinnovo il": {
+    "en": "Next renewal on",
+    "es": "Próxima renovación el",
+    "fr": "Prochain renouvellement le"
+  },
+  "Prova gratuita attivata. Nessun addebito reale: i pagamenti sono in modalità di prova.": {
+    "en": "Free trial activated. No real charge: payments are in test mode.",
+    "es": "Prueba gratuita activada. Ningún cargo real: los pagos están en modo de prueba.",
+    "fr": "Essai gratuit activé. Aucun prélèvement réel : les paiements sont en mode test."
+  },
+  "Quattro passaggi: i dati della tua azienda, il metodo di pagamento, la prova gratuita e il pagamento. Ogni azienda viene verificata prima dell’attivazione.": {
+    "en": "Four steps: your company details, the payment method, the free trial and the payment. Every company is verified before activation.",
+    "es": "Cuatro pasos: los datos de tu empresa, el método de pago, la prueba gratuita y el pago. Cada empresa se verifica antes de la activación.",
+    "fr": "Quatre étapes : les données de votre entreprise, le moyen de paiement, l’essai gratuit et le paiement. Chaque entreprise est vérifiée avant l’activation."
+  },
+  "Queste informazioni vengono usate dall’AI di questa azienda (chat di prova e widget sul sito). Hanno la precedenza sui dati trovati sul web.": {
+    "en": "This information is used by this company’s AI (test chat and website widget). It takes precedence over data found on the web.",
+    "es": "Esta información la usa la IA de esta empresa (chat de prueba y widget en el sitio). Tiene prioridad sobre los datos encontrados en la web.",
+    "fr": "Ces informations sont utilisées par l’IA de cette entreprise (chat de test et widget sur le site). Elles priment sur les données trouvées sur le web."
+  },
+  "Qui trovi tutte le aziende registrate. Quelle che l’AI non è riuscita a verificare restano “Verifica in corso” finché non le approvi o le rifiuti. Da ogni scheda puoi completare le informazioni per l’AI e i siti del widget.": {
+    "en": "Here you find all registered companies. Those the AI could not verify stay “Verification in progress” until you approve or reject them. From each card you can complete the AI information and the widget websites.",
+    "es": "Aquí encuentras todas las empresas registradas. Las que la IA no ha podido verificar quedan en “Verificación en curso” hasta que las apruebes o rechaces. Desde cada ficha puedes completar la información para la IA y los sitios del widget.",
+    "fr": "Vous trouvez ici toutes les entreprises inscrites. Celles que l’IA n’a pas pu vérifier restent « Vérification en cours » jusqu’à ce que vous les approuviez ou refusiez. Depuis chaque fiche, vous pouvez compléter les informations pour l’IA et les sites du widget."
+  },
+  "Ragione sociale": {
+    "en": "Company name",
+    "es": "Razón social",
+    "fr": "Raison sociale"
+  },
+  "Referente": {
+    "en": "Contact person",
+    "es": "Persona de contacto",
+    "fr": "Référent"
+  },
+  "Riepilogo e pagamento.": {
+    "en": "Summary and payment.",
+    "es": "Resumen y pago.",
+    "fr": "Récapitulatif et paiement."
+  },
+  "Rifiutare questa azienda? Non potrà attivare un piano.": {
+    "en": "Reject this company? It will not be able to activate a plan.",
+    "es": "¿Rechazar esta empresa? No podrá activar un plan.",
+    "fr": "Refuser cette entreprise ? Elle ne pourra pas activer de formule."
+  },
+  "Rifiutata": {
+    "en": "Rejected",
+    "es": "Rechazada",
+    "fr": "Refusée"
+  },
+  "Rifiutate": {
+    "en": "Rejected",
+    "es": "Rechazadas",
+    "fr": "Refusées"
+  },
+  "Rilancia l’analisi": {
+    "en": "Run the analysis again",
+    "es": "Relanzar el análisis",
+    "fr": "Relancer l’analyse"
+  },
+  "Rinnovo disdetto.": {
+    "en": "Renewal cancelled.",
+    "es": "Renovación cancelada.",
+    "fr": "Renouvellement résilié."
+  },
+  "Rinnovo disdetto: il piano resta attivo fino al": {
+    "en": "Renewal cancelled: the plan stays active until",
+    "es": "Renovación cancelada: el plan sigue activo hasta el",
+    "fr": "Renouvellement résilié : la formule reste active jusqu’au"
+  },
+  "Ruolo del referente": {
+    "en": "Contact person’s role",
+    "es": "Cargo de la persona de contacto",
+    "fr": "Fonction du référent"
+  },
+  "Salva assistente e widget": {
+    "en": "Save assistant and widget",
+    "es": "Guardar asistente y widget",
+    "fr": "Enregistrer l’assistant et le widget"
+  },
+  "Salvato. L’assistente usa già le nuove informazioni.": {
+    "en": "Saved. The assistant already uses the new information.",
+    "es": "Guardado. El asistente ya usa la nueva información.",
+    "fr": "Enregistré. L’assistant utilise déjà les nouvelles informations."
+  },
+  "Scegli un’azienda dall’elenco.": {
+    "en": "Choose a company from the list.",
+    "es": "Elige una empresa de la lista.",
+    "fr": "Choisissez une entreprise dans la liste."
+  },
+  "Sede legale": {
+    "en": "Registered office",
+    "es": "Domicilio social",
+    "fr": "Siège social"
+  },
+  "Siti dove può comparire il widget (uno per riga)": {
+    "en": "Websites where the widget may appear (one per line)",
+    "es": "Sitios donde puede aparecer el widget (uno por línea)",
+    "fr": "Sites où le widget peut apparaître (un par ligne)"
+  },
+  "Sito ufficiale": {
+    "en": "Official website",
+    "es": "Sitio oficial",
+    "fr": "Site officiel"
+  },
+  "Sospendere questa azienda? Il suo assistente smette di rispondere.": {
+    "en": "Suspend this company? Its assistant will stop replying.",
+    "es": "¿Suspender esta empresa? Su asistente dejará de responder.",
+    "fr": "Suspendre cette entreprise ? Son assistant cessera de répondre."
+  },
+  "Sospendi": {
+    "en": "Suspend",
+    "es": "Suspender",
+    "fr": "Suspendre"
+  },
+  "Sospesa": {
+    "en": "Suspended",
+    "es": "Suspendida",
+    "fr": "Suspendue"
+  },
+  "Storico": {
+    "en": "History",
+    "es": "Historial",
+    "fr": "Historique"
+  },
+  "Sì, inizio con 14 giorni di prova gratuita.": {
+    "en": "Yes, I’ll start with a 14-day free trial.",
+    "es": "Sí, empiezo con 14 días de prueba gratuita.",
+    "fr": "Oui, je commence avec 14 jours d’essai gratuit."
+  },
+  "Telefono aziendale": {
+    "en": "Business phone",
+    "es": "Teléfono de empresa",
+    "fr": "Téléphone professionnel"
+  },
+  "Tutte": {
+    "en": "All",
+    "es": "Todas",
+    "fr": "Toutes"
+  },
+  "Verifica in corso": {
+    "en": "Verification in progress",
+    "es": "Verificación en curso",
+    "fr": "Vérification en cours"
+  },
+  "Vuoi disdire il rinnovo? Il piano resta attivo fino alla scadenza.": {
+    "en": "Cancel the renewal? The plan stays active until it expires.",
+    "es": "¿Quieres cancelar la renovación? El plan sigue activo hasta el vencimiento.",
+    "fr": "Résilier le renouvellement ? La formule reste active jusqu’à l’échéance."
+  },
+  "Vuoi iniziare con 14 giorni gratis?": {
+    "en": "Would you like to start with 14 days free?",
+    "es": "¿Quieres empezar con 14 días gratis?",
+    "fr": "Voulez-vous commencer avec 14 jours gratuits ?"
+  },
+  "completata e verificata": {
+    "en": "completed and verified",
+    "es": "completado y verificado",
+    "fr": "terminée et vérifiée"
+  },
+  "completata, da controllare": {
+    "en": "completed, to be checked",
+    "es": "completado, por revisar",
+    "fr": "terminée, à contrôler"
+  },
+  "in coda": {
+    "en": "queued",
+    "es": "en cola",
+    "fr": "en file d’attente"
+  },
+  "in corso": {
+    "en": "in progress",
+    "es": "en curso",
+    "fr": "en cours"
+  },
+  "non riuscita": {
+    "en": "failed",
+    "es": "fallido",
+    "fr": "échouée"
+  },
+  "risparmi il": {
+    "en": "you save",
+    "es": "ahorras un",
+    "fr": "vous économisez"
   }
 }
