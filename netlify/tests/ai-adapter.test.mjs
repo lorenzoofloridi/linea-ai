@@ -18,7 +18,7 @@ test('gemini is called directly with the key only in a header', async () => {
     { system: 'S', messages: [{ role: 'user', text: 'ciao' }, { role: 'assistant', text: 'ok' }], jsonSchema: { type: 'object' }, thinking: false },
     { env, transport: async (url, init) => { seen = { url, init }; return reply('{"a":1}'); } }
   );
-  assert.equal(seen.url, 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent');
+  assert.equal(seen.url, 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent');
   assert.ok(!seen.url.includes(KEY));
   assert.equal(seen.init.headers['x-goog-api-key'], KEY);
   const body = JSON.parse(seen.init.body);
@@ -26,7 +26,7 @@ test('gemini is called directly with the key only in a header', async () => {
   assert.deepEqual(body.contents.map(c => c.role), ['user', 'model']);
   assert.equal(body.systemInstruction.parts[0].text, 'S');
   assert.equal(body.generationConfig.responseMimeType, 'application/json');
-  assert.deepEqual(body.generationConfig.thinkingConfig, { thinkingBudget: 0 });
+  assert.deepEqual(body.generationConfig.thinkingConfig, { thinkingLevel: 'minimal' });
   assert.equal(out.text, '{"a":1}');
   assert.deepEqual(out.usage, { inputTokens: 11, outputTokens: 7 });
 });
@@ -128,6 +128,18 @@ test('ollama fallback: only with LINEA_AI_PROVIDER=ollama, HTTPS only, key in he
   assert.deepEqual(body.format, { type: 'object', additionalProperties: false });
   assert.equal(out.provider, 'ollama');
   assert.deepEqual(out.usage, { inputTokens: 3, outputTokens: 2 });
+});
+
+test('minimal thinking uses the right field for each Gemini generation', async () => {
+  const seen = {};
+  for (const model of ['gemini-2.5-flash-lite', 'gemini-3.5-flash-lite', 'gemini-3.8-flash']) {
+    await generate({ messages: [{ role: 'user', text: 'a' }], thinking: false }, { env: { ...env, LINEA_AI_MODEL: model }, transport: async (_u, init) => { seen[model] = JSON.parse(init.body).generationConfig.thinkingConfig; return reply('x'); } });
+  }
+  assert.deepEqual(seen, {
+    'gemini-2.5-flash-lite': { thinkingBudget: 0 },
+    'gemini-3.5-flash-lite': { thinkingLevel: 'minimal' },
+    'gemini-3.8-flash': { thinkingLevel: 'low' }
+  });
 });
 
 test('gemini schema drops additionalProperties (unsupported by Gemini)', async () => {

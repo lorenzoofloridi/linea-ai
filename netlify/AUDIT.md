@@ -70,4 +70,5 @@ Motivo: il calcolo di Netlify Database ha consumato 30–60 crediti al giorno an
 - Migrazioni spostate in `database/migrations`: Netlify non le applica più durante il deploy. `scripts/migrate.mjs` (status/migrate/check) le applica dal Mac con checksum, una transazione per file e lock consultivo.
 - 0009: RLS su tutte le tabelle, revoca dei privilegi ad `anon`/`authenticated` anche per le tabelle future. Verificato su PostgreSQL 16 locale con ruoli simulati (182 privilegi → 0).
 - Si riparte da zero: i dati su Netlify Database erano solo account di prova. Netlify Database va rimosso dal progetto dopo il passaggio.
+- Modello predefinito aggiornato a `gemini-3.5-flash-lite` (i 2.5 sono riservati ai progetti che li usavano già); ragionamento minimo con `thinkingLevel` per i 3.x e `thinkingBudget: 0` per i 2.x.
 - Latenza: le Functions restano a IAD (US East; la regione si cambia solo con piani superiori) e il database è a Frankfurt, circa 90 ms per query. Da misurare dopo il deploy; eventuale riduzione del numero di query per richiesta.

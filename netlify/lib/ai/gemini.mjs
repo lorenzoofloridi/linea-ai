@@ -2,7 +2,9 @@
 // Endpoint fisso: la chiave viene inviata solo a Google, mai a host configurabili.
 // Chiave: LINEA_GEMINI_API_KEY (variabile d'ambiente Netlify, scope Functions).
 const ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models';
-const DEFAULT_MODEL = 'gemini-2.5-flash-lite';
+// I modelli 2.5 sono riservati a chi li usava già: per i progetti nuovi
+// Google indica la famiglia 3.x.
+const DEFAULT_MODEL = 'gemini-3.5-flash-lite';
 const MODEL_PATTERN = /^[a-z0-9][a-z0-9.-]{0,63}$/;
 
 export const name = 'gemini';
@@ -24,6 +26,13 @@ function sourcesOf(raw) {
     for (const item of c?.urlContextMetadata?.urlMetadata || []) add(item?.retrievedUrl || item?.url, 'Sito ufficiale');
   }
   return out.slice(0, 50);
+}
+
+// Ragionamento ridotto al minimo: i modelli 2.x usano thinkingBudget,
+// i 3.x thinkingLevel (Flash-Lite accetta "minimal", gli altri partono da "low").
+function minimalThinking(model) {
+  if (/^gemini-2\./.test(model)) return { thinkingBudget: 0 };
+  return { thinkingLevel: /flash-lite/.test(model) ? 'minimal' : 'low' };
 }
 
 // Lo schema di Gemini (sottoinsieme OpenAPI) non accetta additionalProperties.
@@ -52,7 +61,7 @@ export async function generate(request, { env, transport, AIError }) {
   } else if (request.json) {
     generationConfig.responseMimeType = 'application/json';
   }
-  if (request.thinking === false) generationConfig.thinkingConfig = { thinkingBudget: 0 };
+  if (request.thinking === false) generationConfig.thinkingConfig = minimalThinking(model);
 
   const body = {
     contents: request.messages.map(m => ({

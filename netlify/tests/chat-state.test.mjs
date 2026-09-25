@@ -25,7 +25,7 @@ for(const language of ['it','en','fr','es','de'])test('saved conversation can cl
 });
 test('provider requires the direct Gemini key and rejects malformed output',async()=>{
  let called=0;await assert.rejects(interpret(cfg,initialState(),[],'hello',{env:{GEMINI_API_KEY:'gateway',GOOGLE_GEMINI_BASE_URL:'https://gateway.example.invalid'},transport:()=>called++}));assert.equal(called,0);
- await assert.rejects(interpret(cfg,initialState(),[],'hello',{env:{LINEA_GEMINI_API_KEY:'fake'},transport:async(url,args)=>{assert.equal(url,'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent');assert.equal(JSON.parse(args.body).generationConfig.maxOutputTokens,1000);return {ok:true,json:async()=>({candidates:[]})};}}));
+ await assert.rejects(interpret(cfg,initialState(),[],'hello',{env:{LINEA_GEMINI_API_KEY:'fake'},transport:async(url,args)=>{assert.equal(url,'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent');assert.equal(JSON.parse(args.body).generationConfig.maxOutputTokens,1000);return {ok:true,json:async()=>({candidates:[]})};}}));
 });
 
 test('phone embedded in evidence sentence remains valid',()=>{
