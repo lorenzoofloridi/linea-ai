@@ -50,13 +50,17 @@ export async function companyOverview(db, companyId) {
            WHERE c.company_id=$1
              AND EXISTS (SELECT 1 FROM messages m WHERE m.company_id=c.company_id AND m.conversation_id=c.id)) AS conversations,
          (SELECT COUNT(*) FROM leads WHERE company_id=$1) AS leads,
-         (SELECT ROUND(AVG(rating)::numeric, 1) FROM feedback WHERE company_id=$1) AS feedback_average`,
+         (SELECT ROUND(AVG(rating)::numeric, 1) FROM feedback WHERE company_id=$1) AS feedback_average,
+         (SELECT COUNT(*) FROM feedback WHERE company_id=$1) AS feedback_count,
+         (SELECT ROUND(AVG(rating)::numeric, 1) FROM feedback
+           WHERE company_id=$1
+             AND created_at >= date_trunc('month', NOW() AT TIME ZONE 'Europe/Rome') AT TIME ZONE 'Europe/Rome') AS feedback_month_average`,
       [companyId]
     ),
     db.pool.query(
-      `SELECT rating, comment FROM feedback
-        WHERE company_id=$1 AND comment <> ''
-        ORDER BY conversation_id DESC LIMIT 20`,
+      `SELECT rating, comment, created_at FROM feedback
+        WHERE company_id=$1
+        ORDER BY created_at DESC LIMIT 30`,
       [companyId]
     ),
     db.pool.query(
@@ -79,11 +83,17 @@ export async function companyOverview(db, companyId) {
       conversations,
       leads,
       lead_percentage: conversations ? Math.round((leads / conversations) * 100) : null,
-      feedback_average: s.feedback_average === null ? null : Number(s.feedback_average)
+      feedback_average: s.feedback_average === null ? null : Number(s.feedback_average),
+      feedback_count: Number(s.feedback_count) || 0,
+      feedback_month_average: s.feedback_month_average === null ? null : Number(s.feedback_month_average)
     },
     knowledge: knowledgeEntries(knowledge.rows[0]),
     installations: [],
-    feedback: feedback.rows,
+    feedback: feedback.rows.map(f => ({
+      rating: f.rating,
+      comment: f.comment,
+      created_at: new Date(f.created_at).toISOString()
+    })),
     reviews: notes.rows
   };
 }

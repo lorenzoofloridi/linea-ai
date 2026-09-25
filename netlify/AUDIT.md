@@ -86,3 +86,9 @@ Motivo: il calcolo di Netlify Database ha consumato 30–60 crediti al giorno an
 - Prezzi visibili solo dopo il login: `publicPlanCatalogue` non invia più gli importi; gli ospiti vedono nome, messaggi inclusi e «Accedi o registrati per vedere la tariffa».
 - Recensioni ripristinate con backend online: `0012_site_reviews.sql` (RLS, consenso obbligatorio, stato pending/approved/rejected), `netlify/lib/site-reviews.mjs`, route `/api/site-reviews`, moderazione `scripts/reviews.mjs` (`npm run reviews`). Il testo è mostrato con textContent (nessun HTML interpretato).
 - Offerte: card centrate anche nella vista annuale (tre piani). Login: il link «Registrati» non rimanda più al login quando è salvata una scelta di piano.
+
+### Feedback (25 settembre 2026)
+
+- `0013_feedback_dates.sql`: colonna `created_at` e indice per azienda. `companyOverview` restituisce tutti i feedback (anche senza commento) con data, conteggio, media totale e media del mese (Europe/Rome).
+- Chat della home (`kind = public_demo`): `scripts/feedback.mjs` (`npm run feedback`) legge solo quei feedback e le loro conversazioni; le conversazioni delle aziende clienti non sono accessibili da lì. `netlify/lib/feedback-notify.mjs` invia un avviso a `LINEA_FEEDBACK_EMAIL` (facoltativa) con idempotenza `feedback:<conversazione>`; un errore di invio non blocca il salvataggio.
+- Richieste di supporto/attivazione piano: `POST /api/support-request` (`netlify/lib/support-request.mjs`), solo utenti autenticati, anche con Demo scaduta. Destinatario fisso lato server (`LINEA_SUPPORT_EMAIL`, predefinito lorenzoofloridi@gmail.com), `reply_to` = email dell'account, testo in escape, limiti 5/ora per utente e 100/giorno. Sostituisce i link mailto: un solo pulsante che funziona con qualsiasi posta.

@@ -3,6 +3,7 @@ import { ready as aiReady } from "../lib/online-ai.mjs";
 import { internalRequestHeaders } from "../lib/internal-auth.mjs";
 import { requestPasswordReset, completePasswordReset } from "../lib/password-reset.mjs";
 import { listPublicReviews, submitReview } from "../lib/site-reviews.mjs";
+import { sendSupportRequest } from "../lib/support-request.mjs";
 import { PLAN_MONTHLY_MESSAGES } from "../lib/ai-quota.mjs";
 import { getDatabase } from "../lib/db.mjs";
 import {
@@ -1515,6 +1516,15 @@ export default async (
             sessionCookie("", { clear: true })
         }
       );
+    }
+
+    // Funziona anche con Demo scaduta: serve proprio per attivare un piano.
+    if (path === "/api/support-request" && method === "POST") {
+      const user = await principal(db, request);
+      if (!user) {
+        return json({ error: "Accedi al tuo account per continuare." }, 401);
+      }
+      return json(await sendSupportRequest(db, user, await requestBody(request)), 201);
     }
 
     if (path === "/api/site-reviews" && method === "GET") {

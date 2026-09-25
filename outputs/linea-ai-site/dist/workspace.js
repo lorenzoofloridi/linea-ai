@@ -534,12 +534,98 @@
       const plan =
         new URLSearchParams(location.search).get('piano');
 
-      if (plan && plan.length < 60) {
+      const names = {
+        base: 'Piano Base',
+        plus: 'Piano Plus',
+        advanced: 'Piano Advanced'
+      };
+
+      if (names[plan]) {
         planRequest.hidden = false;
         planRequest.textContent =
-          'Vuoi attivare il ' + plan +
-          '? Scrivici dall’email del tuo account indicando il piano e la fatturazione preferita: lo attiviamo insieme a te.';
+          'Vuoi attivare il ' + names[plan] +
+          '? Il messaggio qui sotto è già pronto: controllalo e premi «Invia la richiesta». Lo attiviamo insieme a te.';
       }
+    }
+
+    /*
+     * Un solo pulsante per tutti: la richiesta parte dal sito
+     * (nessun programma di posta necessario) e arriva al team
+     * con l'email dell'account come indirizzo di risposta.
+     */
+    const supportForm = q('#support-form');
+
+    if (supportForm) {
+      const params = new URLSearchParams(location.search);
+      const names = {
+        base: 'Piano Base',
+        plus: 'Piano Plus',
+        advanced: 'Piano Advanced'
+      };
+      const periods = {
+        monthly: 'mensile',
+        annual: 'annuale'
+      };
+      const fields = supportForm.elements;
+      let edited = false;
+
+      function template() {
+        const plan = names[fields.plan.value];
+        const period = periods[fields.period.value];
+
+        return plan
+          ? 'Ciao, vorrei attivare il ' + plan +
+              ' con fatturazione ' + period +
+              '. Potete contattarmi per i prossimi passi?'
+          : 'Ciao, avrei bisogno di aiuto per: ';
+      }
+
+      function refreshTemplate() {
+        fields.period.disabled = !fields.plan.value;
+        if (!edited) fields.message.value = template();
+      }
+
+      if (names[params.get('piano')]) {
+        fields.plan.value = params.get('piano');
+      } else if (location.pathname.endsWith('portafoglio.html')) {
+        fields.plan.value = 'base';
+      }
+
+      if (periods[params.get('periodo')]) {
+        fields.period.value = params.get('periodo');
+      }
+
+      refreshTemplate();
+
+      fields.message.addEventListener('input', () => {
+        edited = true;
+      });
+      fields.plan.addEventListener('change', refreshTemplate);
+      fields.period.addEventListener('change', refreshTemplate);
+
+      supportForm.addEventListener('submit', async e => {
+        e.preventDefault();
+        const button = supportForm.querySelector('[type=submit]');
+        const status = q('#support-status');
+        button.disabled = true;
+        status.textContent = '';
+
+        try {
+          await api('support-request', {
+            plan: fields.plan.value || null,
+            period: fields.plan.value ? fields.period.value : null,
+            message: fields.message.value
+          });
+          status.textContent =
+            'Richiesta inviata. Ti rispondiamo all’email del tuo account, di solito entro un giorno lavorativo.';
+          supportForm.querySelector('.support-row').hidden = true;
+          fields.message.disabled = true;
+          button.hidden = true;
+        } catch (error) {
+          status.textContent = error.message;
+          button.disabled = false;
+        }
+      });
     }
   })().catch(show);
 })();

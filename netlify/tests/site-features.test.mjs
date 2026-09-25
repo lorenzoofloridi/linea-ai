@@ -5,6 +5,8 @@ import { requestPasswordReset, completePasswordReset } from '../lib/password-res
 import { knowledgeEntries, exportLeadsCsv } from '../lib/company-data.mjs';
 import { sendEmail } from '../lib/mailer.mjs';
 import { listPublicReviews, submitReview, moderateReview } from '../lib/site-reviews.mjs';
+import { notifyHomeFeedback } from '../lib/feedback-notify.mjs';
+import { sendSupportRequest } from '../lib/support-request.mjs';
 
 const sha = v => createHash('sha256').update(v).digest('hex');
 
@@ -169,4 +171,53 @@ test('site reviews are rate limited per address', async () => {
   for (let i = 0; i < 3; i++) await submitReview(db, ok, { ip: '5.6.7.8' });
   await assert.rejects(submitReview(db, ok, { ip: '5.6.7.8' }), e => e.httpStatus === 429);
   await submitReview(db, ok, { ip: '9.9.9.9' });
+});
+
+test('home feedback notification is optional, escaped and never blocks saving', async () => {
+  const sent = [];
+  const mail = async (db, message) => { sent.push(message); };
+  const input = { companyId: 'c1', conversationId: 'conv1', rating: 4, comment: '<b>Ottimo</b>' };
+
+  assert.deepEqual(await notifyHomeFeedback({}, input, { env: {}, mail }), { skipped: true });
+  assert.equal(sent.length, 0);
+
+  await notifyHomeFeedback({}, input, { env: { LINEA_FEEDBACK_EMAIL: 'owner@example.com' }, mail });
+  assert.equal(sent[0].to, 'owner@example.com');
+  assert.equal(sent[0].eventKey, 'feedback:conv1');
+  assert.match(sent[0].subject, /4\/5/);
+  assert.ok(!sent[0].html.includes('<b>Ottimo</b>'));
+  assert.ok(sent[0].html.includes('&lt;b&gt;Ottimo&lt;/b&gt;'));
+
+  const failing = async () => { throw Object.assign(new Error('x'), { code: 'MAIL_FAILED' }); };
+  assert.deepEqual(await notifyHomeFeedback({}, input, { env: { LINEA_FEEDBACK_EMAIL: 'owner@example.com' }, mail: failing }), { failed: true });
+});
+
+test('support request goes only to the team, replies go to the account email', async () => {
+  const limits = new Map();
+  const db = { pool: { query: async (sql, params = []) => {
+    if (sql.includes('INSERT INTO chat_limits')) {
+      const key = params[0] + ':' + params[1];
+      limits.set(key, (limits.get(key) || 0) + 1);
+      return { rows: [{ count: limits.get(key) }] };
+    }
+    if (sql.includes('FROM companies')) return { rows: [{ company: 'Rossi <Auto>', verified_at: null }] };
+    throw new Error('Query non prevista');
+  } } };
+  const sent = [];
+  const mail = async (_db, m) => { sent.push(m); };
+  const user = { id: 'u1', company_id: 'c1', email: 'cliente@example.com' };
+
+  await assert.rejects(sendSupportRequest(db, user, { message: 'corto' }, { env: {}, mail }), /10 e 2000/);
+  await sendSupportRequest(db, user, { plan: 'plus', period: 'annual', message: 'Vorrei attivare il piano.', to: 'altro@example.com' }, { env: {}, mail });
+  assert.equal(sent[0].to, 'lorenzoofloridi@gmail.com');
+  assert.equal(sent[0].replyTo, 'cliente@example.com');
+  assert.match(sent[0].subject, /Piano Plus \(annuale\)/);
+  assert.ok(sent[0].html.includes('Rossi &lt;Auto&gt;'));
+  assert.ok(sent[0].text.includes('non ancora verificata'));
+
+  for (let i = 0; i < 4; i++) await sendSupportRequest(db, user, { message: 'Serve aiuto, grazie.' }, { env: {}, mail });
+  await assert.rejects(sendSupportRequest(db, user, { message: 'Serve aiuto, grazie.' }, { env: {}, mail }), e => e.httpStatus === 429);
+
+  const failing = async () => { throw new Error('x'); };
+  await assert.rejects(sendSupportRequest(db, { ...user, id: 'u2' }, { message: 'Serve aiuto, grazie.' }, { env: {}, mail: failing }), e => e.httpStatus === 503);
 });

@@ -1105,8 +1105,21 @@ async function overview() {
     ) +
     ' · Valutazione media visitatori: ' +
     (
-      s.feedback_average ??
-      'nessuna'
+      s.feedback_average === null ||
+      s.feedback_average === undefined
+        ? 'nessuna'
+        : s.feedback_average +
+          '/5 su ' +
+          s.feedback_count +
+          ' feedback' +
+          (
+            s.feedback_month_average === null ||
+            s.feedback_month_average === undefined
+              ? ''
+              : ' (questo mese ' +
+                s.feedback_month_average +
+                '/5)'
+          )
     );
 
   for (
@@ -1187,14 +1200,29 @@ async function overview() {
     }
   }
 
+  if (!d.feedback.length) {
+    $('#visitor-feedback').append(
+      node(
+        'p',
+        'Nessun feedback ricevuto finora.',
+        'empty-state'
+      )
+    );
+  }
+
   for (const f of d.feedback) {
     $('#visitor-feedback')
       .append(
         node(
           'p',
-          f.rating +
-            '/5 — ' +
-            f.comment
+          '★'.repeat(f.rating) +
+            '☆'.repeat(5 - f.rating) +
+            ' ' +
+            f.rating +
+            '/5 · ' +
+            date(f.created_at) +
+            ' — ' +
+            (f.comment.trim() || 'nessun commento')
         )
       );
   }

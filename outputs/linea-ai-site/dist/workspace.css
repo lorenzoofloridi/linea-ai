@@ -38,3 +38,8 @@
 .dash-card .empty-state{max-width:620px;margin:22px auto 0}
 #refresh{background:#fff;color:var(--ink);border-color:var(--line)}
 @media(max-width:760px){.lead-toolbar{margin-bottom:14px}}
+.mail-action{margin:18px 0 6px}
+.mail-action .button{display:inline-flex}
+.support-form{margin:18px 0 22px;max-width:720px}.support-row{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}.support-form .button{margin-top:16px}.support-status{margin:12px 0 0;font-size:14px;color:var(--ink)}
+@media(max-width:600px){.support-row{grid-template-columns:1fr}}
+.support-form textarea,.support-form select{font-weight:400}

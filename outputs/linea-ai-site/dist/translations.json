@@ -1268,5 +1268,225 @@
     "en": "See pricing",
     "es": "Ver la tarifa",
     "fr": "Voir le tarif"
+  },
+  "Attiva JavaScript per usare la demo e i moduli.": {
+    "en": "Enable JavaScript to use the demo and the forms.",
+    "es": "Activa JavaScript para usar la demo y los formularios.",
+    "fr": "Activez JavaScript pour utiliser la démo et les formulaires."
+  },
+  "STEP 1": {
+    "en": "STEP 1",
+    "es": "PASO 1",
+    "fr": "ÉTAPE 1"
+  },
+  "STEP 2": {
+    "en": "STEP 2",
+    "es": "PASO 2",
+    "fr": "ÉTAPE 2"
+  },
+  "STEP 3": {
+    "en": "STEP 3",
+    "es": "PASO 3",
+    "fr": "ÉTAPE 3"
+  },
+  "Ciao! Sono l’assistente virtuale di Servizi Linea AI. Come posso aiutarti oggi?": {
+    "en": "Hi! I’m the virtual assistant of Servizi Linea AI. How can I help you today?",
+    "es": "¡Hola! Soy el asistente virtual de Servizi Linea AI. ¿En qué puedo ayudarte hoy?",
+    "fr": "Bonjour ! Je suis l’assistant virtuel de Servizi Linea AI. Comment puis-je vous aider aujourd’hui ?"
+  },
+  "Scegli giorno e fascia oraria": {
+    "en": "Choose day and time slot",
+    "es": "Elige día y franja horaria",
+    "fr": "Choisissez le jour et le créneau"
+  },
+  "Preferenza di contatto, non una prenotazione": {
+    "en": "Contact preference, not a booking",
+    "es": "Preferencia de contacto, no una reserva",
+    "fr": "Préférence de contact, pas une réservation"
+  },
+  "LA PAROLA A CHI CI PROVA": {
+    "en": "IN THE WORDS OF THOSE WHO TRY IT",
+    "es": "LA PALABRA A QUIEN LO PRUEBA",
+    "fr": "LA PAROLE À CEUX QUI L’ESSAIENT"
+  },
+  "La tua esperienza conta.": {
+    "en": "Your experience matters.",
+    "es": "Tu experiencia cuenta.",
+    "fr": "Votre expérience compte."
+  },
+  "Condividi cosa ti è stato utile e cosa possiamo migliorare.": {
+    "en": "Share what was useful and what we can improve.",
+    "es": "Comparte lo que te resultó útil y lo que podemos mejorar.",
+    "fr": "Partagez ce qui vous a été utile et ce que nous pouvons améliorer."
+  },
+  "Recensioni approvate in evidenza, ordinate per valutazione. Non rappresentano la totalità dei contributi.": {
+    "en": "Approved reviews, sorted by rating. They do not represent all submissions.",
+    "es": "Reseñas aprobadas, ordenadas por valoración. No representan la totalidad de las contribuciones.",
+    "fr": "Avis approuvés, triés par note. Ils ne représentent pas l’ensemble des contributions."
+  },
+  "Pausa scorrimento": {
+    "en": "Pause scrolling",
+    "es": "Pausar desplazamiento",
+    "fr": "Mettre en pause le défilement"
+  },
+  "Riprendi scorrimento": {
+    "en": "Resume scrolling",
+    "es": "Reanudar desplazamiento",
+    "fr": "Reprendre le défilement"
+  },
+  "Non ci sono ancora recensioni pubblicate. Puoi essere la prima persona a raccontare la tua esperienza.": {
+    "en": "No reviews published yet. You can be the first to share your experience.",
+    "es": "Todavía no hay reseñas publicadas. Puedes ser la primera persona en contar tu experiencia.",
+    "fr": "Aucun avis publié pour le moment. Vous pouvez être le premier à partager votre expérience."
+  },
+  "Scrivi una recensione": {
+    "en": "Write a review",
+    "es": "Escribe una reseña",
+    "fr": "Écrire un avis"
+  },
+  "Nome pubblico o pseudonimo": {
+    "en": "Public name or nickname",
+    "es": "Nombre público o seudónimo",
+    "fr": "Nom public ou pseudonyme"
+  },
+  "La tua valutazione": {
+    "en": "Your rating",
+    "es": "Tu valoración",
+    "fr": "Votre note"
+  },
+  "Racconta la tua esperienza": {
+    "en": "Tell us about your experience",
+    "es": "Cuenta tu experiencia",
+    "fr": "Racontez votre expérience"
+  },
+  "Cosa ti è piaciuto? Cosa miglioreresti?": {
+    "en": "What did you like? What would you improve?",
+    "es": "¿Qué te gustó? ¿Qué mejorarías?",
+    "fr": "Qu’avez-vous aimé ? Qu’amélioreriez-vous ?"
+  },
+  "Non inserire recapiti, dati sensibili o informazioni riservate dei tuoi clienti. Le recensioni vengono controllate prima della pubblicazione.": {
+    "en": "Do not include contact details, sensitive data or confidential information about your customers. Reviews are checked before they are published.",
+    "es": "No incluyas datos de contacto, datos sensibles ni información confidencial de tus clientes. Las reseñas se revisan antes de publicarse.",
+    "fr": "N’indiquez ni coordonnées, ni données sensibles, ni informations confidentielles sur vos clients. Les avis sont vérifiés avant publication."
+  },
+  "Acconsento alla pubblicazione del nome pubblico, della valutazione e del testo sul sito.": {
+    "en": "I agree to the publication of my public name, rating and text on the website.",
+    "es": "Acepto la publicación del nombre público, la valoración y el texto en el sitio.",
+    "fr": "J’accepte la publication du nom public, de la note et du texte sur le site."
+  },
+  "Informazioni sui dati": {
+    "en": "About your data",
+    "es": "Información sobre los datos",
+    "fr": "Informations sur les données"
+  },
+  "Invia recensione": {
+    "en": "Send review",
+    "es": "Enviar reseña",
+    "fr": "Envoyer l’avis"
+  },
+  "Grazie! La recensione è stata ricevuta e sarà visibile dopo la revisione.": {
+    "en": "Thank you! Your review has been received and will be visible after moderation.",
+    "es": "¡Gracias! Hemos recibido la reseña y será visible tras la revisión.",
+    "fr": "Merci ! Votre avis a bien été reçu et sera visible après modération."
+  },
+  "Invio non riuscito. Riprova.": {
+    "en": "Sending failed. Please try again.",
+    "es": "No se pudo enviar. Inténtalo de nuevo.",
+    "fr": "L’envoi a échoué. Veuillez réessayer."
+  },
+  "Le recensioni non sono disponibili al momento. Riprova tra poco.": {
+    "en": "Reviews are not available right now. Please try again shortly.",
+    "es": "Las reseñas no están disponibles en este momento. Inténtalo de nuevo en breve.",
+    "fr": "Les avis ne sont pas disponibles pour le moment. Réessayez dans un instant."
+  },
+  "Serve il consenso alla pubblicazione della recensione.": {
+    "en": "Consent to publish the review is required.",
+    "es": "Se necesita el consentimiento para publicar la reseña.",
+    "fr": "Le consentement à la publication de l’avis est requis."
+  },
+  "Indica un nome pubblico di massimo 80 caratteri.": {
+    "en": "Enter a public name of up to 80 characters.",
+    "es": "Indica un nombre público de máximo 80 caracteres.",
+    "fr": "Indiquez un nom public de 80 caractères maximum."
+  },
+  "Scrivi una recensione tra 10 e 1200 caratteri.": {
+    "en": "Write a review between 10 and 1200 characters.",
+    "es": "Escribe una reseña de entre 10 y 1200 caracteres.",
+    "fr": "Rédigez un avis de 10 à 1200 caractères."
+  },
+  "Scegli una valutazione da 1 a 5.": {
+    "en": "Choose a rating from 1 to 5.",
+    "es": "Elige una valoración de 1 a 5.",
+    "fr": "Choisissez une note de 1 à 5."
+  },
+  "Hai già inviato una recensione da poco. Riprova più tardi.": {
+    "en": "You sent a review recently. Please try again later.",
+    "es": "Enviaste una reseña hace poco. Inténtalo más tarde.",
+    "fr": "Vous avez envoyé un avis récemment. Réessayez plus tard."
+  },
+  "Troppe recensioni oggi. Riprova domani.": {
+    "en": "Too many reviews today. Please try again tomorrow.",
+    "es": "Demasiadas reseñas hoy. Inténtalo mañana.",
+    "fr": "Trop d’avis aujourd’hui. Réessayez demain."
+  },
+  "Troppi tentativi. Riprova tra qualche minuto.": {
+    "en": "Too many attempts. Please try again in a few minutes.",
+    "es": "Demasiados intentos. Inténtalo en unos minutos.",
+    "fr": "Trop de tentatives. Réessayez dans quelques minutes."
+  },
+  "© 2026 Linea AI": {
+    "en": "© 2026 Linea AI",
+    "es": "© 2026 Linea AI",
+    "fr": "© 2026 Linea AI"
+  },
+  "Indica una preferenza. La segreteria non garantisce la disponibilità in quel momento. Orario italiano.": {
+    "en": "Tell us your preference. Availability at that time is not guaranteed. Italian time.",
+    "es": "Indica una preferencia. No se garantiza la disponibilidad en ese momento. Hora italiana.",
+    "fr": "Indiquez une préférence. La disponibilité à ce moment n’est pas garantie. Heure italienne."
+  },
+  "Indica un orario": {
+    "en": "Choose a time",
+    "es": "Indica una hora",
+    "fr": "Indiquez un horaire"
+  },
+  "Orario preferito": {
+    "en": "Preferred time",
+    "es": "Hora preferida",
+    "fr": "Horaire préféré"
+  },
+  "TRASPARENZA SUI DATI": {
+    "en": "DATA TRANSPARENCY",
+    "es": "TRANSPARENCIA SOBRE LOS DATOS",
+    "fr": "TRANSPARENCE SUR LES DONNÉES"
+  },
+  "Caricamento dell’informativa…": {
+    "en": "Loading the notice…",
+    "es": "Cargando el aviso…",
+    "fr": "Chargement de la notice…"
+  },
+  "Apri la pagina completa ↗": {
+    "en": "Open the full page ↗",
+    "es": "Abrir la página completa ↗",
+    "fr": "Ouvrir la page complète ↗"
+  },
+  "Esplora il percorso del contatto": {
+    "en": "Explore the contact journey",
+    "es": "Explora el recorrido del contacto",
+    "fr": "Découvrez le parcours du contact"
+  },
+  "Conversazione con la demo": {
+    "en": "Conversation with the demo",
+    "es": "Conversación con la demo",
+    "fr": "Conversation avec la démo"
+  },
+  "Informazioni legali": {
+    "en": "Legal information",
+    "es": "Información legal",
+    "fr": "Informations légales"
+  },
+  "Chiudi informativa": {
+    "en": "Close notice",
+    "es": "Cerrar aviso",
+    "fr": "Fermer la notice"
   }
 }

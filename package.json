@@ -8,7 +8,8 @@
     "db:status": "node --env-file=.env.supabase scripts/migrate.mjs status",
     "db:migrate": "node --env-file=.env.supabase scripts/migrate.mjs migrate",
     "db:check": "node --env-file=.env.supabase scripts/migrate.mjs check",
-    "reviews": "node --env-file=.env.supabase scripts/reviews.mjs"
+    "reviews": "node --env-file=.env.supabase scripts/reviews.mjs",
+    "feedback": "node --env-file=.env.supabase scripts/feedback.mjs"
   },
   "dependencies": {
     "pg": "^8.23.0"

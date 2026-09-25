@@ -108,7 +108,7 @@
    * Richiesta di attivazione di un piano a pagamento:
    * precompila il modulo contatti (o apre il supporto se l'utente è già registrato).
    */
-  function contactForPlan(planName, billingPeriod) {
+  function contactForPlan(planName, billingPeriod, planCode) {
     const periodLabel = billingPeriod === 'annual' ? 'annuale' : 'mensile';
     const message = q('#contact-message');
     const section = q('#contact-form-section');
@@ -124,7 +124,8 @@
     }
 
     location.assign(
-      '/supporto.html?piano=' + encodeURIComponent(planName)
+      '/supporto.html?piano=' + encodeURIComponent(planCode || '') +
+        '&periodo=' + encodeURIComponent(billingPeriod === 'annual' ? 'annual' : 'monthly')
     );
   }
 
@@ -334,7 +335,7 @@
                * Finché i pagamenti online non sono attivi,
                * l'attivazione passa dal nostro team.
                */
-              contactForPlan(p.name, period);
+              contactForPlan(p.name, period, p.code);
 
               button.disabled = false;
             } catch (e) {

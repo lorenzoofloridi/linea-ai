@@ -17,7 +17,7 @@ export class MailError extends Error {
  */
 export async function sendEmail(
   db,
-  { companyId, eventKey, to, subject, text, html },
+  { companyId, eventKey, to, subject, text, html, replyTo },
   { env = process.env, transport = fetch } = {}
 ) {
   const apiKey = env.RESEND_API_KEY;
@@ -49,7 +49,7 @@ export async function sendEmail(
         "Idempotency-Key": eventKey
       },
       signal: AbortSignal.timeout(10000),
-      body: JSON.stringify({ from: FROM, to: [to], subject, text, html })
+      body: JSON.stringify({ from: FROM, to: [to], subject, text, html, ...(replyTo ? { reply_to: replyTo } : {}) })
     });
   } catch {
     await db.pool.query(

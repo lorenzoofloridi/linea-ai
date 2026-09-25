@@ -3,6 +3,7 @@ import {interpret,ready} from './online-ai.mjs';
 import {initialState,advance} from './chat-state.mjs';
 import {effectivePlan,reserveMessage,releaseMessage,recordTokens,usageSummary,QuotaError} from './ai-quota.mjs';
 import {companyOverview,addCompanyNote,deleteConversation,exportLeadsCsv} from './company-data.mjs';
+import {notifyHomeFeedback} from './feedback-notify.mjs';
 
 const token=()=>randomBytes(32).toString('base64url');
 const hash=s=>createHash('sha256').update(s).digest('hex');
@@ -740,6 +741,17 @@ export async function chatApi(
     body.comment
    ]
   );
+
+  // Solo per la chat della home di Linea AI: avvisa il gestore via email.
+  // Un errore di invio non blocca il salvataggio del feedback.
+  if(conversation.kind==='public_demo'){
+   await notifyHomeFeedback(db,{
+    companyId:conversation.company_id,
+    conversationId:conversation.id,
+    rating:body.rating,
+    comment:body.comment
+   });
+  }
 
   return json(
    {saved:true},
