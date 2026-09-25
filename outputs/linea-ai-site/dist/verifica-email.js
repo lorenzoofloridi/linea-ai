@@ -139,9 +139,9 @@ button.onclick = async () => {
     }
 
     /*
-     * Piani a pagamento: l'attivazione avviene
-     * con il team, quindi portiamo l'utente al
-     * supporto con il piano già indicato.
+     * Piani a pagamento: i prezzi sono visibili
+     * solo dopo il login, quindi riportiamo
+     * l'utente alla sezione Offerte.
      */
     const paidNames = {
       base: 'Piano Base',
@@ -152,10 +152,7 @@ button.onclick = async () => {
 
     if (paidNames[paidPlan]) {
       sessionStorage.removeItem('linea_plan_intent');
-      location.assign(
-        '/supporto.html?piano=' +
-          encodeURIComponent(paidNames[paidPlan])
-      );
+      location.assign('/#offerte');
       return;
     }
 

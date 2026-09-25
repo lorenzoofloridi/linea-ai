@@ -116,28 +116,21 @@ function planAmount(code, period) {
       );
 }
 
-// Catalogo pubblico: prezzi e messaggi AI inclusi sono visibili a tutti.
-// Le quote vengono dal backend (ai-quota.mjs), la stessa fonte usata per applicarle.
+// Catalogo pubblico: i prezzi NON escono dal server finché l'utente non ha
+// fatto il login (decisione di prodotto). Restano visibili nome, disponibilità
+// e messaggi AI inclusi (stessa fonte usata per applicare le quote).
 function publicPlanCatalogue() {
   return {
     authenticated: false,
     discount: PLAN_DISCOUNT,
     plans: Object.entries(PLANS).map(
-      ([code, plan]) => {
-        const annualCents =
-          code === "demo" ? 0 : planAmount(code, "annual");
-
-        return {
-          code,
-          name: plan.name,
-          trial_days: plan.trial_days,
-          available: plan.available,
-          monthly_cents: plan.monthly_cents,
-          annual_cents: annualCents,
-          annual_monthly_cents: Math.floor(annualCents / 12),
-          messages: PLAN_MONTHLY_MESSAGES[code]
-        };
-      }
+      ([code, plan]) => ({
+        code,
+        name: plan.name,
+        trial_days: plan.trial_days,
+        available: plan.available,
+        messages: PLAN_MONTHLY_MESSAGES[code]
+      })
     )
   };
 }

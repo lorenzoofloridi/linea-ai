@@ -145,13 +145,13 @@ function destinationAfterAuthentication(
     };
 
     /*
-     * I piani a pagamento si attivano con il team:
-     * dopo la verifica email portiamo l'utente al
-     * supporto con il piano già indicato.
+     * Piani a pagamento: i prezzi sono visibili
+     * solo dopo il login, quindi riportiamo
+     * l'utente alla sezione Offerte.
      */
     if (names[plan] && response.redirect !== '/account.html') {
       sessionStorage.removeItem('linea_plan_intent');
-      return '/supporto.html?piano=' + encodeURIComponent(names[plan]);
+      return '/#offerte';
     }
   }
 

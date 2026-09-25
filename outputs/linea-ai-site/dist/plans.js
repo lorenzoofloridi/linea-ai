@@ -188,6 +188,18 @@
             node('strong', '7'),
             node('span', 'giorni gratuiti')
           );
+        } else if (!data.authenticated) {
+          /*
+           * I prezzi sono visibili solo dopo il login:
+           * il server non li invia agli ospiti.
+           */
+          price.append(
+            node(
+              'span',
+              'Accedi o registrati per vedere la tariffa',
+              'price-login'
+            )
+          );
         } else {
           price.append(
             node(
@@ -210,6 +222,7 @@
         card.append(price);
 
         if (
+          data.authenticated &&
           p.code !== 'demo' &&
           period === 'annual'
         ) {
@@ -258,7 +271,9 @@
             ? 'In preparazione'
             : p.code === 'demo'
               ? 'Prova gratis'
-              : 'Attiva con noi',
+              : data.authenticated
+                ? 'Attiva con noi'
+                : 'Scopri la tariffa',
           'button ' +
             (p.code === 'base'
               ? 'blue'
@@ -278,10 +293,7 @@
                * ricordiamo quale piano ha scelto
                * prima di mandarlo alla registrazione.
                */
-              if (
-                !data.authenticated &&
-                p.code === 'demo'
-              ) {
+              if (!data.authenticated) {
                 goToRegistration(
                   p.code,
                   period

@@ -1263,5 +1263,10 @@
     "en": "For example: handling requests from campaigns and easing the load on the front desk.",
     "es": "Por ejemplo: gestionar las solicitudes de las campañas y aliviar la recepción.",
     "fr": "Par exemple : gérer les demandes issues des campagnes et alléger le secrétariat."
+  },
+  "Scopri la tariffa": {
+    "en": "See pricing",
+    "es": "Ver la tarifa",
+    "fr": "Voir le tarif"
   }
 }
