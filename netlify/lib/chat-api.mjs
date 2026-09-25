@@ -9,7 +9,7 @@ const token=()=>randomBytes(32).toString('base64url');
 const hash=s=>createHash('sha256').update(s).digest('hex');
 const fail=(status,message)=>{const e=new Error(message);e.httpStatus=status;throw e;};
 const json=(body,status=200)=>Response.json(body,{status,headers:{'Cache-Control':'no-store'}});
-const greeting=c=>c.agent?.branding?.greeting||`Ciao! Sono l’assistente di ${c.name}. Come posso aiutarti oggi?`;
+const greeting=c=>c.agent?.branding?.greeting||`Ciao, sono l’assistente di ${c.name}. Come posso aiutarti oggi?`;
 const validate=(b,k,max=2000)=>{if(typeof b[k]!=='string'||!b[k].trim()||b[k].length>max)fail(400,'Controlla i dati inseriti.');return b[k].trim();};
 
 async function limit(db,key,maximum,windowSeconds,message='Il limite temporaneo della demo è stato raggiunto. Riprova più tardi.'){

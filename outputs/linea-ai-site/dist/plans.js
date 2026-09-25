@@ -124,7 +124,7 @@
     }
 
     location.assign(
-      '/supporto.html?piano=' + encodeURIComponent(planCode || '') +
+      '/portafoglio.html?piano=' + encodeURIComponent(planCode || '') +
         '&periodo=' + encodeURIComponent(billingPeriod === 'annual' ? 'annual' : 'monthly')
     );
   }

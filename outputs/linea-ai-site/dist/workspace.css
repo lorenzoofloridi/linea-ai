@@ -43,3 +43,7 @@
 .support-form{margin:18px 0 22px;max-width:720px}.support-row{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}.support-form .button{margin-top:16px}.support-status{margin:12px 0 0;font-size:14px;color:var(--ink)}
 @media(max-width:600px){.support-row{grid-template-columns:1fr}}
 .support-form textarea,.support-form select{font-weight:400}
+.test-chat-section{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:start;scroll-margin-top:24px}.test-chat-section h2{font-size:30px;margin:6px 0 14px}.test-chat-intro p{color:var(--muted);line-height:1.7}.test-chat-section .messages{height:380px}
+@media(max-width:900px){.test-chat-section{grid-template-columns:1fr;gap:18px}.test-chat-section .messages{height:340px}}
+#prova-ai h3{margin-top:0;padding-top:0;border-top:0}#prova-ai .feedback{padding-top:18px}#prova-ai .feedback fieldset{border:0;padding:0;margin:0 0 14px}#prova-ai .avatar{flex:none}
+.plan-request{font-weight:600;color:var(--ink)}

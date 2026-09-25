@@ -542,6 +542,7 @@
 
       if (names[plan]) {
         planRequest.hidden = false;
+        setTimeout(() => planRequest.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
         planRequest.textContent =
           'Vuoi attivare il ' + names[plan] +
           '? Il messaggio qui sotto è già pronto: controllalo e premi «Invia la richiesta». Lo attiviamo insieme a te.';
@@ -553,6 +554,21 @@
      * (nessun programma di posta necessario) e arriva al team
      * con l'email dell'account come indirizzo di risposta.
      */
+    /*
+     * Supporto: un pulsante email con indirizzo e oggetto già
+     * compilati; il cliente scrive solo il suo messaggio.
+     */
+    const mailButton = q('#mail-button');
+
+    if (mailButton) {
+      const company = me?.company?.config?.name;
+      mailButton.href =
+        'mailto:lorenzoofloridi@gmail.com?subject=' +
+        encodeURIComponent(
+          'Richiesta di supporto — ' + (company || 'Linea AI')
+        );
+    }
+
     const supportForm = q('#support-form');
 
     if (supportForm) {
@@ -617,7 +633,7 @@
             message: fields.message.value
           });
           status.textContent =
-            'Richiesta inviata. Ti rispondiamo all’email del tuo account, di solito entro un giorno lavorativo.';
+            'Richiesta inviata. Ti rispondiamo all’email del tuo account, di solito entro 1 giorno lavorativo.';
           supportForm.querySelector('.support-row').hidden = true;
           fields.message.disabled = true;
           button.hidden = true;

@@ -1289,11 +1289,6 @@
     "es": "PASO 3",
     "fr": "ÉTAPE 3"
   },
-  "Ciao! Sono l’assistente virtuale di Servizi Linea AI. Come posso aiutarti oggi?": {
-    "en": "Hi! I’m the virtual assistant of Servizi Linea AI. How can I help you today?",
-    "es": "¡Hola! Soy el asistente virtual de Servizi Linea AI. ¿En qué puedo ayudarte hoy?",
-    "fr": "Bonjour ! Je suis l’assistant virtuel de Servizi Linea AI. Comment puis-je vous aider aujourd’hui ?"
-  },
   "Scegli giorno e fascia oraria": {
     "en": "Choose day and time slot",
     "es": "Elige día y franja horaria",
@@ -1383,11 +1378,6 @@
     "en": "Send review",
     "es": "Enviar reseña",
     "fr": "Envoyer l’avis"
-  },
-  "Grazie! La recensione è stata ricevuta e sarà visibile dopo la revisione.": {
-    "en": "Thank you! Your review has been received and will be visible after moderation.",
-    "es": "¡Gracias! Hemos recibido la reseña y será visible tras la revisión.",
-    "fr": "Merci ! Votre avis a bien été reçu et sera visible après modération."
   },
   "Invio non riuscito. Riprova.": {
     "en": "Sending failed. Please try again.",
@@ -1488,5 +1478,15 @@
     "en": "Close notice",
     "es": "Cerrar aviso",
     "fr": "Fermer la notice"
+  },
+  "Ciao, sono l’assistente virtuale di Servizi Linea AI. Come posso aiutarti oggi?": {
+    "en": "Hi, I’m the virtual assistant of Servizi Linea AI. How can I help you today?",
+    "es": "Hola, soy el asistente virtual de Servizi Linea AI. ¿En qué puedo ayudarte hoy?",
+    "fr": "Bonjour, je suis l’assistant virtuel de Servizi Linea AI. Comment puis-je vous aider aujourd’hui ?"
+  },
+  "Grazie, la recensione è stata ricevuta e sarà visibile dopo la revisione.": {
+    "en": "Thank you, your review has been received and will be visible after moderation.",
+    "es": "Gracias, hemos recibido la reseña y será visible tras la revisión.",
+    "fr": "Merci, votre avis a bien été reçu et sera visible après modération."
   }
 }

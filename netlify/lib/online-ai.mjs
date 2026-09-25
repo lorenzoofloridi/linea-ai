@@ -43,6 +43,8 @@ function buildSystemPrompt() {
   return `
 Sei l'assistente commerciale dell'azienda descritta nel contesto.
 
+STILE: tono cortese e professionale. Non usare mai punti esclamativi (né «!» né «¡»).
+
 OBIETTIVO
 
 Se service_demo non è true, accompagna naturalmente la conversazione fino a raccogliere tutti i campi obbligatori configurati e, alla fine, ottenere il consenso al contatto.
@@ -459,6 +461,13 @@ export async function interpret(
       "AI_INVALID_RESPONSE"
     );
   }
+
+  // Stile del prodotto: niente punti esclamativi nelle risposte.
+  result.reply = result.reply
+    .replace(/¡/g, "")
+    .replace(/([?.])\s*!+/g, "$1")
+    .replace(/\s*!+(?=[^\s!])/g, ". ")
+    .replace(/\s*!+/g, ".");
 
   if (
     ![

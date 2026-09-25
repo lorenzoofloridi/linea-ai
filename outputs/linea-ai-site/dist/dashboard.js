@@ -807,12 +807,7 @@ $('#logout')
       .textContent =
       me.email;
 
-    $('#company-chat').href =
-      '/?azienda=' +
-      encodeURIComponent(
-        company.public_id
-      ) +
-      '#demo';
+    // La chat di prova è in fondo a questa pagina (dashboard-chat.js).
 
     const form =
       $('#config-form');
