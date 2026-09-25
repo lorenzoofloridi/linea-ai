@@ -17,6 +17,16 @@
   let session = null;
   let sessionPromise = null;
   let busy = false;
+  let customGreeting = '';
+  // Saluto predefinito nella lingua scelta; quello personalizzato resta com'è.
+  const T = x => (window.lineaPreferences?.t || String)(x);
+  const defaultGreeting = () =>
+    T('Ciao, sono l’assistente di') + ' ' + companyName + '. ' + T('Come posso aiutarti oggi?');
+  window.addEventListener('linea-language', () => {
+    if (customGreeting || busy || box.children.length > 1 || !publicId) return;
+    greeting = defaultGreeting();
+    box.firstChild && (box.firstChild.textContent = greeting);
+  });
 
   async function api(path, data) {
     const r = await fetch('/api/' + path, {
@@ -127,9 +137,8 @@
       publicId = me.company.public_id;
       companyName = me.company.config?.name || companyName;
       $('#test-chat-name').textContent = companyName;
-      $('#test-chat-avatar').textContent = (companyName.trim()[0] || 'A').toUpperCase();
-      greeting = me.company.config?.agent?.branding?.greeting ||
-        'Ciao, sono l’assistente di ' + companyName + '. Come posso aiutarti oggi?';
+      customGreeting = me.company.config?.agent?.branding?.greeting || '';
+      greeting = customGreeting || defaultGreeting();
       if (!busy && box.children.length <= 1) reset();
     })
     .catch(() => {});
@@ -152,15 +161,17 @@
 
   $('#test-chat-reset').addEventListener('click', () => {
     if (busy) return;
-    if (box.children.length > 1 && !confirm('Iniziare una nuova conversazione di prova?')) return;
+    if (box.children.length > 1 && !confirm((window.lineaPreferences?.t||String)('Iniziare una nuova conversazione di prova?'))) return;
     reset();
     $('#test-chat-input').focus();
   });
 
   $('#test-chat-end').addEventListener('click', () => {
+    // Apre sempre il riquadro (non lo richiude se è già aperto).
     const panel = $('#test-chat-feedback');
-    panel.hidden = !panel.hidden;
-    if (!panel.hidden) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    panel.hidden = false;
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    panel.querySelector('input[name=rating]')?.focus({ preventScroll: true });
   });
 
   $('#test-chat-feedback-form').addEventListener('submit', async e => {
@@ -174,7 +185,7 @@
         rating: Number(new FormData(e.target).get('rating')),
         comment: $('#test-chat-feedback-text').value
       });
-      result.textContent = 'Grazie, il feedback è salvato: lo trovi in «Statistiche e fonti».';
+      result.textContent = 'Grazie, il feedback è salvato: lo trovi in «Statistiche e fonti». Per lasciarne un altro, inizia una nuova conversazione con ↻.';
       // Aggiorna subito statistiche e feedback della dashboard.
       if (typeof overview === 'function') overview().catch(() => {});
     } catch (err) {

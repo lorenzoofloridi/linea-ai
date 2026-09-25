@@ -1488,5 +1488,2655 @@
     "en": "Thank you, your review has been received and will be visible after moderation.",
     "es": "Gracias, hemos recibido la reseña y será visible tras la revisión.",
     "fr": "Merci, votre avis a bien été reçu et sera visible après modération."
+  },
+  "% delle conversazioni ha prodotto una richiesta": {
+    "en": "% of conversations led to a request",
+    "es": "% de las conversaciones generó una solicitud",
+    "fr": "% des conversations ont généré une demande"
+  },
+  "(questo mese": {
+    "en": "(this month",
+    "es": "(este mes",
+    "fr": "(ce mois-ci"
+  },
+  "(uso corretto)": {
+    "en": "(fair use)",
+    "es": "(uso razonable)",
+    "fr": "(usage raisonnable)"
+  },
+  "+ Aggiungi un campo": {
+    "en": "+ Add a field",
+    "es": "+ Añadir un campo",
+    "fr": "+ Ajouter un champ"
+  },
+  ". Se ritieni che il trattamento non sia corretto, puoi presentare reclamo al Garante per la protezione dei dati personali (garanteprivacy.it).": {
+    "en": ". If you believe the processing is not lawful, you can lodge a complaint with the Italian Data Protection Authority (garanteprivacy.it).",
+    "es": ". Si consideras que el tratamiento no es correcto, puedes presentar una reclamación ante la autoridad italiana de protección de datos (garanteprivacy.it).",
+    "fr": ". Si vous estimez que le traitement n’est pas conforme, vous pouvez déposer une réclamation auprès de l’autorité italienne de protection des données (garanteprivacy.it)."
+  },
+  "14 giorni per provare": {
+    "en": "14 days to try it",
+    "es": "14 días para probarlo",
+    "fr": "14 jours pour essayer"
+  },
+  "14 giorni per provare il piano.": {
+    "en": "14 days to try the plan.",
+    "es": "14 días para probar el plan.",
+    "fr": "14 jours pour essayer l’offre."
+  },
+  ": database, con server nell’Unione Europea (Francoforte).": {
+    "en": ": database, with servers in the European Union (Frankfurt).",
+    "es": ": base de datos, con servidores en la Unión Europea (Fráncfort).",
+    "fr": ": base de données, avec des serveurs dans l’Union européenne (Francfort)."
+  },
+  ": elaborazione dei messaggi per generare le risposte dell’assistente e analisi del sito aziendale.": {
+    "en": ": processing of messages to generate the assistant’s replies and analysis of the company website.",
+    "es": ": procesamiento de los mensajes para generar las respuestas del asistente y análisis del sitio de la empresa.",
+    "fr": ": traitement des messages pour générer les réponses de l’assistant et analyse du site de l’entreprise."
+  },
+  ": hosting del sito ed esecuzione del backend (server negli Stati Uniti).": {
+    "en": ": website hosting and backend execution (servers in the United States).",
+    "es": ": alojamiento del sitio y ejecución del backend (servidores en Estados Unidos).",
+    "fr": ": hébergement du site et exécution du backend (serveurs aux États-Unis)."
+  },
+  ": invio delle email di servizio, come verifica dell’indirizzo e recupero password.": {
+    "en": ": sending service emails, such as address verification and password recovery.",
+    "es": ": envío de correos de servicio, como la verificación de la dirección y la recuperación de la contraseña.",
+    "fr": ": envoi des e-mails de service, comme la vérification de l’adresse et la récupération du mot de passe."
+  },
+  ": mantiene l’accesso al tuo account. È protetto (non leggibile dagli script della pagina e inviato solo su connessioni cifrate). Senza «Ricordami» dura al massimo 8 ore; con «Ricordami» fino a 30 giorni. Viene eliminato quando esci dall’account o cambi password.": {
+    "en": ": keeps you signed in to your account. It is protected (not readable by page scripts and sent only over encrypted connections). Without “Remember me” it lasts at most 8 hours; with “Remember me” up to 30 days. It is deleted when you log out or change your password.",
+    "es": ": mantiene el acceso a tu cuenta. Está protegida (no legible por los scripts de la página y enviada solo por conexiones cifradas). Sin «Recordarme» dura como máximo 8 horas; con «Recordarme» hasta 30 días. Se elimina cuando cierras sesión o cambias la contraseña.",
+    "fr": ": maintient la connexion à votre compte. Il est protégé (illisible par les scripts de la page et envoyé uniquement via des connexions chiffrées). Sans « Se souvenir de moi », il dure au maximum 8 heures ; avec « Se souvenir de moi », jusqu’à 30 jours. Il est supprimé lorsque vous vous déconnectez ou changez de mot de passe."
+  },
+  ": ricorda la lingua scelta.": {
+    "en": ": remembers the chosen language.",
+    "es": ": recuerda el idioma elegido.",
+    "fr": ": mémorise la langue choisie."
+  },
+  ": ricorda la scelta fatta nel banner per 180 giorni.": {
+    "en": ": remembers the choice made in the banner for 180 days.",
+    "es": ": recuerda la elección hecha en el banner durante 180 días.",
+    "fr": ": mémorise le choix fait dans le bandeau pendant 180 jours."
+  },
+  ": ricorda, solo per la sessione in corso, se hai scelto di iniziare la Demo.": {
+    "en": ": remembers, only for the current session, whether you chose to start the Demo.",
+    "es": ": recuerda, solo durante la sesión actual, si elegiste iniciar la Demo.",
+    "fr": ": mémorise, uniquement pour la session en cours, si vous avez choisi de démarrer la Démo."
+  },
+  "? Il messaggio qui sotto è già pronto: controllalo e premi «Invia la richiesta». Lo attiviamo insieme a te.": {
+    "en": "? The message below is ready: check it and press “Send request”. We will activate it together with you.",
+    "es": "? El mensaje de abajo ya está listo: revísalo y pulsa «Enviar solicitud». Lo activamos contigo.",
+    "fr": " ? Le message ci-dessous est prêt : vérifiez-le et appuyez sur « Envoyer la demande ». Nous l’activons avec vous."
+  },
+  "A breve": {
+    "en": "Coming soon",
+    "es": "Próximamente",
+    "fr": "Bientôt"
+  },
+  "A chi affidiamo i dati": {
+    "en": "Who we entrust data to",
+    "es": "A quién confiamos los datos",
+    "fr": "À qui nous confions les données"
+  },
+  "Abilita questa attività solo se autorizzata dalla tua azienda. Le funzioni indicate come simulate restano prove locali.": {
+    "en": "Enable this activity only if authorised by your company. Functions marked as simulated remain local tests.",
+    "es": "Activa esta función solo si tu empresa la autoriza. Las funciones marcadas como simuladas siguen siendo pruebas locales.",
+    "fr": "Activez cette fonction uniquement si votre entreprise l’autorise. Les fonctions indiquées comme simulées restent des tests locaux."
+  },
+  "Abilita solo le attività consentite dalla tua azienda. Le revoche bloccano le azioni; le nuove abilitazioni valgono per le nuove chat.": {
+    "en": "Enable only the activities your company allows. Revocations block actions; new permissions apply to new chats.",
+    "es": "Activa solo las funciones que tu empresa permite. Las revocaciones bloquean las acciones; las nuevas autorizaciones valen para los nuevos chats.",
+    "fr": "Activez uniquement les fonctions autorisées par votre entreprise. Les révocations bloquent les actions ; les nouvelles autorisations s’appliquent aux nouveaux chats."
+  },
+  "Abilitata": {
+    "en": "Enabled",
+    "es": "Activada",
+    "fr": "Activée"
+  },
+  "Accedi al tuo account": {
+    "en": "Log in to your account",
+    "es": "Accede a tu cuenta",
+    "fr": "Connectez-vous à votre compte"
+  },
+  "Accedi per continuare.": {
+    "en": "Log in to continue.",
+    "es": "Inicia sesión para continuar.",
+    "fr": "Connectez-vous pour continuer."
+  },
+  "Accesso non disponibile.": {
+    "en": "Login not available.",
+    "es": "Acceso no disponible.",
+    "fr": "Connexion indisponible."
+  },
+  "Accesso riuscito": {
+    "en": "Logged in",
+    "es": "Acceso correcto",
+    "fr": "Connexion réussie"
+  },
+  "Accettate dal servizio email": {
+    "en": "Accepted by the email service",
+    "es": "Aceptados por el servicio de correo",
+    "fr": "Acceptés par le service e-mail"
+  },
+  "Accetto i": {
+    "en": "I accept the",
+    "es": "Acepto los",
+    "fr": "J’accepte les"
+  },
+  "Acconsento all’utilizzo dei dati del mio account per analisi di marketing finalizzate a migliorare l’offerta di MoreAI.": {
+    "en": "I agree to the use of my account data for marketing analysis aimed at improving MoreAI’s offer.",
+    "es": "Acepto el uso de los datos de mi cuenta para análisis de marketing destinados a mejorar la oferta de MoreAI.",
+    "fr": "J’accepte l’utilisation des données de mon compte pour des analyses marketing visant à améliorer l’offre de MoreAI."
+  },
+  "Account": {
+    "en": "Account",
+    "es": "Cuenta",
+    "fr": "Compte"
+  },
+  "Account — MoreAI": {
+    "en": "Account — MoreAI",
+    "es": "Cuenta — MoreAI",
+    "fr": "Compte — MoreAI"
+  },
+  "Account:": {
+    "en": "Account:",
+    "es": "Cuenta:",
+    "fr": "Compte :"
+  },
+  "Acquisto o affitto": {
+    "en": "Purchase or rent",
+    "es": "Compra o alquiler",
+    "fr": "Achat ou location"
+  },
+  "Addebito simulato non riuscito": {
+    "en": "Simulated charge failed",
+    "es": "Cargo simulado fallido",
+    "fr": "Prélèvement simulé échoué"
+  },
+  "Addebito simulato riuscito": {
+    "en": "Simulated charge successful",
+    "es": "Cargo simulado realizado",
+    "fr": "Prélèvement simulé réussi"
+  },
+  "Aggiorna": {
+    "en": "Refresh",
+    "es": "Actualizar",
+    "fr": "Actualiser"
+  },
+  "Aggiorna attività": {
+    "en": "Refresh activity",
+    "es": "Actualizar actividad",
+    "fr": "Actualiser l’activité"
+  },
+  "Aggiorna i dati aziendali": {
+    "en": "Update company details",
+    "es": "Actualizar los datos de la empresa",
+    "fr": "Mettre à jour les données de l’entreprise"
+  },
+  "Aggiorna lo stato dell’analisi": {
+    "en": "Refresh analysis status",
+    "es": "Actualizar el estado del análisis",
+    "fr": "Actualiser l’état de l’analyse"
+  },
+  "Aggiornamenti proposti dalle fonti": {
+    "en": "Updates suggested by sources",
+    "es": "Actualizaciones propuestas por las fuentes",
+    "fr": "Mises à jour proposées par les sources"
+  },
+  "Aggiornamento: 25 settembre 2026": {
+    "en": "Last updated: 25 September 2026",
+    "es": "Actualización: 25 de septiembre de 2026",
+    "fr": "Mise à jour : 25 septembre 2026"
+  },
+  "Aggiunge campi suggeriti. Puoi modificarli in base alle esigenze della tua attività.": {
+    "en": "Adds suggested fields. You can edit them to suit your business.",
+    "es": "Añade campos sugeridos. Puedes modificarlos según las necesidades de tu actividad.",
+    "fr": "Ajoute des champs suggérés. Vous pouvez les modifier selon les besoins de votre activité."
+  },
+  "Aggiungi disponibilità di prova": {
+    "en": "Add test availability",
+    "es": "Añadir disponibilidad de prueba",
+    "fr": "Ajouter une disponibilité de test"
+  },
+  "Aggiungi un esempio di settore": {
+    "en": "Add an industry example",
+    "es": "Añadir un ejemplo de sector",
+    "fr": "Ajouter un exemple de secteur"
+  },
+  "Alla registrazione registriamo data e versione delle condizioni accettate, la presa visione di questa informativa e la scelta facoltativa sulle analisi di marketing, che riguarda solo i dati del tuo account e mai quelli dei tuoi clienti. Puoi revocarla in qualsiasi momento scrivendo a": {
+    "en": "At sign-up we record the date and version of the accepted terms, that you have read this notice and your optional choice about marketing analysis, which concerns only your account data and never your customers’ data. You can withdraw it at any time by writing to",
+    "es": "En el registro guardamos la fecha y la versión de las condiciones aceptadas, la lectura de este aviso y la elección opcional sobre los análisis de marketing, que afecta solo a los datos de tu cuenta y nunca a los de tus clientes. Puedes revocarla en cualquier momento escribiendo a",
+    "fr": "Lors de l’inscription, nous enregistrons la date et la version des conditions acceptées, la prise de connaissance de cette notice et le choix facultatif concernant les analyses marketing, qui ne concerne que les données de votre compte et jamais celles de vos clients. Vous pouvez le retirer à tout moment en écrivant à"
+  },
+  "Analisi completata: alcune informazioni vanno controllate.": {
+    "en": "Analysis complete: some information needs checking.",
+    "es": "Análisis completado: hay que revisar algunos datos.",
+    "fr": "Analyse terminée : certaines informations sont à vérifier."
+  },
+  "Analisi completata: controlla i dati inseriti": {
+    "en": "Analysis complete: check the details entered",
+    "es": "Análisis completado: revisa los datos introducidos",
+    "fr": "Analyse terminée : vérifiez les données saisies"
+  },
+  "Analisi della tua azienda completata.": {
+    "en": "Analysis of your company complete.",
+    "es": "Análisis de tu empresa completado.",
+    "fr": "Analyse de votre entreprise terminée."
+  },
+  "Analisi della tua azienda in corso": {
+    "en": "Analysing your company",
+    "es": "Análisis de tu empresa en curso",
+    "fr": "Analyse de votre entreprise en cours"
+  },
+  "Analisi dell’azienda": {
+    "en": "Company analysis",
+    "es": "Análisis de la empresa",
+    "fr": "Analyse de l’entreprise"
+  },
+  "Analisi per migliorare l’offerta di MoreAI, solo se hai dato il consenso facoltativo alla registrazione.": {
+    "en": "Analysis to improve MoreAI’s offer, only if you gave the optional consent at sign-up.",
+    "es": "Análisis para mejorar la oferta de MoreAI, solo si diste el consentimiento opcional en el registro.",
+    "fr": "Analyses pour améliorer l’offre de MoreAI, uniquement si vous avez donné le consentement facultatif lors de l’inscription."
+  },
+  "Annuale · risparmio del 15%": {
+    "en": "Annual · save 15%",
+    "es": "Anual · ahorro del 15%",
+    "fr": "Annuel · 15 % d’économie"
+  },
+  "Appuntamento": {
+    "en": "Appointment",
+    "es": "Cita",
+    "fr": "Rendez-vous"
+  },
+  "Apri": {
+    "en": "Open",
+    "es": "Abrir",
+    "fr": "Ouvrir"
+  },
+  "Apri Dashboard → Richieste e seleziona Dettaglio per leggere i dati raccolti e la conversazione, poi aggiorna lo stato man mano che il tuo team le gestisce. In Conversazioni trovi anche i dialoghi che non hanno portato a una richiesta.": {
+    "en": "Open Dashboard → Requests and select Details to read the collected data and the conversation, then update the status as your team handles them. In Conversations you also find chats that did not lead to a request.",
+    "es": "Abre Panel → Solicitudes y selecciona Detalle para leer los datos recogidos y la conversación; después actualiza el estado a medida que tu equipo las gestiona. En Conversaciones también encontrarás los diálogos que no generaron una solicitud.",
+    "fr": "Ouvrez Tableau de bord → Demandes et sélectionnez Détail pour lire les données collectées et la conversation, puis mettez à jour le statut au fur et à mesure que votre équipe les traite. Dans Conversations, vous trouvez aussi les échanges qui n’ont pas abouti à une demande."
+  },
+  "Apri la demo della chat": {
+    "en": "Open the chat demo",
+    "es": "Abrir la demo del chat",
+    "fr": "Ouvrir la démo du chat"
+  },
+  "Apri un contatto per leggere i dati raccolti e la conversazione. Puoi aggiornare lo stato mentre il team gestisce la richiesta.": {
+    "en": "Open a contact to read the collected data and the conversation. You can update the status while the team handles the request.",
+    "es": "Abre un contacto para leer los datos recogidos y la conversación. Puedes actualizar el estado mientras el equipo gestiona la solicitud.",
+    "fr": "Ouvrez un contact pour lire les données collectées et la conversation. Vous pouvez mettre à jour le statut pendant que l’équipe traite la demande."
+  },
+  "Apri una richiesta per leggere i dati raccolti, le note e la conversazione.": {
+    "en": "Open a request to read the collected data, notes and conversation.",
+    "es": "Abre una solicitud para leer los datos recogidos, las notas y la conversación.",
+    "fr": "Ouvrez une demande pour lire les données collectées, les notes et la conversation."
+  },
+  "Area aziendale": {
+    "en": "Company area",
+    "es": "Área de empresa",
+    "fr": "Espace entreprise"
+  },
+  "Assistente": {
+    "en": "Assistant",
+    "es": "Asistente",
+    "fr": "Assistant"
+  },
+  "Assistente online disponibile.": {
+    "en": "Online assistant available.",
+    "es": "Asistente en línea disponible.",
+    "fr": "Assistant en ligne disponible."
+  },
+  "Assistente virtuale · prova": {
+    "en": "Virtual assistant · test",
+    "es": "Asistente virtual · prueba",
+    "fr": "Assistant virtuel · test"
+  },
+  "Attiva accesso": {
+    "en": "Activate access",
+    "es": "Activar acceso",
+    "fr": "Activer l’accès"
+  },
+  "Attiva il tuo accesso — MoreAI": {
+    "en": "Activate your access — MoreAI",
+    "es": "Activa tu acceso — MoreAI",
+    "fr": "Activez votre accès — MoreAI"
+  },
+  "Attiva un piano per continuare.": {
+    "en": "Activate a plan to continue.",
+    "es": "Activa un plan para continuar.",
+    "fr": "Activez une offre pour continuer."
+  },
+  "Attivazione della Demo in corso...": {
+    "en": "Activating the Demo...",
+    "es": "Activando la Demo...",
+    "fr": "Activation de la Démo en cours..."
+  },
+  "Attività e risultati": {
+    "en": "Activity and results",
+    "es": "Actividad y resultados",
+    "fr": "Activité et résultats"
+  },
+  "Auto di interesse": {
+    "en": "Car of interest",
+    "es": "Coche de interés",
+    "fr": "Voiture souhaitée"
+  },
+  "Autorizzazioni": {
+    "en": "Permissions",
+    "es": "Permisos",
+    "fr": "Autorisations"
+  },
+  "Autorizzazioni e strumenti dell’assistente": {
+    "en": "Assistant permissions and tools",
+    "es": "Permisos y herramientas del asistente",
+    "fr": "Autorisations et outils de l’assistant"
+  },
+  "Avatar locale": {
+    "en": "Local avatar",
+    "es": "Avatar local",
+    "fr": "Avatar local"
+  },
+  "Azienda in revisione": {
+    "en": "Company under review",
+    "es": "Empresa en revisión",
+    "fr": "Entreprise en cours de vérification"
+  },
+  "Azienda sospesa": {
+    "en": "Company suspended",
+    "es": "Empresa suspendida",
+    "fr": "Entreprise suspendue"
+  },
+  "BENTORNATO IN MOREAI": {
+    "en": "WELCOME BACK TO MOREAI",
+    "es": "BIENVENIDO DE NUEVO A MOREAI",
+    "fr": "BON RETOUR SUR MOREAI"
+  },
+  "Budget": {
+    "en": "Budget",
+    "es": "Presupuesto",
+    "fr": "Budget"
+  },
+  "CHAT DI PROVA": {
+    "en": "TEST CHAT",
+    "es": "CHAT DE PRUEBA",
+    "fr": "CHAT DE TEST"
+  },
+  "Calendario di prova": {
+    "en": "Test calendar",
+    "es": "Calendario de prueba",
+    "fr": "Calendrier de test"
+  },
+  "Cambiare o attivare un piano": {
+    "en": "Change or activate a plan",
+    "es": "Cambiar o activar un plan",
+    "fr": "Changer ou activer une offre"
+  },
+  "Caratteristiche richieste": {
+    "en": "Required features",
+    "es": "Características solicitadas",
+    "fr": "Caractéristiques souhaitées"
+  },
+  "Caricamento del piano…": {
+    "en": "Loading plan…",
+    "es": "Cargando el plan…",
+    "fr": "Chargement de l’offre…"
+  },
+  "Caricamento dell’azienda in corso, riprova tra un attimo.": {
+    "en": "Loading your company, try again in a moment.",
+    "es": "Cargando la empresa, inténtalo de nuevo en un momento.",
+    "fr": "Chargement de l’entreprise, réessayez dans un instant."
+  },
+  "Chi gestisce le richieste": {
+    "en": "Who handles requests",
+    "es": "Quién gestiona las solicitudes",
+    "fr": "Qui gère les demandes"
+  },
+  "Chi tratta i dati": {
+    "en": "Who processes the data",
+    "es": "Quién trata los datos",
+    "fr": "Qui traite les données"
+  },
+  "Chiudi": {
+    "en": "Close",
+    "es": "Cerrar",
+    "fr": "Fermer"
+  },
+  "Chiudi dettaglio": {
+    "en": "Close details",
+    "es": "Cerrar detalle",
+    "fr": "Fermer le détail"
+  },
+  "Chiudi ✕": {
+    "en": "Close ✕",
+    "es": "Cerrar ✕",
+    "fr": "Fermer ✕"
+  },
+  "Ciao, avrei bisogno di aiuto per:": {
+    "en": "Hi, I need help with:",
+    "es": "Hola, necesito ayuda con:",
+    "fr": "Bonjour, j’ai besoin d’aide pour :"
+  },
+  "Ciao, come posso aiutarti oggi?": {
+    "en": "Hi, how can I help you today?",
+    "es": "Hola, ¿en qué puedo ayudarte hoy?",
+    "fr": "Bonjour, comment puis-je vous aider aujourd’hui ?"
+  },
+  "Cliente": {
+    "en": "Customer",
+    "es": "Cliente",
+    "fr": "Client"
+  },
+  "Collegamento alla demo non disponibile.": {
+    "en": "Demo link not available.",
+    "es": "Enlace a la demo no disponible.",
+    "fr": "Lien vers la démo indisponible."
+  },
+  "Colore": {
+    "en": "Colour",
+    "es": "Color",
+    "fr": "Couleur"
+  },
+  "Come esporto i dati?": {
+    "en": "How do I export data?",
+    "es": "¿Cómo exporto los datos?",
+    "fr": "Comment exporter les données ?"
+  },
+  "Come gestisco le richieste dei clienti?": {
+    "en": "How do I manage customer requests?",
+    "es": "¿Cómo gestiono las solicitudes de los clientes?",
+    "fr": "Comment gérer les demandes des clients ?"
+  },
+  "Come personalizzo l’assistente?": {
+    "en": "How do I customise the assistant?",
+    "es": "¿Cómo personalizo el asistente?",
+    "fr": "Comment personnaliser l’assistant ?"
+  },
+  "Commento": {
+    "en": "Comment",
+    "es": "Comentario",
+    "fr": "Commentaire"
+  },
+  "Commento interno visibile solo alla tua azienda. Non viene pubblicato come recensione.": {
+    "en": "Internal comment visible only to your company. It is not published as a review.",
+    "es": "Comentario interno visible solo para tu empresa. No se publica como reseña.",
+    "fr": "Commentaire interne visible uniquement par votre entreprise. Il n’est pas publié comme avis."
+  },
+  "Completa i dati aziendali": {
+    "en": "Complete company details",
+    "es": "Completa los datos de la empresa",
+    "fr": "Complétez les données de l’entreprise"
+  },
+  "Completa i dati aziendali dalla pagina Account per avviare l’analisi automatica del tuo sito.": {
+    "en": "Complete your company details on the Account page to start the automatic analysis of your website.",
+    "es": "Completa los datos de la empresa en la página Cuenta para iniciar el análisis automático de tu sitio.",
+    "fr": "Complétez les données de l’entreprise depuis la page Compte pour lancer l’analyse automatique de votre site."
+  },
+  "Completa i dati aziendali per avviarla": {
+    "en": "Complete company details to start it",
+    "es": "Completa los datos de la empresa para iniciarlo",
+    "fr": "Complétez les données de l’entreprise pour la lancer"
+  },
+  "Completata": {
+    "en": "Completed",
+    "es": "Completado",
+    "fr": "Terminée"
+  },
+  "Completata, da controllare": {
+    "en": "Completed, to be checked",
+    "es": "Completado, por revisar",
+    "fr": "Terminée, à vérifier"
+  },
+  "Con questi dati il tuo assistente impara a conoscerti: analizziamo il sito ufficiale e le informazioni pubbliche per preparare le risposte. Non ti chiediamo dati di pagamento.": {
+    "en": "With these details your assistant gets to know you: we analyse the official website and public information to prepare the answers. We do not ask for payment details.",
+    "es": "Con estos datos tu asistente aprende a conocerte: analizamos el sitio oficial y la información pública para preparar las respuestas. No te pedimos datos de pago.",
+    "fr": "Grâce à ces données, votre assistant apprend à vous connaître : nous analysons le site officiel et les informations publiques pour préparer les réponses. Nous ne vous demandons pas de données de paiement."
+  },
+  "Concessionaria": {
+    "en": "Car dealership",
+    "es": "Concesionario",
+    "fr": "Concession automobile"
+  },
+  "Condizioni d’uso — MoreAI": {
+    "en": "Terms of use — MoreAI",
+    "es": "Condiciones de uso — MoreAI",
+    "fr": "Conditions d’utilisation — MoreAI"
+  },
+  "Condizioni e preferenze": {
+    "en": "Terms and preferences",
+    "es": "Condiciones y preferencias",
+    "fr": "Conditions et préférences"
+  },
+  "Conferma email": {
+    "en": "Confirm email",
+    "es": "Confirma el correo",
+    "fr": "Confirmez l’e-mail"
+  },
+  "Conferma la tua email": {
+    "en": "Confirm your email",
+    "es": "Confirma tu correo",
+    "fr": "Confirmez votre e-mail"
+  },
+  "Conferma password": {
+    "en": "Confirm password",
+    "es": "Confirmar contraseña",
+    "fr": "Confirmer le mot de passe"
+  },
+  "Conferme email": {
+    "en": "Email confirmations",
+    "es": "Confirmaciones por correo",
+    "fr": "Confirmations par e-mail"
+  },
+  "Confermo di aver letto l’": {
+    "en": "I confirm I have read the",
+    "es": "Confirmo haber leído el",
+    "fr": "Je confirme avoir lu la"
+  },
+  "Confermo il cambio e il rinnovo simulato al prezzo indicato": {
+    "en": "I confirm the change and the simulated renewal at the stated price",
+    "es": "Confirmo el cambio y la renovación simulada al precio indicado",
+    "fr": "Je confirme le changement et le renouvellement simulé au prix indiqué"
+  },
+  "Confermo la riattivazione e l’eventuale pagamento simulato": {
+    "en": "I confirm the reactivation and any simulated payment",
+    "es": "Confirmo la reactivación y el posible pago simulado",
+    "fr": "Je confirme la réactivation et l’éventuel paiement simulé"
+  },
+  "Confermo l’avvio della prova di 14 giorni e il successivo rinnovo simulato al prezzo e con il periodo indicati, salvo disdetta.": {
+    "en": "I confirm the start of the 14-day trial and the subsequent simulated renewal at the stated price and period, unless cancelled.",
+    "es": "Confirmo el inicio de la prueba de 14 días y la posterior renovación simulada al precio y con el periodo indicados, salvo cancelación.",
+    "fr": "Je confirme le début de l’essai de 14 jours et le renouvellement simulé qui suivra au prix et à la période indiqués, sauf résiliation."
+  },
+  "Configurazione salvata. Inizia una nuova conversazione per provarla.": {
+    "en": "Settings saved. Start a new conversation to try them.",
+    "es": "Configuración guardada. Inicia una nueva conversación para probarla.",
+    "fr": "Configuration enregistrée. Commencez une nouvelle conversation pour l’essayer."
+  },
+  "Confronta i piani →": {
+    "en": "Compare plans →",
+    "es": "Comparar planes →",
+    "fr": "Comparer les offres →"
+  },
+  "Connessione interrotta. Controlla la richiesta prima di riprovare.": {
+    "en": "Connection lost. Check the request before trying again.",
+    "es": "Conexión interrumpida. Revisa la solicitud antes de volver a intentarlo.",
+    "fr": "Connexion interrompue. Vérifiez la demande avant de réessayer."
+  },
+  "Connessione interrotta. Riprova tra poco.": {
+    "en": "Connection lost. Try again shortly.",
+    "es": "Conexión interrumpida. Inténtalo de nuevo en breve.",
+    "fr": "Connexion interrompue. Réessayez dans un instant."
+  },
+  "Contattato": {
+    "en": "Contacted",
+    "es": "Contactado",
+    "fr": "Contacté"
+  },
+  "Contatti pubblici": {
+    "en": "Public contacts",
+    "es": "Contactos públicos",
+    "fr": "Contacts publics"
+  },
+  "Contenuti e risposte dell’assistente": {
+    "en": "Assistant content and replies",
+    "es": "Contenidos y respuestas del asistente",
+    "fr": "Contenus et réponses de l’assistant"
+  },
+  "Controlla che il sito sia corretto: è la fonte principale da cui l’assistente imparerà servizi, orari e contatti. L’analisi richiede qualche minuto.": {
+    "en": "Check that the website is correct: it is the main source from which the assistant will learn services, opening hours and contacts. The analysis takes a few minutes.",
+    "es": "Comprueba que el sitio sea correcto: es la fuente principal de la que el asistente aprenderá servicios, horarios y contactos. El análisis tarda unos minutos.",
+    "fr": "Vérifiez que le site est correct : c’est la source principale à partir de laquelle l’assistant apprendra les services, les horaires et les contacts. L’analyse prend quelques minutes."
+  },
+  "Controlla la tua casella di posta": {
+    "en": "Check your inbox",
+    "es": "Revisa tu bandeja de entrada",
+    "fr": "Consultez votre boîte de réception"
+  },
+  "Conversazione conclusa: inizia una nuova chat": {
+    "en": "Conversation ended: start a new chat",
+    "es": "Conversación terminada: inicia un nuevo chat",
+    "fr": "Conversation terminée : démarrez un nouveau chat"
+  },
+  "Conversazione conclusa: premi ↻ per iniziarne una nuova": {
+    "en": "Conversation ended: press ↻ to start a new one",
+    "es": "Conversación terminada: pulsa ↻ para iniciar otra",
+    "fr": "Conversation terminée : appuyez sur ↻ pour en commencer une nouvelle"
+  },
+  "Conversazione del": {
+    "en": "Conversation of",
+    "es": "Conversación del",
+    "fr": "Conversation du"
+  },
+  "Conversazione di prova": {
+    "en": "Test conversation",
+    "es": "Conversación de prueba",
+    "fr": "Conversation de test"
+  },
+  "Conversazione privata · dati di prova": {
+    "en": "Private conversation · test data",
+    "es": "Conversación privada · datos de prueba",
+    "fr": "Conversation privée · données de test"
+  },
+  "Conversazioni": {
+    "en": "Conversations",
+    "es": "Conversaciones",
+    "fr": "Conversations"
+  },
+  "Conversazioni della tua azienda": {
+    "en": "Your company’s conversations",
+    "es": "Conversaciones de tu empresa",
+    "fr": "Conversations de votre entreprise"
+  },
+  "Conversazioni e richieste:": {
+    "en": "Conversations and requests:",
+    "es": "Conversaciones y solicitudes:",
+    "fr": "Conversations et demandes :"
+  },
+  "Cookie": {
+    "en": "Cookies",
+    "es": "Cookies",
+    "fr": "Cookies"
+  },
+  "Cookie e tecnologie — MoreAI": {
+    "en": "Cookies and technologies — MoreAI",
+    "es": "Cookies y tecnologías — MoreAI",
+    "fr": "Cookies et technologies — MoreAI"
+  },
+  "Cookie tecnici": {
+    "en": "Technical cookies",
+    "es": "Cookies técnicas",
+    "fr": "Cookies techniques"
+  },
+  "Crea il tuo account": {
+    "en": "Create your account",
+    "es": "Crea tu cuenta",
+    "fr": "Créez votre compte"
+  },
+  "Crea il tuo spazio aziendale: la Demo di 7 giorni è gratuita e non serve la carta.": {
+    "en": "Create your company space: the 7-day Demo is free and no card is needed.",
+    "es": "Crea tu espacio de empresa: la Demo de 7 días es gratuita y no necesitas tarjeta.",
+    "fr": "Créez votre espace entreprise : la Démo de 7 jours est gratuite et sans carte bancaire."
+  },
+  "DATI AZIENDALI": {
+    "en": "COMPANY DETAILS",
+    "es": "DATOS DE LA EMPRESA",
+    "fr": "DONNÉES DE L’ENTREPRISE"
+  },
+  "DEMO ·": {
+    "en": "DEMO ·",
+    "es": "DEMO ·",
+    "fr": "DÉMO ·"
+  },
+  "Da contattare": {
+    "en": "To contact",
+    "es": "Por contactar",
+    "fr": "À contacter"
+  },
+  "Dashboard": {
+    "en": "Dashboard",
+    "es": "Panel",
+    "fr": "Tableau de bord"
+  },
+  "Data e ora locale": {
+    "en": "Local date and time",
+    "es": "Fecha y hora local",
+    "fr": "Date et heure locales"
+  },
+  "Dati aziendali — MoreAI": {
+    "en": "Company details — MoreAI",
+    "es": "Datos de la empresa — MoreAI",
+    "fr": "Données de l’entreprise — MoreAI"
+  },
+  "Dati aziendali:": {
+    "en": "Company data:",
+    "es": "Datos de la empresa:",
+    "fr": "Données de l’entreprise :"
+  },
+  "Dati della conversazione eliminati.": {
+    "en": "Conversation data deleted.",
+    "es": "Datos de la conversación eliminados.",
+    "fr": "Données de la conversation supprimées."
+  },
+  "Dati e sito ufficiale.": {
+    "en": "Details and official website.",
+    "es": "Datos y sitio oficial.",
+    "fr": "Données et site officiel."
+  },
+  "Dati personali": {
+    "en": "Personal data",
+    "es": "Datos personales",
+    "fr": "Données personnelles"
+  },
+  "Dati salvati. Stiamo leggendo il sito e le informazioni pubbliche della tua azienda: ci vuole qualche minuto.": {
+    "en": "Details saved. We are reading your company’s website and public information: it takes a few minutes.",
+    "es": "Datos guardados. Estamos leyendo el sitio y la información pública de tu empresa: tardará unos minutos.",
+    "fr": "Données enregistrées. Nous lisons le site et les informations publiques de votre entreprise : cela prend quelques minutes."
+  },
+  "Dati tecnici:": {
+    "en": "Technical data:",
+    "es": "Datos técnicos:",
+    "fr": "Données techniques :"
+  },
+  "Dati verificati": {
+    "en": "Verified data",
+    "es": "Datos verificados",
+    "fr": "Données vérifiées"
+  },
+  "Decidi quali attività può svolgere e personalizza il suo aspetto.": {
+    "en": "Decide what it can do and customise its look.",
+    "es": "Decide qué puede hacer y personaliza su aspecto.",
+    "fr": "Décidez ce qu’il peut faire et personnalisez son apparence."
+  },
+  "Demo": {
+    "en": "Demo",
+    "es": "Demo",
+    "fr": "Démo"
+  },
+  "Demo e piani": {
+    "en": "Demo and plans",
+    "es": "Demo y planes",
+    "fr": "Démo et offres"
+  },
+  "Descrive come deve parlare l’assistente, per esempio in modo professionale, breve e cortese.": {
+    "en": "Describes how the assistant should speak, for example professionally, briefly and politely.",
+    "es": "Describe cómo debe hablar el asistente, por ejemplo de forma profesional, breve y cortés.",
+    "fr": "Décrit comment l’assistant doit s’exprimer, par exemple de façon professionnelle, brève et courtoise."
+  },
+  "Descrive l’ambito in cui opera l’azienda e aiuta a contestualizzare il dialogo.": {
+    "en": "Describes the field the company works in and helps put the conversation in context.",
+    "es": "Describe el ámbito en el que opera la empresa y ayuda a contextualizar el diálogo.",
+    "fr": "Décrit le domaine d’activité de l’entreprise et aide à contextualiser le dialogue."
+  },
+  "Descrizione": {
+    "en": "Description",
+    "es": "Descripción",
+    "fr": "Description"
+  },
+  "Destra": {
+    "en": "Right",
+    "es": "Derecha",
+    "fr": "Droite"
+  },
+  "Dettagli": {
+    "en": "Details",
+    "es": "Detalles",
+    "fr": "Détails"
+  },
+  "Dettaglio": {
+    "en": "Details",
+    "es": "Detalle",
+    "fr": "Détail"
+  },
+  "Dettaglio richiesta": {
+    "en": "Request details",
+    "es": "Detalle de la solicitud",
+    "fr": "Détail de la demande"
+  },
+  "Dipende dal piano: Demo 100, Base 3.000, Plus 10.000, Advanced 50.000 al mese. Il consumo aggiornato è in Piano e consumi.": {
+    "en": "It depends on the plan: Demo 100, Base 3,000, Plus 10,000, Advanced 50,000 per month. Up-to-date usage is in Plan and usage.",
+    "es": "Depende del plan: Demo 100, Base 3.000, Plus 10.000, Advanced 50.000 al mes. El consumo actualizado está en Plan y consumo.",
+    "fr": "Cela dépend de l’offre : Démo 100, Base 3 000, Plus 10 000, Advanced 50 000 par mois. La consommation à jour se trouve dans Offre et consommation."
+  },
+  "Disattivata": {
+    "en": "Disabled",
+    "es": "Desactivada",
+    "fr": "Désactivée"
+  },
+  "Disdici il rinnovo": {
+    "en": "Cancel renewal",
+    "es": "Cancelar la renovación",
+    "fr": "Annuler le renouvellement"
+  },
+  "Disponibile fino al": {
+    "en": "Available until",
+    "es": "Disponible hasta el",
+    "fr": "Disponible jusqu’au"
+  },
+  "Disponibilità": {
+    "en": "Availability",
+    "es": "Disponibilidad",
+    "fr": "Disponibilité"
+  },
+  "Disponibilità di prova per le prenotazioni. Non aggiorna calendari esterni.": {
+    "en": "Test availability for bookings. It does not update external calendars.",
+    "es": "Disponibilidad de prueba para reservas. No actualiza calendarios externos.",
+    "fr": "Disponibilité de test pour les réservations. Ne met pas à jour les calendriers externes."
+  },
+  "Domande frequenti": {
+    "en": "Frequently asked questions",
+    "es": "Preguntas frecuentes",
+    "fr": "Questions fréquentes"
+  },
+  "Elenca i siti su cui è installata la chat della tua azienda.": {
+    "en": "Lists the websites where your company’s chat is installed.",
+    "es": "Enumera los sitios en los que está instalado el chat de tu empresa.",
+    "fr": "Liste les sites sur lesquels le chat de votre entreprise est installé."
+  },
+  "Elimina conversazione e richiesta": {
+    "en": "Delete conversation and request",
+    "es": "Eliminar conversación y solicitud",
+    "fr": "Supprimer la conversation et la demande"
+  },
+  "Email": {
+    "en": "Email",
+    "es": "Correo electrónico",
+    "fr": "E-mail"
+  },
+  "Email account": {
+    "en": "Account email",
+    "es": "Correo de la cuenta",
+    "fr": "E-mail du compte"
+  },
+  "Email di verifica inviata.": {
+    "en": "Verification email sent.",
+    "es": "Correo de verificación enviado.",
+    "fr": "E-mail de vérification envoyé."
+  },
+  "Email istituzionale o aziendale": {
+    "en": "Institutional or business email",
+    "es": "Correo institucional o de empresa",
+    "fr": "E-mail institutionnel ou professionnel"
+  },
+  "Email non ancora verificata": {
+    "en": "Email not yet verified",
+    "es": "Correo aún no verificado",
+    "fr": "E-mail pas encore vérifié"
+  },
+  "Email verificata": {
+    "en": "Email verified",
+    "es": "Correo verificado",
+    "fr": "E-mail vérifié"
+  },
+  "Email verificata.": {
+    "en": "Email verified.",
+    "es": "Correo verificado.",
+    "fr": "E-mail vérifié."
+  },
+  "Esci": {
+    "en": "Log out",
+    "es": "Salir",
+    "fr": "Se déconnecter"
+  },
+  "Esito commerciale": {
+    "en": "Sales outcome",
+    "es": "Resultado comercial",
+    "fr": "Résultat commercial"
+  },
+  "Esito da verificare": {
+    "en": "Outcome to be checked",
+    "es": "Resultado por verificar",
+    "fr": "Résultat à vérifier"
+  },
+  "Esporta CSV": {
+    "en": "Export CSV",
+    "es": "Exportar CSV",
+    "fr": "Exporter en CSV"
+  },
+  "Esportazione non disponibile. Verifica l’accesso e riprova.": {
+    "en": "Export not available. Check your login and try again.",
+    "es": "Exportación no disponible. Comprueba el acceso e inténtalo de nuevo.",
+    "fr": "Export indisponible. Vérifiez la connexion et réessayez."
+  },
+  "Eventuale permuta": {
+    "en": "Possible trade-in",
+    "es": "Posible permuta",
+    "fr": "Reprise éventuelle"
+  },
+  "Facciamo il possibile per mantenere il servizio sempre attivo, ma possono verificarsi interruzioni per manutenzione o per cause che non dipendono da noi.": {
+    "en": "We do our best to keep the service always available, but interruptions may occur for maintenance or for reasons beyond our control.",
+    "es": "Hacemos todo lo posible para mantener el servicio siempre activo, pero pueden producirse interrupciones por mantenimiento o por causas ajenas a nosotros.",
+    "fr": "Nous faisons de notre mieux pour que le service reste toujours disponible, mais des interruptions peuvent survenir pour maintenance ou pour des causes indépendantes de notre volonté."
+  },
+  "Facoltativo.": {
+    "en": "Optional.",
+    "es": "Opcional.",
+    "fr": "Facultatif."
+  },
+  "Fatturazione": {
+    "en": "Billing",
+    "es": "Facturación",
+    "fr": "Facturation"
+  },
+  "Feedback dei visitatori": {
+    "en": "Visitor feedback",
+    "es": "Opiniones de los visitantes",
+    "fr": "Avis des visiteurs"
+  },
+  "Feedback del team": {
+    "en": "Team feedback",
+    "es": "Opiniones del equipo",
+    "fr": "Avis de l’équipe"
+  },
+  "Feedback e richieste di contatto:": {
+    "en": "Feedback and contact requests:",
+    "es": "Opiniones y solicitudes de contacto:",
+    "fr": "Avis et demandes de contact :"
+  },
+  "Feedback salvato per la tua azienda.": {
+    "en": "Feedback saved for your company.",
+    "es": "Opinión guardada para tu empresa.",
+    "fr": "Avis enregistré pour votre entreprise."
+  },
+  "Feedback su questa conversazione": {
+    "en": "Feedback on this conversation",
+    "es": "Opinión sobre esta conversación",
+    "fr": "Avis sur cette conversation"
+  },
+  "Fonte pubblica": {
+    "en": "Public source",
+    "es": "Fuente pública",
+    "fr": "Source publique"
+  },
+  "Fonte:": {
+    "en": "Source:",
+    "es": "Fuente:",
+    "fr": "Source :"
+  },
+  "Formato": {
+    "en": "Format",
+    "es": "Formato",
+    "fr": "Format"
+  },
+  "Fornire il servizio richiesto: account, dashboard, assistente e gestione delle richieste (esecuzione del contratto o di misure precontrattuali).": {
+    "en": "Providing the requested service: account, dashboard, assistant and request management (performance of a contract or pre-contractual measures).",
+    "es": "Prestar el servicio solicitado: cuenta, panel, asistente y gestión de solicitudes (ejecución del contrato o de medidas precontractuales).",
+    "fr": "Fournir le service demandé : compte, tableau de bord, assistant et gestion des demandes (exécution du contrat ou de mesures précontractuelles)."
+  },
+  "Francia": {
+    "en": "France",
+    "es": "Francia",
+    "fr": "France"
+  },
+  "Germania": {
+    "en": "Germany",
+    "es": "Alemania",
+    "fr": "Allemagne"
+  },
+  "Gestione abbonamento": {
+    "en": "Subscription management",
+    "es": "Gestión de la suscripción",
+    "fr": "Gestion de l’abonnement"
+  },
+  "Gestione operatore": {
+    "en": "Operator handling",
+    "es": "Gestión por operador",
+    "fr": "Gestion par un opérateur"
+  },
+  "Grazie, il feedback è salvato: lo trovi in «Statistiche e fonti».": {
+    "en": "Thanks, your feedback is saved: you’ll find it in “Statistics and sources”.",
+    "es": "Gracias, tu opinión se ha guardado: la encontrarás en «Estadísticas y fuentes».",
+    "fr": "Merci, votre avis est enregistré : vous le trouverez dans « Statistiques et sources »."
+  },
+  "Grazie, il feedback è stato salvato nell’archivio privato.": {
+    "en": "Thanks, your feedback has been saved in the private archive.",
+    "es": "Gracias, tu opinión se ha guardado en el archivo privado.",
+    "fr": "Merci, votre avis a été enregistré dans l’archive privée."
+  },
+  "Hai già un account? Accedi": {
+    "en": "Already have an account? Log in",
+    "es": "¿Ya tienes una cuenta? Inicia sesión",
+    "fr": "Vous avez déjà un compte ? Connectez-vous"
+  },
+  "Hai raggiunto il limite del mese: l’assistente riprenderà a rispondere il primo giorno del mese prossimo, oppure passando a un piano superiore.": {
+    "en": "You have reached this month’s limit: the assistant will reply again on the first day of next month, or if you upgrade your plan.",
+    "es": "Has alcanzado el límite del mes: el asistente volverá a responder el primer día del mes próximo, o pasando a un plan superior.",
+    "fr": "Vous avez atteint la limite du mois : l’assistant répondra à nouveau le premier jour du mois prochain, ou en passant à une offre supérieure."
+  },
+  "Hai raggiunto il limite del mese: l’assistente riprenderà il primo giorno del mese prossimo, oppure passando a un piano superiore.": {
+    "en": "You have reached this month’s limit: the assistant will resume on the first day of next month, or if you upgrade your plan.",
+    "es": "Has alcanzado el límite del mes: el asistente se reanudará el primer día del mes próximo, o pasando a un plan superior.",
+    "fr": "Vous avez atteint la limite du mois : l’assistant reprendra le premier jour du mois prochain, ou en passant à une offre supérieure."
+  },
+  "Hai un problema, un dubbio o qualcosa non funziona? Scrivici: rispondiamo di solito entro 1 giorno lavorativo.": {
+    "en": "Have a problem, a question or something not working? Write to us: we usually reply within 1 business day.",
+    "es": "¿Tienes un problema, una duda o algo no funciona? Escríbenos: solemos responder en 1 día laborable.",
+    "fr": "Un problème, une question ou quelque chose ne fonctionne pas ? Écrivez-nous : nous répondons généralement sous 1 jour ouvré."
+  },
+  "Ho dimenticato la password": {
+    "en": "I forgot my password",
+    "es": "He olvidado la contraseña",
+    "fr": "J’ai oublié mon mot de passe"
+  },
+  "Ho letto e accetto le": {
+    "en": "I have read and accept the",
+    "es": "He leído y acepto las",
+    "fr": "J’ai lu et j’accepte les"
+  },
+  "Home": {
+    "en": "Home",
+    "es": "Inicio",
+    "fr": "Accueil"
+  },
+  "I cambi piano decorrono dal prossimo rinnovo. Non ci sono conguagli: il nuovo importo sostituisce il precedente alla scadenza. Dopo un pagamento fallito hai": {
+    "en": "Plan changes take effect from the next renewal. There are no adjustments: the new amount replaces the previous one at expiry. After a failed payment you have",
+    "es": "Los cambios de plan se aplican desde la próxima renovación. No hay ajustes: el nuevo importe sustituye al anterior al vencimiento. Tras un pago fallido tienes",
+    "fr": "Les changements d’offre prennent effet au prochain renouvellement. Il n’y a pas de régularisation : le nouveau montant remplace le précédent à l’échéance. Après un paiement échoué, vous disposez de"
+  },
+  "I dati del tuo accesso e della tua azienda.": {
+    "en": "Your login and company details.",
+    "es": "Los datos de tu acceso y de tu empresa.",
+    "fr": "Les données de votre accès et de votre entreprise."
+  },
+  "I dati dell’account restano finché l’account è attivo. Conversazioni e richieste restano a disposizione dell’azienda nella sua dashboard, da cui può cancellarle in qualsiasi momento. Le richieste inviate con il modulo contatti vengono conservate per il tempo necessario a gestirle. Se chiudi l’account o ce lo chiedi, cancelliamo i dati salvo quelli che dobbiamo conservare per legge.": {
+    "en": "Account data is kept as long as the account is active. Conversations and requests remain available to the company in its dashboard, where it can delete them at any time. Requests sent through the contact form are kept for as long as needed to handle them. If you close your account or ask us to, we delete the data except what we must keep by law.",
+    "es": "Los datos de la cuenta se conservan mientras la cuenta esté activa. Las conversaciones y solicitudes quedan a disposición de la empresa en su panel, desde donde puede eliminarlas en cualquier momento. Las solicitudes enviadas con el formulario de contacto se conservan el tiempo necesario para gestionarlas. Si cierras la cuenta o nos lo pides, eliminamos los datos salvo los que debamos conservar por ley.",
+    "fr": "Les données du compte sont conservées tant que le compte est actif. Les conversations et les demandes restent à la disposition de l’entreprise dans son tableau de bord, d’où elle peut les supprimer à tout moment. Les demandes envoyées via le formulaire de contact sont conservées le temps nécessaire à leur traitement. Si vous fermez votre compte ou nous le demandez, nous supprimons les données, sauf celles que nous devons conserver en vertu de la loi."
+  },
+  "I pagamenti online sono in arrivo. Per attivare Base, Plus o Advanced, o per cambiare piano, scrivici a": {
+    "en": "Online payments are coming soon. To activate Base, Plus or Advanced, or to change plan, write to us at",
+    "es": "Los pagos en línea llegarán pronto. Para activar Base, Plus o Advanced, o para cambiar de plan, escríbenos a",
+    "fr": "Les paiements en ligne arrivent bientôt. Pour activer Base, Plus ou Advanced, ou pour changer d’offre, écrivez-nous à"
+  },
+  "I recapiti verificati che l’assistente può comunicare ai visitatori.": {
+    "en": "The verified contact details the assistant can share with visitors.",
+    "es": "Los datos de contacto verificados que el asistente puede comunicar a los visitantes.",
+    "fr": "Les coordonnées vérifiées que l’assistant peut communiquer aux visiteurs."
+  },
+  "I tuoi diritti": {
+    "en": "Your rights",
+    "es": "Tus derechos",
+    "fr": "Vos droits"
+  },
+  "IL TUO SPAZIO AZIENDALE": {
+    "en": "YOUR COMPANY SPACE",
+    "es": "TU ESPACIO DE EMPRESA",
+    "fr": "VOTRE ESPACE ENTREPRISE"
+  },
+  "INIZIA CON LA TUA AZIENDA": {
+    "en": "START WITH YOUR COMPANY",
+    "es": "EMPIEZA CON TU EMPRESA",
+    "fr": "COMMENCEZ AVEC VOTRE ENTREPRISE"
+  },
+  "Identità e aspetto": {
+    "en": "Identity and appearance",
+    "es": "Identidad y aspecto",
+    "fr": "Identité et apparence"
+  },
+  "Il banner offre Accetta, Rifiuta e Solo obbligatori: oggi tutte le opzioni mantengono attive soltanto le tecnologie necessarie. Puoi cambiare scelta in qualsiasi momento da «Preferenze cookie» in fondo alla pagina principale. Per qualsiasi domanda scrivi a": {
+    "en": "The banner offers Accept, Reject and Necessary only: today all options keep only the necessary technologies active. You can change your choice at any time from “Cookie preferences” at the bottom of the page. For any question write to",
+    "es": "El banner ofrece Aceptar, Rechazar y Solo obligatorias: hoy todas las opciones mantienen activas solo las tecnologías necesarias. Puedes cambiar tu elección en cualquier momento desde «Preferencias de cookies» al final de la página. Para cualquier pregunta escribe a",
+    "fr": "Le bandeau propose Accepter, Refuser et Uniquement obligatoires : aujourd’hui, toutes les options ne gardent actives que les technologies nécessaires. Vous pouvez modifier votre choix à tout moment via « Préférences cookies » en bas de page. Pour toute question, écrivez à"
+  },
+  "Il bonifico ordinario richiede un pagamento manuale. Non consente un prelievo automatico: per questa prova scegli un metodo ricorrente.": {
+    "en": "A standard bank transfer requires a manual payment. It does not allow automatic collection: for this trial choose a recurring method.",
+    "es": "La transferencia ordinaria requiere un pago manual. No permite un cobro automático: para esta prueba elige un método recurrente.",
+    "fr": "Le virement ordinaire nécessite un paiement manuel. Il ne permet pas de prélèvement automatique : pour cet essai, choisissez un moyen récurrent."
+  },
+  "Il colore principale della chat aziendale.": {
+    "en": "The main colour of the company chat.",
+    "es": "El color principal del chat de la empresa.",
+    "fr": "La couleur principale du chat de l’entreprise."
+  },
+  "Il conteggio riparte il primo giorno di ogni mese. Rimangono": {
+    "en": "The count restarts on the first day of each month. Remaining:",
+    "es": "El recuento se reinicia el primer día de cada mes. Quedan",
+    "fr": "Le compteur repart le premier jour de chaque mois. Il reste"
+  },
+  "Il nome con cui si presenta la chat della tua azienda.": {
+    "en": "The name your company’s chat introduces itself with.",
+    "es": "El nombre con el que se presenta el chat de tu empresa.",
+    "fr": "Le nom sous lequel se présente le chat de votre entreprise."
+  },
+  "Il nome del dato che desideri raccogliere durante la conversazione.": {
+    "en": "The name of the information you want to collect during the conversation.",
+    "es": "El nombre del dato que quieres recoger durante la conversación.",
+    "fr": "Le nom de l’information que vous souhaitez recueillir pendant la conversation."
+  },
+  "Il nome utilizzato per identificare la tua attività nella configurazione e nella chat.": {
+    "en": "The name used to identify your business in the settings and in the chat.",
+    "es": "El nombre utilizado para identificar tu actividad en la configuración y en el chat.",
+    "fr": "Le nom utilisé pour identifier votre activité dans la configuration et dans le chat."
+  },
+  "Il nostro personale commerciale": {
+    "en": "Our sales staff",
+    "es": "Nuestro personal comercial",
+    "fr": "Notre équipe commerciale"
+  },
+  "Il saluto mostrato quando inizia una nuova conversazione.": {
+    "en": "The greeting shown when a new conversation starts.",
+    "es": "El saludo que aparece al iniciar una nueva conversación.",
+    "fr": "Le message d’accueil affiché au début d’une nouvelle conversation."
+  },
+  "Il sito usa solo tecnologie necessarie al funzionamento: trovi i dettagli nella pagina": {
+    "en": "The site only uses technologies needed for it to work: details are on the page",
+    "es": "El sitio solo usa tecnologías necesarias para su funcionamiento: encontrarás los detalles en la página",
+    "fr": "Le site n’utilise que les technologies nécessaires à son fonctionnement : les détails sont sur la page"
+  },
+  "Il trattamento dei dati è descritto nell’": {
+    "en": "Data processing is described in the",
+    "es": "El tratamiento de los datos se describe en el",
+    "fr": "Le traitement des données est décrit dans la"
+  },
+  "Il tuo Spazio Aziendale": {
+    "en": "Your Company Space",
+    "es": "Tu Espacio de Empresa",
+    "fr": "Votre Espace Entreprise"
+  },
+  "Il tuo piano:": {
+    "en": "Your plan:",
+    "es": "Tu plan:",
+    "fr": "Votre offre :"
+  },
+  "Il tuo spazio": {
+    "en": "Your space",
+    "es": "Tu espacio",
+    "fr": "Votre espace"
+  },
+  "Il tuo spazio aziendale": {
+    "en": "Your company space",
+    "es": "Tu espacio de empresa",
+    "fr": "Votre espace entreprise"
+  },
+  "Il voto e il commento compaiono in «Statistiche e fonti».": {
+    "en": "The rating and comment appear in “Statistics and sources”.",
+    "es": "La valoración y el comentario aparecen en «Estadísticas y fuentes».",
+    "fr": "La note et le commentaire apparaissent dans « Statistiques et sources »."
+  },
+  "Impostazione di": {
+    "en": "Setting of",
+    "es": "Configuración de",
+    "fr": "Paramètre de"
+  },
+  "Impostazione tecnica avanzata: assegna punti con criteri espliciti, senza inventare valutazioni casuali.": {
+    "en": "Advanced technical setting: assigns points with explicit criteria, without inventing random scores.",
+    "es": "Configuración técnica avanzada: asigna puntos con criterios explícitos, sin inventar valoraciones aleatorias.",
+    "fr": "Paramètre technique avancé : attribue des points selon des critères explicites, sans inventer d’évaluations au hasard."
+  },
+  "Impostazione tecnica avanzata: stabilisce a quale reparto o referente indirizzare una richiesta.": {
+    "en": "Advanced technical setting: decides which department or contact a request goes to.",
+    "es": "Configuración técnica avanzada: establece a qué departamento o responsable dirigir una solicitud.",
+    "fr": "Paramètre technique avancé : détermine à quel service ou interlocuteur adresser une demande."
+  },
+  "In Dashboard → Informazioni per l’AI inserisci servizi, orari, prezzi e tutto ciò che l’assistente può comunicare, e scegli quali dati raccogliere. Le modifiche valgono per le nuove conversazioni.": {
+    "en": "In Dashboard → Information for the AI, enter services, opening hours, prices and everything the assistant may share, and choose which data to collect. Changes apply to new conversations.",
+    "es": "En Panel → Información para la IA introduce servicios, horarios, precios y todo lo que el asistente puede comunicar, y elige qué datos recoger. Los cambios se aplican a las nuevas conversaciones.",
+    "fr": "Dans Tableau de bord → Informations pour l’IA, saisissez les services, horaires, prix et tout ce que l’assistant peut communiquer, puis choisissez les données à recueillir. Les modifications s’appliquent aux nouvelles conversations."
+  },
+  "In Dashboard → Richieste usa Esporta: scarichi un file CSV, apribile con Excel. Conservalo con cura, perché contiene dati dei tuoi clienti.": {
+    "en": "In Dashboard → Requests use Export: you download a CSV file that opens in Excel. Keep it safe, as it contains your customers’ data.",
+    "es": "En Panel → Solicitudes usa Exportar: descargas un archivo CSV que se abre con Excel. Guárdalo con cuidado, porque contiene datos de tus clientes.",
+    "fr": "Dans Tableau de bord → Demandes, utilisez Exporter : vous téléchargez un fichier CSV ouvrable avec Excel. Conservez-le avec soin, car il contient les données de vos clients."
+  },
+  "In attesa": {
+    "en": "Pending",
+    "es": "En espera",
+    "fr": "En attente"
+  },
+  "In corso": {
+    "en": "In progress",
+    "es": "En curso",
+    "fr": "En cours"
+  },
+  "In lavorazione": {
+    "en": "Being handled",
+    "es": "En gestión",
+    "fr": "En traitement"
+  },
+  "In preparazione": {
+    "en": "In preparation",
+    "es": "En preparación",
+    "fr": "En préparation"
+  },
+  "Indica come è proseguito il rapporto con il cliente: dal primo contatto alla vendita o alla perdita della richiesta.": {
+    "en": "Shows how the relationship with the customer went: from first contact to a sale or a lost request.",
+    "es": "Indica cómo ha continuado la relación con el cliente: desde el primer contacto hasta la venta o la pérdida de la solicitud.",
+    "fr": "Indique comment la relation avec le client a évolué : du premier contact à la vente ou à la perte de la demande."
+  },
+  "Indica il referente o il team a cui l’assistente prepara le richieste, per esempio il personale commerciale.": {
+    "en": "The contact person or team the assistant prepares requests for, for example the sales staff.",
+    "es": "Indica el responsable o el equipo para el que el asistente prepara las solicitudes, por ejemplo el personal comercial.",
+    "fr": "Indique l’interlocuteur ou l’équipe pour qui l’assistant prépare les demandes, par exemple l’équipe commerciale."
+  },
+  "Indica le priorità commerciali e, nelle impostazioni avanzate, le regole per valutare e assegnare i contatti.": {
+    "en": "Sets sales priorities and, in advanced settings, the rules to score and assign contacts.",
+    "es": "Indica las prioridades comerciales y, en la configuración avanzada, las reglas para valorar y asignar los contactos.",
+    "fr": "Indique les priorités commerciales et, dans les paramètres avancés, les règles pour évaluer et attribuer les contacts."
+  },
+  "Informativa privacy": {
+    "en": "Privacy notice",
+    "es": "Aviso de privacidad",
+    "fr": "Politique de confidentialité"
+  },
+  "Informazione": {
+    "en": "Information",
+    "es": "Información",
+    "fr": "Information"
+  },
+  "Informazione fornita dall’azienda": {
+    "en": "Information provided by the company",
+    "es": "Información facilitada por la empresa",
+    "fr": "Information fournie par l’entreprise"
+  },
+  "Informazioni da raccogliere": {
+    "en": "Information to collect",
+    "es": "Información que recoger",
+    "fr": "Informations à recueillir"
+  },
+  "Informazioni dell’azienda": {
+    "en": "Company information",
+    "es": "Información de la empresa",
+    "fr": "Informations sur l’entreprise"
+  },
+  "Informazioni e fonti": {
+    "en": "Information and sources",
+    "es": "Información y fuentes",
+    "fr": "Informations et sources"
+  },
+  "Informazioni per l’AI": {
+    "en": "Information for the AI",
+    "es": "Información para la IA",
+    "fr": "Informations pour l’IA"
+  },
+  "Informazioni richieste": {
+    "en": "Requested information",
+    "es": "Información solicitada",
+    "fr": "Informations demandées"
+  },
+  "Informazioni verificate a disposizione dell’AI": {
+    "en": "Verified information available to the AI",
+    "es": "Información verificada a disposición de la IA",
+    "fr": "Informations vérifiées à disposition de l’IA"
+  },
+  "Informazioni:": {
+    "en": "Information:",
+    "es": "Información:",
+    "fr": "Informations :"
+  },
+  "Inizia la prova gratuita di 14 giorni": {
+    "en": "Start the 14-day free trial",
+    "es": "Empieza la prueba gratuita de 14 días",
+    "fr": "Commencer l’essai gratuit de 14 jours"
+  },
+  "Iniziata il": {
+    "en": "Started on",
+    "es": "Iniciada el",
+    "fr": "Commencée le"
+  },
+  "Inserisci l’email del tuo account: ti invieremo un link per scegliere una nuova password.": {
+    "en": "Enter your account email: we will send you a link to choose a new password.",
+    "es": "Introduce el correo de tu cuenta: te enviaremos un enlace para elegir una nueva contraseña.",
+    "fr": "Saisissez l’e-mail de votre compte : nous vous enverrons un lien pour choisir un nouveau mot de passe."
+  },
+  "Inserisci solo informazioni verificate che l’assistente può comunicare. Le modifiche valgono per le nuove conversazioni.": {
+    "en": "Enter only verified information the assistant may share. Changes apply to new conversations.",
+    "es": "Introduce solo información verificada que el asistente pueda comunicar. Los cambios se aplican a las nuevas conversaciones.",
+    "fr": "Saisissez uniquement des informations vérifiées que l’assistant peut communiquer. Les modifications s’appliquent aux nouvelles conversations."
+  },
+  "Installazioni": {
+    "en": "Installations",
+    "es": "Instalaciones",
+    "fr": "Installations"
+  },
+  "Interesse per finanziamento": {
+    "en": "Interest in financing",
+    "es": "Interés en financiación",
+    "fr": "Intérêt pour un financement"
+  },
+  "Invia automaticamente al CRM di prova locale dopo il consenso al contatto": {
+    "en": "Automatically send to the local test CRM after contact consent",
+    "es": "Enviar automáticamente al CRM de prueba local tras el consentimiento de contacto",
+    "fr": "Envoyer automatiquement au CRM de test local après le consentement au contact"
+  },
+  "Invia collegamento": {
+    "en": "Send link",
+    "es": "Enviar enlace",
+    "fr": "Envoyer le lien"
+  },
+  "Invia di nuovo l’email di verifica": {
+    "en": "Resend verification email",
+    "es": "Reenviar el correo de verificación",
+    "fr": "Renvoyer l’e-mail de vérification"
+  },
+  "Invia risposta al cliente": {
+    "en": "Send reply to customer",
+    "es": "Enviar respuesta al cliente",
+    "fr": "Envoyer la réponse au client"
+  },
+  "Invia una conferma al cliente quando ha indicato un’email.": {
+    "en": "Sends a confirmation to the customer when they provided an email.",
+    "es": "Envía una confirmación al cliente cuando ha indicado un correo.",
+    "fr": "Envoie une confirmation au client lorsqu’il a indiqué un e-mail."
+  },
+  "Invio in corso": {
+    "en": "Sending",
+    "es": "Enviando",
+    "fr": "Envoi en cours"
+  },
+  "Invio reale non attivo: manca il servizio mittente.": {
+    "en": "Real sending not active: the sender service is missing.",
+    "es": "Envío real no activo: falta el servicio remitente.",
+    "fr": "Envoi réel inactif : le service d’expédition manque."
+  },
+  "Italia": {
+    "en": "Italy",
+    "es": "Italia",
+    "fr": "Italie"
+  },
+  "LA TUA AZIENDA": {
+    "en": "YOUR COMPANY",
+    "es": "TU EMPRESA",
+    "fr": "VOTRE ENTREPRISE"
+  },
+  "La Demo termina il": {
+    "en": "The Demo ends on",
+    "es": "La Demo termina el",
+    "fr": "La Démo se termine le"
+  },
+  "La Demo è gratuita, dura 7 giorni e include 100 messaggi AI. I piani Base, Plus e Advanced includono rispettivamente 3.000, 10.000 e 50.000 messaggi AI al mese; per Advanced il limite vale come soglia di uso corretto. Prezzi e caratteristiche sono indicati nella sezione Offerte del sito. Finché i pagamenti online non sono attivi, i piani a pagamento vengono attivati su accordo diretto con MoreAI.": {
+    "en": "The Demo is free, lasts 7 days and includes 100 AI messages. The Base, Plus and Advanced plans include 3,000, 10,000 and 50,000 AI messages per month respectively; for Advanced the limit is a fair-use threshold. Prices and features are shown in the Plans section of the site. Until online payments are active, paid plans are activated by direct agreement with MoreAI.",
+    "es": "La Demo es gratuita, dura 7 días e incluye 100 mensajes de IA. Los planes Base, Plus y Advanced incluyen respectivamente 3.000, 10.000 y 50.000 mensajes de IA al mes; para Advanced el límite es un umbral de uso razonable. Los precios y características se indican en la sección Planes del sitio. Mientras los pagos en línea no estén activos, los planes de pago se activan por acuerdo directo con MoreAI.",
+    "fr": "La Démo est gratuite, dure 7 jours et inclut 100 messages IA. Les offres Base, Plus et Advanced incluent respectivement 3 000, 10 000 et 50 000 messages IA par mois ; pour Advanced, la limite est un seuil d’usage raisonnable. Les prix et caractéristiques figurent dans la section Offres du site. Tant que les paiements en ligne ne sont pas actifs, les offres payantes sont activées par accord direct avec MoreAI."
+  },
+  "La Demo è terminata. Attiva un piano per continuare.": {
+    "en": "The Demo has ended. Activate a plan to continue.",
+    "es": "La Demo ha terminado. Activa un plan para continuar.",
+    "fr": "La Démo est terminée. Activez une offre pour continuer."
+  },
+  "La cancellazione include richiesta e feedback associati; non elimina eventuali copie già esportate.": {
+    "en": "Deletion includes the request and related feedback; it does not delete copies already exported.",
+    "es": "La eliminación incluye la solicitud y las opiniones asociadas; no elimina las copias ya exportadas.",
+    "fr": "La suppression inclut la demande et les avis associés ; elle n’efface pas les copies déjà exportées."
+  },
+  "La consegna può richiedere qualche minuto.": {
+    "en": "Delivery may take a few minutes.",
+    "es": "La entrega puede tardar unos minutos.",
+    "fr": "La livraison peut prendre quelques minutes."
+  },
+  "La cronologia dei messaggi scambiati durante questa richiesta.": {
+    "en": "The history of messages exchanged during this request.",
+    "es": "El historial de mensajes intercambiados durante esta solicitud.",
+    "fr": "L’historique des messages échangés pendant cette demande."
+  },
+  "La disponibilità reale di ciascun metodo e dei rinnovi dipenderà dal fornitore di pagamento e dalle relative autorizzazioni. Qui viene registrato soltanto un riferimento fittizio.": {
+    "en": "The actual availability of each method and of renewals will depend on the payment provider and its authorisations. Only a dummy reference is recorded here.",
+    "es": "La disponibilidad real de cada método y de las renovaciones dependerá del proveedor de pagos y de sus autorizaciones. Aquí solo se registra una referencia ficticia.",
+    "fr": "La disponibilité réelle de chaque moyen et des renouvellements dépendra du prestataire de paiement et de ses autorisations. Seule une référence fictive est enregistrée ici."
+  },
+  "La prova parte solo dopo la verifica del gestore e la conferma. Al termine si attiva il piano scelto con rinnovo simulato, salvo disdetta. Puoi disdire da questa pagina prima della scadenza.": {
+    "en": "The trial starts only after the operator’s check and your confirmation. At the end the chosen plan activates with simulated renewal, unless cancelled. You can cancel from this page before expiry.",
+    "es": "La prueba empieza solo tras la verificación del gestor y la confirmación. Al terminar se activa el plan elegido con renovación simulada, salvo cancelación. Puedes cancelar desde esta página antes del vencimiento.",
+    "fr": "L’essai ne commence qu’après la vérification du gestionnaire et la confirmation. À la fin, l’offre choisie s’active avec renouvellement simulé, sauf résiliation. Vous pouvez résilier depuis cette page avant l’échéance."
+  },
+  "La richiesta arriva al nostro team insieme all’email del tuo account: ti rispondiamo lì. Non inserire password o dati di pagamento.": {
+    "en": "The request reaches our team together with your account email: we will reply there. Do not enter passwords or payment details.",
+    "es": "La solicitud llega a nuestro equipo junto con el correo de tu cuenta: te responderemos allí. No introduzcas contraseñas ni datos de pago.",
+    "fr": "La demande parvient à notre équipe avec l’e-mail de votre compte : nous vous répondrons à cette adresse. N’indiquez ni mot de passe ni données de paiement."
+  },
+  "La tua azienda": {
+    "en": "Your company",
+    "es": "Tu empresa",
+    "fr": "Votre entreprise"
+  },
+  "La tua azienda — MoreAI": {
+    "en": "Your company — MoreAI",
+    "es": "Tu empresa — MoreAI",
+    "fr": "Votre entreprise — MoreAI"
+  },
+  "La tua prova e il rinnovo": {
+    "en": "Your trial and renewal",
+    "es": "Tu prueba y la renovación",
+    "fr": "Votre essai et le renouvellement"
+  },
+  "Le autorizzazioni dell’azienda stabiliscono quali azioni può compiere l’assistente. Non sostituiscono il consenso del cliente.": {
+    "en": "The company’s permissions decide which actions the assistant can perform. They do not replace the customer’s consent.",
+    "es": "Los permisos de la empresa establecen qué acciones puede realizar el asistente. No sustituyen el consentimiento del cliente.",
+    "fr": "Les autorisations de l’entreprise déterminent les actions que l’assistant peut effectuer. Elles ne remplacent pas le consentement du client."
+  },
+  "Le comunicazioni sono cifrate, le password non vengono mai salvate in chiaro e ogni azienda accede solo ai propri dati: conversazioni, richieste e configurazioni di aziende diverse restano separate.": {
+    "en": "Communications are encrypted, passwords are never stored in plain text and each company accesses only its own data: conversations, requests and settings of different companies stay separate.",
+    "es": "Las comunicaciones están cifradas, las contraseñas nunca se guardan en claro y cada empresa accede solo a sus propios datos: las conversaciones, solicitudes y configuraciones de empresas distintas permanecen separadas.",
+    "fr": "Les communications sont chiffrées, les mots de passe ne sont jamais enregistrés en clair et chaque entreprise n’accède qu’à ses propres données : les conversations, demandes et configurations d’entreprises différentes restent séparées."
+  },
+  "Le conversazioni di prova compaiono in «Conversazioni»; i feedback in «Statistiche e fonti». Non inserire dati sensibili.": {
+    "en": "Test conversations appear in “Conversations”; feedback in “Statistics and sources”. Do not enter sensitive data.",
+    "es": "Las conversaciones de prueba aparecen en «Conversaciones»; las opiniones en «Estadísticas y fuentes». No introduzcas datos sensibles.",
+    "fr": "Les conversations de test apparaissent dans « Conversations » ; les avis dans « Statistiques et sources ». Ne saisissez pas de données sensibles."
+  },
+  "Le informazioni che abbiamo trovato sul tuo sito e sul web. Controllale: quelle corrette puoi copiarle in «Informazioni per l’AI», che è ciò che l’assistente usa per rispondere.": {
+    "en": "The information we found on your website and on the web. Check it: you can copy the correct items into “Information for the AI”, which is what the assistant uses to reply.",
+    "es": "La información que hemos encontrado en tu sitio y en la web. Revísala: la correcta puedes copiarla en «Información para la IA», que es lo que el asistente usa para responder.",
+    "fr": "Les informations trouvées sur votre site et sur le web. Vérifiez-les : vous pouvez copier celles qui sont correctes dans « Informations pour l’IA », que l’assistant utilise pour répondre."
+  },
+  "Le informazioni in bozza non entrano nella conoscenza dell’assistente finché non vengono verificate e autorizzate.": {
+    "en": "Draft information does not enter the assistant’s knowledge until it is verified and approved.",
+    "es": "La información en borrador no entra en el conocimiento del asistente hasta que se verifica y autoriza.",
+    "fr": "Les informations en brouillon n’entrent dans les connaissances de l’assistant qu’une fois vérifiées et autorisées."
+  },
+  "Le modifiche vengono applicate alle nuove conversazioni.": {
+    "en": "Changes apply to new conversations.",
+    "es": "Los cambios se aplican a las nuevas conversaciones.",
+    "fr": "Les modifications s’appliquent aux nouvelles conversations."
+  },
+  "Le password non coincidono.": {
+    "en": "Passwords do not match.",
+    "es": "Las contraseñas no coinciden.",
+    "fr": "Les mots de passe ne correspondent pas."
+  },
+  "Le priorità della tua attività. Non autorizzano azioni o promesse non previste dai permessi.": {
+    "en": "Your business priorities. They do not authorise actions or promises not covered by the permissions.",
+    "es": "Las prioridades de tu actividad. No autorizan acciones ni promesas no previstas en los permisos.",
+    "fr": "Les priorités de votre activité. Elles n’autorisent pas d’actions ou de promesses non prévues par les autorisations."
+  },
+  "Le richieste e le conversazioni della tua azienda, in un unico spazio privato.": {
+    "en": "Your company’s requests and conversations, in one private space.",
+    "es": "Las solicitudes y conversaciones de tu empresa, en un único espacio privado.",
+    "fr": "Les demandes et conversations de votre entreprise, dans un seul espace privé."
+  },
+  "Le tue scelte": {
+    "en": "Your choices",
+    "es": "Tus elecciones",
+    "fr": "Vos choix"
+  },
+  "Leggi e approva i contenuti proposti prima di renderli disponibili all’assistente. Le informazioni private non vengono sovrascritte.": {
+    "en": "Read and approve suggested content before making it available to the assistant. Private information is not overwritten.",
+    "es": "Lee y aprueba los contenidos propuestos antes de ponerlos a disposición del asistente. La información privada no se sobrescribe.",
+    "fr": "Lisez et approuvez les contenus proposés avant de les mettre à disposition de l’assistant. Les informations privées ne sont pas écrasées."
+  },
+  "Liste JSON. Punti spiegabili per campo: field, op (present/equals/contains/gte), value, points, label. Per i reparti: field, op, value, name, recipient, site. gte accetta numeri senza simboli; non interpreta importi ambigui.": {
+    "en": "JSON lists. Explainable points per field: field, op (present/equals/contains/gte), value, points, label. For departments: field, op, value, name, recipient, site. gte accepts numbers without symbols; it does not interpret ambiguous amounts.",
+    "es": "Listas JSON. Puntos explicables por campo: field, op (present/equals/contains/gte), value, points, label. Para los departamentos: field, op, value, name, recipient, site. gte acepta números sin símbolos; no interpreta importes ambiguos.",
+    "fr": "Listes JSON. Points explicables par champ : field, op (present/equals/contains/gte), value, points, label. Pour les services : field, op, value, name, recipient, site. gte accepte des nombres sans symboles ; il n’interprète pas les montants ambigus."
+  },
+  "Logo locale (/assets/nome.svg)": {
+    "en": "Local logo (/assets/name.svg)",
+    "es": "Logo local (/assets/nombre.svg)",
+    "fr": "Logo local (/assets/nom.svg)"
+  },
+  "L’abilitazione non configura da sola il servizio mittente. Lo stato degli invii rimane visibile qui.": {
+    "en": "Enabling this does not configure the sender service by itself. The sending status remains visible here.",
+    "es": "La activación no configura por sí sola el servicio remitente. El estado de los envíos sigue visible aquí.",
+    "fr": "L’activation ne configure pas à elle seule le service d’expédition. L’état des envois reste visible ici."
+  },
+  "L’assistente sta rispondendo": {
+    "en": "The assistant is replying",
+    "es": "El asistente está respondiendo",
+    "fr": "L’assistant répond"
+  },
+  "L’azienda è responsabile delle informazioni che fornisce all’assistente e deve assicurarsi che siano corrette e aggiornate. L’assistente può commettere errori: non conferma appuntamenti, prezzi o disponibilità che non siano stati verificati, e il personale dell’azienda deve controllare le richieste prima di darvi seguito.": {
+    "en": "The company is responsible for the information it gives the assistant and must make sure it is correct and up to date. The assistant can make mistakes: it does not confirm appointments, prices or availability that have not been verified, and the company’s staff must check requests before acting on them.",
+    "es": "La empresa es responsable de la información que proporciona al asistente y debe asegurarse de que sea correcta y esté actualizada. El asistente puede cometer errores: no confirma citas, precios ni disponibilidad que no se hayan verificado, y el personal de la empresa debe revisar las solicitudes antes de darles curso.",
+    "fr": "L’entreprise est responsable des informations qu’elle fournit à l’assistant et doit s’assurer qu’elles sont correctes et à jour. L’assistant peut faire des erreurs : il ne confirme pas de rendez-vous, de prix ou de disponibilités non vérifiés, et le personnel de l’entreprise doit contrôler les demandes avant d’y donner suite."
+  },
+  "L’invito ricevuto dal gestore collega il tuo account all’azienda corretta. Non occorre scegliere un’azienda.": {
+    "en": "The invitation from the manager links your account to the right company. You do not need to choose a company.",
+    "es": "La invitación recibida del gestor vincula tu cuenta a la empresa correcta. No hace falta elegir una empresa.",
+    "fr": "L’invitation reçue du gestionnaire associe votre compte à la bonne entreprise. Inutile de choisir une entreprise."
+  },
+  "L’orario scelto viene registrato come disponibilità di prova. Usa una data futura.": {
+    "en": "The chosen time is recorded as test availability. Use a future date.",
+    "es": "La hora elegida se registra como disponibilidad de prueba. Usa una fecha futura.",
+    "fr": "L’horaire choisi est enregistré comme disponibilité de test. Utilisez une date future."
+  },
+  "Memoria del browser": {
+    "en": "Browser storage",
+    "es": "Memoria del navegador",
+    "fr": "Stockage du navigateur"
+  },
+  "Messaggi AI di questo mese": {
+    "en": "AI messages this month",
+    "es": "Mensajes de IA de este mes",
+    "fr": "Messages IA de ce mois-ci"
+  },
+  "Messaggio": {
+    "en": "Message",
+    "es": "Mensaje",
+    "fr": "Message"
+  },
+  "Messaggio del personale": {
+    "en": "Staff message",
+    "es": "Mensaje del personal",
+    "fr": "Message du personnel"
+  },
+  "Messaggio iniziale": {
+    "en": "Welcome message",
+    "es": "Mensaje inicial",
+    "fr": "Message d’accueil"
+  },
+  "Metodo di pagamento simulato": {
+    "en": "Simulated payment method",
+    "es": "Método de pago simulado",
+    "fr": "Moyen de paiement simulé"
+  },
+  "Mittente da configurare": {
+    "en": "Sender to be configured",
+    "es": "Remitente por configurar",
+    "fr": "Expéditeur à configurer"
+  },
+  "Modifiche e contatti": {
+    "en": "Changes and contacts",
+    "es": "Cambios y contactos",
+    "fr": "Modifications et contacts"
+  },
+  "MoreAI mette a disposizione delle aziende un assistente basato sull’intelligenza artificiale che risponde a chi le contatta, raccoglie le richieste con il consenso delle persone e le organizza in una dashboard riservata all’azienda.": {
+    "en": "MoreAI provides companies with an AI-based assistant that replies to people who contact them, collects requests with people’s consent and organises them in a dashboard reserved for the company.",
+    "es": "MoreAI pone a disposición de las empresas un asistente basado en inteligencia artificial que responde a quienes las contactan, recoge las solicitudes con el consentimiento de las personas y las organiza en un panel reservado a la empresa.",
+    "fr": "MoreAI met à disposition des entreprises un assistant basé sur l’intelligence artificielle qui répond à ceux qui les contactent, recueille les demandes avec le consentement des personnes et les organise dans un tableau de bord réservé à l’entreprise."
+  },
+  "MoreAI usa solo tecnologie necessarie al funzionamento del sito. Non usiamo cookie pubblicitari, di profilazione o di analisi di terze parti.": {
+    "en": "MoreAI only uses technologies needed for the site to work. We do not use advertising, profiling or third-party analytics cookies.",
+    "es": "MoreAI solo usa tecnologías necesarias para el funcionamiento del sitio. No usamos cookies publicitarias, de perfilado ni de análisis de terceros.",
+    "fr": "MoreAI n’utilise que les technologies nécessaires au fonctionnement du site. Nous n’utilisons pas de cookies publicitaires, de profilage ou d’analyse tiers."
+  },
+  "MoreAI — Più attenzione ai clienti. Meno messaggi da gestire.": {
+    "en": "MoreAI — More attention to customers. Fewer messages to handle.",
+    "es": "MoreAI — Más atención a los clientes. Menos mensajes que gestionar.",
+    "fr": "MoreAI — Plus d’attention aux clients. Moins de messages à gérer."
+  },
+  "Mostra il numero di conversazioni e richieste e le valutazioni ricevute. Una richiesta non equivale a una vendita.": {
+    "en": "Shows the number of conversations and requests and the ratings received. A request is not the same as a sale.",
+    "es": "Muestra el número de conversaciones y solicitudes y las valoraciones recibidas. Una solicitud no equivale a una venta.",
+    "fr": "Affiche le nombre de conversations et de demandes ainsi que les notes reçues. Une demande n’équivaut pas à une vente."
+  },
+  "Mostra password": {
+    "en": "Show password",
+    "es": "Mostrar contraseña",
+    "fr": "Afficher le mot de passe"
+  },
+  "Nascondi password": {
+    "en": "Hide password",
+    "es": "Ocultar contraseña",
+    "fr": "Masquer le mot de passe"
+  },
+  "Nella pagina di accesso scegli Password dimenticata? e inserisci la tua email: riceverai un link valido 30 minuti per sceglierne una nuova.": {
+    "en": "On the login page choose Forgot password? and enter your email: you will receive a link valid for 30 minutes to choose a new one.",
+    "es": "En la página de acceso elige ¿Has olvidado la contraseña? e introduce tu correo: recibirás un enlace válido durante 30 minutos para elegir una nueva.",
+    "fr": "Sur la page de connexion, choisissez Mot de passe oublié ? et saisissez votre e-mail : vous recevrez un lien valable 30 minutes pour en choisir un nouveau."
+  },
+  "Nessun feedback ricevuto finora.": {
+    "en": "No feedback received so far.",
+    "es": "Todavía no se ha recibido ninguna opinión.",
+    "fr": "Aucun avis reçu pour l’instant."
+  },
+  "Nessuna conversazione presente.": {
+    "en": "No conversations yet.",
+    "es": "No hay conversaciones.",
+    "fr": "Aucune conversation pour l’instant."
+  },
+  "Nessuna percentuale disponibile": {
+    "en": "No percentage available",
+    "es": "Ningún porcentaje disponible",
+    "fr": "Aucun pourcentage disponible"
+  },
+  "Nessuna prenotazione reale. Gli orari inseriti qui sono soltanto per i test sul Mac.": {
+    "en": "No real bookings. The times entered here are only for testing.",
+    "es": "Ninguna reserva real. Los horarios introducidos aquí son solo para pruebas.",
+    "fr": "Aucune réservation réelle. Les horaires saisis ici servent uniquement aux tests."
+  },
+  "Nome visualizzato dell’assistente": {
+    "en": "Assistant display name",
+    "es": "Nombre visible del asistente",
+    "fr": "Nom affiché de l’assistant"
+  },
+  "Nome, telefono e interesse restano obbligatori. Personalizza gli altri campi secondo le esigenze della tua azienda.": {
+    "en": "Name, phone and interest remain required. Customise the other fields to suit your company.",
+    "es": "Nombre, teléfono e interés siguen siendo obligatorios. Personaliza los demás campos según las necesidades de tu empresa.",
+    "fr": "Le nom, le téléphone et l’intérêt restent obligatoires. Personnalisez les autres champs selon les besoins de votre entreprise."
+  },
+  "Non ci sono ancora richieste. Apri «Prova la tua AI» e completa una conversazione di prova: la richiesta comparirà qui.": {
+    "en": "No requests yet. Open “Try your AI” and complete a test conversation: the request will appear here.",
+    "es": "Todavía no hay solicitudes. Abre «Prueba tu IA» y completa una conversación de prueba: la solicitud aparecerá aquí.",
+    "fr": "Aucune demande pour l’instant. Ouvrez « Essayez votre IA » et terminez une conversation de test : la demande apparaîtra ici."
+  },
+  "Non hai un account? Registrati": {
+    "en": "Don’t have an account? Sign up",
+    "es": "¿No tienes cuenta? Regístrate",
+    "fr": "Pas de compte ? Inscrivez-vous"
+  },
+  "Non hai un piano attivo. I tuoi dati restano salvati: attiva un piano per continuare a usare l’assistente.": {
+    "en": "You don’t have an active plan. Your data stays saved: activate a plan to keep using the assistant.",
+    "es": "No tienes un plan activo. Tus datos siguen guardados: activa un plan para seguir usando el asistente.",
+    "fr": "Vous n’avez pas d’offre active. Vos données restent enregistrées : activez une offre pour continuer à utiliser l’assistant."
+  },
+  "Non riuscita": {
+    "en": "Failed",
+    "es": "Fallida",
+    "fr": "Échouée"
+  },
+  "Non siamo riusciti ad analizzare il sito. Controlla l’indirizzo nei dati aziendali e riprova.": {
+    "en": "We could not analyse the website. Check the address in your company details and try again.",
+    "es": "No hemos podido analizar el sitio. Comprueba la dirección en los datos de la empresa e inténtalo de nuevo.",
+    "fr": "Nous n’avons pas pu analyser le site. Vérifiez l’adresse dans les données de l’entreprise et réessayez."
+  },
+  "Non sono previsti parametri.": {
+    "en": "No parameters required.",
+    "es": "No hay parámetros previstos.",
+    "fr": "Aucun paramètre prévu."
+  },
+  "Non è consentito usare il servizio per attività illecite, per inviare contenuti offensivi o ingannevoli, per aggirare i limiti del proprio piano o per compromettere la sicurezza del servizio. In questi casi possiamo sospendere l’account.": {
+    "en": "The service may not be used for illegal activities, to send offensive or misleading content, to get around the limits of your plan or to compromise the security of the service. In these cases we may suspend the account.",
+    "es": "No está permitido usar el servicio para actividades ilícitas, para enviar contenidos ofensivos o engañosos, para eludir los límites del propio plan o para comprometer la seguridad del servicio. En estos casos podemos suspender la cuenta.",
+    "fr": "Il est interdit d’utiliser le service pour des activités illicites, pour envoyer des contenus offensants ou trompeurs, pour contourner les limites de son offre ou pour compromettre la sécurité du service. Dans ces cas, nous pouvons suspendre le compte."
+  },
+  "Nuova": {
+    "en": "New",
+    "es": "Nueva",
+    "fr": "Nouvelle"
+  },
+  "Nuova informazione": {
+    "en": "New information",
+    "es": "Nueva información",
+    "fr": "Nouvelle information"
+  },
+  "Nuova password": {
+    "en": "New password",
+    "es": "Nueva contraseña",
+    "fr": "Nouveau mot de passe"
+  },
+  "Nuovo": {
+    "en": "New",
+    "es": "Nuevo",
+    "fr": "Nouveau"
+  },
+  "Nuovo o usato": {
+    "en": "New or used",
+    "es": "Nuevo o usado",
+    "fr": "Neuf ou d’occasion"
+  },
+  "Nuovo piano": {
+    "en": "New plan",
+    "es": "Nuevo plan",
+    "fr": "Nouvelle offre"
+  },
+  "Obbligatorio": {
+    "en": "Required",
+    "es": "Obligatorio",
+    "fr": "Obligatoire"
+  },
+  "Obiettivi commerciali": {
+    "en": "Sales goals",
+    "es": "Objetivos comerciales",
+    "fr": "Objectifs commerciaux"
+  },
+  "Obiettivi e instradamento": {
+    "en": "Goals and routing",
+    "es": "Objetivos y enrutamiento",
+    "fr": "Objectifs et acheminement"
+  },
+  "Ogni risposta dell’assistente, anche nella chat di prova, conta come un messaggio. Il conteggio riparte il primo giorno di ogni mese.": {
+    "en": "Every assistant reply, including in the test chat, counts as one message. The count restarts on the first day of each month.",
+    "es": "Cada respuesta del asistente, también en el chat de prueba, cuenta como un mensaje. El recuento se reinicia el primer día de cada mes.",
+    "fr": "Chaque réponse de l’assistant, y compris dans le chat de test, compte comme un message. Le compteur repart le premier jour de chaque mois."
+  },
+  "Operazione non riuscita.": {
+    "en": "Operation failed.",
+    "es": "Operación fallida.",
+    "fr": "L’opération a échoué."
+  },
+  "Osservazioni interne del personale sulle conversazioni e sulla qualità dei contatti.": {
+    "en": "Internal staff notes on conversations and contact quality.",
+    "es": "Observaciones internas del personal sobre las conversaciones y la calidad de los contactos.",
+    "fr": "Remarques internes du personnel sur les conversations et la qualité des contacts."
+  },
+  "PASSO 2 · PERIODO E METODO": {
+    "en": "STEP 2 · PERIOD AND METHOD",
+    "es": "PASO 2 · PERIODO Y MÉTODO",
+    "fr": "ÉTAPE 2 · PÉRIODE ET MOYEN"
+  },
+  "PASSO 3 · PROVA GRATUITA": {
+    "en": "STEP 3 · FREE TRIAL",
+    "es": "PASO 3 · PRUEBA GRATUITA",
+    "fr": "ÉTAPE 3 · ESSAI GRATUIT"
+  },
+  "Paese predefinito dei numeri": {
+    "en": "Default country for phone numbers",
+    "es": "País predeterminado de los números",
+    "fr": "Pays par défaut des numéros"
+  },
+  "Pagamento simulato non riuscito": {
+    "en": "Simulated payment failed",
+    "es": "Pago simulado fallido",
+    "fr": "Paiement simulé échoué"
+  },
+  "Password": {
+    "en": "Password",
+    "es": "Contraseña",
+    "fr": "Mot de passe"
+  },
+  "Password dimenticata?": {
+    "en": "Forgot password?",
+    "es": "¿Has olvidado la contraseña?",
+    "fr": "Mot de passe oublié ?"
+  },
+  "Per il sito, gli account e le richieste inviate a MoreAI, il titolare del trattamento è MoreAI. Per qualsiasi domanda sui dati o per esercitare i tuoi diritti scrivi a": {
+    "en": "For the website, accounts and requests sent to MoreAI, the data controller is MoreAI. For any question about your data or to exercise your rights write to",
+    "es": "Para el sitio, las cuentas y las solicitudes enviadas a MoreAI, el responsable del tratamiento es MoreAI. Para cualquier pregunta sobre los datos o para ejercer tus derechos escribe a",
+    "fr": "Pour le site, les comptes et les demandes envoyées à MoreAI, le responsable du traitement est MoreAI. Pour toute question sur les données ou pour exercer vos droits, écrivez à"
+  },
+  "Per iniziare la Demo di 7 giorni verifica prima il tuo indirizzo email.": {
+    "en": "To start the 7-day Demo, first verify your email address.",
+    "es": "Para iniciar la Demo de 7 días, verifica primero tu dirección de correo.",
+    "fr": "Pour démarrer la Démo de 7 jours, vérifiez d’abord votre adresse e-mail."
+  },
+  "Per quanto tempo": {
+    "en": "For how long",
+    "es": "Durante cuánto tiempo",
+    "fr": "Pendant combien de temps"
+  },
+  "Per usare il servizio serve un account aziendale con un indirizzo email verificato. Sei responsabile della riservatezza delle credenziali e delle attività svolte con il tuo account. Ogni account accede solo ai dati della propria azienda.": {
+    "en": "To use the service you need a company account with a verified email address. You are responsible for keeping your credentials confidential and for the activities carried out with your account. Each account accesses only its own company’s data.",
+    "es": "Para usar el servicio necesitas una cuenta de empresa con una dirección de correo verificada. Eres responsable de la confidencialidad de las credenciales y de las actividades realizadas con tu cuenta. Cada cuenta accede solo a los datos de su empresa.",
+    "fr": "Pour utiliser le service, il faut un compte entreprise avec une adresse e-mail vérifiée. Vous êtes responsable de la confidentialité de vos identifiants et des activités effectuées avec votre compte. Chaque compte n’accède qu’aux données de sa propre entreprise."
+  },
+  "Perché li trattiamo": {
+    "en": "Why we process it",
+    "es": "Por qué los tratamos",
+    "fr": "Pourquoi nous les traitons"
+  },
+  "Percorso dell’immagine locale che rappresenta l’assistente.": {
+    "en": "Path of the local image that represents the assistant.",
+    "es": "Ruta de la imagen local que representa al asistente.",
+    "fr": "Chemin de l’image locale qui représente l’assistant."
+  },
+  "Percorso di un’immagine già presente tra le risorse del sito. Non è un caricamento di file.": {
+    "en": "Path of an image already among the site’s resources. It is not a file upload.",
+    "es": "Ruta de una imagen ya presente entre los recursos del sitio. No es una subida de archivo.",
+    "fr": "Chemin d’une image déjà présente dans les ressources du site. Ce n’est pas un envoi de fichier."
+  },
+  "Periodo": {
+    "en": "Period",
+    "es": "Periodo",
+    "fr": "Période"
+  },
+  "Periodo di rinnovo": {
+    "en": "Renewal period",
+    "es": "Periodo de renovación",
+    "fr": "Période de renouvellement"
+  },
+  "Permette al personale di prendere in carico la conversazione, rispondere e restituirla all’assistente.": {
+    "en": "Lets staff take over the conversation, reply and hand it back to the assistant.",
+    "es": "Permite al personal hacerse cargo de la conversación, responder y devolverla al asistente.",
+    "fr": "Permet au personnel de prendre en charge la conversation, de répondre et de la rendre à l’assistant."
+  },
+  "Perso": {
+    "en": "Lost",
+    "es": "Perdido",
+    "fr": "Perdu"
+  },
+  "Personalizza nome, saluto, stile e aspetto della chat della tua azienda.": {
+    "en": "Customise the name, greeting, style and look of your company’s chat.",
+    "es": "Personaliza el nombre, el saludo, el estilo y el aspecto del chat de tu empresa.",
+    "fr": "Personnalisez le nom, l’accueil, le style et l’apparence du chat de votre entreprise."
+  },
+  "Piano": {
+    "en": "Plan",
+    "es": "Plan",
+    "fr": "Offre"
+  },
+  "Piano attivo in simulazione": {
+    "en": "Plan active in simulation",
+    "es": "Plan activo en simulación",
+    "fr": "Offre active en simulation"
+  },
+  "Piano disdetto": {
+    "en": "Plan cancelled",
+    "es": "Plan cancelado",
+    "fr": "Offre résiliée"
+  },
+  "Piano e consumi": {
+    "en": "Plan and usage",
+    "es": "Plan y consumo",
+    "fr": "Offre et consommation"
+  },
+  "Piano e consumi — MoreAI": {
+    "en": "Plan and usage — MoreAI",
+    "es": "Plan y consumo — MoreAI",
+    "fr": "Offre et consommation — MoreAI"
+  },
+  "Piano scaduto": {
+    "en": "Plan expired",
+    "es": "Plan vencido",
+    "fr": "Offre expirée"
+  },
+  "Porta alla demo visibile e mette a fuoco il campo messaggio. Non invia messaggi e non salva dati.": {
+    "en": "Takes you to the visible demo and focuses the message field. It does not send messages or save data.",
+    "es": "Lleva a la demo visible y enfoca el campo de mensaje. No envía mensajes ni guarda datos.",
+    "fr": "Mène à la démo visible et place le curseur dans le champ message. N’envoie aucun message et n’enregistre aucune donnée."
+  },
+  "Posizione widget": {
+    "en": "Widget position",
+    "es": "Posición del widget",
+    "fr": "Position du widget"
+  },
+  "Possiamo aggiornare queste condizioni: in caso di modifiche importanti avviseremo gli utenti registrati. Per qualsiasi domanda scrivi a": {
+    "en": "We may update these terms: for important changes we will notify registered users. For any question write to",
+    "es": "Podemos actualizar estas condiciones: en caso de cambios importantes avisaremos a los usuarios registrados. Para cualquier pregunta escribe a",
+    "fr": "Nous pouvons mettre à jour ces conditions : en cas de modifications importantes, nous avertirons les utilisateurs inscrits. Pour toute question, écrivez à"
+  },
+  "Preferenza di posizione prevista per il futuro inserimento della chat. Il pulsante flottante non è ancora attivo.": {
+    "en": "Position preference planned for the future chat embed. The floating button is not active yet.",
+    "es": "Preferencia de posición prevista para la futura inserción del chat. El botón flotante aún no está activo.",
+    "fr": "Préférence de position prévue pour l’intégration future du chat. Le bouton flottant n’est pas encore actif."
+  },
+  "Preferenze dell’account": {
+    "en": "Account preferences",
+    "es": "Preferencias de la cuenta",
+    "fr": "Préférences du compte"
+  },
+  "Preferisco essere contattato il": {
+    "en": "I prefer to be contacted on",
+    "es": "Prefiero que me contacten el",
+    "fr": "Je préfère être contacté le"
+  },
+  "Prendi in carico": {
+    "en": "Take over",
+    "es": "Hacerse cargo",
+    "fr": "Prendre en charge"
+  },
+  "Prepara la conferma per il cliente. Per spedirla serve un mittente configurato.": {
+    "en": "Prepares the confirmation for the customer. A configured sender is needed to send it.",
+    "es": "Prepara la confirmación para el cliente. Para enviarla hace falta un remitente configurado.",
+    "fr": "Prépare la confirmation pour le client. Un expéditeur configuré est nécessaire pour l’envoyer."
+  },
+  "Prepara l’invio al CRM simulato dopo il consenso del cliente. Non contatta servizi esterni.": {
+    "en": "Prepares sending to the simulated CRM after the customer’s consent. It does not contact external services.",
+    "es": "Prepara el envío al CRM simulado tras el consentimiento del cliente. No contacta servicios externos.",
+    "fr": "Prépare l’envoi au CRM simulé après le consentement du client. Ne contacte aucun service externe."
+  },
+  "Prepara una conferma email dopo la registrazione della richiesta, se il cliente ha fornito un indirizzo email.": {
+    "en": "Prepare a confirmation email after the request is recorded, if the customer provided an email address.",
+    "es": "Preparar una confirmación por correo tras registrar la solicitud, si el cliente ha facilitado un correo.",
+    "fr": "Préparer un e-mail de confirmation après l’enregistrement de la demande, si le client a fourni une adresse e-mail."
+  },
+  "Presentaci la tua azienda.": {
+    "en": "Tell us about your company.",
+    "es": "Preséntanos tu empresa.",
+    "fr": "Présentez-nous votre entreprise."
+  },
+  "Privacy — MoreAI": {
+    "en": "Privacy — MoreAI",
+    "es": "Privacidad — MoreAI",
+    "fr": "Confidentialité — MoreAI"
+  },
+  "Programma il cambio": {
+    "en": "Schedule the change",
+    "es": "Programar el cambio",
+    "fr": "Programmer le changement"
+  },
+  "Promozioni o altre cartelle.": {
+    "en": "Promotions or other folders.",
+    "es": "Promociones u otras carpetas.",
+    "fr": "Promotions ou d’autres dossiers."
+  },
+  "Prossima scadenza:": {
+    "en": "Next due date:",
+    "es": "Próximo vencimiento:",
+    "fr": "Prochaine échéance :"
+  },
+  "Proteggere il servizio da abusi e accessi non autorizzati (legittimo interesse).": {
+    "en": "Protecting the service from abuse and unauthorised access (legitimate interest).",
+    "es": "Proteger el servicio contra abusos y accesos no autorizados (interés legítimo).",
+    "fr": "Protéger le service contre les abus et les accès non autorisés (intérêt légitime)."
+  },
+  "Prova di 14 giorni avviata. Nessun pagamento reale.": {
+    "en": "14-day trial started. No real payment.",
+    "es": "Prueba de 14 días iniciada. Ningún pago real.",
+    "fr": "Essai de 14 jours démarré. Aucun paiement réel."
+  },
+  "Prova gratuita in corso": {
+    "en": "Free trial in progress",
+    "es": "Prueba gratuita en curso",
+    "fr": "Essai gratuit en cours"
+  },
+  "Prova il tuo assistente.": {
+    "en": "Try your assistant.",
+    "es": "Prueba tu asistente.",
+    "fr": "Essayez votre assistant."
+  },
+  "Prova la tua AI": {
+    "en": "Try your AI",
+    "es": "Prueba tu IA",
+    "fr": "Essayez votre IA"
+  },
+  "Prova la tua AI ↓": {
+    "en": "Try your AI ↓",
+    "es": "Prueba tu IA ↓",
+    "fr": "Essayez votre IA ↓"
+  },
+  "Puoi chiedere in qualsiasi momento l’accesso ai tuoi dati, la correzione, la cancellazione, la limitazione del trattamento, la portabilità, opporti al trattamento e revocare i consensi dati. Scrivi a": {
+    "en": "You can request at any time access to your data, correction, deletion, restriction of processing and portability, object to processing and withdraw consents given. Write to",
+    "es": "Puedes solicitar en cualquier momento el acceso a tus datos, su rectificación, supresión, la limitación del tratamiento y la portabilidad, oponerte al tratamiento y revocar los consentimientos dados. Escribe a",
+    "fr": "Vous pouvez demander à tout moment l’accès à vos données, leur rectification, leur effacement, la limitation du traitement et la portabilité, vous opposer au traitement et retirer les consentements donnés. Écrivez à"
+  },
+  "Puoi configurare al massimo 18 campi.": {
+    "en": "You can set up at most 18 fields.",
+    "es": "Puedes configurar como máximo 18 campos.",
+    "fr": "Vous pouvez configurer au maximum 18 champs."
+  },
+  "Quali dati trattiamo": {
+    "en": "What data we process",
+    "es": "Qué datos tratamos",
+    "fr": "Quelles données nous traitons"
+  },
+  "Qualificato": {
+    "en": "Qualified",
+    "es": "Cualificado",
+    "fr": "Qualifié"
+  },
+  "Qualità del contatto, informazioni utili o suggerimenti per migliorare l’assistente": {
+    "en": "Contact quality, useful information or suggestions to improve the assistant",
+    "es": "Calidad del contacto, información útil o sugerencias para mejorar el asistente",
+    "fr": "Qualité du contact, informations utiles ou suggestions pour améliorer l’assistant"
+  },
+  "Qualsiasi attività": {
+    "en": "Any business",
+    "es": "Cualquier actividad",
+    "fr": "Toute activité"
+  },
+  "Quando i dati vengono trattati fuori dall’Unione Europea, il trasferimento avviene sulla base delle garanzie previste dal GDPR offerte da questi fornitori, come le clausole contrattuali standard. Non vendiamo i dati e non li usiamo per pubblicità.": {
+    "en": "When data is processed outside the European Union, the transfer relies on the GDPR safeguards offered by these providers, such as standard contractual clauses. We do not sell data or use it for advertising.",
+    "es": "Cuando los datos se tratan fuera de la Unión Europea, la transferencia se basa en las garantías previstas por el RGPD que ofrecen estos proveedores, como las cláusulas contractuales tipo. No vendemos los datos ni los usamos para publicidad.",
+    "fr": "Lorsque les données sont traitées hors de l’Union européenne, le transfert repose sur les garanties prévues par le RGPD offertes par ces prestataires, comme les clauses contractuelles types. Nous ne vendons pas les données et ne les utilisons pas à des fins publicitaires."
+  },
+  "Quando parli con l’assistente di un’azienda cliente, titolare dei dati della conversazione è quell’azienda: MoreAI li tratta per suo conto, come responsabile del trattamento, solo per fornire il servizio.": {
+    "en": "When you talk to a client company’s assistant, that company is the controller of the conversation data: MoreAI processes it on its behalf, as processor, only to provide the service.",
+    "es": "Cuando hablas con el asistente de una empresa cliente, el responsable de los datos de la conversación es esa empresa: MoreAI los trata por su cuenta, como encargado del tratamiento, solo para prestar el servicio.",
+    "fr": "Lorsque vous parlez avec l’assistant d’une entreprise cliente, c’est cette entreprise qui est responsable des données de la conversation : MoreAI les traite pour son compte, en tant que sous-traitant, uniquement pour fournir le service."
+  },
+  "Quanti messaggi AI posso usare?": {
+    "en": "How many AI messages can I use?",
+    "es": "¿Cuántos mensajes de IA puedo usar?",
+    "fr": "Combien de messages IA puis-je utiliser ?"
+  },
+  "Questa informativa spiega quali dati trattiamo quando usi il sito di MoreAI, crei un account o parli con un assistente MoreAI, e quali sono i tuoi diritti.": {
+    "en": "This notice explains what data we process when you use the MoreAI website, create an account or talk to a MoreAI assistant, and what your rights are.",
+    "es": "Este aviso explica qué datos tratamos cuando usas el sitio de MoreAI, creas una cuenta o hablas con un asistente de MoreAI, y cuáles son tus derechos.",
+    "fr": "Cette notice explique quelles données nous traitons lorsque vous utilisez le site de MoreAI, créez un compte ou parlez avec un assistant MoreAI, et quels sont vos droits."
+  },
+  "Queste condizioni regolano l’uso del sito e del servizio MoreAI. Registrandoti le accetti.": {
+    "en": "These terms govern the use of the MoreAI website and service. By signing up you accept them.",
+    "es": "Estas condiciones regulan el uso del sitio y del servicio MoreAI. Al registrarte las aceptas.",
+    "fr": "Ces conditions régissent l’utilisation du site et du service MoreAI. En vous inscrivant, vous les acceptez."
+  },
+  "Queste informazioni restano sul tuo dispositivo e non vengono inviate a terzi. La chat usa un identificativo temporaneo della conversazione, che non ti identifica.": {
+    "en": "This information stays on your device and is not sent to third parties. The chat uses a temporary conversation identifier that does not identify you.",
+    "es": "Esta información se queda en tu dispositivo y no se envía a terceros. El chat usa un identificador temporal de la conversación que no te identifica.",
+    "fr": "Ces informations restent sur votre appareil et ne sont pas transmises à des tiers. Le chat utilise un identifiant temporaire de conversation, qui ne vous identifie pas."
+  },
+  "Qui trovi anche i dialoghi che non hanno ancora generato un contatto. Ogni conversazione appartiene soltanto alla tua azienda.": {
+    "en": "Here you also find chats that have not generated a contact yet. Each conversation belongs only to your company.",
+    "es": "Aquí también encontrarás los diálogos que aún no han generado un contacto. Cada conversación pertenece solo a tu empresa.",
+    "fr": "Vous trouvez aussi ici les échanges qui n’ont pas encore généré de contact. Chaque conversation appartient uniquement à votre entreprise."
+  },
+  "Raccoglie informazioni, fonti, installazioni e valutazioni relative alla tua azienda.": {
+    "en": "Gathers information, sources, installations and ratings about your company.",
+    "es": "Recoge información, fuentes, instalaciones y valoraciones de tu empresa.",
+    "fr": "Rassemble les informations, sources, installations et évaluations de votre entreprise."
+  },
+  "Recupera password": {
+    "en": "Recover password",
+    "es": "Recuperar contraseña",
+    "fr": "Récupérer le mot de passe"
+  },
+  "Recupera password — MoreAI": {
+    "en": "Recover password — MoreAI",
+    "es": "Recuperar contraseña — MoreAI",
+    "fr": "Récupérer le mot de passe — MoreAI"
+  },
+  "Registrati": {
+    "en": "Sign up",
+    "es": "Regístrate",
+    "fr": "S’inscrire"
+  },
+  "Registrati — MoreAI": {
+    "en": "Sign up — MoreAI",
+    "es": "Regístrate — MoreAI",
+    "fr": "S’inscrire — MoreAI"
+  },
+  "Regno Unito": {
+    "en": "United Kingdom",
+    "es": "Reino Unido",
+    "fr": "Royaume-Uni"
+  },
+  "Regola aziendale": {
+    "en": "Company rule",
+    "es": "Regla de la empresa",
+    "fr": "Règle de l’entreprise"
+  },
+  "Regole avanzate: scoring e reparti": {
+    "en": "Advanced rules: scoring and departments",
+    "es": "Reglas avanzadas: puntuación y departamentos",
+    "fr": "Règles avancées : notation et services"
+  },
+  "Regole punteggio": {
+    "en": "Scoring rules",
+    "es": "Reglas de puntuación",
+    "fr": "Règles de notation"
+  },
+  "Regole reparti": {
+    "en": "Department rules",
+    "es": "Reglas de departamentos",
+    "fr": "Règles des services"
+  },
+  "Restituisci all’AI": {
+    "en": "Hand back to the AI",
+    "es": "Devolver a la IA",
+    "fr": "Rendre à l’IA"
+  },
+  "Riattiva / riprova il pagamento": {
+    "en": "Reactivate / retry payment",
+    "es": "Reactivar / reintentar el pago",
+    "fr": "Réactiver / réessayer le paiement"
+  },
+  "Riattivare un piano già terminato o recuperare un pagamento fallito richiede un nuovo pagamento simulato, senza una seconda prova gratuita. Ripristinare il rinnovo prima della scadenza non genera addebiti.": {
+    "en": "Reactivating an ended plan or recovering a failed payment requires a new simulated payment, without a second free trial. Restoring renewal before expiry does not generate charges.",
+    "es": "Reactivar un plan ya terminado o recuperar un pago fallido requiere un nuevo pago simulado, sin una segunda prueba gratuita. Restablecer la renovación antes del vencimiento no genera cargos.",
+    "fr": "Réactiver une offre terminée ou récupérer un paiement échoué nécessite un nouveau paiement simulé, sans second essai gratuit. Rétablir le renouvellement avant l’échéance ne génère aucun prélèvement."
+  },
+  "Ricevuta il": {
+    "en": "Received on",
+    "es": "Recibida el",
+    "fr": "Reçue le"
+  },
+  "Richiesta di supporto —": {
+    "en": "Support request —",
+    "es": "Solicitud de soporte —",
+    "fr": "Demande d’assistance —"
+  },
+  "Richiesta inviata. Ti risponderemo al più presto all’email indicata.": {
+    "en": "Request sent. We will reply as soon as possible to the email provided.",
+    "es": "Solicitud enviada. Te responderemos lo antes posible al correo indicado.",
+    "fr": "Demande envoyée. Nous vous répondrons au plus vite à l’e-mail indiqué."
+  },
+  "Richiesta inviata. Ti rispondiamo all’email del tuo account, di solito entro 1 giorno lavorativo.": {
+    "en": "Request sent. We will reply to your account email, usually within 1 business day.",
+    "es": "Solicitud enviada. Te responderemos al correo de tu cuenta, normalmente en 1 día laborable.",
+    "fr": "Demande envoyée. Nous vous répondrons à l’e-mail de votre compte, généralement sous 1 jour ouvré."
+  },
+  "Richiesta registrata per l’azienda": {
+    "en": "Request recorded for the company",
+    "es": "Solicitud registrada para la empresa",
+    "fr": "Demande enregistrée pour l’entreprise"
+  },
+  "Richiesta registrata. L’email di conferma è in attesa di invio.": {
+    "en": "Request recorded. The confirmation email is waiting to be sent.",
+    "es": "Solicitud registrada. El correo de confirmación está pendiente de envío.",
+    "fr": "Demande enregistrée. L’e-mail de confirmation est en attente d’envoi."
+  },
+  "Richiesta registrata: la trovi in «Richieste»": {
+    "en": "Request recorded: you’ll find it in “Requests”",
+    "es": "Solicitud registrada: la encontrarás en «Solicitudes»",
+    "fr": "Demande enregistrée : vous la trouverez dans « Demandes »"
+  },
+  "Richieste": {
+    "en": "Requests",
+    "es": "Solicitudes",
+    "fr": "Demandes"
+  },
+  "Richieste da gestire": {
+    "en": "Requests to handle",
+    "es": "Solicitudes por gestionar",
+    "fr": "Demandes à traiter"
+  },
+  "Richieste, conversazioni e impostazioni del tuo assistente.": {
+    "en": "Your assistant’s requests, conversations and settings.",
+    "es": "Solicitudes, conversaciones y configuración de tu asistente.",
+    "fr": "Demandes, conversations et paramètres de votre assistant."
+  },
+  "Ricordami": {
+    "en": "Remember me",
+    "es": "Recordarme",
+    "fr": "Se souvenir de moi"
+  },
+  "Riepiloga lingue, prenotazioni di prova, punteggi e azioni della tua azienda.": {
+    "en": "Summarises languages, test bookings, scores and actions of your company.",
+    "es": "Resume idiomas, reservas de prueba, puntuaciones y acciones de tu empresa.",
+    "fr": "Résume les langues, les réservations de test, les scores et les actions de votre entreprise."
+  },
+  "Riguarda solo i dati del tuo account, non quelli dei tuoi clienti. Puoi cambiare idea in qualsiasi momento.": {
+    "en": "It concerns only your account data, not your customers’. You can change your mind at any time.",
+    "es": "Afecta solo a los datos de tu cuenta, no a los de tus clientes. Puedes cambiar de opinión en cualquier momento.",
+    "fr": "Cela ne concerne que les données de votre compte, pas celles de vos clients. Vous pouvez changer d’avis à tout moment."
+  },
+  "Rimuovi": {
+    "en": "Remove",
+    "es": "Eliminar",
+    "fr": "Supprimer"
+  },
+  "Rinnovo disattivato. Nessun addebito simulato successivo alla scadenza.": {
+    "en": "Renewal turned off. No simulated charge after expiry.",
+    "es": "Renovación desactivada. Ningún cargo simulado tras el vencimiento.",
+    "fr": "Renouvellement désactivé. Aucun prélèvement simulé après l’échéance."
+  },
+  "Rinnovo o scadenza:": {
+    "en": "Renewal or expiry:",
+    "es": "Renovación o vencimiento:",
+    "fr": "Renouvellement ou échéance :"
+  },
+  "Rispondere a chi ci contatta o chiede di essere ricontattato (consenso espresso nel modulo o in chat).": {
+    "en": "Replying to people who contact us or ask to be contacted (consent given in the form or chat).",
+    "es": "Responder a quien nos contacta o pide ser contactado (consentimiento expresado en el formulario o en el chat).",
+    "fr": "Répondre à ceux qui nous contactent ou demandent à être recontactés (consentement exprimé dans le formulaire ou le chat)."
+  },
+  "STEP 1 / STEP 3": {
+    "en": "STEP 1 / STEP 3",
+    "es": "PASO 1 / PASO 3",
+    "fr": "ÉTAPE 1 / ÉTAPE 3"
+  },
+  "STEP 1 — STEP 3": {
+    "en": "STEP 1 — STEP 3",
+    "es": "PASO 1 — PASO 3",
+    "fr": "ÉTAPE 1 — ÉTAPE 3"
+  },
+  "Salva autorizzazioni e configurazione": {
+    "en": "Save permissions and settings",
+    "es": "Guardar permisos y configuración",
+    "fr": "Enregistrer les autorisations et la configuration"
+  },
+  "Salva configurazione": {
+    "en": "Save settings",
+    "es": "Guardar configuración",
+    "fr": "Enregistrer la configuration"
+  },
+  "Salva e analizza il sito": {
+    "en": "Save and analyse the website",
+    "es": "Guardar y analizar el sitio",
+    "fr": "Enregistrer et analyser le site"
+  },
+  "Salva esito": {
+    "en": "Save outcome",
+    "es": "Guardar resultado",
+    "fr": "Enregistrer le résultat"
+  },
+  "Salva feedback aziendale": {
+    "en": "Save company feedback",
+    "es": "Guardar opinión de la empresa",
+    "fr": "Enregistrer l’avis de l’entreprise"
+  },
+  "Salva nuova password": {
+    "en": "Save new password",
+    "es": "Guardar nueva contraseña",
+    "fr": "Enregistrer le nouveau mot de passe"
+  },
+  "Salvataggio della richiesta…": {
+    "en": "Saving the request…",
+    "es": "Guardando la solicitud…",
+    "fr": "Enregistrement de la demande…"
+  },
+  "Scegli almeno 12 caratteri. Le sessioni precedenti verranno chiuse.": {
+    "en": "Choose at least 12 characters. Previous sessions will be closed.",
+    "es": "Elige al menos 12 caracteres. Las sesiones anteriores se cerrarán.",
+    "fr": "Choisissez au moins 12 caractères. Les sessions précédentes seront fermées."
+  },
+  "Scegli come proseguire.": {
+    "en": "Choose how to continue.",
+    "es": "Elige cómo continuar.",
+    "fr": "Choisissez comment continuer."
+  },
+  "Scegli quali dati servono per gestire una richiesta. I campi obbligatori devono essere compilati prima del salvataggio del contatto.": {
+    "en": "Choose which data is needed to handle a request. Required fields must be filled in before the contact is saved.",
+    "es": "Elige qué datos hacen falta para gestionar una solicitud. Los campos obligatorios deben completarse antes de guardar el contacto.",
+    "fr": "Choisissez les données nécessaires pour traiter une demande. Les champs obligatoires doivent être remplis avant l’enregistrement du contact."
+  },
+  "Scegli un esempio facoltativo": {
+    "en": "Choose an optional example",
+    "es": "Elige un ejemplo opcional",
+    "fr": "Choisissez un exemple facultatif"
+  },
+  "Scegli una password": {
+    "en": "Choose a password",
+    "es": "Elige una contraseña",
+    "fr": "Choisissez un mot de passe"
+  },
+  "Scrivi come farebbe un tuo cliente. L’assistente usa solo le informazioni e le impostazioni della tua azienda. Ogni risposta conta come un messaggio AI del mese.": {
+    "en": "Write as one of your customers would. The assistant uses only your company’s information and settings. Each reply counts as one AI message for the month.",
+    "es": "Escribe como lo haría uno de tus clientes. El asistente usa solo la información y la configuración de tu empresa. Cada respuesta cuenta como un mensaje de IA del mes.",
+    "fr": "Écrivez comme le ferait l’un de vos clients. L’assistant utilise uniquement les informations et paramètres de votre entreprise. Chaque réponse compte comme un message IA du mois."
+  },
+  "Scrivi come farebbe un tuo cliente: l’assistente risponde con le informazioni della tua azienda. Le richieste complete compaiono nella tua dashboard come richieste di prova.": {
+    "en": "Write as one of your customers would: the assistant replies with your company’s information. Complete requests appear in your dashboard as test requests.",
+    "es": "Escribe como lo haría uno de tus clientes: el asistente responde con la información de tu empresa. Las solicitudes completas aparecen en tu panel como solicitudes de prueba.",
+    "fr": "Écrivez comme le ferait l’un de vos clients : l’assistant répond avec les informations de votre entreprise. Les demandes complètes apparaissent dans votre tableau de bord comme demandes de test."
+  },
+  "Scrivi servizi, orari e altri fatti confermati. Non inserire password, segreti o dati privati che l’assistente non deve conoscere.": {
+    "en": "Write services, opening hours and other confirmed facts. Do not enter passwords, secrets or private data the assistant must not know.",
+    "es": "Escribe servicios, horarios y otros datos confirmados. No introduzcas contraseñas, secretos ni datos privados que el asistente no deba conocer.",
+    "fr": "Indiquez les services, horaires et autres faits confirmés. N’indiquez pas de mots de passe, secrets ou données privées que l’assistant ne doit pas connaître."
+  },
+  "Scrivici un’email": {
+    "en": "Send us an email",
+    "es": "Escríbenos un correo",
+    "fr": "Écrivez-nous un e-mail"
+  },
+  "Se non lo trovi, controlla anche Spam, Posta indesiderata,": {
+    "en": "If you can’t find it, also check Spam, Junk,",
+    "es": "Si no lo encuentras, revisa también Spam, Correo no deseado,",
+    "fr": "Si vous ne le trouvez pas, vérifiez aussi Spam, Courrier indésirable,"
+  },
+  "Se selezionato, l’assistente deve ottenere questo dato prima di registrare una richiesta.": {
+    "en": "If selected, the assistant must obtain this information before recording a request.",
+    "es": "Si está seleccionado, el asistente debe obtener este dato antes de registrar una solicitud.",
+    "fr": "Si coché, l’assistant doit obtenir cette information avant d’enregistrer une demande."
+  },
+  "Se selezioni Ricordami, l’accesso rimane attivo fino a 30 giorni. Evita questa scelta sui computer condivisi.": {
+    "en": "If you select Remember me, you stay logged in for up to 30 days. Avoid this on shared computers.",
+    "es": "Si seleccionas Recordarme, el acceso sigue activo hasta 30 días. Evita esta opción en ordenadores compartidos.",
+    "fr": "Si vous cochez Se souvenir de moi, la connexion reste active jusqu’à 30 jours. Évitez ce choix sur les ordinateurs partagés."
+  },
+  "Serve a interpretare i numeri inseriti senza prefisso internazionale.": {
+    "en": "Used to interpret numbers entered without an international prefix.",
+    "es": "Sirve para interpretar los números introducidos sin prefijo internacional.",
+    "fr": "Sert à interpréter les numéros saisis sans indicatif international."
+  },
+  "Servizi, orari, prezzi verificati, modalità e informazioni che l’assistente può utilizzare. Se un’informazione manca, l’AI dovrà farla chiarire al referente.": {
+    "en": "Services, opening hours, verified prices, procedures and information the assistant can use. If something is missing, the AI will have it clarified by the contact person.",
+    "es": "Servicios, horarios, precios verificados, modalidades e información que el asistente puede utilizar. Si falta un dato, la IA pedirá que lo aclare el responsable.",
+    "fr": "Services, horaires, prix vérifiés, modalités et informations que l’assistant peut utiliser. Si une information manque, l’IA la fera préciser par l’interlocuteur."
+  },
+  "Servizio mittente configurato.": {
+    "en": "Sender service configured.",
+    "es": "Servicio remitente configurado.",
+    "fr": "Service d’expédition configuré."
+  },
+  "Sessione scaduta.": {
+    "en": "Session expired.",
+    "es": "Sesión caducada.",
+    "fr": "Session expirée."
+  },
+  "Settore": {
+    "en": "Industry",
+    "es": "Sector",
+    "fr": "Secteur"
+  },
+  "Si apre la tua posta con l’indirizzo": {
+    "en": "Your email app opens with the address",
+    "es": "Se abre tu correo con la dirección",
+    "fr": "Votre messagerie s’ouvre avec l’adresse"
+  },
+  "Sicurezza": {
+    "en": "Security",
+    "es": "Seguridad",
+    "fr": "Sécurité"
+  },
+  "Sinistra": {
+    "en": "Left",
+    "es": "Izquierda",
+    "fr": "Gauche"
+  },
+  "Stabilisce se il dato è testo libero, numero di telefono o indirizzo email.": {
+    "en": "Sets whether the information is free text, a phone number or an email address.",
+    "es": "Establece si el dato es texto libre, número de teléfono o dirección de correo.",
+    "fr": "Détermine si l’information est un texte libre, un numéro de téléphone ou une adresse e-mail."
+  },
+  "Stai usando la Demo gratuita di 7 giorni.": {
+    "en": "You are using the free 7-day Demo.",
+    "es": "Estás usando la Demo gratuita de 7 días.",
+    "fr": "Vous utilisez la Démo gratuite de 7 jours."
+  },
+  "Stati Uniti": {
+    "en": "United States",
+    "es": "Estados Unidos",
+    "fr": "États-Unis"
+  },
+  "Statistiche complessive": {
+    "en": "Overall statistics",
+    "es": "Estadísticas generales",
+    "fr": "Statistiques globales"
+  },
+  "Statistiche e fonti": {
+    "en": "Statistics and sources",
+    "es": "Estadísticas y fuentes",
+    "fr": "Statistiques et sources"
+  },
+  "Stato": {
+    "en": "Status",
+    "es": "Estado",
+    "fr": "Statut"
+  },
+  "Stato aggiornato.": {
+    "en": "Status updated.",
+    "es": "Estado actualizado.",
+    "fr": "Statut mis à jour."
+  },
+  "Stato della richiesta di": {
+    "en": "Request status of",
+    "es": "Estado de la solicitud de",
+    "fr": "Statut de la demande de"
+  },
+  "Stiamo analizzando il sito e le informazioni pubbliche della tua azienda.": {
+    "en": "We are analysing your company’s website and public information.",
+    "es": "Estamos analizando el sitio y la información pública de tu empresa.",
+    "fr": "Nous analysons le site et les informations publiques de votre entreprise."
+  },
+  "Supporto": {
+    "en": "Support",
+    "es": "Soporte",
+    "fr": "Assistance"
+  },
+  "Supporto — MoreAI": {
+    "en": "Support — MoreAI",
+    "es": "Soporte — MoreAI",
+    "fr": "Assistance — MoreAI"
+  },
+  "Svizzera": {
+    "en": "Switzerland",
+    "es": "Suiza",
+    "fr": "Suisse"
+  },
+  "TEST ·": {
+    "en": "TEST ·",
+    "es": "PRUEBA ·",
+    "fr": "TEST ·"
+  },
+  "Telefono": {
+    "en": "Phone",
+    "es": "Teléfono",
+    "fr": "Téléphone"
+  },
+  "Termine del piano:": {
+    "en": "Plan end:",
+    "es": "Fin del plan:",
+    "fr": "Fin de l’offre :"
+  },
+  "Testo": {
+    "en": "Text",
+    "es": "Texto",
+    "fr": "Texte"
+  },
+  "Ti chiediamo di non inserire nelle conversazioni dati sanitari, bancari o altre informazioni sensibili non necessarie.": {
+    "en": "Please do not enter health or banking data or other unnecessary sensitive information in conversations.",
+    "es": "Te pedimos que no introduzcas en las conversaciones datos sanitarios, bancarios u otra información sensible innecesaria.",
+    "fr": "Nous vous demandons de ne pas saisir dans les conversations de données de santé, bancaires ou d’autres informations sensibles non nécessaires."
+  },
+  "Tipologia di immobile": {
+    "en": "Property type",
+    "es": "Tipo de inmueble",
+    "fr": "Type de bien"
+  },
+  "Tono": {
+    "en": "Tone",
+    "es": "Tono",
+    "fr": "Ton"
+  },
+  "Torna al login": {
+    "en": "Back to login",
+    "es": "Volver al acceso",
+    "fr": "Retour à la connexion"
+  },
+  "Torna all’account": {
+    "en": "Back to account",
+    "es": "Volver a la cuenta",
+    "fr": "Retour au compte"
+  },
+  "Trattamento di interesse": {
+    "en": "Treatment of interest",
+    "es": "Tratamiento de interés",
+    "fr": "Soin souhaité"
+  },
+  "Tutte le conversazioni, anche quelle che non hanno portato a una richiesta.": {
+    "en": "All conversations, including those that did not lead to a request.",
+    "es": "Todas las conversaciones, también las que no generaron una solicitud.",
+    "fr": "Toutes les conversations, y compris celles qui n’ont pas abouti à une demande."
+  },
+  "ULTIMO PASSAGGIO": {
+    "en": "LAST STEP",
+    "es": "ÚLTIMO PASO",
+    "fr": "DERNIÈRE ÉTAPE"
+  },
+  "Un clic e il tuo spazio aziendale è pronto.": {
+    "en": "One click and your company space is ready.",
+    "es": "Un clic y tu espacio de empresa está listo.",
+    "fr": "Un clic et votre espace entreprise est prêt."
+  },
+  "Una breve indicazione del tipo di appuntamento simulato.": {
+    "en": "A short description of the simulated appointment type.",
+    "es": "Una breve indicación del tipo de cita simulada.",
+    "fr": "Une brève indication du type de rendez-vous simulé."
+  },
+  "Usa almeno 12 caratteri.": {
+    "en": "Use at least 12 characters.",
+    "es": "Usa al menos 12 caracteres.",
+    "fr": "Utilisez au moins 12 caractères."
+  },
+  "Usiamo fornitori specializzati che trattano i dati per nostro conto:": {
+    "en": "We use specialised providers who process data on our behalf:",
+    "es": "Usamos proveedores especializados que tratan los datos por nuestra cuenta:",
+    "fr": "Nous faisons appel à des prestataires spécialisés qui traitent les données pour notre compte :"
+  },
+  "Uso corretto": {
+    "en": "Fair use",
+    "es": "Uso razonable",
+    "fr": "Usage raisonnable"
+  },
+  "Valutazioni facoltative lasciate dalle persone che hanno provato la chat.": {
+    "en": "Optional ratings left by people who tried the chat.",
+    "es": "Valoraciones opcionales dejadas por quienes han probado el chat.",
+    "fr": "Évaluations facultatives laissées par les personnes qui ont essayé le chat."
+  },
+  "Vendita": {
+    "en": "Sale",
+    "es": "Venta",
+    "fr": "Vente"
+  },
+  "Verifica del servizio…": {
+    "en": "Checking the service…",
+    "es": "Comprobando el servicio…",
+    "fr": "Vérification du service…"
+  },
+  "Verifica email — MoreAI": {
+    "en": "Verify email — MoreAI",
+    "es": "Verificar correo — MoreAI",
+    "fr": "Vérifier l’e-mail — MoreAI"
+  },
+  "Verifica non approvata": {
+    "en": "Verification not approved",
+    "es": "Verificación no aprobada",
+    "fr": "Vérification non approuvée"
+  },
+  "Verifica non disponibile.": {
+    "en": "Verification not available.",
+    "es": "Verificación no disponible.",
+    "fr": "Vérification indisponible."
+  },
+  "Verifica non disponibile. Riprova.": {
+    "en": "Verification not available. Try again.",
+    "es": "Verificación no disponible. Inténtalo de nuevo.",
+    "fr": "Vérification indisponible. Réessayez."
+  },
+  "Vorrei attivare il": {
+    "en": "I would like to activate the",
+    "es": "Me gustaría activar el",
+    "fr": "Je souhaite activer l’offre"
+  },
+  "Vuoi attivare il": {
+    "en": "Want to activate the",
+    "es": "¿Quieres activar el",
+    "fr": "Vous voulez activer l’offre"
+  },
+  "Ciao, vorrei attivare il": {
+    "en": "Hi, I would like to activate the",
+    "es": "Hola, me gustaría activar el",
+    "fr": "Bonjour, je souhaite activer l’offre"
+  },
+  "Zona": {
+    "en": "Area",
+    "es": "Zona",
+    "fr": "Zone"
+  },
+  "al mese · risparmi il": {
+    "en": "per month · you save",
+    "es": "al mes · ahorras el",
+    "fr": "par mois · vous économisez"
+  },
+  "alle": {
+    "en": "at",
+    "es": "a las",
+    "fr": "à"
+  },
+  "all’anno —": {
+    "en": "per year —",
+    "es": "al año —",
+    "fr": "par an —"
+  },
+  "con fatturazione": {
+    "en": "billed",
+    "es": "con facturación",
+    "fr": "avec facturation"
+  },
+  "condizioni d’uso": {
+    "en": "terms of use",
+    "es": "condiciones de uso",
+    "fr": "conditions d’utilisation"
+  },
+  "conferma email": {
+    "en": "email confirmation",
+    "es": "confirmación por correo",
+    "fr": "confirmation par e-mail"
+  },
+  "conversazioni ·": {
+    "en": "conversations ·",
+    "es": "conversaciones ·",
+    "fr": "conversations ·"
+  },
+  "e apri il messaggio “Verifica la tua email — MoreAI”.": {
+    "en": "and open the message “Verifica la tua email — MoreAI”.",
+    "es": "y abre el mensaje «Verifica la tua email — MoreAI».",
+    "fr": "et ouvrez le message « Verifica la tua email — MoreAI »."
+  },
+  "e ho letto la": {
+    "en": "and I have read the",
+    "es": "y he leído el",
+    "fr": "et j’ai lu la"
+  },
+  "e ti aiutiamo noi.": {
+    "en": "and we will help you.",
+    "es": "y te ayudamos.",
+    "fr": "et nous vous aidons."
+  },
+  "email, nome dell’azienda, password (conservata solo come impronta crittografica), sessioni di accesso, scelte e consensi espressi alla registrazione.": {
+    "en": "email, company name, password (stored only as a cryptographic hash), login sessions, choices and consents given at sign-up.",
+    "es": "correo, nombre de la empresa, contraseña (guardada solo como huella criptográfica), sesiones de acceso, elecciones y consentimientos expresados en el registro.",
+    "fr": "e-mail, nom de l’entreprise, mot de passe (conservé uniquement sous forme d’empreinte cryptographique), sessions de connexion, choix et consentements exprimés lors de l’inscription."
+  },
+  "giorni di tolleranza.": {
+    "en": "days of grace.",
+    "es": "días de tolerancia.",
+    "fr": "jours de grâce."
+  },
+  "già inserito. Non inviare mai password o dati di pagamento via email.": {
+    "en": "already filled in. Never send passwords or payment details by email.",
+    "es": "ya introducida. No envíes nunca contraseñas ni datos de pago por correo.",
+    "fr": "déjà renseignée. N’envoyez jamais de mots de passe ou de données de paiement par e-mail."
+  },
+  "i dati che inserisci nel profilo (ragione sociale, sito, contatti, sede) e le informazioni pubbliche raccolte dal sito ufficiale e dal web per preparare l’assistente.": {
+    "en": "the data you enter in the profile (company name, website, contacts, address) and the public information collected from the official website and the web to prepare the assistant.",
+    "es": "los datos que introduces en el perfil (razón social, sitio, contactos, sede) y la información pública recogida del sitio oficial y de la web para preparar el asistente.",
+    "fr": "les données que vous saisissez dans le profil (raison sociale, site, contacts, siège) et les informations publiques recueillies sur le site officiel et sur le web pour préparer l’assistant."
+  },
+  "i messaggi scambiati con l’assistente, i dati che la persona sceglie di fornire (per esempio nome, telefono, email, interesse) e il consenso al contatto.": {
+    "en": "the messages exchanged with the assistant, the data the person chooses to provide (for example name, phone, email, interest) and consent to be contacted.",
+    "es": "los mensajes intercambiados con el asistente, los datos que la persona decide facilitar (por ejemplo nombre, teléfono, correo, interés) y el consentimiento al contacto.",
+    "fr": "les messages échangés avec l’assistant, les données que la personne choisit de fournir (par exemple nom, téléphone, e-mail, intérêt) et le consentement au contact."
+  },
+  "informativa privacy": {
+    "en": "privacy notice",
+    "es": "aviso de privacidad",
+    "fr": "politique de confidentialité"
+  },
+  "la tua azienda": {
+    "en": "your company",
+    "es": "tu empresa",
+    "fr": "votre entreprise"
+  },
+  "messaggi AI al mese": {
+    "en": "AI messages per month",
+    "es": "mensajes de IA al mes",
+    "fr": "messages IA par mois"
+  },
+  "messaggi AI inclusi": {
+    "en": "AI messages included",
+    "es": "mensajes de IA incluidos",
+    "fr": "messages IA inclus"
+  },
+  "messaggi.": {
+    "en": "messages.",
+    "es": "mensajes.",
+    "fr": "messages."
+  },
+  "nessun commento": {
+    "en": "no comment",
+    "es": "sin comentario",
+    "fr": "aucun commentaire"
+  },
+  "privacy": {
+    "en": "privacy notice",
+    "es": "privacidad",
+    "fr": "confidentialité"
+  },
+  "richieste ·": {
+    "en": "requests ·",
+    "es": "solicitudes ·",
+    "fr": "demandes ·"
+  },
+  "su 5": {
+    "en": "out of 5",
+    "es": "de 5",
+    "fr": "sur 5"
+  },
+  "termini e le condizioni d’uso": {
+    "en": "terms and conditions of use",
+    "es": "términos y condiciones de uso",
+    "fr": "termes et conditions d’utilisation"
+  },
+  "un’impronta crittografica (pseudonimizzata) dell’indirizzo IP, usata solo per limitare abusi e tentativi di accesso.": {
+    "en": "a (pseudonymised) cryptographic hash of the IP address, used only to limit abuse and login attempts.",
+    "es": "una huella criptográfica (seudonimizada) de la dirección IP, usada solo para limitar abusos e intentos de acceso.",
+    "fr": "une empreinte cryptographique (pseudonymisée) de l’adresse IP, utilisée uniquement pour limiter les abus et les tentatives de connexion."
+  },
+  "valutazioni facoltative e i messaggi inviati con il modulo contatti.": {
+    "en": "optional ratings and messages sent with the contact form.",
+    "es": "valoraciones opcionales y los mensajes enviados con el formulario de contacto.",
+    "fr": "les évaluations facultatives et les messages envoyés via le formulaire de contact."
+  },
+  "· Usata dall’assistente": {
+    "en": "· Used by the assistant",
+    "es": "· Usada por el asistente",
+    "fr": "· Utilisée par l’assistant"
+  },
+  "· Valutazione media visitatori:": {
+    "en": "· Average visitor rating:",
+    "es": "· Valoración media de los visitantes:",
+    "fr": "· Note moyenne des visiteurs :"
+  },
+  "— non ricorrente": {
+    "en": "— non-recurring",
+    "es": "— no recurrente",
+    "fr": "— non récurrent"
+  },
+  "— simulazione ricorrente": {
+    "en": "— recurring simulation",
+    "es": "— simulación recurrente",
+    "fr": "— simulation récurrente"
+  },
+  "Ciao, sono l’assistente di": {
+    "en": "Hi, I’m the assistant of",
+    "es": "Hola, soy el asistente de",
+    "fr": "Bonjour, je suis l’assistant de"
+  },
+  "Iniziare una nuova conversazione di prova?": {
+    "en": "Start a new test conversation?",
+    "es": "¿Iniciar una nueva conversación de prueba?",
+    "fr": "Commencer une nouvelle conversation de test ?"
+  },
+  "Iniziare una nuova conversazione? Le richieste già registrate rimangono nell’area dell’azienda.": {
+    "en": "Start a new conversation? Requests already recorded stay in the company area.",
+    "es": "¿Iniciar una nueva conversación? Las solicitudes ya registradas permanecen en el área de la empresa.",
+    "fr": "Commencer une nouvelle conversation ? Les demandes déjà enregistrées restent dans l’espace de l’entreprise."
+  },
+  "Eliminare definitivamente questa conversazione, la richiesta e il feedback associati?": {
+    "en": "Permanently delete this conversation, the request and related feedback?",
+    "es": "¿Eliminar definitivamente esta conversación, la solicitud y las opiniones asociadas?",
+    "fr": "Supprimer définitivement cette conversation, la demande et les avis associés ?"
+  },
+  "Grazie, il feedback è salvato: lo trovi in «Statistiche e fonti». Per lasciarne un altro, inizia una nuova conversazione con ↻.": {
+    "en": "Thanks, your feedback is saved: you’ll find it in “Statistics and sources”. To leave another one, start a new conversation with ↻.",
+    "es": "Gracias, tu opinión se ha guardado: la encontrarás en «Estadísticas y fuentes». Para dejar otra, inicia una nueva conversación con ↻.",
+    "fr": "Merci, votre avis est enregistré : vous le trouverez dans « Statistiques et sources ». Pour en laisser un autre, commencez une nouvelle conversation avec ↻."
+  },
+  "Come posso aiutarti oggi?": {
+    "en": "How can I help you today?",
+    "es": "¿En qué puedo ayudarte hoy?",
+    "fr": "Comment puis-je vous aider aujourd’hui ?"
   }
 }

@@ -1031,7 +1031,9 @@ $('#delete-data')
       if (
         !selectedConversation ||
         !confirm(
-          'Eliminare definitivamente questa conversazione, la richiesta e il feedback associati?'
+          (window.lineaPreferences?.t || String)(
+            'Eliminare definitivamente questa conversazione, la richiesta e il feedback associati?'
+          )
         )
       ) {
         return;
