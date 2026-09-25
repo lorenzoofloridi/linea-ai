@@ -1,1 +1,40 @@
-.workspace-header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #d9e0eb;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}.workspace-actions{display:flex;align-items:center;gap:16px}.workspace-menu{position:relative}.workspace-menu summary{cursor:pointer;padding:12px}.workspace-menu nav{position:absolute;right:0;top:100%;background:#fff;border:1px solid #d9e0eb;border-radius:12px;padding:10px;min-width:190px;box-shadow:0 12px 30px #142c3c20}.workspace-menu a{display:block;padding:12px}.account-data{display:grid;grid-template-columns:minmax(140px,1fr) 2fr;gap:14px}.account-data dt{font-weight:bold}.account-data dd{margin:0;overflow-wrap:anywhere}@media(max-width:600px){.workspace-header{padding:12px}.workspace-actions{gap:4px}.workspace-actions .button{font-size:12px;padding:10px}.account-data{display:block}.account-data dd{margin-bottom:16px}}
+/* Spazio aziendale: intestazione, menu e componenti condivisi. */
+.workspace-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px max(20px,calc((100% - 1200px)/2));background:white;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.workspace-header .brand{font-size:26px}
+.workspace-header .brand-mark{width:30px;height:30px;font-size:21px}
+.workspace-actions{display:flex;align-items:center;gap:12px}
+.workspace-menu{position:relative;border-top:0;padding:0;color:var(--ink);font-size:14px}
+.workspace-menu summary{cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--line);border-radius:9px;font-size:14px;font-weight:600;color:var(--ink);background:white;user-select:none}
+.workspace-menu summary:after{content:'';width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .2s}
+.workspace-menu[open] summary:after{transform:rotate(-135deg) translateY(-1px)}
+.workspace-menu nav{position:absolute;right:0;top:calc(100% + 8px);min-width:200px;display:flex;flex-direction:column;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 40px #14233e1a;padding:6px;z-index:30}
+.workspace-menu nav a{padding:10px 12px;border-radius:8px;font-size:14px;color:var(--ink)}
+.workspace-menu nav a:hover,.workspace-menu nav a[aria-current=page]{background:var(--light);color:var(--blue)}
+@media(max-width:600px){.workspace-header{padding:14px 16px}.workspace-actions #logout{padding:10px 12px;font-size:13px}.workspace-header .brand{font-size:22px}}
+
+/* Consumo AI */
+.usage-card{display:grid;grid-template-columns:1fr auto;gap:10px 24px;align-items:center}
+.usage-card h2{margin:0;font-size:18px}
+.usage-card .usage-numbers{font-size:15px;color:var(--muted);text-align:right}
+.usage-card .usage-numbers strong{color:var(--ink);font-size:20px}
+.usage-bar{grid-column:1/-1;height:10px;border-radius:99px;background:#e8eef9;overflow:hidden}
+.usage-bar span{display:block;height:100%;width:0;background:var(--blue);border-radius:99px;transition:width .6s ease}
+.usage-bar.warn span{background:#e39a18}
+.usage-bar.full span{background:#d4453b}
+.usage-card .fine{grid-column:1/-1;margin:0}
+@media(max-width:600px){.usage-card{grid-template-columns:1fr}.usage-card .usage-numbers{text-align:left}}
+
+/* Intestazione della tabella richieste */
+.lead-toolbar{display:flex;gap:10px;flex-wrap:wrap}
+
+/* Scheda account ordinata */
+.account-summary{display:grid;grid-template-columns:minmax(140px,220px) 1fr;gap:12px 24px;margin:22px 0;padding:0}
+.account-summary dt{color:var(--muted);font-size:14px}
+.account-summary dd{margin:0;font-weight:600;font-size:15px}
+@media(max-width:600px){.account-summary{grid-template-columns:1fr;gap:2px 0}.account-summary dd{margin-bottom:12px}}
+
+/* Campi select uniformi */
+.platform-form select,.dash-card select{font:inherit;font-size:15px;border:1px solid #ced5dc;border-radius:9px;padding:11px 12px;background:white;color:var(--ink)}
+.dash-card .empty-state{max-width:620px;margin:22px auto 0}
+#refresh{background:#fff;color:var(--ink);border-color:var(--line)}
+@media(max-width:760px){.lead-toolbar{margin-bottom:14px}}

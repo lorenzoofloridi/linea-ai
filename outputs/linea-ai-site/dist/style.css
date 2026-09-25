@@ -32,3 +32,25 @@ section[id]{scroll-margin-top:110px}
 .contact-picker-bar{padding:8px 20px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}.contact-picker-bar button{border:0;background:#edf2fc;color:#2456ed;border-radius:8px;padding:10px;font:inherit;font-size:13px;cursor:pointer}.contact-picker-bar span{font-size:11px;color:#62718a}
 #contact-picker{width:min(470px,calc(100vw - 32px));padding:26px;border:1px solid #dce3ed;border-radius:18px;max-height:85dvh;color:#14233e}#contact-picker::backdrop{background:#14233e88}#contact-picker h2{font-size:25px}#contact-picker p{font-size:14px;line-height:1.6}#contact-picker label{display:block;margin:15px 0 6px}#contact-picker label[hidden]{display:none}#contact-picker input,#contact-picker select{box-sizing:border-box;width:100%;padding:12px;border:1px solid #ccd6e5;border-radius:8px;font:inherit;background:white}#contact-picker .actions{flex-wrap:wrap}#contact-picker .button{font-size:13px;padding:12px}
 @media(prefers-reduced-motion:reduce){.typing-dot{animation:none}}
+
+/* ===== Rifiniture 2026-09 (sito pulito) ===== */
+.sector-examples .sector-note{margin-top:28px;color:var(--muted);font-size:15px}
+details>summary{list-style:none}
+details>summary::-webkit-details-marker{display:none}
+.nav-toggle{display:none;align-items:center;justify-content:center;width:42px;height:42px;border:1px solid var(--line);border-radius:10px;background:white;color:var(--ink);font-size:20px;line-height:1;cursor:pointer}
+@media(max-width:760px){
+.header-shell .header{flex-wrap:wrap;gap:10px;min-height:0;padding-top:12px;padding-bottom:12px}
+.header-shell .header .brand{margin-right:auto}
+.nav-toggle{display:inline-flex;order:2}
+.header-shell .header .header-plan-cta{order:1}
+.header-shell .header .header-login{display:none}
+.header-shell .header nav#main-nav{display:none!important;order:4;width:100%;flex-direction:column;gap:0;padding:6px 0 4px;border-top:1px solid var(--line);font-size:16px;overflow:visible}
+.header-shell .header.nav-open nav#main-nav{display:flex!important}
+.header-shell .header nav#main-nav a{padding:13px 2px;border-bottom:1px solid #eef2f8}
+.header-shell .header nav#main-nav a:after{display:none}
+.header-shell .header nav#main-nav .nav-login{display:block;font-weight:700;color:var(--blue);border-bottom:0}
+.header-shell .language-choice{order:3}
+}
+@media(min-width:761px){.header nav#main-nav .nav-login{display:none}}
+.brand-small .brand{font-size:26px}
+.brand-small .brand-mark{width:30px;height:30px;font-size:21px}

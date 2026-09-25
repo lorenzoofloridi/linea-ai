@@ -139,36 +139,24 @@ button.onclick = async () => {
     }
 
     /*
-     * Manteniamo il comportamento esistente
-     * per gli eventuali piani a pagamento
-     * conservati nella sessione.
+     * Piani a pagamento: l'attivazione avviene
+     * con il team, quindi portiamo l'utente al
+     * supporto con il piano già indicato.
      */
-    if (intent) {
-      const [plan, period] =
-        intent.split(':');
+    const paidNames = {
+      base: 'Piano Base',
+      plus: 'Piano Plus',
+      advanced: 'Piano Advanced'
+    };
+    const paidPlan = intent ? intent.split(':')[0] : '';
 
-      if (
-        [
-          'base',
-          'plus',
-          'advanced'
-        ].includes(plan)
-      ) {
-        sessionStorage.removeItem(
-          'linea_plan_intent'
-        );
-
-        location.assign(
-          '/attiva-piano.html?plan=' +
-            encodeURIComponent(plan) +
-            '&period=' +
-            encodeURIComponent(
-              period || 'monthly'
-            )
-        );
-
-        return;
-      }
+    if (paidNames[paidPlan]) {
+      sessionStorage.removeItem('linea_plan_intent');
+      location.assign(
+        '/supporto.html?piano=' +
+          encodeURIComponent(paidNames[paidPlan])
+      );
+      return;
     }
 
     /*

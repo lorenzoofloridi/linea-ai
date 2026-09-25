@@ -19,3 +19,10 @@ if(pageNavigation?.type==='reload'){
   requestAnimationFrame(()=>requestAnimationFrame(showHomeStart));
  },{once:true});
 }
+
+// Menu della home su schermi piccoli.
+const navToggle=document.querySelector('.nav-toggle'),mainHeader=navToggle?.closest('.header');
+function setMainNav(open){if(!navToggle||!mainHeader)return;mainHeader.classList.toggle('nav-open',open);navToggle.setAttribute('aria-expanded',String(open));navToggle.setAttribute('aria-label',open?'Chiudi il menu':'Apri il menu');navToggle.textContent=open?'✕':'☰';}
+navToggle?.addEventListener('click',()=>setMainNav(navToggle.getAttribute('aria-expanded')!=='true'));
+document.querySelector('#main-nav')?.addEventListener('click',event=>{if(event.target.closest('a'))setMainNav(false);});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&navToggle?.getAttribute('aria-expanded')==='true'){setMainNav(false);navToggle.focus();}});

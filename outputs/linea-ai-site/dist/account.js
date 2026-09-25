@@ -137,24 +137,25 @@ function destinationAfterAuthentication(
   }
 
   if (intent) {
-    const [plan, period] =
-      intent.split(':');
+    const [plan] = intent.split(':');
+    const names = {
+      base: 'Piano Base',
+      plus: 'Piano Plus',
+      advanced: 'Piano Advanced'
+    };
 
-    if (
-      ['base', 'plus', 'advanced'].includes(plan)
-    ) {
-      return (
-        '/attiva-piano.html?plan=' +
-        encodeURIComponent(plan) +
-        '&period=' +
-        encodeURIComponent(
-          period || 'monthly'
-        )
-      );
+    /*
+     * I piani a pagamento si attivano con il team:
+     * dopo la verifica email portiamo l'utente al
+     * supporto con il piano già indicato.
+     */
+    if (names[plan] && response.redirect !== '/account.html') {
+      sessionStorage.removeItem('linea_plan_intent');
+      return '/supporto.html?piano=' + encodeURIComponent(names[plan]);
     }
   }
 
-  return response.redirect || '/#contatti';
+  return response.redirect || '/dashboard.html';
 }
 
 form.addEventListener(

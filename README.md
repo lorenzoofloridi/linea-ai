@@ -6,4 +6,4 @@ Per usare il sito sul Mac apri **Apri il sito.command** e lascia aperto il Termi
 
 La cartella operativa è **Documenti → GitHub → linea-ai**. La precedente cartella sul Desktop non deve più essere modificata. GitHub Desktop deve mostrare il repository `linea-ai`; i commit locali non aggiornano da soli un host. Il ramo **main** è la versione ufficiale completa. Prima di ogni push verificare test, dati sensibili e assenza di deployment automatici. Per trasferire il progetto leggi [TRASFERIRE-SU-UN-ALTRO-PC.md](TRASFERIRE-SU-UN-ALTRO-PC.md).
 
-Email di prova: `python3 linea.py emails` genera una pagina riservata al gestore, indicando dove aprirla. Pagamenti fittizi: **Spazio aziendale → Portafoglio → Laboratorio pagamenti**. Nessun denaro reale.
+Email di prova: `python3 linea.py emails` genera una pagina riservata al gestore, indicando dove aprirla. Il sito online (Netlify) non simula pagamenti: i piani a pagamento si attivano con il team finché Stripe non è collegato. Migrazioni del database online: `npm run db:status`, `npm run db:migrate`, `npm run db:check` (vedi netlify/AUDIT.md).

@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test netlify/tests/chat-state.test.mjs netlify/tests/ai-adapter.test.mjs netlify/tests/db-config.test.mjs",
+    "test": "node --test netlify/tests/chat-state.test.mjs netlify/tests/ai-adapter.test.mjs netlify/tests/db-config.test.mjs netlify/tests/site-features.test.mjs",
     "test:database": "node --test netlify/tests/chat-database.test.mjs",
     "db:status": "node --env-file=.env.supabase scripts/migrate.mjs status",
     "db:migrate": "node --env-file=.env.supabase scripts/migrate.mjs migrate",

@@ -72,3 +72,11 @@ Motivo: il calcolo di Netlify Database ha consumato 30–60 crediti al giorno an
 - Si riparte da zero: i dati su Netlify Database erano solo account di prova. Netlify Database va rimosso dal progetto dopo il passaggio.
 - Modello predefinito aggiornato a `gemini-3.5-flash-lite` (i 2.5 sono riservati ai progetti che li usavano già); ragionamento minimo con `thinkingLevel` per i 3.x e `thinkingBudget: 0` per i 2.x.
 - Latenza: le Functions restano a IAD (US East; la regione si cambia solo con piani superiori) e il database è a Frankfurt, circa 90 ms per query. Da misurare dopo il deploy; eventuale riduzione del numero di query per richiesta.
+
+## Aggiornamento 25 settembre 2026 — revisione del sito
+
+- Nuove migrazioni additive con RLS: `0010_password_reset.sql` (token di recupero, solo hash) e `0011_company_notes.sql` (note sulle conversazioni, FK composta per azienda).
+- `netlify/lib/password-reset.mjs` + `mailer.mjs`: `POST /api/password-request` risponde sempre con lo stesso messaggio (nessuna enumerazione), limiti 5/IP/15 min e 3/email/ora; `POST /api/password-reset` consuma il token in transazione, aggiorna la password e chiude tutte le sessioni. Email via Resend con Idempotency-Key; nei log solo codici/stati HTTP.
+- `netlify/lib/company-data.mjs`: `GET /api/company-overview`, `POST /api/company-review` (note), `POST /api/data-delete` (richiede `confirm: true`), `GET /api/data-export.csv` (CSV con protezione da formula injection). Ogni query è filtrata per `company_id` della sessione; test di isolamento in `chat-database.test.mjs`.
+- Frontend: rimossi pagamenti simulati, strumenti agente non collegati e recensioni (nascoste finché non esiste il backend); prezzi e quote pubblici; CTA unica «Prova gratis»; piani a pagamento attivati con il team; menu mobile; intestazione comune dell'area riservata; card consumi AI in dashboard e in «Piano e consumi»; informative privacy/condizioni/cookie riscritte con i fornitori reali (da completare con identità legale e revisione legale).
+- Login verificato → `/dashboard.html`. Verifica: `npm test` (33 test), `npm run test:database`, controllo Playwright desktop/mobile senza errori console, 404 o overflow orizzontale.

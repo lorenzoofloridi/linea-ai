@@ -1,6 +1,8 @@
 import { chatApi } from "../lib/chat-api.mjs";
 import { ready as aiReady } from "../lib/online-ai.mjs";
 import { internalRequestHeaders } from "../lib/internal-auth.mjs";
+import { requestPasswordReset, completePasswordReset } from "../lib/password-reset.mjs";
+import { PLAN_MONTHLY_MESSAGES } from "../lib/ai-quota.mjs";
 import { getDatabase } from "../lib/db.mjs";
 import {
   createHash,
@@ -114,17 +116,28 @@ function planAmount(code, period) {
       );
 }
 
+// Catalogo pubblico: prezzi e messaggi AI inclusi sono visibili a tutti.
+// Le quote vengono dal backend (ai-quota.mjs), la stessa fonte usata per applicarle.
 function publicPlanCatalogue() {
   return {
     authenticated: false,
     discount: PLAN_DISCOUNT,
     plans: Object.entries(PLANS).map(
-      ([code, plan]) => ({
-        code,
-        name: plan.name,
-        trial_days: plan.trial_days,
-        available: plan.available
-      })
+      ([code, plan]) => {
+        const annualCents =
+          code === "demo" ? 0 : planAmount(code, "annual");
+
+        return {
+          code,
+          name: plan.name,
+          trial_days: plan.trial_days,
+          available: plan.available,
+          monthly_cents: plan.monthly_cents,
+          annual_cents: annualCents,
+          annual_monthly_cents: Math.floor(annualCents / 12),
+          messages: PLAN_MONTHLY_MESSAGES[code]
+        };
+      }
     )
   };
 }
@@ -1417,7 +1430,7 @@ export default async (
 
           redirect:
             verified
-              ? "/#contatti"
+              ? "/dashboard.html"
               : "/account.html"
         },
         200,
@@ -1467,6 +1480,45 @@ export default async (
                 clear: true
               }
             )
+        }
+      );
+    }
+
+    if (
+      path === "/api/password-request" &&
+      method === "POST"
+    ) {
+      return json(
+        await requestPasswordReset(
+          db,
+          await requestBody(request),
+          {
+            ip: context.ip,
+            baseUrl:
+              process.env.PUBLIC_SITE_URL ||
+              url.origin
+          }
+        )
+      );
+    }
+
+    if (
+      path === "/api/password-reset" &&
+      method === "POST"
+    ) {
+      return json(
+        await completePasswordReset(
+          db,
+          await requestBody(request),
+          {
+            ip: context.ip,
+            hashPassword: passwordHash
+          }
+        ),
+        200,
+        {
+          "Set-Cookie":
+            sessionCookie("", { clear: true })
         }
       );
     }
@@ -1682,6 +1734,8 @@ export default async (
         cards.push({
           code,
           ...plan,
+          messages:
+            PLAN_MONTHLY_MESSAGES[code],
 
           annual_cents:
             annualCents,

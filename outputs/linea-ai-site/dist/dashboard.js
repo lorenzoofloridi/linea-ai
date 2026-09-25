@@ -50,7 +50,7 @@ async function request(path, data) {
    * la Dashboard.
    */
   if (r.status === 402) {
-    location.replace('/#contatti');
+    location.replace('/#offerte');
 
     throw Error(
       d.error ||
@@ -974,7 +974,7 @@ $('#export-data')
       try {
         const r =
           await fetch(
-            '/api/data-export.xlsx'
+            '/api/data-export.csv'
           );
 
         if (r.status === 401) {
@@ -987,7 +987,7 @@ $('#export-data')
 
         if (r.status === 402) {
           location.replace(
-            '/#contatti'
+            '/portafoglio.html'
           );
 
           return;
@@ -1010,7 +1010,7 @@ $('#export-data')
         a.href = url;
 
         a.download =
-          'dati-azienda.xlsx';
+          'richieste-linea-ai.csv';
 
         a.click();
 
@@ -1079,14 +1079,14 @@ async function overview() {
 
   $('#verification')
     .textContent =
-    (
-      d.verified
-        ? 'Azienda verificata dal gestore.'
-        : 'Account registrato: rappresentanza aziendale ancora da verificare.'
-    ) +
-    ' Configurazione versione ' +
-    d.config_version +
-    '.';
+    ({
+      pending: 'Stiamo analizzando il sito e le informazioni pubbliche della tua azienda.',
+      researching: 'Stiamo analizzando il sito e le informazioni pubbliche della tua azienda.',
+      verified: 'Analisi della tua azienda completata.',
+      needs_review: 'Analisi completata: alcune informazioni vanno controllate.',
+      failed: 'Non siamo riusciti ad analizzare il sito. Controlla l’indirizzo nei dati aziendali e riprova.'
+    })[d.research_status] ||
+    'Completa i dati aziendali dalla pagina Account per avviare l’analisi automatica del tuo sito.';
 
   const s =
     d.statistics;
@@ -1147,18 +1147,12 @@ async function overview() {
 
       node(
         'small',
-        k.source +
-          ' · ' +
-          (
-            k.verified
-              ? 'Verificata'
-              : 'Bozza'
-          ) +
-          ' · ' +
+        'Fonte: ' +
+          k.source +
           (
             k.ai_allowed
-              ? 'Disponibile all’AI'
-              : 'Esclusa dall’AI'
+              ? ' · Usata dall’assistente'
+              : ''
           )
       )
     );
@@ -1260,3 +1254,40 @@ $('#team-review')
       }
     }
   );
+
+/*
+ * Consumo AI del mese (sola lettura: il limite è deciso dal backend).
+ */
+(async () => {
+  const card = document.querySelector('#usage-card');
+
+  if (!card) {
+    return;
+  }
+
+  try {
+    const r = await fetch('/api/ai-usage');
+
+    if (!r.ok) {
+      return;
+    }
+
+    const u = await r.json();
+    const format = n => new Intl.NumberFormat('it-IT').format(n);
+    const ratio = u.limit ? Math.min(1, u.used / u.limit) : 1;
+    const bar = document.querySelector('#usage-bar');
+
+    document.querySelector('#usage-used').textContent = format(u.used);
+    document.querySelector('#usage-limit').textContent = format(u.limit || 0);
+    bar.querySelector('span').style.width = Math.round(ratio * 100) + '%';
+    bar.classList.toggle('warn', ratio >= 0.8 && ratio < 1);
+    bar.classList.toggle('full', ratio >= 1);
+    document.querySelector('#usage-note').textContent =
+      ratio >= 1
+        ? 'Hai raggiunto il limite del mese: l’assistente riprenderà il primo giorno del mese prossimo, oppure passando a un piano superiore.'
+        : 'Ogni risposta dell’assistente, anche nella chat di prova, conta come un messaggio. Il conteggio riparte il primo giorno di ogni mese.';
+    card.hidden = false;
+  } catch {
+    card.hidden = true;
+  }
+})();

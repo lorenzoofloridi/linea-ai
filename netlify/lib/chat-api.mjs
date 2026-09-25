@@ -2,6 +2,7 @@ import {randomBytes,createHash} from 'node:crypto';
 import {interpret,ready} from './online-ai.mjs';
 import {initialState,advance} from './chat-state.mjs';
 import {effectivePlan,reserveMessage,releaseMessage,recordTokens,usageSummary,QuotaError} from './ai-quota.mjs';
+import {companyOverview,addCompanyNote,deleteConversation,exportLeadsCsv} from './company-data.mjs';
 
 const token=()=>randomBytes(32).toString('base64url');
 const hash=s=>createHash('sha256').update(s).digest('hex');
@@ -50,7 +51,11 @@ export async function chatApi(
    '/api/conversations',
    '/api/config',
    '/api/email-status',
-   '/api/ai-usage'
+   '/api/ai-usage',
+   '/api/company-overview',
+   '/api/company-review',
+   '/api/data-delete',
+   '/api/data-export.csv'
   ].includes(path)||
   /^\/api\/(leads|conversations)\/[^/]+$/.test(path);
 
@@ -140,7 +145,11 @@ export async function chatApi(
   }
 
   await allowed(user.company_id);
-  await requireActivePlan(user.company_id);
+
+  // Esportare o cancellare i propri dati resta possibile anche senza piano attivo.
+  if(!['/api/data-export.csv','/api/data-delete'].includes(path)){
+   await requireActivePlan(user.company_id);
+  }
 
   const cid=user.company_id;
 
@@ -149,6 +158,28 @@ export async function chatApi(
    method==='GET'
   ){
    return json(await usageSummary(db,cid));
+  }
+
+  if(path==='/api/company-overview'&&method==='GET'){
+   return json(await companyOverview(db,cid));
+  }
+
+  if(path==='/api/company-review'&&method==='POST'){
+   return json(await addCompanyNote(db,cid,body),201);
+  }
+
+  if(path==='/api/data-delete'&&method==='POST'){
+   return json(await deleteConversation(db,cid,body));
+  }
+
+  if(path==='/api/data-export.csv'&&method==='GET'){
+   return new Response(await exportLeadsCsv(db,cid),{
+    headers:{
+     'Content-Type':'text/csv; charset=utf-8',
+     'Content-Disposition':'attachment; filename="richieste-linea-ai.csv"',
+     'Cache-Control':'no-store'
+    }
+   });
   }
 
   if(

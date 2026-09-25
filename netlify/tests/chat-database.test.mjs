@@ -611,6 +611,38 @@ try {
     }
   );
 
+  await test(
+    'dashboard data stays inside each company (overview, notes, export, delete)',
+    async () => {
+      const sessionA = (await api('session', { company: 'public-a' })).session;
+      await api('chat', { session: sessionA, message: 'Sono Mario, telefono 3331234567, cerco auto', request_id: 'iso-1' });
+      await api('chat', { session: sessionA, message: 'sì', request_id: 'iso-2' });
+
+      const convA = (await api('conversations')).conversations[0].id;
+
+      const overviewA = await api('company-overview');
+      const overviewB = await api('company-overview', null, 'b');
+      assert.ok(overviewA.statistics.leads >= 1);
+      assert.equal(overviewB.statistics.leads, 0);
+
+      await assert.rejects(api('company-review', { conversation: convA, comment: 'nota di B' }, 'b'), e => e.httpStatus === 404);
+      await api('company-review', { conversation: convA, comment: 'Cliente interessato, richiamare.' });
+      assert.equal((await api('company-overview')).reviews[0].comment, 'Cliente interessato, richiamare.');
+      assert.equal((await api('company-overview', null, 'b')).reviews.length, 0);
+
+      const csvA = await (await chatApi(request('data-export.csv', null, 'a'), { pool }, auth, { model, modelReady: () => true, context: { ip: '127.0.0.1' } })).text();
+      const csvB = await (await chatApi(request('data-export.csv', null, 'b'), { pool }, auth, { model, modelReady: () => true, context: { ip: '127.0.0.1' } })).text();
+      assert.match(csvA, /Mario/);
+      assert.doesNotMatch(csvB, /Mario/);
+
+      await assert.rejects(api('data-delete', { conversation: convA, confirm: true }, 'b'), e => e.httpStatus === 404);
+      await assert.rejects(api('data-delete', { conversation: convA }), e => e.httpStatus === 400);
+      await api('data-delete', { conversation: convA, confirm: true });
+      const left = await pool.query('SELECT 1 FROM conversations WHERE company_id=$1 AND id=$2', ['a', convA]);
+      assert.equal(left.rowCount, 0);
+    }
+  );
+
   /*
    * Quando la Demo aziendale scade:
    * - le funzioni operative vengono bloccate;

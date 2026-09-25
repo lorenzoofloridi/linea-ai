@@ -898,5 +898,370 @@
     "en": "Demo connected to your local assistant.",
     "es": "Demo conectada al asistente local.",
     "fr": "Démo connectée à votre assistant local."
+  },
+  "Prova gratis": {
+    "en": "Try it free",
+    "es": "Pruébalo gratis",
+    "fr": "Essai gratuit"
+  },
+  "Prova gratis per 7 giorni": {
+    "en": "Try it free for 7 days",
+    "es": "Pruébalo gratis 7 días",
+    "fr": "Essai gratuit de 7 jours"
+  },
+  "Parla con il nostro assistente": {
+    "en": "Talk to our assistant",
+    "es": "Habla con nuestro asistente",
+    "fr": "Parlez à notre assistant"
+  },
+  "Nessuna carta richiesta. Ogni azienda ha il suo assistente, i suoi dati e la sua dashboard.": {
+    "en": "No card required. Every business gets its own assistant, data and dashboard.",
+    "es": "Sin tarjeta. Cada empresa tiene su propio asistente, sus datos y su panel.",
+    "fr": "Aucune carte requise. Chaque entreprise a son assistant, ses données et son tableau de bord."
+  },
+  "Esempio di conversazione": {
+    "en": "Sample conversation",
+    "es": "Ejemplo de conversación",
+    "fr": "Exemple de conversation"
+  },
+  "Decidi tu cosa può dire l’assistente e quali dati raccogliere.": {
+    "en": "You decide what the assistant can say and which details it collects.",
+    "es": "Tú decides qué puede decir el asistente y qué datos recoger.",
+    "fr": "Vous décidez ce que l’assistant peut dire et quelles données il recueille."
+  },
+  "Esplora le tre fasi": {
+    "en": "Explore the three steps",
+    "es": "Explora las tres fases",
+    "fr": "Découvrez les trois étapes"
+  },
+  "Risponde anche fuori orario, 7 giorni su 7": {
+    "en": "Answers after hours too, 7 days a week",
+    "es": "Responde también fuera de horario, 7 días a la semana",
+    "fr": "Répond aussi en dehors des horaires, 7 jours sur 7"
+  },
+  "Sono solo esempi: ogni azienda sceglie le informazioni da dare e i dati da raccogliere.": {
+    "en": "These are just examples: each business chooses what to share and what to collect.",
+    "es": "Son solo ejemplos: cada empresa elige qué información dar y qué datos recoger.",
+    "fr": "Ce ne sont que des exemples : chaque entreprise choisit les informations à donner et les données à recueillir."
+  },
+  "Scopri come Linea AI può aiutare la tua azienda: chiedi informazioni sul servizio, sulla personalizzazione e sul funzionamento della piattaforma. Per piani e prezzi trovi tutto in": {
+    "en": "See how Linea AI can help your business: ask about the service, customization and how the platform works. For plans and pricing, see",
+    "es": "Descubre cómo Linea AI puede ayudar a tu empresa: pregunta por el servicio, la personalización y el funcionamiento de la plataforma. Para planes y precios, consulta",
+    "fr": "Découvrez comment Linea AI peut aider votre entreprise : posez vos questions sur le service, la personnalisation et le fonctionnement de la plateforme. Pour les offres et les tarifs, consultez"
+  },
+  ". Se vuoi essere ricontattato, puoi lasciare la tua email direttamente in chat.": {
+    "en": ". If you’d like us to get back to you, just leave your email in the chat.",
+    "es": ". Si quieres que te contactemos, deja tu email en el chat.",
+    "fr": ". Pour être recontacté, laissez simplement votre e-mail dans le chat."
+  },
+  "Le conversazioni con questo assistente vengono conservate per migliorare il servizio. Non inserire dati sensibili.": {
+    "en": "Conversations with this assistant are stored to improve the service. Please don’t share sensitive information.",
+    "es": "Las conversaciones con este asistente se guardan para mejorar el servicio. No introduzcas datos sensibles.",
+    "fr": "Les conversations avec cet assistant sont conservées pour améliorer le service. N’indiquez pas de données sensibles."
+  },
+  "L’assistente non è raggiungibile in questo momento. Riprova tra qualche minuto.": {
+    "en": "The assistant is not available right now. Please try again in a few minutes.",
+    "es": "El asistente no está disponible ahora. Vuelve a intentarlo en unos minutos.",
+    "fr": "L’assistant n’est pas disponible pour le moment. Réessayez dans quelques minutes."
+  },
+  "Collegamento all’assistente…": {
+    "en": "Connecting to the assistant…",
+    "es": "Conectando con el asistente…",
+    "fr": "Connexion à l’assistant…"
+  },
+  "Un primo contatto": {
+    "en": "A first contact",
+    "es": "Un primer contacto",
+    "fr": "Un premier contact"
+  },
+  "fatto con cura.": {
+    "en": "done with care.",
+    "es": "hecho con cuidado.",
+    "fr": "soigné."
+  },
+  "Linea AI nasce per aiutare le aziende a rispondere a chi le contatta, subito e con le informazioni giuste, senza perdere il contesto di ogni persona.": {
+    "en": "Linea AI helps businesses answer everyone who gets in touch, right away and with the right information, without losing track of each person.",
+    "es": "Linea AI ayuda a las empresas a responder a quien las contacta, al momento y con la información correcta, sin perder el contexto de cada persona.",
+    "fr": "Linea AI aide les entreprises à répondre à ceux qui les contactent, tout de suite et avec les bonnes informations, sans perdre le fil de chaque personne."
+  },
+  "DISPONIBILE": {
+    "en": "AVAILABLE",
+    "es": "DISPONIBLE",
+    "fr": "DISPONIBLE"
+  },
+  "Assistente personalizzato, analisi automatica del sito aziendale, richieste e conversazioni nella dashboard privata, statistiche e feedback.": {
+    "en": "A tailored assistant, automatic analysis of your website, requests and conversations in a private dashboard, statistics and feedback.",
+    "es": "Asistente personalizado, análisis automático del sitio web, solicitudes y conversaciones en un panel privado, estadísticas y valoraciones.",
+    "fr": "Assistant personnalisé, analyse automatique du site, demandes et conversations dans un tableau de bord privé, statistiques et avis."
+  },
+  "IN ARRIVO": {
+    "en": "COMING SOON",
+    "es": "PRÓXIMAMENTE",
+    "fr": "BIENTÔT"
+  },
+  "Sul tuo sito e oltre": {
+    "en": "On your website and beyond",
+    "es": "En tu web y más allá",
+    "fr": "Sur votre site et au-delà"
+  },
+  "Widget da installare sul sito aziendale, pagamenti online, report periodici e nuovi canali di contatto.": {
+    "en": "A widget for your website, online payments, regular reports and new contact channels.",
+    "es": "Widget para tu web, pagos online, informes periódicos y nuevos canales de contacto.",
+    "fr": "Widget pour votre site, paiements en ligne, rapports réguliers et nouveaux canaux de contact."
+  },
+  "Preferisci": {
+    "en": "Would you rather",
+    "es": "¿Prefieres",
+    "fr": "Vous préférez"
+  },
+  "parlarne": {
+    "en": "talk it over",
+    "es": "hablarlo",
+    "fr": "en parler"
+  },
+  "con noi?": {
+    "en": "with us?",
+    "es": "con nosotros?",
+    "fr": "avec nous ?"
+  },
+  "Raccontaci come gestisci oggi le nuove richieste o quale piano ti interessa. Ti rispondiamo con una proposta su misura.": {
+    "en": "Tell us how you handle new requests today or which plan you’re interested in. We’ll reply with a tailored proposal.",
+    "es": "Cuéntanos cómo gestionas hoy las nuevas solicitudes o qué plan te interesa. Te responderemos con una propuesta a medida.",
+    "fr": "Dites-nous comment vous gérez aujourd’hui les nouvelles demandes ou quelle offre vous intéresse. Nous vous répondrons avec une proposition sur mesure."
+  },
+  "Come possiamo aiutarti?": {
+    "en": "How can we help?",
+    "es": "¿Cómo podemos ayudarte?",
+    "fr": "Comment pouvons-nous vous aider ?"
+  },
+  "Acconsento all’uso dei dati inseriti per rispondere a questa richiesta, come descritto nell’informativa privacy. Non li useremo per il marketing.": {
+    "en": "I agree to the use of this information to answer my request, as described in the privacy policy. It won’t be used for marketing.",
+    "es": "Acepto el uso de estos datos para responder a esta solicitud, como se describe en la política de privacidad. No se usarán para marketing.",
+    "fr": "J’accepte l’utilisation de ces données pour répondre à ma demande, comme décrit dans la politique de confidentialité. Elles ne seront pas utilisées à des fins marketing."
+  },
+  "Invia la richiesta": {
+    "en": "Send request",
+    "es": "Enviar solicitud",
+    "fr": "Envoyer la demande"
+  },
+  "Inizia gratis con la Demo di 7 giorni. Quando sei pronto, scegli il piano adatto al volume di richieste della tua azienda.": {
+    "en": "Start free with the 7-day Demo. When you’re ready, pick the plan that fits your volume of requests.",
+    "es": "Empieza gratis con la Demo de 7 días. Cuando estés listo, elige el plan adecuado al volumen de solicitudes de tu empresa.",
+    "fr": "Commencez gratuitement avec la Démo de 7 jours. Quand vous êtes prêt, choisissez l’offre adaptée à votre volume de demandes."
+  },
+  "PER INIZIARE": {
+    "en": "TO GET STARTED",
+    "es": "PARA EMPEZAR",
+    "fr": "POUR COMMENCER"
+  },
+  "100 messaggi AI inclusi": {
+    "en": "100 AI messages included",
+    "es": "100 mensajes de IA incluidos",
+    "fr": "100 messages IA inclus"
+  },
+  "Assistente, chat di prova e dashboard": {
+    "en": "Assistant, test chat and dashboard",
+    "es": "Asistente, chat de prueba y panel",
+    "fr": "Assistant, chat de test et tableau de bord"
+  },
+  "Nessuna carta richiesta": {
+    "en": "No card required",
+    "es": "Sin tarjeta",
+    "fr": "Aucune carte requise"
+  },
+  "IL PIÙ SCELTO": {
+    "en": "MOST POPULAR",
+    "es": "EL MÁS ELEGIDO",
+    "fr": "LE PLUS CHOISI"
+  },
+  "3.000 messaggi AI al mese": {
+    "en": "3,000 AI messages per month",
+    "es": "3.000 mensajes de IA al mes",
+    "fr": "3 000 messages IA par mois"
+  },
+  "10.000 messaggi AI al mese": {
+    "en": "10,000 AI messages per month",
+    "es": "10.000 mensajes de IA al mes",
+    "fr": "10 000 messages IA par mois"
+  },
+  "50.000 messaggi AI al mese (uso corretto)": {
+    "en": "50,000 AI messages per month (fair use)",
+    "es": "50.000 mensajes de IA al mes (uso razonable)",
+    "fr": "50 000 messages IA par mois (usage raisonnable)"
+  },
+  "Assistente con le informazioni della tua azienda": {
+    "en": "An assistant that knows your business",
+    "es": "Asistente con la información de tu empresa",
+    "fr": "Un assistant qui connaît votre entreprise"
+  },
+  "Dashboard con richieste, conversazioni e statistiche": {
+    "en": "Dashboard with requests, conversations and statistics",
+    "es": "Panel con solicitudes, conversaciones y estadísticas",
+    "fr": "Tableau de bord avec demandes, conversations et statistiques"
+  },
+  "Attiva con noi": {
+    "en": "Activate with us",
+    "es": "Actívalo con nosotros",
+    "fr": "Activer avec nous"
+  },
+  "Attivazione guidata con il nostro team": {
+    "en": "Guided activation with our team",
+    "es": "Activación guiada con nuestro equipo",
+    "fr": "Activation accompagnée par notre équipe"
+  },
+  "PER CHI CRESCE": {
+    "en": "FOR GROWING TEAMS",
+    "es": "PARA QUIEN CRECE",
+    "fr": "POUR LES ÉQUIPES EN CROISSANCE"
+  },
+  "PER VOLUMI ALTI": {
+    "en": "FOR HIGH VOLUMES",
+    "es": "PARA GRANDES VOLÚMENES",
+    "fr": "POUR LES GROS VOLUMES"
+  },
+  "Vai alla dashboard": {
+    "en": "Go to dashboard",
+    "es": "Ir al panel",
+    "fr": "Aller au tableau de bord"
+  },
+  "La tua Demo di 7 giorni è terminata. I tuoi dati sono al sicuro: scegli un piano per continuare.": {
+    "en": "Your 7-day Demo has ended. Your data is safe: choose a plan to continue.",
+    "es": "Tu Demo de 7 días ha terminado. Tus datos están a salvo: elige un plan para continuar.",
+    "fr": "Votre Démo de 7 jours est terminée. Vos données sont en sécurité : choisissez une offre pour continuer."
+  },
+  "I pagamenti online sono in arrivo: nel frattempo attiviamo i piani a pagamento insieme a te.": {
+    "en": "Online payments are coming soon: in the meantime we activate paid plans together with you.",
+    "es": "Los pagos online llegarán pronto: mientras tanto activamos los planes de pago contigo.",
+    "fr": "Les paiements en ligne arrivent bientôt : en attendant, nous activons les offres payantes avec vous."
+  },
+  "I dati della tua azienda →": {
+    "en": "Your company details →",
+    "es": "Los datos de tu empresa →",
+    "fr": "Les données de votre entreprise →"
+  },
+  "Parla con l’assistente ↑": {
+    "en": "Talk to the assistant ↑",
+    "es": "Habla con el asistente ↑",
+    "fr": "Parler à l’assistant ↑"
+  },
+  "Condizioni d’uso": {
+    "en": "Terms of use",
+    "es": "Condiciones de uso",
+    "fr": "Conditions d’utilisation"
+  },
+  "Contatti": {
+    "en": "Contact",
+    "es": "Contacto",
+    "fr": "Contact"
+  },
+  "Assistenti AI per le aziende": {
+    "en": "AI assistants for businesses",
+    "es": "Asistentes de IA para empresas",
+    "fr": "Assistants IA pour les entreprises"
+  },
+  "Apri il menu": {
+    "en": "Open menu",
+    "es": "Abrir menú",
+    "fr": "Ouvrir le menu"
+  },
+  "Chiudi il menu": {
+    "en": "Close menu",
+    "es": "Cerrar menú",
+    "fr": "Fermer le menu"
+  },
+  "Linea AI, home": {
+    "en": "Linea AI, home",
+    "es": "Linea AI, inicio",
+    "fr": "Linea AI, accueil"
+  },
+  "Nome dell’azienda": {
+    "en": "Company name",
+    "es": "Nombre de la empresa",
+    "fr": "Nom de l’entreprise"
+  },
+  "nome@azienda.it": {
+    "en": "name@company.com",
+    "es": "nombre@empresa.com",
+    "fr": "nom@entreprise.fr"
+  },
+  "Navigazione principale": {
+    "en": "Main navigation",
+    "es": "Navegación principal",
+    "fr": "Navigation principale"
+  },
+  "Quando preferisci essere contattato?": {
+    "en": "When would you like to be contacted?",
+    "es": "¿Cuándo prefieres que te contactemos?",
+    "fr": "Quand préférez-vous être contacté ?"
+  },
+  "Giorno": {
+    "en": "Day",
+    "es": "Día",
+    "fr": "Jour"
+  },
+  "Fascia oraria (facoltativa)": {
+    "en": "Time slot (optional)",
+    "es": "Franja horaria (opcional)",
+    "fr": "Créneau (facultatif)"
+  },
+  "Nessuna preferenza": {
+    "en": "No preference",
+    "es": "Sin preferencia",
+    "fr": "Pas de préférence"
+  },
+  "mattina": {
+    "en": "morning",
+    "es": "mañana",
+    "fr": "matin"
+  },
+  "pomeriggio": {
+    "en": "afternoon",
+    "es": "tarde",
+    "fr": "après-midi"
+  },
+  "sera": {
+    "en": "evening",
+    "es": "noche",
+    "fr": "soir"
+  },
+  "Usa questa preferenza": {
+    "en": "Use this preference",
+    "es": "Usar esta preferencia",
+    "fr": "Utiliser cette préférence"
+  },
+  "Annulla": {
+    "en": "Cancel",
+    "es": "Cancelar",
+    "fr": "Annuler"
+  },
+  "Chiudi ×": {
+    "en": "Close ×",
+    "es": "Cerrar ×",
+    "fr": "Fermer ×"
+  },
+  "Invia messaggio": {
+    "en": "Send message",
+    "es": "Enviar mensaje",
+    "fr": "Envoyer le message"
+  },
+  "Nuova conversazione": {
+    "en": "New conversation",
+    "es": "Nueva conversación",
+    "fr": "Nouvelle conversation"
+  },
+  "Inizia una nuova conversazione": {
+    "en": "Start a new conversation",
+    "es": "Empezar una nueva conversación",
+    "fr": "Démarrer une nouvelle conversation"
+  },
+  "Periodo del piano": {
+    "en": "Billing period",
+    "es": "Periodo del plan",
+    "fr": "Période de facturation"
+  },
+  "Per esempio: gestire le richieste dalle campagne e alleggerire la segreteria.": {
+    "en": "For example: handling requests from campaigns and easing the load on the front desk.",
+    "es": "Por ejemplo: gestionar las solicitudes de las campañas y aliviar la recepción.",
+    "fr": "Par exemple : gérer les demandes issues des campagnes et alléger le secrétariat."
   }
 }

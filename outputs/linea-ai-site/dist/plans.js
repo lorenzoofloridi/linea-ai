@@ -104,6 +104,30 @@
     );
   }
 
+  /*
+   * Richiesta di attivazione di un piano a pagamento:
+   * precompila il modulo contatti (o apre il supporto se l'utente è già registrato).
+   */
+  function contactForPlan(planName, billingPeriod) {
+    const periodLabel = billingPeriod === 'annual' ? 'annuale' : 'mensile';
+    const message = q('#contact-message');
+    const section = q('#contact-form-section');
+
+    if (message && section && !section.hidden) {
+      if (!message.value.trim()) {
+        message.value =
+          'Vorrei attivare il ' + planName + ' con fatturazione ' + periodLabel + '.';
+      }
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      q('#contact-name')?.focus({ preventScroll: true });
+      return;
+    }
+
+    location.assign(
+      '/supporto.html?piano=' + encodeURIComponent(planName)
+    );
+  }
+
   if (q('#plans-area')) {
     let period = 'monthly';
     let data = null;
@@ -138,10 +162,12 @@
           node(
             'p',
             p.code === 'demo'
-              ? 'ESPLORA'
-              : p.available
-                ? 'IL PRIMO PASSO'
-                : 'IN DEFINIZIONE',
+              ? 'PER INIZIARE'
+              : p.code === 'base'
+                ? 'IL PIÙ SCELTO'
+                : p.code === 'plus'
+                  ? 'PER CHI CRESCE'
+                  : 'PER VOLUMI ALTI',
             'eyebrow'
           ),
           node('h3', p.name)
@@ -153,14 +179,7 @@
           'pricing-amount'
         );
 
-        if (!data.authenticated) {
-          price.append(
-            node(
-              'span',
-              'Accedi o registrati per vedere la tariffa'
-            )
-          );
-        } else if (!p.available) {
+        if (!p.available) {
           price.append(
             node('strong', 'A breve')
           );
@@ -191,7 +210,6 @@
         card.append(price);
 
         if (
-          data.authenticated &&
           p.code !== 'demo' &&
           period === 'annual'
         ) {
@@ -209,17 +227,21 @@
 
         const list = node('ul');
 
+        const messages =
+          new Intl.NumberFormat('it-IT').format(p.messages || 0);
+
         const items =
           p.code === 'demo'
             ? [
-                'Accesso al tuo Spazio Aziendale',
-                'Una prova per email registrata',
-                'Nessun metodo di pagamento richiesto'
+                messages + ' messaggi AI inclusi',
+                'Assistente, chat di prova e dashboard',
+                'Nessuna carta richiesta'
               ]
             : [
-                'Servizi inclusi da definire',
-                'Verifica dei dati aziendali',
-                'Metodo compatibile con il rinnovo automatico'
+                messages + ' messaggi AI al mese' +
+                  (p.code === 'advanced' ? ' (uso corretto)' : ''),
+                'Assistente con le informazioni della tua azienda',
+                'Dashboard con richieste, conversazioni e statistiche'
               ];
 
         for (const item of items) {
@@ -232,9 +254,11 @@
 
         const button = node(
           'button',
-          p.available
-            ? 'Inizia subito'
-            : 'In preparazione',
+          !p.available
+            ? 'In preparazione'
+            : p.code === 'demo'
+              ? 'Prova gratis'
+              : 'Attiva con noi',
           'button ' +
             (p.code === 'base'
               ? 'blue'
@@ -254,7 +278,10 @@
                * ricordiamo quale piano ha scelto
                * prima di mandarlo alla registrazione.
                */
-              if (!data.authenticated) {
+              if (
+                !data.authenticated &&
+                p.code === 'demo'
+              ) {
                 goToRegistration(
                   p.code,
                   period
@@ -292,17 +319,12 @@
 
               /*
                * Piani Base / Plus / Advanced.
+               * Finché i pagamenti online non sono attivi,
+               * l'attivazione passa dal nostro team.
                */
-              sessionStorage.removeItem(
-                'linea_plan_intent'
-              );
+              contactForPlan(p.name, period);
 
-              location.assign(
-                '/attiva-piano.html?plan=' +
-                  encodeURIComponent(p.code) +
-                  '&period=' +
-                  encodeURIComponent(period)
-              );
+              button.disabled = false;
             } catch (e) {
               q('#plans-status').textContent =
                 e.message;
@@ -318,9 +340,7 @@
           card.append(
             node(
               'small',
-              'Prova gratuita di ' +
-                p.trial_days +
-                ' giorni'
+              'Attivazione guidata con il nostro team'
             )
           );
         } else if (
@@ -363,13 +383,13 @@
 
         cta.href =
           data.authenticated
-            ? '#offerte'
-            : '#contatti';
+            ? '/dashboard.html'
+            : '/registrati.html?plan=demo';
 
         cta.textContent =
           data.authenticated
-            ? 'Prova la Demo'
-            : 'Richiedi una prova ↗';
+            ? 'Vai alla dashboard'
+            : 'Prova gratis';
 
         const account = q(
           '.header-login'
@@ -503,7 +523,7 @@
 
       q(
         '#selected-plan-name'
-      ).textContent = base.name;
+      ).textContent = 'DATI AZIENDALI';
 
       q(
         '#trial-title'
@@ -512,9 +532,7 @@
         base.name;
 
       document.title =
-        'Attiva ' +
-        base.name +
-        ' — Linea AI';
+        'Dati aziendali — Linea AI';
 
       q('#base-quote').textContent =
         money(
@@ -538,13 +556,13 @@
 
       const labels = {
         pending:
-          'In attesa della verifica del gestore',
+          'Analisi della tua azienda in corso',
         verified:
-          'Verifica locale approvata',
+          'Dati verificati',
         rejected:
           'Verifica non approvata',
         needs_review:
-          'Servono informazioni aggiuntive',
+          'Analisi completata: controlla i dati inseriti',
         under_review:
           'Azienda in revisione',
         suspended:
@@ -579,9 +597,10 @@
       const sub =
         state.subscription;
 
+      // I pagamenti online non sono ancora attivi: il riepilogo resta nascosto.
       q(
         '#subscription-panel'
-      ).hidden = !sub;
+      ).hidden = true;
 
       if (sub) {
         q(
@@ -757,7 +776,7 @@
           await refresh();
 
           status.textContent =
-            'Dati registrati. Il gestore deve verificarli prima dell’avvio della prova.';
+            'Dati salvati. Stiamo leggendo il sito e le informazioni pubbliche della tua azienda: ci vuole qualche minuto.';
         });
       }
     );

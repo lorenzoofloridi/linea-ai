@@ -104,6 +104,15 @@
             )
         );
 
+      for (const link of menu.querySelectorAll('nav a')) {
+        if (
+          link.getAttribute('href') ===
+          location.pathname.split('/').pop()
+        ) {
+          link.setAttribute('aria-current', 'page');
+        }
+      }
+
       if (dashboardLink) {
         dashboardLink.href =
           verified
@@ -187,6 +196,36 @@
   /*
    * Logout.
    */
+  /*
+   * Consumo AI del mese (sola lettura: il limite è deciso dal backend).
+   */
+  async function showUsage() {
+    const card = q('#usage-card');
+
+    if (!card) {
+      return;
+    }
+
+    try {
+      const u = await api('ai-usage');
+      const format = n => new Intl.NumberFormat('it-IT').format(n);
+      const ratio = u.limit ? Math.min(1, u.used / u.limit) : 1;
+
+      q('#usage-used').textContent = format(u.used);
+      q('#usage-limit').textContent = format(u.limit || 0);
+      q('#usage-bar span').style.width = Math.round(ratio * 100) + '%';
+      q('#usage-bar').classList.toggle('warn', ratio >= 0.8 && ratio < 1);
+      q('#usage-bar').classList.toggle('full', ratio >= 1);
+      q('#usage-note').textContent =
+        ratio >= 1
+          ? 'Hai raggiunto il limite del mese: l’assistente riprenderà a rispondere il primo giorno del mese prossimo, oppure passando a un piano superiore.'
+          : 'Il conteggio riparte il primo giorno di ogni mese. Rimangono ' + format(u.remaining) + ' messaggi.';
+      card.hidden = false;
+    } catch {
+      card.hidden = true;
+    }
+  }
+
   const logout =
     q('#logout');
 
@@ -282,6 +321,9 @@
         q('#resend-verification');
 
       if (resend) {
+        resend.hidden =
+          verification.verified;
+
         resend.disabled =
           verification.verified;
 
@@ -350,29 +392,7 @@
           'plan-state'
         );
 
-      const companyReview =
-        await api(
-          'company-verification'
-        );
-
       const entries = [
-        [
-          'Stato azienda',
-          ({
-            pending:
-              'In attesa',
-            under_review:
-              'In revisione',
-            verified:
-              'Verificata',
-            rejected:
-              'Non approvata',
-            suspended:
-              'Sospesa'
-          })[
-            companyReview.status
-          ]
-        ],
         [
           'Email account',
           me.email
@@ -402,20 +422,20 @@
       }
 
       entries.push([
-        'Verifica dei dati',
+        'Analisi dell’azienda',
         ({
           pending:
-            'In attesa',
+            'In corso',
           verified:
-            'Approvata',
+            'Completata',
           rejected:
-            'Non approvata',
+            'Non riuscita',
           needs_review:
-            'Da integrare'
+            'Completata, da controllare'
         })[
           state.profile?.status
         ] ||
-          'Dati non ancora presentati'
+          'Completa i dati aziendali per avviarla'
       ]);
 
       for (
@@ -461,85 +481,65 @@
     }
 
     /*
-     * PAGINA PORTAFOGLIO
+     * PAGINA PIANO E CONSUMI
      */
-    if (q('#wallet-form')) {
+    if (q('#plan-summary')) {
       const state =
         await api(
           'plan-state'
         );
 
-      q(
-        '#wallet-state'
-      ).textContent =
-        state.subscription
-          ? 'Metodo del tuo piano (simulato).'
-          : 'Attiva prima un piano per associargli un metodo di pagamento.';
+      const names = {
+        base: 'Piano Base',
+        plus: 'Piano Plus',
+        advanced: 'Piano Advanced'
+      };
 
-      for (
-        const m
-        of state.methods.filter(
-          m => m.recurring
-        )
-      ) {
-        const o =
-          document.createElement(
-            'option'
-          );
-
-        o.value =
-          m.code;
-
-        o.textContent =
-          m.label;
-
-        q(
-          '#wallet-method'
-        ).append(o);
-      }
+      const now = Date.now() / 1000;
+      const sub = state.subscription;
+      const dateText = x =>
+        new Intl.DateTimeFormat('it-IT', { dateStyle: 'long' })
+          .format(new Date(x * 1000));
 
       if (
-        state.subscription
+        sub &&
+        ['trial', 'active', 'past_due'].includes(sub.status)
       ) {
-        q(
-          '#wallet-method'
-        ).value =
-          state.subscription
-            .method_kind;
+        q('#plan-summary').textContent =
+          'Il tuo piano: ' + (names[sub.plan] || sub.plan) + '.';
+        q('#plan-period').textContent =
+          'Rinnovo o scadenza: ' + dateText(sub.period_end) + '.';
+      } else if (
+        state.demo &&
+        state.demo.ends > now
+      ) {
+        q('#plan-summary').textContent =
+          'Stai usando la Demo gratuita di 7 giorni.';
+        q('#plan-period').textContent =
+          'La Demo termina il ' + dateText(state.demo.ends) + '. I tuoi dati restano salvati anche dopo.';
+      } else {
+        q('#plan-summary').textContent =
+          'Non hai un piano attivo. I tuoi dati restano salvati: attiva un piano per continuare a usare l’assistente.';
       }
 
-      q(
-        '#wallet-form button'
-      ).disabled =
-        !state.subscription;
+      await showUsage();
+    }
 
-      q(
-        '#wallet-form'
-      ).onsubmit =
-        async e => {
-          e.preventDefault();
+    /*
+     * PAGINA SUPPORTO: richiesta di attivazione di un piano.
+     */
+    const planRequest = q('#plan-request');
 
-          try {
-            await api(
-              'plan-method',
-              {
-                method:
-                  q(
-                    '#wallet-method'
-                  ).value
-              }
-            );
+    if (planRequest) {
+      const plan =
+        new URLSearchParams(location.search).get('piano');
 
-            if (
-              workspaceStatus
-            ) {
-              workspaceStatus.textContent =
-                'Metodo simulato aggiornato. Nessun addebito reale.';
-            }
-          } catch (e) {
-            show(e);
-          }
-        };
+      if (plan && plan.length < 60) {
+        planRequest.hidden = false;
+        planRequest.textContent =
+          'Vuoi attivare il ' + plan +
+          '? Scrivici dall’email del tuo account indicando il piano e la fatturazione preferita: lo attiviamo insieme a te.';
+      }
     }
   })().catch(show);
 })();
