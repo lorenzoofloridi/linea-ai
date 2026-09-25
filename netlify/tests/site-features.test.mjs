@@ -230,3 +230,32 @@ test('support request goes only to the team, replies go to the account email', a
   const failing = async () => { throw new Error('x'); };
   await assert.rejects(sendSupportRequest(db, { ...user, id: 'u2' }, { message: 'Serve aiuto, grazie.' }, { env: {}, mail: failing }), e => e.httpStatus === 503);
 });
+
+test('Excel export is a real xlsx with text-only cells for the company', async () => {
+  const { exportLeadsXlsx } = await import('../lib/company-data.mjs');
+  const { inflateRawSync } = await import('node:zlib');
+  const db = { pool: { query: async (sql, params) => {
+    assert.deepEqual(params, ['c1']);
+    return { rows: [{ created_at: new Date('2026-09-25T10:00:00Z'), status: 'Nuova', kind: 'real', data: { nome: '=HYPERLINK("x")', telefono: '+39 333' }, consent: true, summary: '' }] };
+  } } };
+  const file = await exportLeadsXlsx(db, 'c1');
+  assert.equal(file.readUInt32LE(0), 0x04034b50);
+  // Legge i file dell'archivio e controlla il foglio.
+  const parts = {};
+  for (let i = 0; i < file.length - 4;) {
+    if (file.readUInt32LE(i) !== 0x04034b50) break;
+    const size = file.readUInt32LE(i + 18), nameLen = file.readUInt16LE(i + 26), extra = file.readUInt16LE(i + 28);
+    const name = file.subarray(i + 30, i + 30 + nameLen).toString();
+    const start = i + 30 + nameLen + extra;
+    parts[name] = inflateRawSync(file.subarray(start, start + size)).toString();
+    i = start + size;
+  }
+  const sheet = parts['xl/worksheets/sheet1.xml'];
+  assert.ok(parts['[Content_Types].xml'] && parts['xl/workbook.xml']);
+  assert.ok(!/<f>/.test(sheet));
+  assert.match(sheet, /t="inlineStr"/);
+  assert.match(sheet, /=HYPERLINK\(&quot;x&quot;\)/);
+  assert.match(sheet, /25\/09\/26, 12:00/);
+  assert.match(sheet, />Sì</);
+  assert.match(sheet, />Sito</);
+});

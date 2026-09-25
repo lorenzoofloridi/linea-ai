@@ -165,7 +165,7 @@
             p.code === 'demo'
               ? 'PER INIZIARE'
               : p.code === 'base'
-                ? 'IL PIÙ SCELTO'
+                ? 'CONSIGLIATO'
                 : p.code === 'plus'
                   ? 'PER CHI CRESCE'
                   : 'PER VOLUMI ALTI',

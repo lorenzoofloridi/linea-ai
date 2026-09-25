@@ -2,7 +2,7 @@ import {randomBytes,createHash} from 'node:crypto';
 import {interpret,ready} from './online-ai.mjs';
 import {initialState,advance} from './chat-state.mjs';
 import {effectivePlan,reserveMessage,releaseMessage,recordTokens,usageSummary,QuotaError} from './ai-quota.mjs';
-import {companyOverview,addCompanyNote,deleteConversation,exportLeadsCsv} from './company-data.mjs';
+import {companyOverview,addCompanyNote,deleteConversation,exportLeadsCsv,exportLeadsXlsx} from './company-data.mjs';
 import {notifyHomeFeedback} from './feedback-notify.mjs';
 
 const token=()=>randomBytes(32).toString('base64url');
@@ -56,7 +56,8 @@ export async function chatApi(
    '/api/company-overview',
    '/api/company-review',
    '/api/data-delete',
-   '/api/data-export.csv'
+   '/api/data-export.csv',
+   '/api/data-export.xlsx'
   ].includes(path)||
   /^\/api\/(leads|conversations)\/[^/]+$/.test(path);
 
@@ -148,7 +149,7 @@ export async function chatApi(
   await allowed(user.company_id);
 
   // Esportare o cancellare i propri dati resta possibile anche senza piano attivo.
-  if(!['/api/data-export.csv','/api/data-delete'].includes(path)){
+  if(!['/api/data-export.csv','/api/data-export.xlsx','/api/data-delete'].includes(path)){
    await requireActivePlan(user.company_id);
   }
 
@@ -171,6 +172,16 @@ export async function chatApi(
 
   if(path==='/api/data-delete'&&method==='POST'){
    return json(await deleteConversation(db,cid,body));
+  }
+
+  if(path==='/api/data-export.xlsx'&&method==='GET'){
+   return new Response(await exportLeadsXlsx(db,cid),{
+    headers:{
+     'Content-Type':'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+     'Content-Disposition':'attachment; filename="richieste-moreai.xlsx"',
+     'Cache-Control':'no-store'
+    }
+   });
   }
 
   if(path==='/api/data-export.csv'&&method==='GET'){

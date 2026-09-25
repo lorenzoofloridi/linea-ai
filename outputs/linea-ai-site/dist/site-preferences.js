@@ -20,6 +20,8 @@ const rules=[
  [/^Il conteggio riparte il primo giorno di ogni mese\. Rimangono (.+) messaggi\.$/,m=>[`The count restarts on the first day of each month. ${m[1]} messages remaining.`,`El recuento se reinicia el primer día de cada mes. Quedan ${m[1]} mensajes.`,`Le compteur repart le premier jour de chaque mois. Il reste ${m[1]} messages.`][li()]],
  [/^Il tuo piano: (.+)\.$/,m=>['Your plan: ','Tu plan: ','Votre offre : '][li()]+plan(m[1])+'.'],
  [/^Rinnovo o scadenza: (.+)\.$/,m=>['Renewal or expiry: ','Renovación o vencimiento: ','Renouvellement ou échéance : '][li()]+dateT(m[1])+'.'],
+ [/^([\d.]+) messaggi AI inclusi$/,m=>m[1]+[' AI messages included',' mensajes de IA incluidos',' messages IA inclus'][li()]],
+ [/^([\d.]+) messaggi AI al mese( \(uso corretto\))?$/,m=>m[1]+[' AI messages per month',' mensajes de IA al mes',' messages IA par mois'][li()]+(m[2]?[' (fair use)',' (uso razonable)',' (usage raisonnable)'][li()]:'')],
  [/^(\d+) conversazioni$/,m=>m[1]+[' conversations',' conversaciones',' conversations'][li()]],
  [/^(\d+) richieste$/,m=>m[1]+[' requests',' solicitudes',' demandes'][li()]],
  [/^([\d.,]+)% delle conversazioni ha prodotto una richiesta$/,m=>m[1]+['% of conversations led to a request','% de las conversaciones generó una solicitud',' % des conversations ont généré une demande'][li()]],
@@ -51,7 +53,7 @@ async function init(){
  try{const r=await fetch('/translations.json');if(r.ok){dictionary=await r.json();lower=null}}catch{}
  const label=document.createElement('label');label.className='language-choice';label.setAttribute('aria-label','Language');const select=document.createElement('select');select.setAttribute('aria-label','Language / Lingua');[['it','Italiano'],['en','English'],['es','Español'],['fr','Français']].forEach(([code,name])=>{const o=document.createElement('option');o.value=code;o.textContent=name;select.append(o)});select.value=lang;
  // Su schermi stretti mostra solo il codice (IT, EN, ES, FR) per non affollare l'intestazione.
- const narrow=matchMedia('(max-width:640px)'),names=['Italiano','English','Español','Français'],short=()=>[...select.options].forEach((o,i)=>{o.textContent=narrow.matches&&!document.querySelector('.header-plan-cta')?o.value.toUpperCase():names[i]});short();narrow.addEventListener?.('change',short);
+ const narrow=matchMedia('(max-width:640px)'),names=['Italiano','English','Español','Français'],short=()=>[...select.options].forEach((o,i)=>{o.textContent=narrow.matches?o.value.toUpperCase():names[i]});short();narrow.addEventListener?.('change',short);
  select.addEventListener('change',()=>window.lineaPreferences.setLanguage(select.value));label.append(select);place(label)
  const banner=document.createElement('section');banner.id='cookie-choice';banner.setAttribute('role','region');banner.setAttribute('aria-labelledby','cookie-heading');
  banner.innerHTML='<h2 id="cookie-heading">Cookie: scegli come proseguire</h2><p>Usiamo solo tecnologie necessarie per accesso e preferenze. Non ci sono cookie pubblicitari o di analisi. Rifiuta e Solo obbligatori mantengono attive le funzioni necessarie; Accetta non attiva tracciatori né autorizza servizi futuri.</p><a href="/cookie.html">Informazioni sui cookie</a><div class="cookie-actions"><button type="button" data-choice="accept">Accetta</button><button type="button" data-choice="reject">Rifiuta</button><button type="button" data-choice="necessary">Solo obbligatori</button></div><small>Scelta salvata su questo browser per 180 giorni. Puoi modificarla dal fondo della pagina.</small>';

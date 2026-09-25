@@ -2654,11 +2654,6 @@
     "es": "En Panel → Información para la IA introduce servicios, horarios, precios y todo lo que el asistente puede comunicar, y elige qué datos recoger. Los cambios se aplican a las nuevas conversaciones.",
     "fr": "Dans Tableau de bord → Informations pour l’IA, saisissez les services, horaires, prix et tout ce que l’assistant peut communiquer, puis choisissez les données à recueillir. Les modifications s’appliquent aux nouvelles conversations."
   },
-  "In Dashboard → Richieste usa Esporta: scarichi un file CSV, apribile con Excel. Conservalo con cura, perché contiene dati dei tuoi clienti.": {
-    "en": "In Dashboard → Requests use Export: you download a CSV file that opens in Excel. Keep it safe, as it contains your customers’ data.",
-    "es": "En Panel → Solicitudes usa Exportar: descargas un archivo CSV que se abre con Excel. Guárdalo con cuidado, porque contiene datos de tus clientes.",
-    "fr": "Dans Tableau de bord → Demandes, utilisez Exporter : vous téléchargez un fichier CSV ouvrable avec Excel. Conservez-le avec soin, car il contient les données de vos clients."
-  },
   "In attesa": {
     "en": "Pending",
     "es": "En espera",
@@ -4138,5 +4133,510 @@
     "en": "How can I help you today?",
     "es": "¿En qué puedo ayudarte hoy?",
     "fr": "Comment puis-je vous aider aujourd’hui ?"
+  },
+  "In Dashboard → Richieste premi «Esporta dati»: scarichi un file Excel con tutte le richieste. Conservalo con cura, perché contiene i dati dei tuoi clienti.": {
+    "en": "In Dashboard → Requests press “Export data”: you download an Excel file with all requests. Keep it safe, as it contains your customers’ data.",
+    "es": "En Panel → Solicitudes pulsa «Exportar datos»: descargas un archivo Excel con todas las solicitudes. Guárdalo con cuidado, porque contiene los datos de tus clientes.",
+    "fr": "Dans Tableau de bord → Demandes, appuyez sur « Exporter les données » : vous téléchargez un fichier Excel avec toutes les demandes. Conservez-le avec soin, car il contient les données de vos clients."
+  },
+  "Esporta dati": {
+    "en": "Export data",
+    "es": "Exportar datos",
+    "fr": "Exporter les données"
+  },
+  "7 giorni": {
+    "en": "7 days",
+    "es": "7 días",
+    "fr": "7 jours"
+  },
+  "ASSISTENTE AI PER IL PRIMO CONTATTO": {
+    "en": "AI ASSISTANT FOR THE FIRST CONTACT",
+    "es": "ASISTENTE IA PARA EL PRIMER CONTACTO",
+    "fr": "ASSISTANT IA POUR LE PREMIER CONTACT"
+  },
+  "Accoglie chi arriva dal sito o da una campagna e fa le domande giuste per capire che cosa cerca.": {
+    "en": "It welcomes people coming from your website or a campaign and asks the right questions to understand what they need.",
+    "es": "Recibe a quien llega desde el sitio o una campaña y hace las preguntas adecuadas para entender qué busca.",
+    "fr": "Il accueille ceux qui arrivent du site ou d’une campagne et pose les bonnes questions pour comprendre ce qu’ils cherchent."
+  },
+  "Ascolta ogni richiesta": {
+    "en": "Listens to every request",
+    "es": "Escucha cada solicitud",
+    "fr": "Écoute chaque demande"
+  },
+  "Assistente personalizzato, analisi automatica del sito aziendale, dashboard con richieste, conversazioni, statistiche e feedback, esportazione dei dati in Excel.": {
+    "en": "Custom assistant, automatic analysis of the company website, dashboard with requests, conversations, statistics and feedback, data export to Excel.",
+    "es": "Asistente personalizado, análisis automático del sitio de la empresa, panel con solicitudes, conversaciones, estadísticas y opiniones, exportación de datos a Excel.",
+    "fr": "Assistant personnalisé, analyse automatique du site de l’entreprise, tableau de bord avec demandes, conversations, statistiques et avis, export des données vers Excel."
+  },
+  "Attiva la Demo gratuita di 7 giorni: nessuna carta richiesta.": {
+    "en": "Start the free 7-day Demo: no card required.",
+    "es": "Activa la Demo gratuita de 7 días: sin tarjeta.",
+    "fr": "Activez la Démo gratuite de 7 jours : sans carte bancaire."
+  },
+  "Chat da installare sul sito aziendale, pagamenti online, report periodici e nuovi canali di contatto.": {
+    "en": "Chat to install on the company website, online payments, periodic reports and new contact channels.",
+    "es": "Chat para instalar en el sitio de la empresa, pagos en línea, informes periódicos y nuevos canales de contacto.",
+    "fr": "Chat à installer sur le site de l’entreprise, paiements en ligne, rapports périodiques et nouveaux canaux de contact."
+  },
+  "Che cosa ti è piaciuto? Che cosa miglioreresti?": {
+    "en": "What did you like? What would you improve?",
+    "es": "¿Qué te ha gustado? ¿Qué mejorarías?",
+    "fr": "Qu’avez-vous aimé ? Qu’amélioreriez-vous ?"
+  },
+  "Chiedi come funziona MoreAI, che cosa si può personalizzare e come si attiva. Se vuoi essere ricontattato, lascia la tua email direttamente in chat. Piani e prezzi sono nella sezione": {
+    "en": "Ask how MoreAI works, what can be customised and how to get started. If you would like to be contacted, leave your email right in the chat. Plans and prices are in the section",
+    "es": "Pregunta cómo funciona MoreAI, qué se puede personalizar y cómo se activa. Si quieres que te contacten, deja tu correo directamente en el chat. Los planes y precios están en la sección",
+    "fr": "Demandez comment fonctionne MoreAI, ce qui peut être personnalisé et comment l’activer. Si vous souhaitez être recontacté, laissez votre e-mail directement dans le chat. Les offres et les prix sont dans la section"
+  },
+  "Come funziona MoreAI?": {
+    "en": "How does MoreAI work?",
+    "es": "¿Cómo funciona MoreAI?",
+    "fr": "Comment fonctionne MoreAI ?"
+  },
+  "Conserviamo queste conversazioni per migliorare il servizio. Non inserire dati sensibili.": {
+    "en": "We keep these conversations to improve the service. Do not enter sensitive data.",
+    "es": "Conservamos estas conversaciones para mejorar el servicio. No introduzcas datos sensibles.",
+    "fr": "Nous conservons ces conversations pour améliorer le service. Ne saisissez pas de données sensibles."
+  },
+  "Cosa dice chi ci ha": {
+    "en": "What people who",
+    "es": "Lo que dice quien nos ha",
+    "fr": "Ce qu’en disent ceux qui nous ont"
+  },
+  "provato.": {
+    "en": "tried us say.",
+    "es": "probado.",
+    "fr": "essayés."
+  },
+  "Dal primo messaggio": {
+    "en": "From the first message",
+    "es": "Del primer mensaje",
+    "fr": "Du premier message"
+  },
+  "al contatto con il tuo": {
+    "en": "to contact with your",
+    "es": "al contacto con tu",
+    "fr": "au contact avec votre"
+  },
+  "team.": {
+    "en": "team.",
+    "es": "equipo.",
+    "fr": "équipe."
+  },
+  "Dal sito o da una campagna apre la chat e fa la sua domanda.": {
+    "en": "From your website or a campaign, they open the chat and ask their question.",
+    "es": "Desde el sitio o una campaña abre el chat y hace su pregunta.",
+    "fr": "Depuis le site ou une campagne, il ouvre le chat et pose sa question."
+  },
+  "Dati separati per ogni azienda": {
+    "en": "Separate data for every company",
+    "es": "Datos separados para cada empresa",
+    "fr": "Données séparées pour chaque entreprise"
+  },
+  "Demo gratuita, senza carta": {
+    "en": "Free Demo, no card",
+    "es": "Demo gratuita, sin tarjeta",
+    "fr": "Démo gratuite, sans carte"
+  },
+  "Di solito rispondiamo entro 1 giorno lavorativo": {
+    "en": "We usually reply within 1 business day",
+    "es": "Solemos responder en 1 día laborable",
+    "fr": "Nous répondons généralement sous 1 jour ouvré"
+  },
+  "ESEMPIO": {
+    "en": "EXAMPLE",
+    "es": "EJEMPLO",
+    "fr": "EXEMPLE"
+  },
+  "Essere ricontattato domani": {
+    "en": "To be contacted tomorrow",
+    "es": "Ser contactado mañana",
+    "fr": "Être recontacté demain"
+  },
+  "Fai una domanda al nostro": {
+    "en": "Ask our",
+    "es": "Haz una pregunta a nuestro",
+    "fr": "Posez une question à notre"
+  },
+  "assistente.": {
+    "en": "assistant a question.",
+    "es": "asistente.",
+    "fr": "assistant."
+  },
+  "Già oggi": {
+    "en": "Available today",
+    "es": "Ya hoy",
+    "fr": "Dès aujourd’hui"
+  },
+  "IL PERCORSO DI UNA RICHIESTA": {
+    "en": "THE JOURNEY OF A REQUEST",
+    "es": "EL RECORRIDO DE UNA SOLICITUD",
+    "fr": "LE PARCOURS D’UNE DEMANDE"
+  },
+  "Il cliente scrive": {
+    "en": "The customer writes",
+    "es": "El cliente escribe",
+    "fr": "Le client écrit"
+  },
+  "Il primo contatto è automatico. La relazione resta umana.": {
+    "en": "The first contact is automatic. The relationship stays human.",
+    "es": "El primer contacto es automático. La relación sigue siendo humana.",
+    "fr": "Le premier contact est automatique. La relation reste humaine."
+  },
+  "Il team ricontatta": {
+    "en": "Your team follows up",
+    "es": "El equipo vuelve a contactar",
+    "fr": "L’équipe recontacte"
+  },
+  "Il tuo team trova ogni richiesta nella dashboard, con riepilogo, conversazione e stato da aggiornare.": {
+    "en": "Your team finds every request in the dashboard, with summary, conversation and a status to update.",
+    "es": "Tu equipo encuentra cada solicitud en el panel, con resumen, conversación y estado por actualizar.",
+    "fr": "Votre équipe retrouve chaque demande dans le tableau de bord, avec résumé, conversation et statut à mettre à jour."
+  },
+  "Immobiliare, concessionarie, medicina estetica e molti altri settori: cambiano le domande, resta l’obiettivo di capire il cliente e preparare un contatto utile.": {
+    "en": "Real estate, car dealerships, aesthetic medicine and many other sectors: the questions change, the goal stays the same — understand the customer and prepare a useful contact.",
+    "es": "Inmobiliarias, concesionarios, medicina estética y muchos otros sectores: cambian las preguntas, se mantiene el objetivo de entender al cliente y preparar un contacto útil.",
+    "fr": "Immobilier, concessions automobiles, médecine esthétique et bien d’autres secteurs : les questions changent, l’objectif reste de comprendre le client et de préparer un contact utile."
+  },
+  "Indica una preferenza. Non è un appuntamento: il team ti ricontatta appena possibile. Orario italiano.": {
+    "en": "Tell us a preference. It is not an appointment: the team will contact you as soon as possible. Italian time.",
+    "es": "Indica una preferencia. No es una cita: el equipo te contactará lo antes posible. Hora italiana.",
+    "fr": "Indiquez une préférence. Ce n’est pas un rendez-vous : l’équipe vous recontacte dès que possible. Heure italienne."
+  },
+  "Informazioni, campi e referente configurabili per ogni azienda": {
+    "en": "Information, fields and contact person configurable for each company",
+    "es": "Información, campos y responsable configurables para cada empresa",
+    "fr": "Informations, champs et interlocuteur configurables pour chaque entreprise"
+  },
+  "Inizia gratis": {
+    "en": "Start for free",
+    "es": "Empieza gratis",
+    "fr": "Commencer gratuitement"
+  },
+  "Invia la recensione": {
+    "en": "Send review",
+    "es": "Enviar reseña",
+    "fr": "Envoyer l’avis"
+  },
+  "La richiesta arriva nella dashboard già organizzata: al tuo team resta la parte che conta di più.": {
+    "en": "The request reaches the dashboard already organised: your team is left with the part that matters most.",
+    "es": "La solicitud llega al panel ya organizada: a tu equipo le queda la parte que más importa.",
+    "fr": "La demande arrive dans le tableau de bord déjà organisée : il reste à votre équipe la partie qui compte le plus."
+  },
+  "Le richieste arrivano anche quando il team è al telefono, in riunione o fuori orario. MoreAI risponde subito, raccoglie ciò che serve e prepara il lavoro al tuo referente.": {
+    "en": "Requests arrive even when the team is on the phone, in a meeting or out of hours. MoreAI replies straight away, collects what is needed and prepares the work for your contact person.",
+    "es": "Las solicitudes llegan también cuando el equipo está al teléfono, en una reunión o fuera de horario. MoreAI responde enseguida, recoge lo necesario y prepara el trabajo a tu responsable.",
+    "fr": "Les demandes arrivent même quand l’équipe est au téléphone, en réunion ou hors horaires. MoreAI répond tout de suite, recueille l’essentiel et prépare le travail de votre interlocuteur."
+  },
+  "L’assistente AI che si occupa del primo contatto, così il tuo team può dedicarsi ai clienti.": {
+    "en": "The AI assistant that takes care of the first contact, so your team can focus on customers.",
+    "es": "El asistente IA que se encarga del primer contacto, para que tu equipo pueda dedicarse a los clientes.",
+    "fr": "L’assistant IA qui s’occupe du premier contact, pour que votre équipe se consacre aux clients."
+  },
+  "L’assistente accoglie la domanda e capisce che cosa serve davvero alla persona.": {
+    "en": "The assistant welcomes the question and understands what the person really needs.",
+    "es": "El asistente recibe la pregunta y entiende lo que la persona necesita de verdad.",
+    "fr": "L’assistant accueille la question et comprend ce dont la personne a vraiment besoin."
+  },
+  "La richiesta prende forma.": {
+    "en": "The request takes shape.",
+    "es": "La solicitud toma forma.",
+    "fr": "La demande prend forme."
+  },
+  "Nome, recapito, interesse e tempistica diventano un riepilogo ordinato, salvato solo con il consenso.": {
+    "en": "Name, contact, interest and timing become a tidy summary, saved only with consent.",
+    "es": "Nombre, contacto, interés y plazos se convierten en un resumen ordenado, guardado solo con el consentimiento.",
+    "fr": "Nom, coordonnées, intérêt et délai deviennent un résumé clair, enregistré uniquement avec le consentement."
+  },
+  "Il tuo team prende il testimone.": {
+    "en": "Your team takes over.",
+    "es": "Tu equipo toma el relevo.",
+    "fr": "Votre équipe prend le relais."
+  },
+  "L’azienda legge la richiesta nella dashboard e decide come ricontattare il cliente. Nessun appuntamento viene fissato in automatico.": {
+    "en": "The company reads the request in the dashboard and decides how to contact the customer. No appointment is booked automatically.",
+    "es": "La empresa lee la solicitud en el panel y decide cómo contactar al cliente. No se fija ninguna cita de forma automática.",
+    "fr": "L’entreprise lit la demande dans le tableau de bord et décide comment recontacter le client. Aucun rendez-vous n’est fixé automatiquement."
+  },
+  "L’assistente risponde": {
+    "en": "The assistant replies",
+    "es": "El asistente responde",
+    "fr": "L’assistant répond"
+  },
+  "Meno tempo sui messaggi.": {
+    "en": "Less time on messages.",
+    "es": "Menos tiempo en mensajes.",
+    "fr": "Moins de temps sur les messages."
+  },
+  "Più tempo per i": {
+    "en": "More time for your",
+    "es": "Más tiempo para tus",
+    "fr": "Plus de temps pour vos"
+  },
+  "clienti.": {
+    "en": "customers.",
+    "es": "clientes.",
+    "fr": "clients."
+  },
+  "Mette in ordine i dati": {
+    "en": "Puts data in order",
+    "es": "Ordena los datos",
+    "fr": "Met les données en ordre"
+  },
+  "Modello di interesse, nuovo o usato, budget, permuta e domande sul finanziamento da approfondire con il commerciale.": {
+    "en": "Model of interest, new or used, budget, trade-in and financing questions to discuss with the salesperson.",
+    "es": "Modelo de interés, nuevo o usado, presupuesto, permuta y preguntas sobre la financiación para tratar con el comercial.",
+    "fr": "Modèle souhaité, neuf ou d’occasion, budget, reprise et questions sur le financement à approfondir avec le commercial."
+  },
+  "MoreAI nasce da un’idea semplice: chi contatta un’azienda merita una risposta rapida e precisa, e chi lavora in azienda merita di ricevere richieste chiare.": {
+    "en": "MoreAI comes from a simple idea: people who contact a company deserve a quick and accurate answer, and people who work there deserve clear requests.",
+    "es": "MoreAI nace de una idea sencilla: quien contacta con una empresa merece una respuesta rápida y precisa, y quien trabaja en ella merece recibir solicitudes claras.",
+    "fr": "MoreAI part d’une idée simple : celui qui contacte une entreprise mérite une réponse rapide et précise, et celui qui y travaille mérite de recevoir des demandes claires."
+  },
+  "MoreAI risponde ai clienti sul sito della tua azienda, capisce che cosa cercano e raccoglie i loro dati con il consenso. Il tuo team ritrova ogni richiesta, già in ordine, nella dashboard privata.": {
+    "en": "MoreAI answers customers on your company website, understands what they are looking for and collects their details with consent. Your team finds every request, already organised, in the private dashboard.",
+    "es": "MoreAI responde a los clientes en el sitio de tu empresa, entiende lo que buscan y recoge sus datos con su consentimiento. Tu equipo encuentra cada solicitud, ya ordenada, en el panel privado.",
+    "fr": "MoreAI répond aux clients sur le site de votre entreprise, comprend ce qu’ils cherchent et recueille leurs données avec leur consentement. Votre équipe retrouve chaque demande, déjà organisée, dans le tableau de bord privé."
+  },
+  "MoreAI — Nessuna richiesta resta senza risposta": {
+    "en": "MoreAI — No request goes without an answer",
+    "es": "MoreAI — Ninguna solicitud se queda sin respuesta",
+    "fr": "MoreAI — Aucune demande ne reste sans réponse"
+  },
+  "Multilingua": {
+    "en": "Multilingual",
+    "es": "Multilingüe",
+    "fr": "Multilingue"
+  },
+  "Nessuna carta di credito richiesta.": {
+    "en": "No credit card required.",
+    "es": "No se necesita tarjeta de crédito.",
+    "fr": "Aucune carte bancaire requise."
+  },
+  "Nessuna richiesta": {
+    "en": "No request",
+    "es": "Ninguna solicitud",
+    "fr": "Aucune demande"
+  },
+  "resta senza": {
+    "en": "goes without an",
+    "es": "se queda sin",
+    "fr": "ne reste sans"
+  },
+  "Nome, recapito, interesse e tempistica: raccolti in modo chiaro, sempre con il consenso della persona.": {
+    "en": "Name, contact, interest and timing: collected clearly, always with the person’s consent.",
+    "es": "Nombre, contacto, interés y plazos: recogidos con claridad, siempre con el consentimiento de la persona.",
+    "fr": "Nom, coordonnées, intérêt et délai : recueillis clairement, toujours avec le consentement de la personne."
+  },
+  "OFFERTE": {
+    "en": "PLANS",
+    "es": "PLANES",
+    "fr": "OFFRES"
+  },
+  "Ogni azienda ha il proprio spazio, i propri dati e il proprio assistente, configurato sulle informazioni che sceglie di condividere.": {
+    "en": "Each company has its own space, its own data and its own assistant, configured on the information it chooses to share.",
+    "es": "Cada empresa tiene su propio espacio, sus propios datos y su propio asistente, configurado con la información que decide compartir.",
+    "fr": "Chaque entreprise a son propre espace, ses propres données et son propre assistant, configuré sur les informations qu’elle choisit de partager."
+  },
+  "Ogni recensione viene letta dal nostro team prima della pubblicazione.": {
+    "en": "Every review is read by our team before it is published.",
+    "es": "Nuestro equipo lee cada reseña antes de publicarla.",
+    "fr": "Chaque avis est lu par notre équipe avant sa publication."
+  },
+  "PARLIAMONE": {
+    "en": "LET’S TALK",
+    "es": "HABLEMOS",
+    "fr": "PARLONS-EN"
+  },
+  "PER CHI È PENSATO": {
+    "en": "WHO IT IS FOR",
+    "es": "PARA QUIÉN ES",
+    "fr": "POUR QUI"
+  },
+  "PERCHÉ MOREAI": {
+    "en": "WHY MOREAI",
+    "es": "POR QUÉ MOREAI",
+    "fr": "POURQUOI MOREAI"
+  },
+  "PROVALO ORA": {
+    "en": "TRY IT NOW",
+    "es": "PRUÉBALO AHORA",
+    "fr": "ESSAYEZ-LE"
+  },
+  "Parla con noi": {
+    "en": "Talk to us",
+    "es": "Habla con nosotros",
+    "fr": "Parlez-nous"
+  },
+  "Parti gratis con la Demo di 7 giorni. Quando sei pronto, scegli il piano adatto al volume di richieste della tua azienda.": {
+    "en": "Start free with the 7-day Demo. When you are ready, choose the plan that fits your company’s volume of requests.",
+    "es": "Empieza gratis con la Demo de 7 días. Cuando estés listo, elige el plan adecuado al volumen de solicitudes de tu empresa.",
+    "fr": "Commencez gratuitement avec la Démo de 7 jours. Quand vous êtes prêt, choisissez l’offre adaptée au volume de demandes de votre entreprise."
+  },
+  "Per esempio: gestire le richieste che arrivano dalle campagne e alleggerire la segreteria.": {
+    "en": "For example: handling requests from campaigns and easing the load on reception.",
+    "es": "Por ejemplo: gestionar las solicitudes que llegan de las campañas y aligerar la recepción.",
+    "fr": "Par exemple : gérer les demandes issues des campagnes et alléger le secrétariat."
+  },
+  "Preferisci parlarne": {
+    "en": "Would you rather talk",
+    "es": "¿Prefieres hablarlo",
+    "fr": "Vous préférez en parler"
+  },
+  "Prodotto": {
+    "en": "Product",
+    "es": "Producto",
+    "fr": "Produit"
+  },
+  "Pronto a rispondere a ogni": {
+    "en": "Ready to answer every",
+    "es": "¿Listo para responder a cada",
+    "fr": "Prêt à répondre à chaque"
+  },
+  "cliente?": {
+    "en": "customer?",
+    "es": "cliente?",
+    "fr": "client ?"
+  },
+  "Prova a scrivere: «Come può MoreAI aiutare la mia azienda?»": {
+    "en": "Try writing: “How can MoreAI help my company?”",
+    "es": "Prueba a escribir: «¿Cómo puede MoreAI ayudar a mi empresa?»",
+    "fr": "Essayez d’écrire : « Comment MoreAI peut-il aider mon entreprise ? »"
+  },
+  "RECENSIONI": {
+    "en": "REVIEWS",
+    "es": "RESEÑAS",
+    "fr": "AVIS"
+  },
+  "Raccoglie solo i dati che scegli tu": {
+    "en": "Collects only the data you choose",
+    "es": "Recoge solo los datos que eliges tú",
+    "fr": "Recueille uniquement les données que vous choisissez"
+  },
+  "Raccontaci come gestisci oggi le richieste dei clienti o quale piano ti interessa: ti rispondiamo con una proposta su misura.": {
+    "en": "Tell us how you handle customer requests today or which plan interests you: we will reply with a tailored proposal.",
+    "es": "Cuéntanos cómo gestionas hoy las solicitudes de los clientes o qué plan te interesa: te responderemos con una propuesta a medida.",
+    "fr": "Dites-nous comment vous gérez aujourd’hui les demandes des clients ou quelle offre vous intéresse : nous vous répondrons avec une proposition sur mesure."
+  },
+  "Recensioni": {
+    "en": "Reviews",
+    "es": "Reseñas",
+    "fr": "Avis"
+  },
+  "Richiesta pronta per il team": {
+    "en": "Request ready for the team",
+    "es": "Solicitud lista para el equipo",
+    "fr": "Demande prête pour l’équipe"
+  },
+  "Risponde anche la sera e nel fine settimana": {
+    "en": "Replies in the evening and at weekends too",
+    "es": "Responde también por la noche y el fin de semana",
+    "fr": "Répond aussi le soir et le week-end"
+  },
+  "Risponde nella lingua del cliente": {
+    "en": "Replies in the customer’s language",
+    "es": "Responde en el idioma del cliente",
+    "fr": "Répond dans la langue du client"
+  },
+  "Salvata solo dopo il consenso del cliente.": {
+    "en": "Saved only after the customer’s consent.",
+    "es": "Guardada solo tras el consentimiento del cliente.",
+    "fr": "Enregistrée uniquement après le consentement du client."
+  },
+  "Scegli come": {
+    "en": "Choose how to",
+    "es": "Elige cómo",
+    "fr": "Choisissez comment"
+  },
+  "iniziare.": {
+    "en": "get started.",
+    "es": "empezar.",
+    "fr": "commencer."
+  },
+  "Sei tu a decidere che cosa può dire l’assistente e quali dati raccogliere.": {
+    "en": "You decide what the assistant can say and which data to collect.",
+    "es": "Tú decides qué puede decir el asistente y qué datos recoger.",
+    "fr": "C’est vous qui décidez ce que l’assistant peut dire et quelles données recueillir."
+  },
+  "Sempre disponibile, anche fuori orario": {
+    "en": "Always available, even out of hours",
+    "es": "Siempre disponible, también fuera de horario",
+    "fr": "Toujours disponible, même hors horaires"
+  },
+  "Sono esempi: ogni azienda sceglie le informazioni da comunicare e i dati da raccogliere.": {
+    "en": "These are examples: each company chooses the information to share and the data to collect.",
+    "es": "Son ejemplos: cada empresa elige la información que comunicar y los datos que recoger.",
+    "fr": "Ce sont des exemples : chaque entreprise choisit les informations à communiquer et les données à recueillir."
+  },
+  "Tecnologia al servizio delle": {
+    "en": "Technology at the service of",
+    "es": "Tecnología al servicio de las",
+    "fr": "La technologie au service des"
+  },
+  "persone.": {
+    "en": "people.",
+    "es": "personas.",
+    "fr": "personnes."
+  },
+  "Trattamento di interesse e prime informazioni generali, senza diagnosi né promesse cliniche.": {
+    "en": "Treatment of interest and first general information, with no diagnosis or clinical promises.",
+    "es": "Tratamiento de interés y primera información general, sin diagnósticos ni promesas clínicas.",
+    "fr": "Soin souhaité et premières informations générales, sans diagnostic ni promesse clinique."
+  },
+  "Tre passaggi,": {
+    "en": "Three steps,",
+    "es": "Tres pasos,",
+    "fr": "Trois étapes,"
+  },
+  "un solo": {
+    "en": "one single",
+    "es": "un solo",
+    "fr": "un seul"
+  },
+  "filo.": {
+    "en": "thread.",
+    "es": "hilo.",
+    "fr": "fil."
+  },
+  "Trilocale in centro · acquisto": {
+    "en": "Three-room flat in the centre · purchase",
+    "es": "Piso de tres ambientes en el centro · compra",
+    "fr": "Trois-pièces en centre-ville · achat"
+  },
+  "Un assistente che parla la lingua della tua": {
+    "en": "An assistant that speaks your",
+    "es": "Un asistente que habla el idioma de tu",
+    "fr": "Un assistant qui parle la langue de votre"
+  },
+  "attività.": {
+    "en": "business’s language.",
+    "es": "actividad.",
+    "fr": "activité."
+  },
+  "Usa solo le informazioni che hai approvato, chiarisce l’esigenza e chiede il consenso prima di salvare i dati.": {
+    "en": "It uses only the information you have approved, clarifies the need and asks for consent before saving any data.",
+    "es": "Usa solo la información que has aprobado, aclara la necesidad y pide el consentimiento antes de guardar los datos.",
+    "fr": "Il n’utilise que les informations que vous avez approuvées, précise le besoin et demande le consentement avant d’enregistrer les données."
+  },
+  "Usiamo i tuoi dati solo per risponderti": {
+    "en": "We use your data only to reply to you",
+    "es": "Usamos tus datos solo para responderte",
+    "fr": "Nous utilisons vos données uniquement pour vous répondre"
+  },
+  "Vorrei essere ricontattato": {
+    "en": "I would like to be contacted",
+    "es": "Me gustaría que me contactaran",
+    "fr": "Je souhaite être recontacté"
+  },
+  "Zona, budget, acquisto o affitto, tipologia e caratteristiche: il consulente riceve una richiesta già completa.": {
+    "en": "Area, budget, purchase or rent, type and features: the agent receives a request that is already complete.",
+    "es": "Zona, presupuesto, compra o alquiler, tipo y características: el asesor recibe una solicitud ya completa.",
+    "fr": "Zone, budget, achat ou location, type et caractéristiques : le conseiller reçoit une demande déjà complète."
+  },
+  "CONSIGLIATO": {
+    "en": "RECOMMENDED",
+    "es": "RECOMENDADO",
+    "fr": "RECOMMANDÉ"
   }
 }

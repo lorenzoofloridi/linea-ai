@@ -1,19 +1,19 @@
 'use strict';
 (() => {
  const motion=matchMedia('(prefers-reduced-motion: reduce)');
- const elements=document.querySelectorAll('.hero-copy,.hero-visual,.section-top,.benefits article,.steps article,.brand-experience,.demo-copy,.chat-panel,.roadmap>div,.contact-grid>div');
+ const elements=document.querySelectorAll('[data-reveal]');
  if('IntersectionObserver' in window && !motion.matches){
   const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('revealed');observer.unobserve(entry.target)}}),{threshold:0.08});
-  elements.forEach((el,i)=>{el.classList.add('reveal');el.style.setProperty('--reveal-delay',`${i%3*65}ms`);observer.observe(el)});
+  elements.forEach(el=>{const siblings=[...el.parentElement.children].filter(c=>c.hasAttribute('data-reveal'));el.classList.add('reveal');el.style.setProperty('--reveal-delay',`${Math.max(0,siblings.indexOf(el))%4*90}ms`);observer.observe(el)});
   motion.addEventListener('change',()=>{if(motion.matches){elements.forEach(el=>el.classList.add('revealed'));observer.disconnect()}});
  }
- const stages=[['Si parte dall’ascolto.','L’assistente accoglie la domanda e cerca di capire che cosa serve alla persona.'],['Le informazioni prendono forma.','Nome, recapito, interesse e tempistica: una richiesta ordinata, da registrare solo con il consenso.'],['La relazione passa al team.','La azienda consulta il foglio e sceglie come gestire il contatto. Nessuna prenotazione automatica.']];
+ const stages=[['Si parte dall’ascolto.','L’assistente accoglie la domanda e capisce che cosa serve davvero alla persona.'],['La richiesta prende forma.','Nome, recapito, interesse e tempistica diventano un riepilogo ordinato, salvato solo con il consenso.'],['Il tuo team prende il testimone.','L’azienda legge la richiesta nella dashboard e decide come ricontattare il cliente. Nessun appuntamento viene fissato in automatico.']];
  document.querySelectorAll('[data-journey]').forEach(button=>button.addEventListener('click',()=>{
   const i=Number(button.dataset.journey);
   document.querySelectorAll('[data-journey]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
   const panel=document.querySelector('.journey-detail');
   panel.querySelector('h3').textContent=stages[i][0];panel.querySelector('p').textContent=stages[i][1];
-  document.querySelector('.experience-count').textContent=`STEP ${i+1} / STEP 3`;
+  document.querySelector('.experience-count').textContent=`0${i+1} / 03`;document.querySelector('.m-orbit')?.setAttribute('data-stage',i);
   document.querySelector('.brand-experience').dataset.stage=i;
   if(!motion.matches && panel.animate)panel.animate([{opacity:0,transform:'translateY(7px)'},{opacity:1,transform:'translateY(0)'}],{duration:260,easing:'ease-out'});
  }));

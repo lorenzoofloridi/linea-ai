@@ -1,5 +1,6 @@
 // Dati della dashboard aziendale: panoramica, note del team, cancellazione ed esportazione.
 // Ogni funzione riceve il company_id già verificato dalla sessione: nessun ID dal browser.
+import { buildXlsx } from "./xlsx.mjs";
 import { randomBytes } from "node:crypto";
 
 const fail = (status, message) => {
@@ -165,3 +166,33 @@ export async function exportLeadsCsv(db, companyId) {
   // BOM iniziale: Excel riconosce correttamente accenti e caratteri speciali.
   return "﻿" + lines.join("\r\n") + "\r\n";
 }
+
+// Esportazione per Excel (.xlsx): stesse colonne del CSV, date leggibili
+// in ora italiana, consenso come Sì/No. Solo le richieste dell'azienda.
+export async function exportLeadsXlsx(db, companyId) {
+  const rows = (
+    await db.pool.query(
+      `SELECT created_at, status, kind, data, consent, summary
+         FROM leads WHERE company_id=$1 ORDER BY created_at DESC LIMIT 5000`,
+      [companyId]
+    )
+  ).rows;
+
+  const keys = [...new Set(rows.flatMap(r => Object.keys(r.data || {})))];
+  const origin = { real: "Sito", test: "Chat di prova", public_demo: "Demo" };
+  const when = new Intl.DateTimeFormat("it-IT", {
+    timeZone: "Europe/Rome", dateStyle: "short", timeStyle: "short"
+  });
+  const table = [["Ricevuta il", "Stato", "Origine", ...keys, "Consenso al contatto"]];
+  for (const r of rows) {
+    table.push([
+      when.format(new Date(r.created_at)),
+      r.status,
+      origin[r.kind] || r.kind,
+      ...keys.map(key => r.data?.[key] ?? ""),
+      r.consent ? "Sì" : "No"
+    ]);
+  }
+  return buildXlsx(table, { sheetName: "Richieste" });
+}
+

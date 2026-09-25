@@ -22,7 +22,7 @@ if(pageNavigation?.type==='reload'){
 
 // Menu della home su schermi piccoli.
 const navToggle=document.querySelector('.nav-toggle'),mainHeader=navToggle?.closest('.header');
-function setMainNav(open){if(!navToggle||!mainHeader)return;mainHeader.classList.toggle('nav-open',open);navToggle.setAttribute('aria-expanded',String(open));navToggle.setAttribute('aria-label',open?'Chiudi il menu':'Apri il menu');navToggle.textContent=open?'✕':'☰';}
+function setMainNav(open){if(!navToggle||!mainHeader)return;mainHeader.classList.toggle('nav-open',open);navToggle.setAttribute('aria-expanded',String(open));navToggle.setAttribute('aria-label',open?'Chiudi il menu':'Apri il menu');navToggle.innerHTML=open?'<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>':'<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>';}
 navToggle?.addEventListener('click',()=>setMainNav(navToggle.getAttribute('aria-expanded')!=='true'));
 document.querySelector('#main-nav')?.addEventListener('click',event=>{if(event.target.closest('a'))setMainNav(false);});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&navToggle?.getAttribute('aria-expanded')==='true'){setMainNav(false);navToggle.focus();}});

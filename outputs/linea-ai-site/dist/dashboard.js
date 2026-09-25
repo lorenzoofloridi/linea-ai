@@ -969,7 +969,7 @@ $('#export-data')
       try {
         const r =
           await fetch(
-            '/api/data-export.csv'
+            '/api/data-export.xlsx'
           );
 
         if (r.status === 401) {
@@ -1005,7 +1005,7 @@ $('#export-data')
         a.href = url;
 
         a.download =
-          'richieste-moreai.csv';
+          'richieste-moreai.xlsx';
 
         a.click();
 
