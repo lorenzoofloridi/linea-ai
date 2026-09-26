@@ -941,6 +941,25 @@ try {
     }
   });
 
+  await test('admin whitelist: only the main admin adds or removes, added admins get access', async () => {
+    const env = { LINEA_ADMIN_EMAILS: 'a@example.invalid' };
+    const as = email => async (_db, req) => req.headers.get('x-test-user') ? { id: 'user-' + email[0], company_id: email[0], email } : null;
+    const admin = async (email, path, body) => {
+      const res = await adminApi(request('admin/' + path, body, email[0]), { pool }, as(email), { env, emailVerified: async () => true });
+      return res.json();
+    };
+    await assert.rejects(admin('b@example.invalid', 'companies'), e => e.httpStatus === 403);
+    const added = await admin('a@example.invalid', 'admins-add', { email: ' B@Example.invalid ' });
+    assert.ok(added.admins.some(x => x.email === 'b@example.invalid' && !x.primary));
+    assert.ok((await admin('b@example.invalid', 'companies')).companies.length > 0);
+    assert.equal((await admin('b@example.invalid', 'admins')).can_manage, false);
+    await assert.rejects(admin('b@example.invalid', 'admins-add', { email: 'c@example.invalid' }), e => e.httpStatus === 403);
+    await assert.rejects(admin('a@example.invalid', 'admins-add', { email: 'non-valida' }), e => e.httpStatus === 400);
+    await assert.rejects(admin('a@example.invalid', 'admins-remove', { email: 'a@example.invalid' }), e => e.httpStatus === 400);
+    await admin('a@example.invalid', 'admins-remove', { email: 'b@example.invalid' });
+    await assert.rejects(admin('b@example.invalid', 'companies'), e => e.httpStatus === 403);
+  });
+
   /*
    * Quando la Demo aziendale scade:
    * - le funzioni operative vengono bloccate;

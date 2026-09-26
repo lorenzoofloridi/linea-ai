@@ -558,3 +558,28 @@ h1 em,h2 em,.contact-section h2 em{font-family:var(--serif);letter-spacing:-.01e
 .sub-pending[hidden]{display:none}
 .change-box{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
 .change-box h3{margin:0 0 6px}
+/* Filtri dell'area gestore: due gruppi ordinati */
+.admin-filters{display:block;margin-bottom:14px}
+.admin-filters .filter-label{margin:10px 0 6px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.admin-filters .filter-label:first-child{margin-top:0}
+.admin-filters .filter-row{display:flex;flex-direction:column;gap:6px}
+.admin-filters button{display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;border-radius:12px;padding:9px 12px}
+.admin-filters .count{min-width:24px;padding:2px 8px;border-radius:999px;background:var(--tint);color:var(--violet-d);font-size:12px;text-align:center}
+.admin-filters button[aria-pressed=true] .count{background:rgba(255,255,255,.18);color:#fff}
+@media(max-width:900px){.admin-filters .filter-row{display:grid;grid-template-columns:1fr 1fr}}
+.admin-team{margin:0 0 18px;padding:14px 18px}
+.admin-team[hidden]{display:none}
+.admin-team summary{display:flex;align-items:center;gap:10px;cursor:pointer;list-style:none}
+.admin-team summary::-webkit-details-marker{display:none}
+.admin-team summary::after{content:'▾';margin-left:auto;color:var(--muted)}
+.admin-team[open] summary::after{content:'▴'}
+.admin-team summary small{color:var(--muted);font-size:13px}
+.admin-team .count{min-width:24px;padding:2px 8px;border-radius:999px;background:var(--tint);color:var(--violet-d);font-size:12px;text-align:center}
+.team-list{list-style:none;margin:10px 0;padding:0;display:grid;gap:8px}
+.team-list li{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.team-list li span{font-weight:600;overflow-wrap:anywhere}
+.team-list li .button{margin-left:auto}
+.team-form{display:flex;gap:10px;flex-wrap:wrap}
+.team-form[hidden]{display:none}
+.team-form input{flex:1 1 240px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font:inherit}
+#team-status,#admin-status,#ai-status{color:var(--night)!important}

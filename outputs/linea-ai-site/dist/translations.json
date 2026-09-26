@@ -5838,5 +5838,90 @@
     "en": "The Demo is free, lasts 7 days and includes 100 AI messages. The Base, Plus and Advanced plans include 3,000, 10,000 and 50,000 AI messages per month respectively; for Advanced the limit is a fair-use threshold. Prices and features are shown in the Offers section of the website. Paid plans include a 14-day free trial, usable once per company: the payment method is registered on activation and the first charge happens on day 15, unless cancelled before the end. The widget to install on your own website is included in the Base, Plus and Advanced plans (also during the trial) and not in the Demo. You can move to a higher plan immediately, schedule a lower plan or a billing period change from the next renewal, and cancel the renewal at any time: the plan stays active until it expires. Payments are currently in test mode and no real charge is made.",
     "es": "La Demo es gratuita, dura 7 días e incluye 100 mensajes de IA. Los planes Base, Plus y Advanced incluyen respectivamente 3.000, 10.000 y 50.000 mensajes de IA al mes; para Advanced el límite es un umbral de uso razonable. Precios y características se indican en la sección Ofertas del sitio. Los planes de pago incluyen una prueba gratuita de 14 días, utilizable una sola vez por empresa: el método de pago se registra al activar y el primer cargo se realiza el día 15, salvo cancelación antes del vencimiento. El widget para instalar en tu sitio está incluido en los planes Base, Plus y Advanced (también durante la prueba) y no en la Demo. Puedes pasar enseguida a un plan superior, programar un plan inferior o un cambio de periodo desde la siguiente renovación y cancelar la renovación en cualquier momento: el plan sigue activo hasta el vencimiento. Por ahora los pagos están en modo de prueba y no se realiza ningún cargo real.",
     "fr": "La Démo est gratuite, dure 7 jours et comprend 100 messages IA. Les formules Base, Plus et Advanced comprennent respectivement 3 000, 10 000 et 50 000 messages IA par mois ; pour Advanced, la limite vaut seuil d’usage raisonnable. Prix et caractéristiques sont indiqués dans la section Offres du site. Les formules payantes comprennent un essai gratuit de 14 jours, utilisable une seule fois par entreprise : le moyen de paiement est enregistré à l’activation et le premier prélèvement a lieu le 15e jour, sauf résiliation avant l’échéance. Le widget à installer sur votre site est inclus dans les formules Base, Plus et Advanced (y compris pendant l’essai) et pas dans la Démo. Vous pouvez passer tout de suite à une formule supérieure, programmer une formule inférieure ou un changement de période au renouvellement suivant et résilier le renouvellement à tout moment : la formule reste active jusqu’à l’échéance. Pour l’instant, les paiements sont en mode test et aucun prélèvement réel n’a lieu."
+  },
+  "Registrazione": {
+    "en": "Sign-up",
+    "es": "Registro",
+    "fr": "Inscription"
+  },
+  "Email da confermare": {
+    "en": "Email to confirm",
+    "es": "Email por confirmar",
+    "fr": "E-mail à confirmer"
+  },
+  "Verifica azienda (piano a pagamento)": {
+    "en": "Company verification (paid plan)",
+    "es": "Verificación de empresa (plan de pago)",
+    "fr": "Vérification de l’entreprise (formule payante)"
+  },
+  "Da approvare": {
+    "en": "To approve",
+    "es": "Por aprobar",
+    "fr": "À approuver"
+  },
+  "Analisi AI in corso": {
+    "en": "AI analysis in progress",
+    "es": "Análisis de IA en curso",
+    "fr": "Analyse IA en cours"
+  },
+  "Se l’AI non riesce a confermare che un’azienda esiste, la trovi in «Da approvare». Controlla i dati e premi Approva o Rifiuta.": {
+    "en": "If the AI cannot confirm that a company exists, you find it under “To approve”. Check the data and press Approve or Reject.",
+    "es": "Si la IA no logra confirmar que una empresa existe, la encuentras en «Por aprobar». Revisa los datos y pulsa Aprobar o Rechazar.",
+    "fr": "Si l’IA ne parvient pas à confirmer qu’une entreprise existe, vous la trouvez dans « À approuver ». Contrôlez les données et cliquez sur Approuver ou Refuser."
+  },
+  "Gestori": {
+    "en": "Admins",
+    "es": "Gestores",
+    "fr": "Gestionnaires"
+  },
+  "Chi può entrare in quest’area": {
+    "en": "Who can enter this area",
+    "es": "Quién puede entrar en esta área",
+    "fr": "Qui peut accéder à cet espace"
+  },
+  "Scrivi l’email di un account: diventa gestore con le tue stesse funzioni (area gestore, visita delle dashboard, tutto illimitato). L’account deve esistere e avere l’email confermata. Solo il gestore principale può aggiungere o togliere gestori.": {
+    "en": "Type an account’s email: it becomes an admin with your same features (admin area, dashboard visits, everything unlimited). The account must exist and have a confirmed email. Only the main admin can add or remove admins.",
+    "es": "Escribe el email de una cuenta: se convierte en gestor con tus mismas funciones (área del gestor, visita de los paneles, todo ilimitado). La cuenta debe existir y tener el email confirmado. Solo el gestor principal puede añadir o quitar gestores.",
+    "fr": "Saisissez l’e-mail d’un compte : il devient gestionnaire avec les mêmes fonctions que vous (espace gestionnaire, visite des tableaux de bord, tout illimité). Le compte doit exister et avoir un e-mail confirmé. Seul le gestionnaire principal peut ajouter ou retirer des gestionnaires."
+  },
+  "Aggiungi gestore": {
+    "en": "Add admin",
+    "es": "Añadir gestor",
+    "fr": "Ajouter un gestionnaire"
+  },
+  "Principale": {
+    "en": "Main",
+    "es": "Principal",
+    "fr": "Principal"
+  },
+  "Aggiunto": {
+    "en": "Added",
+    "es": "Añadido",
+    "fr": "Ajouté"
+  },
+  "Togli": {
+    "en": "Remove",
+    "es": "Quitar",
+    "fr": "Retirer"
+  },
+  "Togliere questo gestore? Non potrà più entrare nell’area gestore.": {
+    "en": "Remove this admin? They will no longer be able to enter the admin area.",
+    "es": "¿Quitar este gestor? Ya no podrá entrar en el área del gestor.",
+    "fr": "Retirer ce gestionnaire ? Il ne pourra plus accéder à l’espace gestionnaire."
+  },
+  "Gestore aggiunto. Se l’account non esiste ancora, lo diventa appena si registra e conferma l’email.": {
+    "en": "Admin added. If the account does not exist yet, it becomes one as soon as it signs up and confirms the email.",
+    "es": "Gestor añadido. Si la cuenta aún no existe, lo será en cuanto se registre y confirme el email.",
+    "fr": "Gestionnaire ajouté. Si le compte n’existe pas encore, il le deviendra dès son inscription et la confirmation de l’e-mail."
+  },
+  "Gestore": {
+    "en": "Admin",
+    "es": "Gestor",
+    "fr": "Gestionnaire"
+  },
+  "Account gestore · illimitato": {
+    "en": "Admin account · unlimited",
+    "es": "Cuenta de gestor · ilimitada",
+    "fr": "Compte gestionnaire · illimité"
   }
 }

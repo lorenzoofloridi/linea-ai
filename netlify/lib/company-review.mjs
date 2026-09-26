@@ -9,7 +9,7 @@
 // È l'unico punto del sistema che legge dati di più aziende: accesso solo per
 // utenti gestori con email verificata.
 import { sendEmail } from "./mailer.mjs";
-import { adminEmails } from "./owner.mjs";
+import { adminEmails, isAdmin, isAdminEmail, listAdmins, normalizeEmail } from "./owner.mjs";
 import { effectivePlan } from "./ai-quota.mjs";
 import { knowledgeEntries } from "./company-data.mjs";
 import { normalizeOrigin } from "./widget.mjs";
@@ -147,10 +147,43 @@ export async function adminApi(request, db, auth, { env = process.env, emailVeri
 
   const user = await auth(db, request);
   if (!user) fail(401, "Accedi al tuo account per continuare.");
-  if (!adminEmails(env).includes(String(user.email).toLowerCase()) || !(await emailVerified(db, user.id))) {
+  if (!(await isAdmin(db, user.email, env)) || !(await emailVerified(db, user.id))) {
     fail(403, "Area riservata al gestore di MoreAI.");
   }
   const actor = "gestore " + user.email;
+  // Email di tutti i gestori (principali + whitelist), per riconoscere i loro account.
+  const admins = (await listAdmins(db, env)).map(a => a.email);
+  const isAdminAccount = async companyId =>
+    (await db.pool.query("SELECT email FROM users WHERE company_id=$1", [companyId])).rows
+      .some(u => admins.includes(String(u.email).toLowerCase()));
+
+  // Whitelist dei gestori: la vedono tutti i gestori, la modificano solo i principali.
+  if (path === "/api/admin/admins" && method === "GET") {
+    return json({ admins: await listAdmins(db, env), can_manage: isAdminEmail(user.email, env) });
+  }
+  if ((path === "/api/admin/admins-add" || path === "/api/admin/admins-remove") && method === "POST") {
+    if (!isAdminEmail(user.email, env)) fail(403, "Solo il gestore principale può modificare l’elenco dei gestori.");
+    const body = await readBody(request);
+    const email = normalizeEmail(body.email);
+    if (!email) fail(400, "Scrivi un indirizzo email valido.");
+    if (path === "/api/admin/admins-add") {
+      await db.pool.query(
+        "INSERT INTO admin_users(email, added_by) VALUES($1,$2) ON CONFLICT(email) DO NOTHING",
+        [email, user.email]
+      );
+      await adminLog(db, actor, "admin_add", "-", "gestori", email);
+    } else {
+      if (isAdminEmail(email, env)) fail(400, "Il gestore principale non si può togliere da qui.");
+      await db.pool.query("DELETE FROM admin_users WHERE email=$1", [email]);
+      // Chiude subito eventuali visite in corso di quel gestore.
+      await db.pool.query(
+        "UPDATE auth_sessions SET view_company_id=NULL, view_until=NULL WHERE user_id IN (SELECT id FROM users WHERE LOWER(email)=$1)",
+        [email]
+      );
+      await adminLog(db, actor, "admin_remove", "-", "gestori", email);
+    }
+    return json({ admins: await listAdmins(db, env), can_manage: true });
+  }
 
   if (path === "/api/admin/companies" && method === "GET") {
     const rows = (
@@ -159,7 +192,10 @@ export async function adminApi(request, db, auth, { env = process.env, emailVeri
                 p.data->>'legal_name' AS legal_name, p.data->>'website' AS website,
                 COALESCE(v.status,'pending') AS verification, k.status AS research,
                 (SELECT email FROM users u WHERE u.company_id=c.id ORDER BY u.id LIMIT 1) AS owner_email,
-                ps.status AS subscription_status
+                ps.status AS subscription_status,
+                (p.company_id IS NOT NULL) AS has_profile,
+                EXISTS(SELECT 1 FROM users u JOIN email_verification e ON e.user_id=u.id
+                        WHERE u.company_id=c.id AND e.verified_at IS NOT NULL) AS email_verified
            FROM companies c
            LEFT JOIN plan_profiles p ON p.company_id=c.id
            LEFT JOIN company_verification v ON v.company_id=c.id
@@ -172,7 +208,7 @@ export async function adminApi(request, db, auth, { env = process.env, emailVeri
     ).rows;
     for (const r of rows) {
       r.plan = await effectivePlan(db, r.id);
-      r.is_owner = adminEmails(env).includes(String(r.owner_email || "").toLowerCase());
+      r.is_owner = admins.includes(String(r.owner_email || "").toLowerCase());
     }
     return json({ companies: rows });
   }
@@ -204,7 +240,7 @@ export async function adminApi(request, db, auth, { env = process.env, emailVeri
       subscription: subscription.rows[0] || null,
       plan: await effectivePlan(db, c.id),
       owner_email: (await db.pool.query("SELECT email FROM users WHERE company_id=$1 ORDER BY id LIMIT 1", [c.id])).rows[0]?.email || "",
-      is_owner: (await db.pool.query("SELECT email FROM users WHERE company_id=$1", [c.id])).rows.some(u => adminEmails(env).includes(String(u.email).toLowerCase())),
+      is_owner: await isAdminAccount(c.id),
       admin_log: (await db.pool.query("SELECT actor, action, detail, created_at FROM admin_log WHERE company_id=$1 ORDER BY created_at DESC LIMIT 20", [c.id])).rows
     });
   }
@@ -223,7 +259,7 @@ export async function adminApi(request, db, auth, { env = process.env, emailVeri
 
   if (path === "/api/admin/verify") {
     if (!["verified", "rejected", "suspended"].includes(body.status)) fail(400, "Scegli approva o rifiuta.");
-    if (body.status !== "verified" && (await db.pool.query("SELECT email FROM users WHERE company_id=$1", [id])).rows.some(u => adminEmails(env).includes(String(u.email).toLowerCase()))) {
+    if (body.status !== "verified" && (await isAdminAccount(id))) {
       fail(400, "Non puoi bloccare l’account del gestore.");
     }
     const reason = typeof body.reason === "string" && body.reason.trim() ? body.reason.trim() : body.status === "verified" ? "Approvata dal gestore." : "Rifiutata dal gestore.";
@@ -239,8 +275,7 @@ export async function adminApi(request, db, auth, { env = process.env, emailVeri
   }
 
   const companyName = exists.config?.name || id;
-  const isOwner = (await db.pool.query("SELECT email FROM users WHERE company_id=$1", [id])).rows
-    .some(u => adminEmails(env).includes(String(u.email).toLowerCase()));
+  const isOwner = await isAdminAccount(id);
 
   // Entrare nella dashboard dell'azienda (configurazione, statistiche, widget).
   // Richieste e conversazioni dei clienti restano bloccate dal server.

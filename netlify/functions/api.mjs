@@ -2,7 +2,7 @@ import { chatApi } from "../lib/chat-api.mjs";
 import { widgetApi } from "../lib/widget.mjs";
 import { billingApi, settleSubscription } from "../lib/billing.mjs";
 import { adminApi, researchOutcome } from "../lib/company-review.mjs";
-import { isAdminEmail } from "../lib/owner.mjs";
+import { isAdmin } from "../lib/owner.mjs";
 import { ready as aiReady } from "../lib/online-ai.mjs";
 import { internalRequestHeaders } from "../lib/internal-auth.mjs";
 import { requestPasswordReset, completePasswordReset } from "../lib/password-reset.mjs";
@@ -461,7 +461,7 @@ async function principal(
   if (
     row.view_company_id &&
     Number(row.view_until) > now &&
-    isAdminEmail(row.email)
+    await isAdmin(db, row.email)
   ) {
     const path =
       new URL(request.url).pathname;
@@ -1733,7 +1733,7 @@ export default async (
         // Solo informativo per l'interfaccia: ogni controllo
         // di accesso resta sul server.
         is_admin:
-          isAdminEmail(user.email),
+          await isAdmin(db, user.email),
 
         viewing_as_admin:
           Boolean(user.viewer)

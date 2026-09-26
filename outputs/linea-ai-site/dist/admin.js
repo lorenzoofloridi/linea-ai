@@ -8,7 +8,7 @@
   const el = (tag, text, cls) => { const n = document.createElement(tag); if (text !== undefined && text !== null) n.textContent = text; if (cls) n.className = cls; return n; };
   const when = v => { const d = new Date(typeof v === 'number' ? v * 1000 : v); return isNaN(d) ? '' : new Intl.DateTimeFormat('it-IT', { dateStyle: 'medium', timeStyle: 'short' }).format(d); };
   const day = v => { const d = new Date(typeof v === 'number' ? v * 1000 : v); return isNaN(d) ? '' : new Intl.DateTimeFormat('it-IT', { dateStyle: 'medium' }).format(d); };
-  const LABELS = { pending: 'In attesa di analisi', under_review: 'Da verificare', verified: 'Approvata', rejected: 'Rifiutata', suspended: 'Sospesa' };
+  const LABELS = { pending: 'In attesa di analisi', under_review: 'Da approvare', verified: 'Approvata', rejected: 'Rifiutata', suspended: 'Sospesa' };
   const RESEARCH = { pending: 'in coda', researching: 'in corso', verified: 'completata e verificata', needs_review: 'completata, da controllare', failed: 'non riuscita' };
   const PLANS = { demo: 'Demo', base: 'Piano Base', plus: 'Piano Plus', advanced: 'Piano Advanced' };
   const SUBS = { trial: 'in prova gratuita', active: 'attivo', past_due: 'pagamento in ritardo', expired: 'scaduto', cancelled: 'disdetto' };
@@ -27,25 +27,33 @@
 
   const planText = c => c.is_owner ? T('Gestore · illimitato') : c.plan ? T(PLANS[c.plan] || c.plan) : T('Nessun piano');
 
+  // Gruppi dell'elenco (ogni azienda può stare in più gruppi, «Tutte» le contiene tutte).
+  const GROUPS = {
+    all: () => true,
+    unverified: c => !c.email_verified && !c.is_owner,
+    demo: c => c.plan === 'demo' && !c.is_owner,
+    review: c => c.verification === 'under_review' && !c.is_owner,
+    checking: c => c.has_profile && c.verification === 'pending' && !c.is_owner,
+    verified: c => c.verification === 'verified' || c.is_owner,
+    blocked: c => ['rejected', 'suspended'].includes(c.verification)
+  };
+
   function matches(c) {
     const q = $('#admin-search').value.trim().toLowerCase();
     if (q && ![c.name, c.legal_name, c.website, c.owner_email, c.public_id].some(v => String(v || '').toLowerCase().includes(q))) return false;
-    if (filter === 'review') return ['pending', 'under_review'].includes(c.verification) && !c.is_owner;
-    if (filter === 'blocked') return ['rejected', 'suspended'].includes(c.verification);
-    if (filter === 'verified') return c.verification === 'verified' || c.is_owner;
-    return true;
+    return (GROUPS[filter] || GROUPS.all)(c);
+  }
+
+  function setFilter(name) {
+    filter = name;
+    document.querySelectorAll('[data-filter]').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.filter === name)));
   }
 
   function renderStats() {
-    const count = f => companies.filter(f).length;
-    const items = [
-      ['Aziende', count(() => true)],
-      ['Da verificare', count(c => c.verification === 'under_review')],
-      ['Con piano o prova', count(c => ['base', 'plus', 'advanced'].includes(c.plan) && !c.is_owner)],
-      ['In Demo', count(c => c.plan === 'demo')],
-      ['Sospese o rifiutate', count(c => ['rejected', 'suspended'].includes(c.verification))]
-    ];
-    $('#admin-stats').replaceChildren(...items.map(([k, v]) => { const d = el('div', undefined, 'admin-stat'); d.append(el('strong', String(v)), el('span', T(k))); return d; }));
+    for (const [name, test] of Object.entries(GROUPS)) {
+      const badge = document.querySelector('[data-count="' + name + '"]');
+      if (badge) badge.textContent = companies.filter(test).length;
+    }
   }
 
   function renderList() {
@@ -59,9 +67,10 @@
       b.setAttribute('aria-current', String(c.id === current));
       const badges = el('div', undefined, 'company-badges');
       badges.append(
-        el('small', c.is_owner ? T('Tu') : T(LABELS[c.verification] || c.verification), 'badge v-' + (c.is_owner ? 'verified' : c.verification)),
+        el('small', c.is_owner ? T('Gestore') : T(LABELS[c.verification] || c.verification), 'badge v-' + (c.is_owner ? 'verified' : c.verification)),
         el('small', planText(c), 'badge plan')
       );
+      if (!c.email_verified && !c.is_owner) badges.append(el('small', T('Email da confermare'), 'badge v-pending'));
       b.append(el('strong', c.legal_name || c.name || c.owner_email || c.id), el('span', [c.website, c.owner_email].filter(Boolean).join(' · ')), badges);
       b.addEventListener('click', () => { location.hash = c.id; });
       const li = el('li');
@@ -82,7 +91,7 @@
     $('#detail-empty').hidden = true;
     $('#detail-body').hidden = false;
     const status = d.is_owner ? 'verified' : d.verification;
-    $('#d-verification').textContent = d.is_owner ? T('Il tuo account · illimitato') : T(LABELS[d.verification] || d.verification);
+    $('#d-verification').textContent = d.is_owner ? T('Account gestore · illimitato') : T(LABELS[d.verification] || d.verification);
     $('#d-verification').className = 'section-step v-' + status;
     $('#d-name').textContent = d.profile?.legal_name || d.name || d.id;
 
@@ -207,26 +216,60 @@
   }));
 
   document.querySelectorAll('[data-filter]').forEach(b => b.addEventListener('click', () => {
-    filter = b.dataset.filter;
-    document.querySelectorAll('[data-filter]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    setFilter(b.dataset.filter);
     renderList();
   }));
   $('#admin-search').addEventListener('input', () => {
     // Durante la ricerca si cerca tra tutte le aziende.
-    if ($('#admin-search').value.trim() && filter !== 'all') document.querySelector('[data-filter="all"]').click();
+    if ($('#admin-search').value.trim() && filter !== 'all') setFilter('all');
     renderList();
   });
+  // Whitelist dei gestori.
+  function renderTeam(d) {
+    $('#team-count').textContent = d.admins.length;
+    $('#team-form').hidden = !d.can_manage;
+    $('#team-list').replaceChildren(...d.admins.map(a => {
+      const li = el('li');
+      li.append(el('span', a.email), el('small', a.primary ? T('Principale') : T('Aggiunto') + (a.added_at ? ' · ' + day(a.added_at) : ''), 'badge ' + (a.primary ? 'v-verified' : 'plan')));
+      if (d.can_manage && !a.primary) {
+        const x = el('button', T('Togli'), 'button ghost small');
+        x.type = 'button';
+        x.addEventListener('click', async () => {
+          if (!confirm(T('Togliere questo gestore? Non potrà più entrare nell’area gestore.'))) return;
+          try { renderTeam(await api('admins-remove', { email: a.email })); await loadList(); } catch (e) { $('#team-status').textContent = e.message; }
+        });
+        li.append(x);
+      }
+      return li;
+    }));
+  }
+  $('#team-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    $('#team-status').textContent = '';
+    try {
+      renderTeam(await api('admins-add', { email: $('#team-email').value }));
+      $('#team-email').value = '';
+      $('#team-status').textContent = T('Gestore aggiunto. Se l’account non esiste ancora, lo diventa appena si registra e conferma l’email.');
+      await loadList();
+    } catch (err) {
+      $('#team-status').textContent = err.message;
+    }
+  });
+
   addEventListener('hashchange', () => run(() => openCompany(decodeURIComponent(location.hash.slice(1)))));
 
   run(async () => {
     // Se il gestore arriva da una visita, la chiude.
     await fetch('/api/admin/view-end', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' }).catch(() => {});
     await loadList();
+    api('admins').then(renderTeam).catch(() => { $('#admin-team').hidden = true; });
+    // Si parte da «Da approvare» se c'è qualcosa da decidere, altrimenti da «Tutte».
+    if (!companies.some(GROUPS.review)) { setFilter('all'); renderList(); }
     const id = decodeURIComponent(location.hash.slice(1));
     if (id) {
       // Un link dall'email apre la scheda anche se l'azienda non è nel filtro attivo.
       const c = companies.find(x => x.id === id);
-      if (c && !matches(c)) { filter = 'all'; document.querySelectorAll('[data-filter]').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.filter === 'all'))); renderList(); }
+      if (c && !matches(c)) { setFilter('all'); renderList(); }
       await openCompany(id);
     }
   });
