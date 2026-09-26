@@ -5923,5 +5923,65 @@
     "en": "Admin account · unlimited",
     "es": "Cuenta de gestor · ilimitada",
     "fr": "Compte gestionnaire · illimité"
+  },
+  "Email non confermata": {
+    "en": "Email not confirmed",
+    "es": "Email no confirmado",
+    "fr": "E-mail non confirmé"
+  },
+  "L’azienda si è registrata ma non ha ancora cliccato il link di conferma. Se ti ha contattato o sei sicuro che l’email sia sua, puoi confermarla tu: l’account si sblocca e parte subito la Demo di 7 giorni.": {
+    "en": "The company signed up but has not clicked the confirmation link yet. If they contacted you or you are sure the email is theirs, you can confirm it yourself: the account is unlocked and the 7-day Demo starts right away.",
+    "es": "La empresa se registró pero aún no ha pulsado el enlace de confirmación. Si te ha contactado o estás seguro de que el email es suyo, puedes confirmarlo tú: la cuenta se desbloquea y empieza enseguida la Demo de 7 días.",
+    "fr": "L’entreprise s’est inscrite mais n’a pas encore cliqué sur le lien de confirmation. Si elle vous a contacté ou si vous êtes sûr que l’e-mail est le sien, vous pouvez le confirmer vous-même : le compte est débloqué et la Démo de 7 jours démarre aussitôt."
+  },
+  "Conferma email e attiva la Demo": {
+    "en": "Confirm email and start the Demo",
+    "es": "Confirmar email y activar la Demo",
+    "fr": "Confirmer l’e-mail et activer la Démo"
+  },
+  "Confermare l’email di questa azienda? L’account si sblocca e parte la Demo di 7 giorni.": {
+    "en": "Confirm this company’s email? The account is unlocked and the 7-day Demo starts.",
+    "es": "¿Confirmar el email de esta empresa? La cuenta se desbloquea y empieza la Demo de 7 días.",
+    "fr": "Confirmer l’e-mail de cette entreprise ? Le compte est débloqué et la Démo de 7 jours démarre."
+  },
+  "Email confermata: la Demo di 7 giorni è attiva.": {
+    "en": "Email confirmed: the 7-day Demo is active.",
+    "es": "Email confirmado: la Demo de 7 días está activa.",
+    "fr": "E-mail confirmé : la Démo de 7 jours est active."
+  },
+  "Email confermata. La Demo era già stata usata da questa azienda.": {
+    "en": "Email confirmed. This company had already used the Demo.",
+    "es": "Email confirmado. Esta empresa ya había usado la Demo.",
+    "fr": "E-mail confirmé. Cette entreprise avait déjà utilisé la Démo."
+  },
+  "Email confermata dal gestore": {
+    "en": "Email confirmed by the admin",
+    "es": "Email confirmado por el gestor",
+    "fr": "E-mail confirmé par le gestionnaire"
+  },
+  "confermata": {
+    "en": "confirmed",
+    "es": "confirmado",
+    "fr": "confirmé"
+  },
+  "da confermare": {
+    "en": "to confirm",
+    "es": "por confirmar",
+    "fr": "à confirmer"
+  },
+  "non ancora usata": {
+    "en": "not used yet",
+    "es": "aún no usada",
+    "fr": "pas encore utilisée"
+  },
+  "dal": {
+    "en": "from",
+    "es": "del",
+    "fr": "du"
+  },
+  "al": {
+    "en": "to",
+    "es": "al",
+    "fr": "au"
   }
 }

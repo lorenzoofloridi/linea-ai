@@ -960,6 +960,23 @@ try {
     await assert.rejects(admin('b@example.invalid', 'companies'), e => e.httpStatus === 403);
   });
 
+  await test('admin confirms an email: account unlocked and 7-day Demo starts once', async () => {
+    const env = { LINEA_ADMIN_EMAILS: 'a@example.invalid' };
+    const adminAuth = async () => ({ id: 'user-a', company_id: 'a', email: 'a@example.invalid' });
+    const admin = async (path, body) => (await adminApi(request('admin/' + path, body, 'a'), { pool }, adminAuth, { env, emailVerified: async () => true })).json();
+    await pool.query("INSERT INTO companies VALUES('f','public-f',$1,NOW())", [{ ...cfg, name: 'Effe' }]);
+    await pool.query("INSERT INTO users VALUES('user-f','f','f@example.invalid','unused')");
+    assert.equal((await admin('company?id=f')).email_verified, false);
+    const first = await admin('confirm-email', { id: 'f' });
+    assert.equal(first.demo_started, true);
+    assert.equal(await effectivePlan({ pool }, 'f'), 'demo');
+    const detail = await admin('company?id=f');
+    assert.equal(detail.email_verified, true);
+    assert.ok(Number(detail.demo.ends) - Date.now() / 1000 > 6.9 * 86400);
+    assert.equal((await admin('confirm-email', { id: 'f' })).demo_started, false);
+    assert.equal((await pool.query("SELECT count(*)::int AS n FROM plan_demo_usage WHERE company_id='f'")).rows[0].n, 1);
+  });
+
   /*
    * Quando la Demo aziendale scade:
    * - le funzioni operative vengono bloccate;

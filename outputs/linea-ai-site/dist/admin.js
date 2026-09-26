@@ -13,7 +13,7 @@
   const PLANS = { demo: 'Demo', base: 'Piano Base', plus: 'Piano Plus', advanced: 'Piano Advanced' };
   const SUBS = { trial: 'in prova gratuita', active: 'attivo', past_due: 'pagamento in ritardo', expired: 'scaduto', cancelled: 'disdetto' };
   const FIELDS = { legal_name: 'Ragione sociale', vat: 'Partita IVA', website: 'Sito ufficiale', business_email: 'Email aziendale', business_phone: 'Telefono aziendale', contact_name: 'Referente', contact_role: 'Ruolo del referente', address: 'Sede legale', city: 'Città', postal_code: 'CAP', country: 'Paese' };
-  const ACTIONS = { view: 'Entrato nella dashboard', delete: 'Account eliminato', 'status:verified': 'Approvata / riattivata', 'status:rejected': 'Rifiutata', 'status:suspended': 'Accesso sospeso' };
+  const ACTIONS = { confirm_email: 'Email confermata dal gestore', view: 'Entrato nella dashboard', delete: 'Account eliminato', 'status:verified': 'Approvata / riattivata', 'status:rejected': 'Rifiutata', 'status:suspended': 'Accesso sospeso' };
 
   let companies = [], filter = 'review', current = null, detail = null;
 
@@ -99,6 +99,8 @@
     const summary = [
       ['Account', d.owner_email],
       ['Piano', d.is_owner ? T('Gestore · tutte le funzioni') : d.plan ? T(PLANS[d.plan] || d.plan) : T('Nessun piano attivo')],
+      ['Email', d.email_verified ? T('confermata') : T('da confermare')],
+      ['Demo', d.demo ? T('dal') + ' ' + day(Number(d.demo.started)) + ' ' + T('al') + ' ' + day(Number(d.demo.ends)) : T('non ancora usata')],
       ['Abbonamento', s ? T(SUBS[s.status] || s.status) + (s.period_end ? ' · ' + T('fino al') + ' ' + day(Number(s.period_end)) : '') : '—'],
       ['Widget', ['base', 'plus', 'advanced'].includes(d.plan) ? (d.widget.origins.length ? d.widget.origins.map(o => o.replace('https://', '')).join(', ') : T('attivo, manca il sito')) : T('non incluso (serve un piano o la prova)')],
       ['Codice azienda', d.public_id]
@@ -112,6 +114,7 @@
     $('#d-suspend').hidden = d.is_owner || d.verification === 'suspended';
     $('#d-reactivate').hidden = d.is_owner || !blocked;
     $('#d-view').hidden = d.is_owner;
+    $('#d-email-block').hidden = d.is_owner || d.email_verified;
     $('#d-danger').hidden = d.is_owner;
     $('#d-reason').value = '';
     $('#d-confirm').value = '';
@@ -150,7 +153,7 @@
 
     const history = [
       ...d.history.map(h => ({ at: h.created_at, text: h.actor + ' · ' + T(LABELS[h.status] || h.status) + (h.reason ? ' — ' + h.reason : '') })),
-      ...(d.admin_log || []).filter(x => x.action === 'view').map(x => ({ at: x.created_at, text: x.actor + ' · ' + T(ACTIONS[x.action] || x.action) }))
+      ...(d.admin_log || []).filter(x => ['view', 'confirm_email'].includes(x.action)).map(x => ({ at: x.created_at, text: x.actor + ' · ' + T(ACTIONS[x.action] || x.action) }))
     ].sort((a, b) => new Date(b.at) - new Date(a.at));
     $('#d-history').replaceChildren(...(history.length ? history.map(h => el('li', when(h.at) + ' · ' + h.text)) : [el('li', T('Nessuna azione registrata.'))]));
   }
@@ -180,6 +183,12 @@
   $('#d-reactivate').addEventListener('click', () => decide('verified', 'Accesso riattivato.'));
   $('#d-reject').addEventListener('click', () => { if (confirm(T('Rifiutare questa azienda? Non potrà attivare un piano.'))) decide('rejected', 'Azienda rifiutata.'); });
   $('#d-suspend').addEventListener('click', () => { if (confirm(T('Sospendere l’accesso? L’azienda non potrà usare la dashboard e il suo widget si ferma.'))) decide('suspended', 'Accesso sospeso.'); });
+  $('#d-confirm-email').addEventListener('click', () => run(async () => {
+    if (!confirm(T('Confermare l’email di questa azienda? L’account si sblocca e parte la Demo di 7 giorni.'))) return;
+    const d = await api('confirm-email', { id: current });
+    await reload();
+    status.textContent = T(d.demo_started ? 'Email confermata: la Demo di 7 giorni è attiva.' : 'Email confermata. La Demo era già stata usata da questa azienda.');
+  }));
   $('#d-view').addEventListener('click', () => run(async () => {
     const d = await api('view', { id: current });
     location.assign(d.redirect || '/dashboard.html');

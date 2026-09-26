@@ -241,6 +241,10 @@ export async function adminApi(request, db, auth, { env = process.env, emailVeri
       plan: await effectivePlan(db, c.id),
       owner_email: (await db.pool.query("SELECT email FROM users WHERE company_id=$1 ORDER BY id LIMIT 1", [c.id])).rows[0]?.email || "",
       is_owner: await isAdminAccount(c.id),
+      email_verified: (await db.pool.query(
+        `SELECT 1 FROM users u JOIN email_verification e ON e.user_id=u.id
+          WHERE u.company_id=$1 AND e.verified_at IS NOT NULL LIMIT 1`, [c.id])).rowCount > 0,
+      demo: (await db.pool.query("SELECT started, ends FROM plan_demo_usage WHERE company_id=$1 ORDER BY started DESC LIMIT 1", [c.id])).rows[0] || null,
       admin_log: (await db.pool.query("SELECT actor, action, detail, created_at FROM admin_log WHERE company_id=$1 ORDER BY created_at DESC LIMIT 20", [c.id])).rows
     });
   }
@@ -283,6 +287,47 @@ export async function adminApi(request, db, auth, { env = process.env, emailVeri
     if (!(await setView(id))) fail(401, "Sessione non valida: accedi di nuovo.");
     await adminLog(db, actor, "view", id, companyName, "Accesso alla dashboard (senza dati dei clienti).");
     return json({ ok: true, redirect: "/dashboard.html" });
+  }
+
+  // Conferma dell'email fatta dal gestore (quando l'azienda non riceve o non
+  // apre il link): l'account diventa verificato e parte la Demo di 7 giorni,
+  // se l'azienda non l'ha già usata.
+  if (path === "/api/admin/confirm-email") {
+    const users = (await db.pool.query("SELECT id, email FROM users WHERE company_id=$1 ORDER BY id", [id])).rows;
+    if (!users.length) fail(404, "L’azienda non ha account.");
+    const now = Date.now() / 1000;
+    let demo = null;
+    const client = await db.pool.connect();
+    try {
+      await client.query("BEGIN");
+      for (const u of users) {
+        await client.query(
+          `INSERT INTO email_verification(user_id, verified_at) VALUES($1, NOW())
+           ON CONFLICT(user_id) DO UPDATE SET verified_at=COALESCE(email_verification.verified_at, NOW())`,
+          [u.id]
+        );
+        await client.query("DELETE FROM email_verification_tokens WHERE user_id=$1", [u.id]);
+      }
+      const used = await client.query(
+        "SELECT 1 FROM plan_demo_usage WHERE company_id=$1 OR email = ANY(SELECT email FROM users WHERE company_id=$1) LIMIT 1",
+        [id]
+      );
+      if (!used.rowCount) {
+        demo = { started: now, ends: now + 7 * 86400 };
+        await client.query(
+          "INSERT INTO plan_demo_usage(email, company_id, started, ends) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING",
+          [users[0].email, id, demo.started, demo.ends]
+        );
+      }
+      await client.query("COMMIT");
+    } catch (error) {
+      await client.query("ROLLBACK").catch(() => {});
+      throw error;
+    } finally {
+      client.release();
+    }
+    await adminLog(db, actor, "confirm_email", id, companyName, demo ? "Email confermata dal gestore, Demo di 7 giorni avviata." : "Email confermata dal gestore (Demo già usata).");
+    return json({ ok: true, demo_started: Boolean(demo), demo_ends: demo?.ends || null });
   }
 
   // Eliminazione definitiva dell'account aziendale e di tutti i suoi dati.

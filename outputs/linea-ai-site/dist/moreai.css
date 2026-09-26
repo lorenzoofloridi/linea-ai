@@ -583,3 +583,4 @@ h1 em,h2 em,.contact-section h2 em{font-family:var(--serif);letter-spacing:-.01e
 .team-form[hidden]{display:none}
 .team-form input{flex:1 1 240px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font:inherit}
 #team-status,#admin-status,#ai-status{color:var(--night)!important}
+.admin-email{background:#FFF8EC;border:1px solid #F4DCAB;border-radius:16px;padding:16px 18px}
