@@ -78,7 +78,7 @@ export async function chatApi(
 
   const raw=await request.text();
 
-  if(raw.length>32000){
+  if(raw.length>(path==='/api/config'?60000:32000)){
    fail(413,'Richiesta troppo grande.');
   }
 
@@ -254,6 +254,31 @@ export async function chatApi(
     fail(400,'Controlla i campi.');
    }
 
+   // Istruzioni per l'assistente (facoltative) e aspetto della chat.
+   if(body.instructions!==undefined&&(typeof body.instructions!=='string'||body.instructions.length>4000)){
+    fail(400,'Le istruzioni per l’assistente possono avere al massimo 4.000 caratteri.');
+   }
+   let branding=null;
+   if(body.appearance!==undefined){
+    const a=body.appearance;
+    if(!a||typeof a!=='object'||Array.isArray(a))fail(400,'Controlla l’aspetto della chat.');
+    const text=(v,max)=>{if(v===undefined||v===null)return '';if(typeof v!=='string'||v.length>max)fail(400,'Controlla l’aspetto della chat.');return v.trim().replace(/[<>]/g,'');};
+    const color=text(a.color,7);
+    if(color&&!/^#[0-9a-f]{6}$/i.test(color))fail(400,'Scegli un colore valido.');
+    // Foto/logo: solo immagini PNG, JPEG o WebP già ridotte dal browser (niente SVG).
+    let avatar=a.avatar===undefined?undefined:a.avatar===null||a.avatar===''?'':a.avatar;
+    if(avatar&&(typeof avatar!=='string'||avatar.length>40000||!/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/]+=*$/.test(avatar))){
+     fail(400,'Il logo deve essere un’immagine PNG, JPG o WebP piccola.');
+    }
+    branding={
+     ...(avatar!==undefined?{avatar}:{}),
+     assistant_name:text(a.assistant_name,60),
+     greeting:text(a.greeting,300),
+     color:color||'#6D28D9',
+     widget_position:a.position==='left'?'left':'right'
+    };
+   }
+
    const keys=new Set();
 
    for(const f of body.fields){
@@ -295,6 +320,8 @@ export async function chatApi(
     ),
     confirmation_email:
      body.confirmation_email===true,
+    ...(body.instructions!==undefined?{instructions:body.instructions.trim()}:{}),
+    ...(branding?{agent:{...(existing.agent||{}),branding:{...(existing.agent?.branding||{}),...branding}}}:{}),
     fields:body.fields.map(
      f=>({
       key:f.key,

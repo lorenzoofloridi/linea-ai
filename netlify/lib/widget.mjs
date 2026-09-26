@@ -122,7 +122,10 @@ export async function conversationConfig(db, company) {
     await db.pool.query("SELECT status, knowledge, sources FROM company_knowledge WHERE company_id=$1", [company.id])
   ).rows[0];
   const publicResearch = researchForAssistant(research);
-  return publicResearch ? { ...company.config, public_research: publicResearch } : company.config;
+  // Il logo non serve al modello: non viene copiato in ogni conversazione.
+  const config = structuredClone(company.config || {});
+  if (config.agent?.branding?.avatar) delete config.agent.branding.avatar;
+  return publicResearch ? { ...config, public_research: publicResearch } : config;
 }
 
 async function limit(db, key, maximum, windowSeconds, message) {
@@ -164,6 +167,15 @@ function siteOrigin(request, env) {
   return normalizeOrigin(env.PUBLIC_SITE_URL || "") || new URL(request.url).origin;
 }
 
+/** Logo dell'azienda (data URL PNG/JPEG/WebP già validato) oppure l'iniziale. */
+export function avatarHtml(cfg, name) {
+  const src = cfg?.agent?.branding?.avatar;
+  if (typeof src === "string" && /^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/]+=*$/.test(src)) {
+    return `<img class="avatar photo" src="${src}" alt="">`;
+  }
+  return `<span class="avatar" aria-hidden="true">${escapeHtml((String(name).trim()[0] || "A").toUpperCase())}</span>`;
+}
+
 function frame(request, env, { company, ticket, origins, message }) {
   const own = siteOrigin(request, env);
   const ancestors = [...new Set([...origins, own])].join(" ");
@@ -172,12 +184,12 @@ function frame(request, env, { company, ticket, origins, message }) {
   const name = cfg.agent?.branding?.assistant_name || cfg.name || "Assistente";
   const body = message
     ? `<main class="unavailable"><p>${escapeHtml(message)}</p></main>`
-    : `<header><span class="avatar" aria-hidden="true">${escapeHtml((name.trim()[0] || "A").toUpperCase())}</span><div><strong>${escapeHtml(name)}</strong><small>Assistente virtuale</small></div><button type="button" id="restart" aria-label="Nuova conversazione" title="Nuova conversazione">↻</button><button type="button" id="close" aria-label="Chiudi la chat" title="Chiudi">×</button></header>
+    : `<header>${avatarHtml(cfg, name)}<div><strong>${escapeHtml(name)}</strong><small>Assistente virtuale</small></div><button type="button" id="restart" aria-label="Nuova conversazione" title="Nuova conversazione">↻</button><button type="button" id="close" aria-label="Chiudi la chat" title="Chiudi">×</button></header>
 <main id="messages" role="log" aria-live="polite" aria-label="Conversazione"></main>
 <form id="chat"><label class="sr-only" for="message">Il tuo messaggio</label><input id="message" maxlength="2000" autocomplete="off" placeholder="Scrivi il tuo messaggio…" required><button id="send" type="submit" aria-label="Invia">↑</button></form>
 <footer><span id="status" role="status"></span><a href="${escapeHtml(own)}/privacy.html" target="_blank" rel="noopener">Privacy</a><span>· con MoreAI</span></footer>`;
   const html = `<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>${escapeHtml(name)}</title><link rel="stylesheet" href="/widget-app.css"><script src="/widget-app.js" defer></script></head>
-<body data-company="${escapeHtml(company?.public_id || "")}" data-ticket="${escapeHtml(ticket || "")}" data-greeting="${escapeHtml(company ? greeting(cfg) : "")}" style="--accent:${color}">${body}</body></html>`;
+<body data-company="${escapeHtml(company?.public_id || "")}" data-ticket="${escapeHtml(ticket || "")}" data-greeting="${escapeHtml(company ? greeting(cfg) : "")}" data-accent="${color}">${body}</body></html>`;
   return new Response(html, {
     status: 200,
     headers: {
@@ -217,6 +229,17 @@ export async function widgetApi(request, db, auth, { env = process.env, context 
   const url = new URL(request.url);
   const path = url.pathname;
   const method = request.method.toUpperCase();
+
+  // Aspetto del pulsante (colore e lato): dati pubblici, messi in cache dalla CDN
+  // per non chiamare la funzione a ogni pagina vista del sito dell'azienda.
+  if (path === "/api/widget-look" && method === "GET") {
+    const company = await companyByPublicId(db, url.searchParams.get("c"));
+    const b = company?.config?.agent?.branding || {};
+    return Response.json(
+      { color: /^#[0-9a-f]{6}$/i.test(b.color || "") ? b.color : "#6D28D9", position: b.widget_position === "left" ? "left" : "right" },
+      { headers: { "Cache-Control": "public, max-age=60", "Netlify-CDN-Cache-Control": "public, s-maxage=300, stale-while-revalidate=600", "Access-Control-Allow-Origin": "*" } }
+    );
+  }
 
   if (path === "/api/widget-frame" && method === "GET") {
     const company = await companyByPublicId(db, url.searchParams.get("c"));

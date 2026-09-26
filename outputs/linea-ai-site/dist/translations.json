@@ -6008,5 +6008,100 @@
     "en": "The password must have 12 to 64 characters and at least 1 special character (for example ! ? # @ %).",
     "es": "La contraseña debe tener de 12 a 64 caracteres y al menos 1 carácter especial (por ejemplo ! ? # @ %).",
     "fr": "Le mot de passe doit contenir de 12 à 64 caractères et au moins 1 caractère spécial (par exemple ! ? # @ %)."
+  },
+  "Aspetto della chat": {
+    "en": "Chat appearance",
+    "es": "Aspecto del chat",
+    "fr": "Apparence du chat"
+  },
+  "Personalizza la chat sul tuo sito e nella chat di prova. L’anteprima si aggiorna mentre modifichi; le modifiche valgono dopo il salvataggio.": {
+    "en": "Customise the chat on your website and in the test chat. The preview updates as you edit; changes apply after saving.",
+    "es": "Personaliza el chat en tu sitio y en el chat de prueba. La vista previa se actualiza mientras editas; los cambios se aplican al guardar.",
+    "fr": "Personnalisez le chat sur votre site et dans le chat de test. L’aperçu se met à jour pendant que vous modifiez ; les changements s’appliquent après l’enregistrement."
+  },
+  "Nome dell’assistente": {
+    "en": "Assistant name",
+    "es": "Nombre del asistente",
+    "fr": "Nom de l’assistant"
+  },
+  "Colore principale": {
+    "en": "Main colour",
+    "es": "Color principal",
+    "fr": "Couleur principale"
+  },
+  "Foto o logo": {
+    "en": "Photo or logo",
+    "es": "Foto o logo",
+    "fr": "Photo ou logo"
+  },
+  "Scegli immagine": {
+    "en": "Choose image",
+    "es": "Elegir imagen",
+    "fr": "Choisir une image"
+  },
+  "PNG, JPG o WebP. Viene ridotta e ritagliata a quadrato; compare nell’intestazione della chat.": {
+    "en": "PNG, JPG or WebP. It is resized and cropped to a square; it appears in the chat header.",
+    "es": "PNG, JPG o WebP. Se reduce y recorta en cuadrado; aparece en la cabecera del chat.",
+    "fr": "PNG, JPG ou WebP. Elle est réduite et recadrée en carré ; elle apparaît dans l’en-tête du chat."
+  },
+  "Messaggio di benvenuto": {
+    "en": "Welcome message",
+    "es": "Mensaje de bienvenida",
+    "fr": "Message de bienvenue"
+  },
+  "Posizione sul sito": {
+    "en": "Position on the website",
+    "es": "Posición en el sitio",
+    "fr": "Position sur le site"
+  },
+  "In basso a destra": {
+    "en": "Bottom right",
+    "es": "Abajo a la derecha",
+    "fr": "En bas à droite"
+  },
+  "In basso a sinistra": {
+    "en": "Bottom left",
+    "es": "Abajo a la izquierda",
+    "fr": "En bas à gauche"
+  },
+  "Istruzioni per l’assistente": {
+    "en": "Assistant instructions",
+    "es": "Instrucciones para el asistente",
+    "fr": "Instructions pour l’assistant"
+  },
+  "(facoltative)": {
+    "en": "(optional)",
+    "es": "(opcionales)",
+    "fr": "(facultatives)"
+  },
+  "Vorrei qualche informazione": {
+    "en": "I would like some information",
+    "es": "Quisiera algo de información",
+    "fr": "J’aimerais quelques informations"
+  },
+  "Immagine pronta: premi «Salva configurazione».": {
+    "en": "Image ready: press “Save configuration”.",
+    "es": "Imagen lista: pulsa «Guardar configuración».",
+    "fr": "Image prête : cliquez sur « Enregistrer la configuration »."
+  },
+  "Scegli un’immagine PNG, JPG o WebP (massimo 8 MB).": {
+    "en": "Choose a PNG, JPG or WebP image (up to 8 MB).",
+    "es": "Elige una imagen PNG, JPG o WebP (máximo 8 MB).",
+    "fr": "Choisissez une image PNG, JPG ou WebP (8 Mo maximum)."
+  },
+  "Non riesco a leggere questa immagine. Prova con un altro file.": {
+    "en": "I can’t read this image. Try another file.",
+    "es": "No puedo leer esta imagen. Prueba con otro archivo.",
+    "fr": "Impossible de lire cette image. Essayez un autre fichier."
+  },
+  "Le istruzioni per l’assistente possono avere al massimo 4.000 caratteri.": {
+    "en": "Assistant instructions can be up to 4,000 characters.",
+    "es": "Las instrucciones pueden tener como máximo 4.000 caracteres.",
+    "fr": "Les instructions peuvent contenir 4 000 caractères au maximum."
+  },
+  "Scegli un colore valido.": {
+    "en": "Choose a valid colour.",
+    "es": "Elige un color válido.",
+    "fr": "Choisissez une couleur valide."
   }
 }

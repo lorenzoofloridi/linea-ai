@@ -977,6 +977,24 @@ try {
     assert.equal((await pool.query("SELECT count(*)::int AS n FROM plan_demo_usage WHERE company_id='f'")).rows[0].n, 1);
   });
 
+  await test('instructions and chat appearance are saved per company and used by the widget', async () => {
+    const current = (await pool.query("SELECT config FROM companies WHERE id='b'")).rows[0].config;
+    const saved = await api('config', { ...current, confirmation_email: false, instructions: 'Chiedi sempre il budget.', appearance: { assistant_name: 'Giulia di B', greeting: 'Ciao, sono Giulia.', color: '#0EA5E9', position: 'left' } }, 'b');
+    assert.equal(saved.config.instructions, 'Chiedi sempre il budget.');
+    assert.deepEqual(saved.config.agent.branding, { assistant_name: 'Giulia di B', greeting: 'Ciao, sono Giulia.', color: '#0EA5E9', widget_position: 'left' });
+    assert.equal((await pool.query("SELECT config FROM companies WHERE id='a'")).rows[0].config.instructions, undefined);
+    await assert.rejects(api('config', { ...current, confirmation_email: false, appearance: { color: 'red' } }, 'b'), e => e.httpStatus === 400);
+    await assert.rejects(api('config', { ...current, confirmation_email: false, instructions: 'x'.repeat(4001) }, 'b'), e => e.httpStatus === 400);
+    const look = await widgetApi(new Request('https://www.moreai.invalid/api/widget-look?c=public-b'), { pool }, auth, {});
+    assert.deepEqual(await look.json(), { color: '#0EA5E9', position: 'left' });
+    assert.match(look.headers.get('netlify-cdn-cache-control'), /s-maxage=300/);
+    const other = await widgetApi(new Request('https://www.moreai.invalid/api/widget-look?c=public-a'), { pool }, auth, {});
+    assert.deepEqual(await other.json(), { color: '#6D28D9', position: 'right' });
+    // La nuova conversazione usa il benvenuto personalizzato.
+    const session = await api('session', { company: 'public-b' }, 'b');
+    assert.equal(session.greeting, 'Ciao, sono Giulia.');
+  });
+
   /*
    * Quando la Demo aziendale scade:
    * - le funzioni operative vengono bloccate;

@@ -6,7 +6,10 @@ const copies={
  es:{updated:'He actualizado tu solicitud',consent:'¿Aceptas que la empresa te contacte utilizando los datos indicados?',saved:'Tu solicitud ha sido registrada para la empresa. ¿Puedo ayudarte en algo más?',closed:'Gracias, que tengas un buen día.',refused:'No hay problema. Tu solicitud no se guardará.',invalid:'Los datos de contacto no parecen válidos. ¿Puedes revisarlos?',summary:'Información registrada'},
  de:{updated:'Ich habe Ihre Anfrage aktualisiert',consent:'Darf das Unternehmen Sie über die angegebenen Kontaktdaten kontaktieren?',saved:'Ihre Anfrage wurde für das Unternehmen gespeichert. Kann ich Ihnen sonst noch helfen?',closed:'Vielen Dank. Einen schönen Tag.',refused:'Kein Problem. Ihre Anfrage wird nicht gespeichert.',invalid:'Die Kontaktdaten scheinen ungültig zu sein. Können Sie diese prüfen?',summary:'Gespeicherte Informationen'}
 };
-export function fields(config){const caps=config.agent?.capabilities||{};return (config.fields||[]).filter(f=>caps.can_collect_leads!==false && !(f.kind==='phone'&&caps.can_request_phone===false)&&!(f.kind==='email'&&caps.can_request_email===false));}
+// Campo automatico per le risposte alle domande chieste dalle istruzioni dell'azienda
+// (per esempio «chiedi sempre il budget»): finisce nella richiesta e nell'export.
+export const DETAILS_FIELD=Object.freeze({key:'dettagli',label:'Altri dettagli',kind:'text',required:false,auto:true});
+export function fields(config){const caps=config.agent?.capabilities||{};if(caps.can_collect_leads===false)return [];const list=(config.fields||[]).filter(f=>!(f.kind==='phone'&&caps.can_request_phone===false)&&!(f.kind==='email'&&caps.can_request_email===false));return list.length&&!list.some(f=>f.key===DETAILS_FIELD.key)?[...list,DETAILS_FIELD]:list;}
 // Un nome valido: 2-80 caratteri, niente cifre, niente frasi come "non mi chiamo".
 const validName=v=>v.length>=2&&v.length<=80&&!/\d/.test(v)&&!/^(non|no|mi chiamo|sono|il mio nome)\b/i.test(v)&&v.split(/\s+/).length<=5;
 // Data e ora in italiano, ora di Roma (non il formato tecnico ISO).
@@ -23,6 +26,8 @@ export function advance(config,previous,message,result){
   if(f.kind==='email'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)){invalid=true;if(!state.saved){delete state.data[f.key];changed=true;}continue;}
   if(f.key==='nome'){const v=item.value.trim().replace(/\s+/g,' ');if(!message.toLowerCase().includes(v.toLowerCase())||!validName(v))continue;value=v;}
   if(f.key==='interesse')value=item.value.trim();
+  // Altri dettagli: si aggiungono uno dopo l'altro («Budget: 20.000 € · Permuta: sì»).
+  if(f.auto){const v=item.value.trim().replace(/\s+/g,' ').slice(0,300);const prev=state.data[f.key]||'';if(prev.toLowerCase().includes(v.toLowerCase()))continue;value=(prev?prev+' · ':'')+v;if(value.length>1500)continue;}
   if(f.key==='tempistica')value=item.value.trim()+' (indicata il '+when()+')';
   const before=state.data[f.key];
   // Dopo il salvataggio si accettano solo correzioni di dati già registrati.

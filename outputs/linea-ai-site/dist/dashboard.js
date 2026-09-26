@@ -643,6 +643,17 @@ $('#config-form')
 
       cfg.fields = fields;
 
+      // Aspetto della chat.
+      cfg.appearance = {
+        assistant_name: cfg.look_name || '',
+        greeting: cfg.look_greeting || '',
+        color: cfg.look_color || '#6D28D9',
+        avatar: cfg.look_avatar || '',
+        position: cfg.look_position === 'left' ? 'left' : 'right'
+      };
+      for (const k of ['look_name', 'look_greeting', 'look_color', 'look_position', 'look_avatar']) delete cfg[k];
+      cfg.instructions = cfg.instructions || '';
+
       try {
         await request(
           'config',
@@ -846,6 +857,19 @@ $('#logout')
       form.elements[k].value =
         company.config[k];
     }
+
+    form.elements.instructions.value =
+      company.config.instructions || '';
+
+    const branding =
+      company.config.agent?.branding || {};
+
+    form.elements.look_name.value = branding.assistant_name || '';
+    form.elements.look_greeting.value = branding.greeting || '';
+    form.elements.look_color.value = /^#[0-9a-f]{6}$/i.test(branding.color || '') ? branding.color : '#6D28D9';
+    form.elements.look_position.value = branding.widget_position === 'left' ? 'left' : 'right';
+    form.elements.look_avatar.value = branding.avatar || '';
+    window.moreaiLookPreview?.();
 
     form.elements
       .confirmation_email

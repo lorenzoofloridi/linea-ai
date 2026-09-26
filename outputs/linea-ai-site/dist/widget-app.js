@@ -3,6 +3,8 @@
 // chat di prova: /api/widget-session per aprire la conversazione, poi /api/chat.
 (() => {
   const $ = s => document.querySelector(s);
+  // Colore dell'azienda (impostato via JS: la CSP non ammette stili in linea).
+  if (/^#[0-9a-f]{6}$/i.test(document.body.dataset.accent || '')) document.body.style.setProperty('--accent', document.body.dataset.accent);
   const box = $('#messages');
   if (!box) return;
   const { company, ticket, greeting } = document.body.dataset;

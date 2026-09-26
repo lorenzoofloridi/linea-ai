@@ -28,3 +28,4 @@ footer #status{flex:1}
 footer a{color:#7A7390}
 .unavailable{flex:1;display:flex;align-items:center;justify-content:center;padding:30px;text-align:center;color:#5F5976}
 @media(prefers-reduced-motion:reduce){.msg.typing span{animation:none}}
+.avatar.photo{object-fit:cover;background:#fff}
