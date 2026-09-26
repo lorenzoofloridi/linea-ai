@@ -14,6 +14,7 @@
 // attivo il widget non apre conversazioni.
 import { createHash, createHmac, randomBytes, timingSafeEqual } from "node:crypto";
 import { effectivePlan } from "./ai-quota.mjs";
+import { isAdmin } from "./owner.mjs";
 import { initialState } from "./chat-state.mjs";
 import { knowledgeEntries } from "./company-data.mjs";
 
@@ -254,10 +255,12 @@ export async function widgetApi(request, db, auth, { env = process.env, context 
     const company = (await db.pool.query("SELECT id, public_id FROM companies WHERE id=$1", [user.company_id])).rows[0];
     if (!company) fail(404, "Azienda non trovata.");
     let s = await settings(db, company.id);
+    // Modifica i siti: il gestore in visita, oppure un gestore sulla propria azienda.
+    const canEdit = Boolean(user.viewer) || (await isAdmin(db, user.email, env));
     if (method === "POST") {
       // I siti del widget li configura solo il gestore di MoreAI
       // (dalla visita alla dashboard o dal pannello del gestore).
-      if (!user.viewer) fail(403, "I siti del widget vengono configurati dal team MoreAI. Per aggiungerne uno scrivici dalla pagina Supporto.");
+      if (!canEdit) fail(403, "I siti del widget vengono configurati dal team MoreAI. Per aggiungerne uno scrivici dalla pagina Supporto.");
       const body = await readBody(request);
       if (!Array.isArray(body.origins) || body.origins.length > MAX_ORIGINS * 2) fail(400, "Controlla i siti indicati.");
       const origins = [];
@@ -284,7 +287,7 @@ export async function widgetApi(request, db, auth, { env = process.env, context 
       research_status: research?.status || null,
       plan: await effectivePlan(db, company.id),
       active_plan: await widgetAllowed(db, company.id),
-      can_edit: Boolean(user.viewer),
+      can_edit: canEdit,
       snippet: `<script src="${base}/moreai-widget.js" data-company="${company.public_id}" defer></script>`
     });
   }

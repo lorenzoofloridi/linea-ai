@@ -286,3 +286,29 @@ form.addEventListener(
     }
   }
 );
+
+/*
+ * Regole della password in registrazione: si colorano mentre si scrive.
+ * Il controllo vero è sul server.
+ */
+(() => {
+  const rules = document.querySelector('#password-rules');
+  const input = document.querySelector('#account-password');
+  if (!rules || !input) return;
+  const checks = {
+    min: v => [...v].length >= 12,
+    max: v => [...v].length <= 64,
+    special: v => /[^\p{L}\p{N}\s]/u.test(v)
+  };
+  const update = () => {
+    const v = input.value;
+    for (const [rule, ok] of Object.entries(checks)) {
+      const el = rules.querySelector('[data-rule="' + rule + '"]');
+      el.classList.toggle('ok', Boolean(v) && ok(v));
+      el.classList.toggle('bad', Boolean(v) && !ok(v));
+    }
+    input.setCustomValidity(Object.values(checks).every(ok => ok(v)) || !v ? '' :
+      (window.lineaPreferences?.t || String)('La password deve avere da 12 a 64 caratteri e almeno 1 carattere speciale (per esempio ! ? # @ %).'));
+  };
+  input.addEventListener('input', update);
+})();

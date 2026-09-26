@@ -5983,5 +5983,30 @@
     "en": "to",
     "es": "al",
     "fr": "au"
+  },
+  "Minimo 12 caratteri": {
+    "en": "At least 12 characters",
+    "es": "Mínimo 12 caracteres",
+    "fr": "12 caractères minimum"
+  },
+  "Massimo 64": {
+    "en": "At most 64",
+    "es": "Máximo 64",
+    "fr": "64 maximum"
+  },
+  "Almeno 1 carattere speciale": {
+    "en": "At least 1 special character",
+    "es": "Al menos 1 carácter especial",
+    "fr": "Au moins 1 caractère spécial"
+  },
+  "Minimo 12 caratteri · Massimo 64 · Almeno 1 carattere speciale": {
+    "en": "At least 12 characters · At most 64 · At least 1 special character",
+    "es": "Mínimo 12 caracteres · Máximo 64 · Al menos 1 carácter especial",
+    "fr": "12 caractères minimum · 64 maximum · Au moins 1 caractère spécial"
+  },
+  "La password deve avere da 12 a 64 caratteri e almeno 1 carattere speciale (per esempio ! ? # @ %).": {
+    "en": "The password must have 12 to 64 characters and at least 1 special character (for example ! ? # @ %).",
+    "es": "La contraseña debe tener de 12 a 64 caracteres y al menos 1 carácter especial (por ejemplo ! ? # @ %).",
+    "fr": "Le mot de passe doit contenir de 12 à 64 caractères et au moins 1 caractère spécial (par exemple ! ? # @ %)."
   }
 }

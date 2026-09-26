@@ -1,3 +1,4 @@
+import { validNewPassword, PASSWORD_RULE_MESSAGE } from "./password-policy.mjs";
 // Recupero password online.
 // - La risposta alla richiesta è sempre la stessa: non rivela se un'email è registrata.
 // - Il token viaggia solo nel frammento dell'URL (#), nel database solo il suo hash.
@@ -84,8 +85,8 @@ export async function requestPasswordReset(db, body, { ip = "unknown", baseUrl, 
 export async function completePasswordReset(db, body, { ip = "unknown", hashPassword }) {
   const value = field(body, "token", 100);
   const password = body?.password;
-  if (typeof password !== "string" || password.length < 12 || password.length > 256) {
-    fail(400, "Scegli una password di almeno 12 caratteri.");
+  if (!validNewPassword(password)) {
+    fail(400, PASSWORD_RULE_MESSAGE);
   }
 
   await rateLimit(db, "reset-complete:" + digest(ip), 10, 900);

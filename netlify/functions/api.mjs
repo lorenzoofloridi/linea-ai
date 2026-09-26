@@ -3,6 +3,7 @@ import { widgetApi } from "../lib/widget.mjs";
 import { billingApi, settleSubscription } from "../lib/billing.mjs";
 import { adminApi, researchOutcome } from "../lib/company-review.mjs";
 import { isAdmin } from "../lib/owner.mjs";
+import { validNewPassword, PASSWORD_RULE_MESSAGE } from "../lib/password-policy.mjs";
 import { ready as aiReady } from "../lib/online-ai.mjs";
 import { internalRequestHeaders } from "../lib/internal-auth.mjs";
 import { requestPasswordReset, completePasswordReset } from "../lib/password-reset.mjs";
@@ -1226,10 +1227,10 @@ async function register(
   }
 
   if (
-    password.length < 12
+    !validNewPassword(password)
   ) {
     throw new Error(
-      "Scegli una password di almeno 12 caratteri."
+      PASSWORD_RULE_MESSAGE
     );
   }
 
@@ -2497,7 +2498,7 @@ export default async (
         "Richiesta non valida.",
         "Controlla i campi richiesti.",
         "Email non valida.",
-        "Scegli una password di almeno 12 caratteri.",
+        PASSWORD_RULE_MESSAGE,
         "Accetta i termini e conferma di aver letto l’informativa privacy.",
         "Le password non coincidono.",
         "Registrazione non disponibile con questi dati. Prova ad accedere.",

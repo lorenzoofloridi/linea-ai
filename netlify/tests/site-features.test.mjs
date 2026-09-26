@@ -80,14 +80,14 @@ test('reset token is single use, expires and closes every session', async () => 
   await requestPasswordReset(db, { email: user.email }, { baseUrl: 'https://x', mail: async (_d, m) => { link = m.text.match(/#([\w-]+)/)[1]; } });
   const hashPassword = async p => 'hashed:' + p.length;
   await assert.rejects(completePasswordReset(db, { token: link, password: 'corta' }, { hashPassword }), e => e.httpStatus === 400);
-  const ok = await completePasswordReset(db, { token: link, password: 'UnaPasswordNuova2026' }, { hashPassword });
+  const ok = await completePasswordReset(db, { token: link, password: 'UnaPasswordNuova2026!' }, { hashPassword });
   assert.equal(ok.ok, true);
-  assert.equal(db.state.passwords.u1, 'hashed:20');
+  assert.equal(db.state.passwords.u1, 'hashed:21');
   assert.equal(db.state.sessions.length, 0);
-  await assert.rejects(completePasswordReset(db, { token: link, password: 'UnaPasswordNuova2026' }, { hashPassword }), e => e.httpStatus === 400);
+  await assert.rejects(completePasswordReset(db, { token: link, password: 'UnaPasswordNuova2026!' }, { hashPassword }), e => e.httpStatus === 400);
 
   db.state.tokens.push({ hash: sha('scaduto'), user_id: 'u1', expires: Date.now() / 1000 - 1 });
-  await assert.rejects(completePasswordReset(db, { token: 'scaduto', password: 'UnaPasswordNuova2026' }, { hashPassword }), e => /non è più valido/.test(e.message));
+  await assert.rejects(completePasswordReset(db, { token: 'scaduto', password: 'UnaPasswordNuova2026!' }, { hashPassword }), e => /non è più valido/.test(e.message));
 });
 
 test('mailer refuses to send without RESEND_API_KEY and never logs the key', async () => {
@@ -320,4 +320,15 @@ test('owner tools: admin button, visit banner, read-only widget sites for compan
   assert.equal(isAdminEmail('Lorenzo@Example.com', { LINEA_ADMIN_EMAILS: 'lorenzo@example.com' }), true);
   assert.equal(isAdminEmail('altro@example.com', { LINEA_ADMIN_EMAILS: 'lorenzo@example.com' }), false);
   assert.equal(isAdminEmail(undefined, {}), false);
+});
+
+test('new passwords: 12 to 64 characters with at least one special character', async () => {
+  const { validNewPassword } = await import('../lib/password-policy.mjs');
+  assert.equal(validNewPassword('NuovaPassword2026!'), true);
+  assert.equal(validNewPassword('password con spazi.'), true);
+  assert.equal(validNewPassword('NuovaPassword2026'), false);
+  assert.equal(validNewPassword('Corta1!'), false);
+  assert.equal(validNewPassword('A!' + 'a'.repeat(62)), true);
+  assert.equal(validNewPassword('A!' + 'a'.repeat(63)), false);
+  assert.equal(validNewPassword(undefined), false);
 });
