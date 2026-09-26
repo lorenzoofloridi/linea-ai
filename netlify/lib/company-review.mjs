@@ -9,6 +9,7 @@
 // È l'unico punto del sistema che legge dati di più aziende: accesso solo per
 // utenti gestori con email verificata.
 import { sendEmail } from "./mailer.mjs";
+import { adminEmails } from "./owner.mjs";
 import { effectivePlan } from "./ai-quota.mjs";
 import { knowledgeEntries } from "./company-data.mjs";
 import { normalizeOrigin } from "./widget.mjs";
@@ -24,15 +25,17 @@ const json = (body, status = 200) =>
 const escapeHtml = value =>
   String(value ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
-/** Email dei gestori: LINEA_ADMIN_EMAILS (separate da virgola), altrimenti LINEA_FEEDBACK_EMAIL. */
-export function adminEmails(env = process.env) {
-  return String(env.LINEA_ADMIN_EMAILS || env.LINEA_FEEDBACK_EMAIL || "")
-    .split(",")
-    .map(x => x.trim().toLowerCase())
-    .filter(x => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(x));
-}
+export { adminEmails };
 
 const siteUrl = env => (env.PUBLIC_SITE_URL || "https://www.moreai.it").replace(/\/+$/, "");
+
+/** Registro permanente delle azioni del gestore (resta anche dopo un'eliminazione). */
+async function adminLog(db, actor, action, companyId, companyName, detail = "") {
+  await db.pool.query(
+    "INSERT INTO admin_log(actor, action, company_id, company_name, detail) VALUES($1,$2,$3,$4,$5)",
+    [actor.slice(0, 200), action, companyId, String(companyName || "").slice(0, 200), String(detail).slice(0, 500)]
+  );
+}
 
 async function audit(db, companyId, actor, previous, status, reason) {
   await db.pool.query(
@@ -136,7 +139,7 @@ async function readBody(request) {
 /**
  * Rotte /api/admin/*. options.emailVerified(db, userId) obbligatoria.
  */
-export async function adminApi(request, db, auth, { env = process.env, emailVerified, transport = fetch } = {}) {
+export async function adminApi(request, db, auth, { env = process.env, emailVerified, transport = fetch, setView = async () => false } = {}) {
   const url = new URL(request.url);
   const path = url.pathname;
   if (!path.startsWith("/api/admin/")) return null;
@@ -155,17 +158,22 @@ export async function adminApi(request, db, auth, { env = process.env, emailVeri
         `SELECT c.id, c.public_id, c.created_at, c.config->>'name' AS name,
                 p.data->>'legal_name' AS legal_name, p.data->>'website' AS website,
                 COALESCE(v.status,'pending') AS verification, k.status AS research,
-                (SELECT email FROM users u WHERE u.company_id=c.id ORDER BY u.id LIMIT 1) AS owner_email
+                (SELECT email FROM users u WHERE u.company_id=c.id ORDER BY u.id LIMIT 1) AS owner_email,
+                ps.status AS subscription_status
            FROM companies c
            LEFT JOIN plan_profiles p ON p.company_id=c.id
            LEFT JOIN company_verification v ON v.company_id=c.id
            LEFT JOIN company_knowledge k ON k.company_id=c.id
+           LEFT JOIN plan_subscriptions ps ON ps.company_id=c.id
           WHERE c.id <> 'demo'
           ORDER BY CASE COALESCE(v.status,'pending') WHEN 'under_review' THEN 0 WHEN 'pending' THEN 1 ELSE 2 END, c.created_at DESC
           LIMIT 500`
       )
     ).rows;
-    for (const r of rows) r.plan = await effectivePlan(db, r.id);
+    for (const r of rows) {
+      r.plan = await effectivePlan(db, r.id);
+      r.is_owner = adminEmails(env).includes(String(r.owner_email || "").toLowerCase());
+    }
     return json({ companies: rows });
   }
 
@@ -194,11 +202,20 @@ export async function adminApi(request, db, auth, { env = process.env, emailVeri
       research: k ? { status: k.status, error: k.error, completed_at: k.completed_at, sources: k.sources || [], entries: knowledgeEntries(k).map(e => e.content) } : null,
       widget: { enabled: widget.rows[0]?.enabled ?? true, origins: widget.rows[0]?.allowed_origins || [] },
       subscription: subscription.rows[0] || null,
-      plan: await effectivePlan(db, c.id)
+      plan: await effectivePlan(db, c.id),
+      owner_email: (await db.pool.query("SELECT email FROM users WHERE company_id=$1 ORDER BY id LIMIT 1", [c.id])).rows[0]?.email || "",
+      is_owner: (await db.pool.query("SELECT email FROM users WHERE company_id=$1", [c.id])).rows.some(u => adminEmails(env).includes(String(u.email).toLowerCase())),
+      admin_log: (await db.pool.query("SELECT actor, action, detail, created_at FROM admin_log WHERE company_id=$1 ORDER BY created_at DESC LIMIT 20", [c.id])).rows
     });
   }
 
   if (method !== "POST") fail(405, "Metodo non disponibile.");
+
+  if (path === "/api/admin/view-end") {
+    await setView(null);
+    return json({ ok: true });
+  }
+
   const body = await readBody(request);
   const id = typeof body.id === "string" ? body.id : "";
   const exists = (await db.pool.query("SELECT config FROM companies WHERE id=$1 AND id<>'demo'", [id])).rows[0];
@@ -206,6 +223,9 @@ export async function adminApi(request, db, auth, { env = process.env, emailVeri
 
   if (path === "/api/admin/verify") {
     if (!["verified", "rejected", "suspended"].includes(body.status)) fail(400, "Scegli approva o rifiuta.");
+    if (body.status !== "verified" && (await db.pool.query("SELECT email FROM users WHERE company_id=$1", [id])).rows.some(u => adminEmails(env).includes(String(u.email).toLowerCase()))) {
+      fail(400, "Non puoi bloccare l’account del gestore.");
+    }
     const reason = typeof body.reason === "string" && body.reason.trim() ? body.reason.trim() : body.status === "verified" ? "Approvata dal gestore." : "Rifiutata dal gestore.";
     const previous = (await db.pool.query("SELECT status FROM company_verification WHERE company_id=$1", [id])).rows[0]?.status || "pending";
     await db.pool.query(
@@ -214,7 +234,42 @@ export async function adminApi(request, db, auth, { env = process.env, emailVeri
       [id, body.status]
     );
     await audit(db, id, actor, previous, body.status, reason);
+    await adminLog(db, actor, "status:" + body.status, id, exists.config?.name || id, reason);
     return json({ ok: true, status: body.status });
+  }
+
+  const companyName = exists.config?.name || id;
+  const isOwner = (await db.pool.query("SELECT email FROM users WHERE company_id=$1", [id])).rows
+    .some(u => adminEmails(env).includes(String(u.email).toLowerCase()));
+
+  // Entrare nella dashboard dell'azienda (configurazione, statistiche, widget).
+  // Richieste e conversazioni dei clienti restano bloccate dal server.
+  if (path === "/api/admin/view") {
+    if (!(await setView(id))) fail(401, "Sessione non valida: accedi di nuovo.");
+    await adminLog(db, actor, "view", id, companyName, "Accesso alla dashboard (senza dati dei clienti).");
+    return json({ ok: true, redirect: "/dashboard.html" });
+  }
+
+  // Eliminazione definitiva dell'account aziendale e di tutti i suoi dati.
+  if (path === "/api/admin/delete") {
+    if (isOwner) fail(400, "Non puoi eliminare l’account del gestore.");
+    if (typeof body.confirm_name !== "string" || body.confirm_name.trim() !== companyName.trim()) {
+      fail(400, "Per confermare scrivi esattamente il nome dell’azienda.");
+    }
+    const client = await db.pool.connect();
+    try {
+      await client.query("BEGIN");
+      await client.query("DELETE FROM trial_requests WHERE company_id=$1", [id]);
+      await client.query("DELETE FROM companies WHERE id=$1", [id]);
+      await client.query("COMMIT");
+    } catch (error) {
+      await client.query("ROLLBACK").catch(() => {});
+      throw error;
+    } finally {
+      client.release();
+    }
+    await adminLog(db, actor, "delete", id, companyName, typeof body.reason === "string" ? body.reason.trim() : "");
+    return json({ ok: true });
   }
 
   if (path === "/api/admin/company-ai") {

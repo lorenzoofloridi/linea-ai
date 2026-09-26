@@ -2,6 +2,7 @@
 // I limiti esistono solo qui (backend): nessun valore inviato dal browser
 // viene letto per decidere piano, limite o periodo.
 import { settleSubscription } from "./billing.mjs";
+import { isOwnerCompany } from "./owner.mjs";
 
 /** Messaggi AI inclusi per mese di calendario (Europe/Rome). */
 export const PLAN_MONTHLY_MESSAGES = Object.freeze({
@@ -14,6 +15,8 @@ export const PLAN_MONTHLY_MESSAGES = Object.freeze({
 /** Tenant di servizio della chat pubblica MoreAI (companies.id='demo'). */
 export const SERVICE_COMPANY_ID = 'demo';
 const SERVICE_DEFAULT_LIMIT = 1000;
+/** Limite tecnico per l'account del gestore ("illimitato"). */
+export const OWNER_MONTHLY_LIMIT = 1000000;
 
 const periodFormat = new Intl.DateTimeFormat('en-CA', {
   timeZone: 'Europe/Rome',
@@ -32,7 +35,9 @@ export function currentPeriod(date = new Date()) {
  * Abbonamento attivo (trial/active nel periodo, oppure past_due in tolleranza)
  * ha la precedenza; altrimenti Demo attiva; altrimenti nessun piano.
  */
-export async function effectivePlan(db, companyId, now = Date.now() / 1000) {
+export async function effectivePlan(db, companyId, now = Date.now() / 1000, { env = process.env } = {}) {
+  // L'azienda del gestore ha sempre tutte le funzioni (piano più alto).
+  if (await isOwnerCompany(db, companyId, env)) return 'advanced';
   await settleSubscription(db, companyId, now);
   const [subscription, demo] = await Promise.all([
     db.pool.query(
@@ -68,7 +73,8 @@ function serviceLimit(env) {
 /** Limite mensile applicabile all'azienda, o null se non ha un piano attivo. */
 export async function monthlyLimit(db, companyId, { env = process.env, now } = {}) {
   if (companyId === SERVICE_COMPANY_ID) return { plan: 'service', limit: serviceLimit(env) };
-  const plan = await effectivePlan(db, companyId, now);
+  if (await isOwnerCompany(db, companyId, env)) return { plan: 'advanced', limit: OWNER_MONTHLY_LIMIT, unlimited: true };
+  const plan = await effectivePlan(db, companyId, now, { env });
   return { plan, limit: plan ? PLAN_MONTHLY_MESSAGES[plan] : null };
 }
 
@@ -132,7 +138,7 @@ export async function recordTokens(db, companyId, period, usage) {
 /** Stato della quota per la dashboard (sola lettura). */
 export async function usageSummary(db, companyId, { env = process.env, date = new Date() } = {}) {
   const period = currentPeriod(date);
-  const { plan, limit } = await monthlyLimit(db, companyId, { env, now: date.getTime() / 1000 });
+  const { plan, limit, unlimited = false } = await monthlyLimit(db, companyId, { env, now: date.getTime() / 1000 });
   const row = (
     await db.pool.query(
       'SELECT used FROM ai_usage WHERE company_id=$1 AND period=$2',
@@ -140,5 +146,5 @@ export async function usageSummary(db, companyId, { env = process.env, date = ne
     )
   ).rows[0];
   const used = row ? Number(row.used) : 0;
-  return { period, plan, limit, used, remaining: limit == null ? 0 : Math.max(0, limit - used) };
+  return { period, plan, limit, used, unlimited, remaining: limit == null ? 0 : Math.max(0, limit - used) };
 }

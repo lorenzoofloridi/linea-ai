@@ -305,3 +305,19 @@ test('plan flow: "Attiva piano" opens the 4-step checkout, admin page is wired',
   assert.deepEqual(adminEmails({ LINEA_ADMIN_EMAILS: 'a@x.it, b@y.it', LINEA_FEEDBACK_EMAIL: 'c@z.it' }), ['a@x.it', 'b@y.it']);
   assert.deepEqual(adminEmails({}), []);
 });
+
+test('owner tools: admin button, visit banner, read-only widget sites for companies', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const { isAdminEmail } = await import('../lib/owner.mjs');
+  const dist = 'outputs/linea-ai-site/dist/';
+  const dash = await readFile(dist + 'dashboard.html', 'utf8');
+  assert.match(dash, /id="admin-link"[^>]*hidden/);
+  assert.match(dash, /id="viewer-banner"[^>]*hidden/);
+  assert.match(dash, /id="widget-form"[^>]*hidden/);
+  assert.match(dash, /Dove funziona la chat/);
+  const admin = await readFile(dist + 'admin.html', 'utf8');
+  for (const id of ['d-view', 'd-suspend', 'd-reactivate', 'd-delete', 'admin-search']) assert.match(admin, new RegExp('id="' + id + '"'));
+  assert.equal(isAdminEmail('Lorenzo@Example.com', { LINEA_ADMIN_EMAILS: 'lorenzo@example.com' }), true);
+  assert.equal(isAdminEmail('altro@example.com', { LINEA_ADMIN_EMAILS: 'lorenzo@example.com' }), false);
+  assert.equal(isAdminEmail(undefined, {}), false);
+});

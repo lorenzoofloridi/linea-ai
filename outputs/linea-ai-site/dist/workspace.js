@@ -508,7 +508,9 @@
         q('#plan-summary').textContent =
           'Il tuo piano: ' + (names[sub.plan] || sub.plan) + '.';
         q('#plan-period').textContent =
-          'Rinnovo o scadenza: ' + dateText(sub.period_end) + '.';
+          (sub.status === 'trial' ? 'Prova gratuita fino al ' : sub.cancel_at_end ? 'Attivo fino al ' : 'Prossimo rinnovo: ') + dateText(sub.period_end) + '.' +
+          (sub.pending_plan ? ' Dal ' + dateText(sub.period_end) + ' passi al ' + (names[sub.pending_plan] || sub.pending_plan) + '.' : '') +
+          (sub.cancel_at_end ? ' Rinnovo disdetto.' : '');
       } else if (
         state.demo &&
         state.demo.ends > now

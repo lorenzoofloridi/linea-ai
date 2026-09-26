@@ -147,10 +147,19 @@ export async function chatApi(
    );
   }
 
-  await allowed(user.company_id);
+  // Visita del gestore: solo configurazione e statistiche aggregate,
+  // mai richieste, conversazioni, note o esportazioni dei clienti.
+  if(user.viewer&&!['/api/config','/api/company-overview','/api/ai-usage','/api/email-status'].includes(path)){
+   fail(403,'Durante la visita del gestore questa sezione non è disponibile: i dati dei clienti restano riservati all’azienda.');
+  }
+
+  if(!user.viewer){
+   await allowed(user.company_id);
+  }
 
   // Esportare o cancellare i propri dati resta possibile anche senza piano attivo.
-  if(!['/api/data-export.csv','/api/data-export.xlsx','/api/data-delete'].includes(path)){
+  // Il gestore può sistemare la configurazione anche se il piano è scaduto.
+  if(!user.viewer&&!['/api/data-export.csv','/api/data-export.xlsx','/api/data-delete'].includes(path)){
    await requireActivePlan(user.company_id);
   }
 
@@ -164,7 +173,14 @@ export async function chatApi(
   }
 
   if(path==='/api/company-overview'&&method==='GET'){
-   return json(await companyOverview(db,cid));
+   const overview=await companyOverview(db,cid);
+   if(user.viewer){
+    // Commenti e note possono contenere dati dei clienti.
+    overview.feedback=[];
+    overview.reviews=[];
+    overview.viewer=true;
+   }
+   return json(overview);
   }
 
   if(path==='/api/company-review'&&method==='POST'){
@@ -721,6 +737,12 @@ export async function chatApi(
   await requireActivePlan(
    conversation.company_id
   );
+ }
+
+ // Il widget sul sito dell'azienda funziona solo con Base, Plus o Advanced
+ // (anche durante i 14 giorni di prova): con la sola Demo si ferma.
+ if(conversation.kind==='real'&&!['base','plus','advanced'].includes(await effectivePlan(db,conversation.company_id))){
+  fail(402,'La chat non è disponibile al momento.');
  }
 
  if(path==='/api/feedback'){

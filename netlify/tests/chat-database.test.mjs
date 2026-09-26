@@ -7,6 +7,7 @@ import { widgetApi } from '../lib/widget.mjs';
 import { currentPeriod, effectivePlan } from '../lib/ai-quota.mjs';
 import { billingApi, settleSubscription } from '../lib/billing.mjs';
 import { adminApi, researchOutcome } from '../lib/company-review.mjs';
+import { isOwnerCompany } from '../lib/owner.mjs';
 
 const local = JSON.parse(
   await readFile('var/audit/local-database.json', 'utf8')
@@ -344,11 +345,31 @@ try {
           ...(body ? { body: JSON.stringify(body) } : {})
         }), { pool }, auth, { env, context: { ip: '127.0.0.9' } });
 
-      const saved = await (await call('widget-settings', { origins: ['www.shop-a.it'] }, 'a')).json();
+      // L'azienda vede i siti ma non li modifica: li configura il gestore (in visita).
+      await assert.rejects(call('widget-settings', { origins: ['www.shop-a.it'] }, 'a'), e => e.httpStatus === 403);
+      const viewerAuth = async (_db, req) => req.headers.get('x-test-user') ? { id: 'admin', company_id: req.headers.get('x-test-user'), email: 'admin@example.invalid', viewer: true } : null;
+      const asViewer = async (path, body, user) => widgetApi(new Request('https://www.moreai.invalid/api/' + path, {
+        method: body ? 'POST' : 'GET', headers: { 'Content-Type': 'application/json', 'x-test-user': user }, ...(body ? { body: JSON.stringify(body) } : {})
+      }), { pool }, viewerAuth, { env });
+      const saved = await (await asViewer('widget-settings', { origins: ['www.shop-a.it'] }, 'a')).json();
       assert.deepEqual(saved.origins, ['https://www.shop-a.it']);
       assert.match(saved.snippet, /data-company="public-a"/);
-      await assert.rejects(call('widget-settings', { origins: ['http://10.1.1.1'] }, 'a'), e => e.httpStatus === 400);
+      assert.equal(saved.can_edit, true);
+      await assert.rejects(asViewer('widget-settings', { origins: ['http://10.1.1.1'] }, 'a'), e => e.httpStatus === 400);
       await assert.rejects(call('widget-settings', null, null), e => e.httpStatus === 401);
+      const seen = await (await call('widget-settings', null, 'a')).json();
+      assert.equal(seen.can_edit, false);
+
+      // Con la sola Demo il widget non è incluso.
+      assert.equal(seen.active_plan, false);
+      const demoFrame = await (await call('widget-frame', null, null, '?c=public-a')).text();
+      assert.doesNotMatch(demoFrame, /data-ticket="[^"]+"/);
+      await pool.query(
+        `INSERT INTO plan_subscriptions(company_id,plan,period,status,trial_start,trial_end,period_end,method_kind,customer_ref,method_ref,amount_cents)
+         VALUES('a','base','monthly','trial',$1,$2,$2,'card','c','m',29900)`,
+        [Date.now() / 1000, Date.now() / 1000 + 14 * 86400]
+      );
+      assert.equal((await (await call('widget-settings', null, 'a')).json()).active_plan, true);
 
       const frame = await call('widget-frame', null, null, '?c=public-a');
       assert.match(frame.headers.get('content-security-policy'), /frame-ancestors https:\/\/www\.shop-a\.it/);
@@ -360,6 +381,11 @@ try {
       assert.ok(opened.session);
       const row = (await pool.query("SELECT company_id, kind, owner_user_id FROM conversations WHERE access_hash=encode(sha256($1::bytea),'hex')", [opened.session])).rows[0];
       assert.deepEqual(row, { company_id: 'a', kind: 'real', owner_user_id: null });
+
+      // Fine della prova senza rinnovo: il widget si ferma.
+      await pool.query("UPDATE plan_subscriptions SET status='expired' WHERE company_id='a'");
+      await assert.rejects(call('widget-session', { company: 'public-a', ticket }), e => e.httpStatus === 402);
+      await pool.query("DELETE FROM plan_subscriptions WHERE company_id='a'");
     }
   );
 
@@ -832,6 +858,87 @@ try {
     const history = (await admin('company?id=d')).history;
     assert.equal(history[0].actor, 'gestore a@example.invalid');
     await assert.rejects(admin('company?id=demo'), e => e.httpStatus === 404);
+  });
+
+  await test('plan change: upgrade now, downgrade at renewal, resume after cancel', async () => {
+    // 'c' ha un Piano Base annuale attivo (test precedente).
+    const up = await billing('plan-change', { plan: 'plus', period: 'annual' }, 'c');
+    assert.equal(up.when, 'now');
+    assert.equal(await effectivePlan({ pool }, 'c'), 'plus');
+    const down = await billing('plan-change', { plan: 'base', period: 'monthly' }, 'c');
+    assert.equal(down.when, 'renewal');
+    assert.equal(await effectivePlan({ pool }, 'c'), 'plus');
+    const sub = (await pool.query("SELECT period_end FROM plan_subscriptions WHERE company_id='c'")).rows[0];
+    await settleSubscription({ pool }, 'c', Number(sub.period_end) + 1);
+    const after = (await pool.query("SELECT plan, period, amount_cents, pending_plan FROM plan_subscriptions WHERE company_id='c'")).rows[0];
+    assert.deepEqual(after, { plan: 'base', period: 'monthly', amount_cents: 4900, pending_plan: null });
+    await billing('plan-cancel', {}, 'c');
+    const resumed = await billing('plan-change', { plan: 'base', period: 'monthly' }, 'c');
+    assert.equal(resumed.when, 'none');
+    assert.equal((await pool.query("SELECT cancel_at_end FROM plan_subscriptions WHERE company_id='c'")).rows[0].cancel_at_end, false);
+    await assert.rejects(billing('plan-change', { plan: 'plus', period: 'monthly' }, 'd'), e => e.httpStatus === 409);
+  });
+
+  await test('admin visit: configuration only, never customer data', async () => {
+    const viewer = async (_db, req) => req.headers.get('x-test-user')
+      ? { id: 'user-a', company_id: req.headers.get('x-test-user'), email: 'a@example.invalid', viewer: true }
+      : null;
+    const visit = async (path, body) => {
+      const res = await chatApi(request(path, body, 'd'), { pool }, viewer, { model, modelReady: () => true, context: { ip: '127.0.0.1' } });
+      return res.json();
+    };
+    for (const path of ['leads', 'conversations', 'data-export.xlsx', 'data-export.csv']) {
+      await assert.rejects(visit(path), e => e.httpStatus === 403, path);
+    }
+    await assert.rejects(visit('data-delete', { conversation: 'x', confirm: true }), e => e.httpStatus === 403);
+    await assert.rejects(visit('company-review', { conversation: 'x', comment: 'x' }), e => e.httpStatus === 403);
+    const overview = await visit('company-overview');
+    assert.deepEqual(overview.reviews, []);
+    assert.deepEqual(overview.feedback, []);
+    assert.ok(overview.statistics);
+    // La configurazione si può sistemare anche senza piano attivo dell'azienda.
+    const current = (await pool.query("SELECT config FROM companies WHERE id='d'")).rows[0].config;
+    const saved = await visit('config', { ...current, knowledge: 'Aggiornato dal gestore.', confirmation_email: false });
+    assert.equal(saved.config.knowledge, 'Aggiornato dal gestore.');
+  });
+
+  await test('admin can enter a dashboard, cannot delete the owner, deletes with typed name', async () => {
+    const env = { LINEA_ADMIN_EMAILS: 'a@example.invalid' };
+    const views = [];
+    const adminAuth = async (_db, req) => req.headers.get('x-test-user') ? { id: 'user-a', company_id: 'a', email: 'a@example.invalid' } : null;
+    const admin = async (path, body) => {
+      const res = await adminApi(request('admin/' + path, body, 'a'), { pool }, adminAuth, { env, emailVerified: async () => true, setView: async id => { views.push(id); return true; } });
+      return res.json();
+    };
+    assert.equal((await admin('view', { id: 'd' })).redirect, '/dashboard.html');
+    await admin('view-end', {});
+    assert.deepEqual(views, ['d', null]);
+    await assert.rejects(admin('delete', { id: 'a', confirm_name: 'Test' }), e => e.httpStatus === 400);
+    await assert.rejects(admin('verify', { id: 'a', status: 'suspended' }), e => e.httpStatus === 400);
+    await assert.rejects(admin('delete', { id: 'd', confirm_name: 'Sbagliato' }), e => e.httpStatus === 400);
+    await pool.query("INSERT INTO companies VALUES('e','public-e',$1,NOW())", [{ ...cfg, name: 'Da Eliminare' }]);
+    await pool.query("INSERT INTO users VALUES('user-e','e','e@example.invalid','unused')");
+    await admin('delete', { id: 'e', confirm_name: 'Da Eliminare' });
+    assert.equal((await pool.query("SELECT 1 FROM companies WHERE id='e'")).rowCount, 0);
+    assert.equal((await pool.query("SELECT 1 FROM users WHERE id='user-e'")).rowCount, 0);
+    const log = (await pool.query("SELECT action FROM admin_log WHERE company_id='e'")).rows.map(r => r.action);
+    assert.deepEqual(log, ['delete']);
+  });
+
+  await test('owner company has every feature without plan limits', async () => {
+    const before = process.env.LINEA_ADMIN_EMAILS;
+    process.env.LINEA_ADMIN_EMAILS = 'd@example.invalid';
+    try {
+      assert.equal(await isOwnerCompany({ pool }, 'd'), false); // email non verificata
+      await pool.query("INSERT INTO email_verification(user_id, verified_at) VALUES('user-d', NOW()) ON CONFLICT (user_id) DO UPDATE SET verified_at=NOW()");
+      assert.equal(await isOwnerCompany({ pool }, 'd'), true);
+      assert.equal(await effectivePlan({ pool }, 'd'), 'advanced');
+      const usage = await api('ai-usage', null, 'd');
+      assert.equal(usage.unlimited, true);
+      assert.equal(await isOwnerCompany({ pool }, 'b'), false);
+    } finally {
+      if (before === undefined) delete process.env.LINEA_ADMIN_EMAILS; else process.env.LINEA_ADMIN_EMAILS = before;
+    }
   });
 
   /*

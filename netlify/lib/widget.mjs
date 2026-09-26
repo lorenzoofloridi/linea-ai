@@ -203,6 +203,11 @@ async function readBody(request) {
   }
 }
 
+/** Il widget è incluso solo nei piani Base, Plus e Advanced (anche in prova), non nella Demo. */
+export async function widgetAllowed(db, companyId) {
+  return ["base", "plus", "advanced"].includes(await effectivePlan(db, companyId));
+}
+
 /**
  * Gestisce le rotte del widget; restituisce null per le altre.
  * user: utente autenticato (solo per /api/widget-settings), altrimenti null.
@@ -217,7 +222,7 @@ export async function widgetApi(request, db, auth, { env = process.env, context 
     if (!company) return frame(request, env, { origins: [], message: "Questa chat non è disponibile." });
     const s = await settings(db, company.id);
     const ticket = createTicket(company.id, { env });
-    if (!s.enabled || !ticket || (await blocked(db, company.id)) || !(await effectivePlan(db, company.id))) {
+    if (!s.enabled || !ticket || (await blocked(db, company.id)) || !(await widgetAllowed(db, company.id))) {
       return frame(request, env, { company, origins: s.origins, message: "La chat non è disponibile al momento. Puoi contattare l’azienda con i recapiti indicati sul sito." });
     }
     return frame(request, env, { company, ticket, origins: s.origins });
@@ -229,7 +234,7 @@ export async function widgetApi(request, db, auth, { env = process.env, context 
     if (!company || verifyTicket(body.ticket, { env }) !== company.id) fail(403, "Chat non disponibile. Ricarica la pagina.");
     const s = await settings(db, company.id);
     if (!s.enabled || (await blocked(db, company.id))) fail(403, "Chat non disponibile.");
-    if (!(await effectivePlan(db, company.id))) fail(402, "La chat non è disponibile al momento.");
+    if (!(await widgetAllowed(db, company.id))) fail(402, "La chat non è disponibile al momento.");
     await limit(db, "widget-ip:" + hash(context.ip || "unknown"), 20, 3600, "Hai aperto troppe conversazioni. Riprova più tardi.");
     await limit(db, "widget-day:" + company.id, Number(env.LINEA_WIDGET_DAILY_SESSIONS || 1000), 86400, "La chat ha raggiunto il limite di oggi. Riprova domani.");
     const cfg = await conversationConfig(db, company);
@@ -250,6 +255,9 @@ export async function widgetApi(request, db, auth, { env = process.env, context 
     if (!company) fail(404, "Azienda non trovata.");
     let s = await settings(db, company.id);
     if (method === "POST") {
+      // I siti del widget li configura solo il gestore di MoreAI
+      // (dalla visita alla dashboard o dal pannello del gestore).
+      if (!user.viewer) fail(403, "I siti del widget vengono configurati dal team MoreAI. Per aggiungerne uno scrivici dalla pagina Supporto.");
       const body = await readBody(request);
       if (!Array.isArray(body.origins) || body.origins.length > MAX_ORIGINS * 2) fail(400, "Controlla i siti indicati.");
       const origins = [];
@@ -274,7 +282,9 @@ export async function widgetApi(request, db, auth, { env = process.env, context 
       enabled: s.enabled,
       origins: s.origins,
       research_status: research?.status || null,
-      active_plan: Boolean(await effectivePlan(db, company.id)),
+      plan: await effectivePlan(db, company.id),
+      active_plan: await widgetAllowed(db, company.id),
+      can_edit: Boolean(user.viewer),
       snippet: `<script src="${base}/moreai-widget.js" data-company="${company.public_id}" defer></script>`
     });
   }

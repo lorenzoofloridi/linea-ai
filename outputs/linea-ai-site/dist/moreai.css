@@ -511,3 +511,50 @@ h1 em,h2 em,.contact-section h2 em{font-family:var(--serif);letter-spacing:-.01e
 #ai-form textarea{font-size:14px;line-height:1.6}
 #ai-form .button.small{margin-top:10px}
 @media(max-width:900px){.admin-layout{grid-template-columns:1fr}.admin-list{position:static;max-height:none}}
+
+/* ---------- Visita del gestore e widget ---------- */
+.viewer-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:18px 0 22px;padding:16px 20px;border-radius:18px;background:var(--night);color:#fff;box-shadow:var(--shadow)}
+.viewer-banner[hidden]{display:none}
+.viewer-banner strong{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--violet-xl);margin-bottom:4px}
+.viewer-banner span{line-height:1.55;font-size:14px;color:#E9E6F5}
+.viewer-banner .button{background:#fff;color:var(--night);border-color:#fff}
+.viewer-mode .workspace-menu a[href="account.html"],.viewer-mode .workspace-menu a[href="portafoglio.html"],.viewer-mode #export-data{display:none}
+.admin-only[hidden]{display:none!important}
+.widget-locked{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:18px;padding:18px 20px;border-radius:16px;background:var(--tint);border:1px solid var(--line)}
+.widget-locked[hidden],#widget-ready[hidden],#widget-form[hidden],#widget-sites-help[hidden]{display:none}
+.widget-locked p{margin:0;line-height:1.6;color:var(--muted)}
+.widget-locked strong{color:var(--night)}
+.widget-sites{margin-top:22px;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.widget-sites h3{margin:0 0 6px!important;padding:0!important;border:0!important;font-size:16px}
+.widget-sites>p{color:var(--muted);line-height:1.6;margin:0 0 10px}
+.widget-site-list{list-style:none;margin:0 0 8px;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.widget-site-list li{padding:6px 12px;border-radius:999px;background:#E7F8EE;color:#166534;font-weight:650;font-size:13px}
+.widget-site-list li.empty{background:#FFF4E5;color:#92400E}
+.admin-howto{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0}
+.admin-howto div{padding:16px 18px;border-radius:16px;background:#fff;border:1px solid var(--line);box-shadow:0 10px 30px -26px rgba(76,29,149,.4)}
+.admin-howto strong{display:block;margin-bottom:6px;color:var(--violet-d)}
+.admin-howto span{font-size:14px;line-height:1.55;color:var(--muted)}
+.admin-stats{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px}
+.admin-stat{display:flex;align-items:baseline;gap:8px;padding:10px 16px;border-radius:999px;background:#fff;border:1px solid var(--line)}
+.admin-stat strong{font-size:18px}.admin-stat span{font-size:13px;color:var(--muted)}
+.admin-list #admin-search{margin-bottom:12px}
+.company-badges{display:flex;flex-wrap:wrap;gap:6px}
+.badge.plan{background:var(--tint);color:var(--violet-d)}
+.admin-detail-head h2{margin:10px 0 12px}
+.admin-summary{display:grid;grid-template-columns:max-content 1fr;gap:6px 18px;margin:0;padding:14px 16px;border-radius:14px;background:#FAF8FF;border:1px solid var(--line);font-size:14px}
+.admin-summary dt{color:var(--muted)}.admin-summary dd{margin:0;font-weight:600;overflow-wrap:anywhere}
+.admin-block{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.admin-block[hidden]{display:none}
+.admin-block h3{margin:0 0 6px!important;padding:0!important;border:0!important;font-size:17px}
+.admin-block .admin-actions{margin-top:10px}
+.admin-actions [hidden]{display:none}
+.admin-danger{border-top:1px solid #F5C2C7}
+.admin-danger h3{color:#8B1E2B}
+.button.danger{background:#C9303E;color:#fff;border-color:#C9303E}
+.button.danger:disabled{opacity:.4;cursor:not-allowed}
+.admin-danger .admin-reason{margin:10px 0}
+@media(max-width:900px){.admin-howto{grid-template-columns:1fr}}
+.sub-pending{padding:10px 14px;border-radius:12px;background:#FFF8EC;border:1px solid #F4DCAB;color:#7A4B00;font-weight:600}
+.sub-pending[hidden]{display:none}
+.change-box{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.change-box h3{margin:0 0 6px}

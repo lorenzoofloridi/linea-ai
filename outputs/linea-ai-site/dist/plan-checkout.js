@@ -130,8 +130,47 @@
     $('#sub-detail').textContent = s.cancel_at_end
       ? T('Rinnovo disdetto: il piano resta attivo fino al') + ' ' + date(s.period_end) + '.'
       : T(s.status === 'trial' ? 'Primo addebito il' : 'Prossimo rinnovo il') + ' ' + date(s.period_end) + ' · ' + money(s.amount_cents) + '.';
-    $('#cancel-plan').disabled = !!s.cancel_at_end;
+    $('#cancel-plan').hidden = !!s.cancel_at_end;
+    $('#resume-plan').hidden = !s.cancel_at_end;
+    const pending = s.pending_plan && catalog.plans.find(x => x.code === s.pending_plan);
+    $('#sub-pending').hidden = !pending;
+    if (pending) {
+      $('#sub-pending').textContent = T('Cambio programmato: dal') + ' ' + date(s.period_end) + ' ' + T('passi al') + ' ' + pending.name + ' · ' +
+        T(s.pending_period === 'annual' ? 'Annuale' : 'Mensile') + ' · ' + money(s.pending_amount_cents || 0) + '.';
+    }
+    renderChange(s);
     return true;
+  }
+
+  // Cambio piano con abbonamento attivo.
+  let changePlan = null, changePeriod = null;
+  const RANK = { base: 1, plus: 2, advanced: 3 };
+  function renderChange(s) {
+    if (!changePlan) { changePlan = s.pending_plan || s.plan; changePeriod = s.pending_period || s.period; }
+    const box = $('#change-options');
+    box.replaceChildren();
+    for (const p of catalog.plans.filter(p => ['base', 'plus', 'advanced'].includes(p.code) && p.available)) {
+      const b = el('button', undefined, 'plan-option');
+      b.type = 'button';
+      b.setAttribute('role', 'radio');
+      b.setAttribute('aria-checked', String(p.code === changePlan));
+      const cents = changePeriod === 'monthly' ? p.monthly_cents : p.annual_cents;
+      b.append(el('small', p.code === s.plan ? T('Piano attuale') : RANK[p.code] > RANK[s.plan] ? T('Superiore') : T('Inferiore'), 'trial-badge'), el('strong', p.name), el('span', money(cents) + ' ' + T(changePeriod === 'monthly' ? 'al mese' : 'all’anno')));
+      b.addEventListener('click', () => { changePlan = p.code; renderChange(s); });
+      box.append(b);
+    }
+    document.querySelectorAll('[data-change-period]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.changePeriod === changePeriod)));
+    const same = changePlan === s.plan && changePeriod === s.period;
+    const nothingPending = !s.pending_plan && !s.cancel_at_end;
+    const upgrade = RANK[changePlan] > RANK[s.plan] && changePeriod === s.period;
+    const p = catalog.plans.find(x => x.code === changePlan);
+    $('#change-summary').textContent = same
+      ? (nothingPending ? T('Questo è il tuo piano attuale.') : T('Annulla il cambio programmato e resta sul piano attuale.'))
+      : upgrade
+        ? T('Il') + ' ' + p.name + ' ' + T('si attiva subito. Dal') + ' ' + date(s.period_end) + ' ' + T('paghi') + ' ' + money(changePeriod === 'monthly' ? p.monthly_cents : p.annual_cents) + '.'
+        : T('Il') + ' ' + p.name + ' ' + T('parte dal') + ' ' + date(s.period_end) + ' · ' + money(changePeriod === 'monthly' ? p.monthly_cents : p.annual_cents) + '. ' + T('Fino ad allora resta il piano attuale.');
+    $('#change-button').disabled = same && nothingPending;
+    $('#change-button').textContent = same ? T('Resta sul piano attuale') : upgrade ? T('Passa subito al') + ' ' + p.name : T('Programma il cambio');
   }
 
   function renderAll() {
@@ -206,6 +245,28 @@
       }
     });
   });
+
+  document.querySelectorAll('[data-change-period]').forEach(b => b.addEventListener('click', () => { changePeriod = b.dataset.changePeriod; renderChange(state.subscription); }));
+  const changeTo = async (planCode, periodCode) => {
+    const d = await api('plan-change', { plan: planCode, period: periodCode });
+    changePlan = null;
+    await load();
+    return d;
+  };
+  $('#change-button').addEventListener('click', () => run(async () => {
+    $('#change-status').textContent = '';
+    try {
+      const d = await changeTo(changePlan, changePeriod);
+      $('#change-status').textContent = T(d.when === 'now' ? 'Piano cambiato: è già attivo.' : d.when === 'renewal' ? 'Cambio programmato per il prossimo rinnovo.' : 'Resti sul piano attuale.');
+    } catch (err) {
+      $('#change-status').textContent = err.message;
+    }
+  }));
+  $('#resume-plan').addEventListener('click', () => run(async () => {
+    const s = state.subscription;
+    await changeTo(s.plan, s.period);
+    $('#cancel-status').textContent = T('Rinnovo ripreso.');
+  }));
 
   $('#cancel-plan').addEventListener('click', () => run(async () => {
     if (!confirm(T('Vuoi disdire il rinnovo? Il piano resta attivo fino alla scadenza.'))) return;

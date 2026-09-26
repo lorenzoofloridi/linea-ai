@@ -2,6 +2,7 @@ import { chatApi } from "../lib/chat-api.mjs";
 import { widgetApi } from "../lib/widget.mjs";
 import { billingApi, settleSubscription } from "../lib/billing.mjs";
 import { adminApi, researchOutcome } from "../lib/company-review.mjs";
+import { isAdminEmail } from "../lib/owner.mjs";
 import { ready as aiReady } from "../lib/online-ai.mjs";
 import { internalRequestHeaders } from "../lib/internal-auth.mjs";
 import { requestPasswordReset, completePasswordReset } from "../lib/password-reset.mjs";
@@ -421,20 +422,131 @@ async function principal(
     return null;
   }
 
+  const now =
+    Date.now() / 1000;
+
   const result =
     await db.pool.query(
-      `SELECT u.id,u.company_id,u.email
+      `SELECT u.id,u.company_id,u.email,s.view_company_id,s.view_until
          FROM auth_sessions s
          JOIN users u ON s.user_id=u.id
         WHERE s.hash=$1
           AND s.expires>$2`,
       [
         digest(value),
-        Date.now() / 1000
+        now
       ]
     );
 
-  return result.rows[0] || null;
+  const row =
+    result.rows[0];
+
+  if (!row) {
+    return null;
+  }
+
+  const user = {
+    id: row.id,
+    company_id: row.company_id,
+    email: row.email
+  };
+
+  /*
+   * Visita del gestore alla dashboard di un'azienda.
+   * Vale solo per le email di gestore e fino alla scadenza.
+   * In visita sono raggiungibili solo le sezioni di
+   * configurazione: richieste, conversazioni ed esportazioni
+   * dei clienti restano riservate all'azienda.
+   */
+  if (
+    row.view_company_id &&
+    Number(row.view_until) > now &&
+    isAdminEmail(row.email)
+  ) {
+    const path =
+      new URL(request.url).pathname;
+
+    if (
+      !VIEWER_PATHS.has(path) &&
+      !path.startsWith("/api/admin/")
+    ) {
+      const error =
+        new Error(
+          "Durante la visita del gestore questa sezione non è disponibile: i dati dei clienti restano riservati all’azienda."
+        );
+
+      error.httpStatus = 403;
+
+      throw error;
+    }
+
+    return {
+      ...user,
+      company_id: row.view_company_id,
+      own_company_id: row.company_id,
+      viewer: true
+    };
+  }
+
+  return user;
+}
+
+/*
+ * Rotte raggiungibili durante la visita del gestore.
+ * Mai: richieste (leads), conversazioni, esportazioni,
+ * cancellazioni, pagamenti, dati dell'account.
+ */
+const VIEWER_PATHS = new Set([
+  "/api/me",
+  "/api/plans",
+  "/api/plan-state",
+  "/api/plan-offer",
+  "/api/company-verification",
+  "/api/company-overview",
+  "/api/config",
+  "/api/ai-usage",
+  "/api/email-status",
+  "/api/widget-settings",
+  "/api/session",
+  "/api/chat",
+  "/api/feedback",
+  "/api/public",
+  "/api/health",
+  "/api/site-reviews"
+]);
+
+/** Imposta o chiude la visita del gestore sulla sessione corrente. */
+async function setAdminView(
+  db,
+  request,
+  companyId
+) {
+  const value =
+    readCookie(
+      request,
+      SESSION_COOKIE
+    );
+
+  if (!value) {
+    return false;
+  }
+
+  const r =
+    await db.pool.query(
+      `UPDATE auth_sessions
+          SET view_company_id=$1,
+              view_until=$2
+        WHERE hash=$3`,
+      [
+        companyId,
+        companyId
+          ? Date.now() / 1000 + 2 * 3600
+          : null,
+        digest(value)
+      ]
+    );
+
+  return r.rowCount > 0;
 }
 
 async function emailVerified(
@@ -1616,7 +1728,15 @@ export default async (
           await emailVerified(
             db,
             user.id
-          )
+          ),
+
+        // Solo informativo per l'interfaccia: ogni controllo
+        // di accesso resta sul server.
+        is_admin:
+          isAdminEmail(user.email),
+
+        viewing_as_admin:
+          Boolean(user.viewer)
       });
     }
 
@@ -2297,7 +2417,13 @@ export default async (
         db,
         principal,
         {
-          emailVerified
+          emailVerified,
+          setView: companyId =>
+            setAdminView(
+              db,
+              request,
+              companyId
+            )
         }
       );
 

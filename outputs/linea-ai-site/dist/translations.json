@@ -5308,5 +5308,535 @@
     "en": "you save",
     "es": "ahorras un",
     "fr": "vous économisez"
+  },
+  "(gestore · uno per riga, massimo 5)": {
+    "en": "(admin · one per line, up to 5)",
+    "es": "(gestor · uno por línea, máximo 5)",
+    "fr": "(gestionnaire · un par ligne, 5 maximum)"
+  },
+  ", anche durante i 14 giorni di prova gratuita. Con la Demo puoi provare l’assistente nella chat di prova qui sotto.": {
+    "en": ", including during the 14-day free trial. With the Demo you can try the assistant in the test chat below.",
+    "es": ", también durante los 14 días de prueba gratuita. Con la Demo puedes probar el asistente en el chat de prueba de abajo.",
+    "fr": ", y compris pendant les 14 jours d’essai gratuit. Avec la Démo, vous pouvez essayer l’assistant dans le chat de test ci-dessous."
+  },
+  ", in tutte le pagine dove vuoi la chat. Se il sito lo gestisce un’agenzia, basta inviarle il codice.": {
+    "en": ", on every page where you want the chat. If an agency manages your website, just send them the code.",
+    "es": ", en todas las páginas donde quieras el chat. Si una agencia gestiona tu sitio, basta con enviarle el código.",
+    "fr": ", sur toutes les pages où vous voulez le chat. Si une agence gère votre site, envoyez-lui simplement le code."
+  },
+  "1 · Verifica": {
+    "en": "1 · Verify",
+    "es": "1 · Verificar",
+    "fr": "1 · Vérifier"
+  },
+  "2 · Sistema": {
+    "en": "2 · Fix",
+    "es": "2 · Ajustar",
+    "fr": "2 · Ajuster"
+  },
+  "3 · Controlla": {
+    "en": "3 · Control",
+    "es": "3 · Controlar",
+    "fr": "3 · Contrôler"
+  },
+  "AREA GESTORE · SOLO PER TE": {
+    "en": "ADMIN AREA · ONLY FOR YOU",
+    "es": "ÁREA DEL GESTOR · SOLO PARA TI",
+    "fr": "ESPACE GESTIONNAIRE · RIEN QUE POUR VOUS"
+  },
+  "Abbonamento": {
+    "en": "Subscription",
+    "es": "Suscripción",
+    "fr": "Abonnement"
+  },
+  "Accesso": {
+    "en": "Access",
+    "es": "Acceso",
+    "fr": "Accès"
+  },
+  "Accesso riattivato.": {
+    "en": "Access restored.",
+    "es": "Acceso reactivado.",
+    "fr": "Accès réactivé."
+  },
+  "Accesso sospeso": {
+    "en": "Access suspended",
+    "es": "Acceso suspendido",
+    "fr": "Accès suspendu"
+  },
+  "Accesso sospeso.": {
+    "en": "Access suspended.",
+    "es": "Acceso suspendido.",
+    "fr": "Accès suspendu."
+  },
+  "Account del gestore: tutte le funzioni, senza limiti di piano.": {
+    "en": "Admin account: every feature, no plan limits.",
+    "es": "Cuenta del gestor: todas las funciones, sin límites de plan.",
+    "fr": "Compte gestionnaire : toutes les fonctions, sans limites de formule."
+  },
+  "Account eliminato": {
+    "en": "Account deleted",
+    "es": "Cuenta eliminada",
+    "fr": "Compte supprimé"
+  },
+  "Account eliminato.": {
+    "en": "Account deleted.",
+    "es": "Cuenta eliminada.",
+    "fr": "Compte supprimé."
+  },
+  "Annulla il cambio programmato e resta sul piano attuale.": {
+    "en": "Cancel the scheduled change and keep the current plan.",
+    "es": "Cancela el cambio programado y sigue con el plan actual.",
+    "fr": "Annulez le changement programmé et gardez la formule actuelle."
+  },
+  "Approvata / riattivata": {
+    "en": "Approved / restored",
+    "es": "Aprobada / reactivada",
+    "fr": "Approuvée / réactivée"
+  },
+  "Area gestore": {
+    "en": "Admin area",
+    "es": "Área del gestor",
+    "fr": "Espace gestionnaire"
+  },
+  "Assistente e widget": {
+    "en": "Assistant and widget",
+    "es": "Asistente y widget",
+    "fr": "Assistant et widget"
+  },
+  "Azienda approvata: ora può attivare un piano.": {
+    "en": "Company approved: it can now activate a plan.",
+    "es": "Empresa aprobada: ya puede activar un plan.",
+    "fr": "Entreprise approuvée : elle peut maintenant activer une formule."
+  },
+  "Aziende": {
+    "en": "Companies",
+    "es": "Empresas",
+    "fr": "Entreprises"
+  },
+  "Cambia piano": {
+    "en": "Change plan",
+    "es": "Cambiar plan",
+    "fr": "Changer de formule"
+  },
+  "Cambiare, attivare o disdire il piano": {
+    "en": "Change, activate or cancel your plan",
+    "es": "Cambiar, activar o cancelar el plan",
+    "fr": "Changer, activer ou résilier la formule"
+  },
+  "Cambio programmato per il prossimo rinnovo.": {
+    "en": "Change scheduled for the next renewal.",
+    "es": "Cambio programado para la próxima renovación.",
+    "fr": "Changement programmé au prochain renouvellement."
+  },
+  "Cambio programmato: dal": {
+    "en": "Scheduled change: from",
+    "es": "Cambio programado: desde el",
+    "fr": "Changement programmé : à partir du"
+  },
+  "Cancella per sempre l’azienda, gli utenti e tutti i suoi dati, comprese richieste e conversazioni. Non si può annullare.": {
+    "en": "Permanently deletes the company, its users and all its data, including requests and conversations. It cannot be undone.",
+    "es": "Elimina para siempre la empresa, sus usuarios y todos sus datos, incluidas solicitudes y conversaciones. No se puede deshacer.",
+    "fr": "Supprime définitivement l’entreprise, ses utilisateurs et toutes ses données, y compris demandes et conversations. Action irréversible."
+  },
+  "Codice azienda": {
+    "en": "Company code",
+    "es": "Código de empresa",
+    "fr": "Code entreprise"
+  },
+  "Con piano o prova": {
+    "en": "With plan or trial",
+    "es": "Con plan o prueba",
+    "fr": "Avec formule ou essai"
+  },
+  "Con «Entra nella dashboard» vedi la dashboard dell’azienda e sistemi informazioni per l’AI e widget. Richieste e conversazioni dei clienti restano private.": {
+    "en": "With “Enter the dashboard” you see the company’s dashboard and fix AI information and widget. Customer requests and conversations stay private.",
+    "es": "Con «Entrar en el panel» ves el panel de la empresa y ajustas la información para la IA y el widget. Las solicitudes y conversaciones de los clientes siguen siendo privadas.",
+    "fr": "Avec « Entrer dans le tableau de bord », vous voyez le tableau de bord de l’entreprise et ajustez les informations pour l’IA et le widget. Les demandes et conversations des clients restent privées."
+  },
+  "Conferma il cambio": {
+    "en": "Confirm the change",
+    "es": "Confirmar el cambio",
+    "fr": "Confirmer le changement"
+  },
+  "Confronta i piani": {
+    "en": "Compare plans",
+    "es": "Comparar planes",
+    "fr": "Comparer les formules"
+  },
+  "Da qui passi a un piano superiore o inferiore, attivi la prova gratuita di 14 giorni o disdici il rinnovo.": {
+    "en": "From here you can move to a higher or lower plan, start the 14-day free trial or cancel the renewal.",
+    "es": "Desde aquí pasas a un plan superior o inferior, activas la prueba gratuita de 14 días o cancelas la renovación.",
+    "fr": "D’ici, vous passez à une formule supérieure ou inférieure, activez l’essai gratuit de 14 jours ou résiliez le renouvellement."
+  },
+  "Dove funziona la chat": {
+    "en": "Where the chat works",
+    "es": "Dónde funciona el chat",
+    "fr": "Où le chat fonctionne"
+  },
+  "Elimina account": {
+    "en": "Delete account",
+    "es": "Eliminar cuenta",
+    "fr": "Supprimer le compte"
+  },
+  "Elimina definitivamente": {
+    "en": "Delete permanently",
+    "es": "Eliminar definitivamente",
+    "fr": "Supprimer définitivement"
+  },
+  "Entra nella dashboard": {
+    "en": "Enter the dashboard",
+    "es": "Entrar en el panel",
+    "fr": "Entrer dans le tableau de bord"
+  },
+  "Entrato nella dashboard": {
+    "en": "Entered the dashboard",
+    "es": "Entró en el panel",
+    "fr": "Entré dans le tableau de bord"
+  },
+  "Esci dalla dashboard dell’azienda": {
+    "en": "Leave the company dashboard",
+    "es": "Salir del panel de la empresa",
+    "fr": "Quitter le tableau de bord de l’entreprise"
+  },
+  "Fino ad allora resta il piano attuale.": {
+    "en": "Until then the current plan stays active.",
+    "es": "Hasta entonces sigue el plan actual.",
+    "fr": "D’ici là, la formule actuelle reste active."
+  },
+  "Gestisci il piano": {
+    "en": "Manage plan",
+    "es": "Gestionar el plan",
+    "fr": "Gérer la formule"
+  },
+  "Gestore · illimitato": {
+    "en": "Admin · unlimited",
+    "es": "Gestor · ilimitado",
+    "fr": "Gestionnaire · illimité"
+  },
+  "Gestore · tutte le funzioni": {
+    "en": "Admin · every feature",
+    "es": "Gestor · todas las funciones",
+    "fr": "Gestionnaire · toutes les fonctions"
+  },
+  "Il sito viene preso dai dati della tua azienda. Per usare la chat anche su un altro sito, scrivici dalla pagina": {
+    "en": "The website comes from your company details. To use the chat on another website too, write to us from the",
+    "es": "El sitio se toma de los datos de tu empresa. Para usar el chat también en otro sitio, escríbenos desde la página",
+    "fr": "Le site provient des données de votre entreprise. Pour utiliser le chat sur un autre site, écrivez-nous depuis la page"
+  },
+  "Il tuo account · illimitato": {
+    "en": "Your account · unlimited",
+    "es": "Tu cuenta · ilimitada",
+    "fr": "Votre compte · illimité"
+  },
+  "Il widget è incluso nei piani Base, Plus e Advanced": {
+    "en": "The widget is included in the Base, Plus and Advanced plans",
+    "es": "El widget está incluido en los planes Base, Plus y Advanced",
+    "fr": "Le widget est inclus dans les formules Base, Plus et Advanced"
+  },
+  "Il widget è l’assistente della tua azienda, pronto da inserire nel tuo sito: risponde con le informazioni della tua azienda e quelle trovate nell’analisi, e le richieste dei clienti arrivano qui nella dashboard.": {
+    "en": "The widget is your company’s assistant, ready to add to your website: it answers with your company information and what the analysis found, and customer requests arrive here in the dashboard.",
+    "es": "El widget es el asistente de tu empresa, listo para añadir a tu sitio: responde con la información de tu empresa y la encontrada en el análisis, y las solicitudes de los clientes llegan aquí al panel.",
+    "fr": "Le widget est l’assistant de votre entreprise, prêt à être ajouté à votre site : il répond avec les informations de votre entreprise et celles trouvées par l’analyse, et les demandes des clients arrivent ici dans le tableau de bord."
+  },
+  "In Demo": {
+    "en": "On Demo",
+    "es": "En Demo",
+    "fr": "En Démo"
+  },
+  "Incollalo nel tuo sito": {
+    "en": "Paste it into your website",
+    "es": "Pégalo en tu sitio",
+    "fr": "Collez-le sur votre site"
+  },
+  "Inferiore": {
+    "en": "Lower",
+    "es": "Inferior",
+    "fr": "Inférieure"
+  },
+  "Le aziende di MoreAI.": {
+    "en": "MoreAI companies.",
+    "es": "Las empresas de MoreAI.",
+    "fr": "Les entreprises de MoreAI."
+  },
+  "Le informazioni per l’AI hanno la precedenza su quelle trovate sul web. L’azienda può modificarle anche lei; i siti del widget li decidi solo tu.": {
+    "en": "AI information takes precedence over what is found on the web. The company can edit it too; only you decide the widget websites.",
+    "es": "La información para la IA tiene prioridad sobre la encontrada en la web. La empresa también puede modificarla; los sitios del widget los decides solo tú.",
+    "fr": "Les informations pour l’IA priment sur celles trouvées sur le web. L’entreprise peut aussi les modifier ; les sites du widget, c’est vous seul qui les décidez."
+  },
+  "Manca il sito della tua azienda": {
+    "en": "Your company website is missing",
+    "es": "Falta el sitio de tu empresa",
+    "fr": "Le site de votre entreprise manque"
+  },
+  "Modalità gestore": {
+    "en": "Admin mode",
+    "es": "Modo gestor",
+    "fr": "Mode gestionnaire"
+  },
+  "Motivo (facoltativo, lo vedi solo tu)": {
+    "en": "Reason (optional, only you see it)",
+    "es": "Motivo (opcional, solo lo ves tú)",
+    "fr": "Motif (facultatif, vous seul le voyez)"
+  },
+  "Nessun piano": {
+    "en": "No plan",
+    "es": "Sin plan",
+    "fr": "Aucune formule"
+  },
+  "Nessun piano attivo": {
+    "en": "No active plan",
+    "es": "Ningún plan activo",
+    "fr": "Aucune formule active"
+  },
+  "Nessun sito ancora: completa il sito web nei dati della tua azienda.": {
+    "en": "No website yet: add the website in your company details.",
+    "es": "Aún no hay sitio: completa el sitio web en los datos de tu empresa.",
+    "fr": "Aucun site pour l’instant : indiquez le site web dans les données de votre entreprise."
+  },
+  "Nessuna azione registrata.": {
+    "en": "No actions recorded.",
+    "es": "Ninguna acción registrada.",
+    "fr": "Aucune action enregistrée."
+  },
+  "Non incluso nella Demo": {
+    "en": "Not included in the Demo",
+    "es": "No incluido en la Demo",
+    "fr": "Non inclus dans la Démo"
+  },
+  "Passa subito al": {
+    "en": "Switch now to",
+    "es": "Pasar ahora al",
+    "fr": "Passer maintenant à"
+  },
+  "Per cambiare cosa risponde l’assistente modifica «Informazioni per l’AI». Ogni risposta dell’assistente conta come un messaggio AI del mese. Le richieste dal sito compaiono in «Richieste» con origine «Sito».": {
+    "en": "To change what the assistant answers, edit “AI information”. Each assistant reply counts as one AI message of the month. Requests from the website appear in “Requests” with source “Website”.",
+    "es": "Para cambiar lo que responde el asistente, modifica «Información para la IA». Cada respuesta del asistente cuenta como un mensaje de IA del mes. Las solicitudes del sitio aparecen en «Solicitudes» con origen «Sitio».",
+    "fr": "Pour changer ce que répond l’assistant, modifiez « Informations pour l’IA ». Chaque réponse de l’assistant compte comme un message IA du mois. Les demandes du site apparaissent dans « Demandes » avec l’origine « Site »."
+  },
+  "Per confermare scrivi il nome dell’azienda:": {
+    "en": "To confirm, type the company name:",
+    "es": "Para confirmar escribe el nombre de la empresa:",
+    "fr": "Pour confirmer, saisissez le nom de l’entreprise :"
+  },
+  "Per sicurezza la chat si apre solo sul sito della tua azienda: se qualcuno copiasse il codice su un altro sito, lì non funzionerebbe.": {
+    "en": "For security the chat only opens on your company website: if someone copied the code onto another website, it would not work there.",
+    "es": "Por seguridad el chat solo se abre en el sitio de tu empresa: si alguien copiara el código en otro sitio, allí no funcionaría.",
+    "fr": "Par sécurité, le chat ne s’ouvre que sur le site de votre entreprise : si quelqu’un copiait le code sur un autre site, il n’y fonctionnerait pas."
+  },
+  "Piano attuale": {
+    "en": "Current plan",
+    "es": "Plan actual",
+    "fr": "Formule actuelle"
+  },
+  "Piano cambiato: è già attivo.": {
+    "en": "Plan changed: it is already active.",
+    "es": "Plan cambiado: ya está activo.",
+    "fr": "Formule changée : elle est déjà active."
+  },
+  "Piano non attivo: il widget è in pausa": {
+    "en": "No active plan: the widget is paused",
+    "es": "Plan no activo: el widget está en pausa",
+    "fr": "Formule inactive : le widget est en pause"
+  },
+  "Piano superiore: attivo subito, il nuovo prezzo parte dal prossimo rinnovo. Piano inferiore o cambio di periodo: dal prossimo rinnovo, fino ad allora resta il piano attuale.": {
+    "en": "Higher plan: active now, the new price starts at the next renewal. Lower plan or billing period change: from the next renewal, until then the current plan stays.",
+    "es": "Plan superior: activo enseguida, el nuevo precio empieza en la próxima renovación. Plan inferior o cambio de periodo: desde la próxima renovación; hasta entonces sigue el plan actual.",
+    "fr": "Formule supérieure : active tout de suite, le nouveau prix s’applique au prochain renouvellement. Formule inférieure ou changement de période : au prochain renouvellement, d’ici là la formule actuelle reste."
+  },
+  "Pronto da installare": {
+    "en": "Ready to install",
+    "es": "Listo para instalar",
+    "fr": "Prêt à installer"
+  },
+  "Pronto da installare · analisi in verifica": {
+    "en": "Ready to install · analysis under review",
+    "es": "Listo para instalar · análisis en revisión",
+    "fr": "Prêt à installer · analyse en vérification"
+  },
+  "Puoi sospendere o riattivare l’accesso ed eliminare un account. Ogni azione resta registrata nello storico.": {
+    "en": "You can suspend or restore access and delete an account. Every action is recorded in the history.",
+    "es": "Puedes suspender o reactivar el acceso y eliminar una cuenta. Cada acción queda registrada en el historial.",
+    "fr": "Vous pouvez suspendre ou réactiver l’accès et supprimer un compte. Chaque action est enregistrée dans l’historique."
+  },
+  "Questo è il tuo piano attuale.": {
+    "en": "This is your current plan.",
+    "es": "Este es tu plan actual.",
+    "fr": "C’est votre formule actuelle."
+  },
+  "Resta sul piano attuale": {
+    "en": "Keep the current plan",
+    "es": "Seguir con el plan actual",
+    "fr": "Garder la formule actuelle"
+  },
+  "Resti sul piano attuale.": {
+    "en": "You keep the current plan.",
+    "es": "Sigues con el plan actual.",
+    "fr": "Vous gardez la formule actuelle."
+  },
+  "Riattiva accesso": {
+    "en": "Restore access",
+    "es": "Reactivar acceso",
+    "fr": "Réactiver l’accès"
+  },
+  "Rifiutate o sospese": {
+    "en": "Rejected or suspended",
+    "es": "Rechazadas o suspendidas",
+    "fr": "Refusées ou suspendues"
+  },
+  "Rinnovo ripreso.": {
+    "en": "Renewal resumed.",
+    "es": "Renovación reanudada.",
+    "fr": "Renouvellement repris."
+  },
+  "Riprendi il rinnovo": {
+    "en": "Resume renewal",
+    "es": "Reanudar la renovación",
+    "fr": "Reprendre le renouvellement"
+  },
+  "Se l’AI non riesce a confermare che un’azienda esiste, la trovi in «Da verificare». Controlla i dati e premi Approva o Rifiuta.": {
+    "en": "If the AI cannot confirm that a company exists, you find it under “To verify”. Check the data and press Approve or Reject.",
+    "es": "Si la IA no logra confirmar que una empresa existe, la encuentras en «Por verificar». Revisa los datos y pulsa Aprobar o Rechazar.",
+    "fr": "Si l’IA ne parvient pas à confirmer qu’une entreprise existe, vous la trouvez dans « À vérifier ». Contrôlez les données et cliquez sur Approuver ou Refuser."
+  },
+  "Siti dove può aprirsi la chat": {
+    "en": "Websites where the chat can open",
+    "es": "Sitios donde puede abrirse el chat",
+    "fr": "Sites où le chat peut s’ouvrir"
+  },
+  "Siti dove può aprirsi la chat (uno per riga, massimo 5)": {
+    "en": "Websites where the chat can open (one per line, up to 5)",
+    "es": "Sitios donde puede abrirse el chat (uno por línea, máximo 5)",
+    "fr": "Sites où le chat peut s’ouvrir (un par ligne, 5 maximum)"
+  },
+  "Sospendere l’accesso? L’azienda non potrà usare la dashboard e il suo widget si ferma.": {
+    "en": "Suspend access? The company will not be able to use the dashboard and its widget stops.",
+    "es": "¿Suspender el acceso? La empresa no podrá usar el panel y su widget se detiene.",
+    "fr": "Suspendre l’accès ? L’entreprise ne pourra plus utiliser le tableau de bord et son widget s’arrête."
+  },
+  "Sospendi accesso": {
+    "en": "Suspend access",
+    "es": "Suspender acceso",
+    "fr": "Suspendre l’accès"
+  },
+  "Sospesa: l’azienda non può usare la dashboard e il suo widget si ferma. I dati restano salvati.": {
+    "en": "Suspended: the company cannot use the dashboard and its widget stops. The data stays saved.",
+    "es": "Suspendida: la empresa no puede usar el panel y su widget se detiene. Los datos quedan guardados.",
+    "fr": "Suspendue : l’entreprise ne peut plus utiliser le tableau de bord et son widget s’arrête. Les données restent enregistrées."
+  },
+  "Sospese o rifiutate": {
+    "en": "Suspended or rejected",
+    "es": "Suspendidas o rechazadas",
+    "fr": "Suspendues ou refusées"
+  },
+  "Stai vedendo la dashboard di": {
+    "en": "You are viewing the dashboard of",
+    "es": "Estás viendo el panel de",
+    "fr": "Vous consultez le tableau de bord de"
+  },
+  ". Puoi sistemare informazioni per l’AI, widget e impostazioni. Richieste e conversazioni dei clienti non sono visibili.": {
+    "en": ". You can fix AI information, widget and settings. Customer requests and conversations are not visible.",
+    "es": ". Puedes ajustar la información para la IA, el widget y los ajustes. Las solicitudes y conversaciones de los clientes no son visibles.",
+    "fr": ". Vous pouvez ajuster les informations pour l’IA, le widget et les réglages. Les demandes et conversations des clients ne sont pas visibles."
+  },
+  "Superiore": {
+    "en": "Higher",
+    "es": "Superior",
+    "fr": "Supérieure"
+  },
+  "Ultima conferma: eliminare per sempre questo account e tutti i suoi dati?": {
+    "en": "Final confirmation: permanently delete this account and all its data?",
+    "es": "Última confirmación: ¿eliminar para siempre esta cuenta y todos sus datos?",
+    "fr": "Dernière confirmation : supprimer définitivement ce compte et toutes ses données ?"
+  },
+  "Verifica delle aziende e assistenza": {
+    "en": "Company verification and support",
+    "es": "Verificación de empresas y asistencia",
+    "fr": "Vérification des entreprises et assistance"
+  },
+  "Verifica dell’azienda": {
+    "en": "Company verification",
+    "es": "Verificación de la empresa",
+    "fr": "Vérification de l’entreprise"
+  },
+  "Visita del gestore MoreAI": {
+    "en": "MoreAI admin visit",
+    "es": "Visita del gestor de MoreAI",
+    "fr": "Visite du gestionnaire MoreAI"
+  },
+  "Widget": {
+    "en": "Widget",
+    "es": "Widget",
+    "fr": "Widget"
+  },
+  "attivo, manca il sito": {
+    "en": "active, website missing",
+    "es": "activo, falta el sitio",
+    "fr": "actif, site manquant"
+  },
+  "fino al": {
+    "en": "until",
+    "es": "hasta el",
+    "fr": "jusqu’au"
+  },
+  "non incluso (serve un piano o la prova)": {
+    "en": "not included (needs a plan or the trial)",
+    "es": "no incluido (hace falta un plan o la prueba)",
+    "fr": "non inclus (formule ou essai nécessaire)"
+  },
+  "parte dal": {
+    "en": "starts on",
+    "es": "empieza el",
+    "fr": "démarre le"
+  },
+  "passi al": {
+    "en": "you move to the",
+    "es": "pasas al",
+    "fr": "vous passez au"
+  },
+  "prima di": {
+    "en": "before",
+    "es": "antes de",
+    "fr": "avant"
+  },
+  "qui sotto.": {
+    "en": "below.",
+    "es": "aquí abajo.",
+    "fr": "ci-dessous."
+  },
+  "si attiva subito. Dal": {
+    "en": "activates now. From",
+    "es": "se activa enseguida. Desde el",
+    "fr": "s’active tout de suite. À partir du"
+  },
+  "È un’azienda reale? Controlla i dati e l’analisi qui sotto, poi decidi.": {
+    "en": "Is it a real company? Check the data and the analysis below, then decide.",
+    "es": "¿Es una empresa real? Revisa los datos y el análisis de abajo y decide.",
+    "fr": "Est-ce une vraie entreprise ? Contrôlez les données et l’analyse ci-dessous, puis décidez."
+  },
+  "illimitati": {
+    "en": "unlimited",
+    "es": "ilimitados",
+    "fr": "illimités"
+  },
+  "paghi": {
+    "en": "you pay",
+    "es": "pagas",
+    "fr": "vous payez"
+  },
+  "Il": {
+    "en": "The",
+    "es": "El",
+    "fr": "La"
+  },
+  "Prima dell’attivazione di un piano verifichiamo che l’azienda esista, in automatico con l’analisi delle informazioni pubbliche e, se serve, con un controllo del nostro team. Possiamo rifiutare o sospendere un account che non supera la verifica o che viola queste condizioni. Per verifica e assistenza il team di MoreAI può accedere alla configurazione dell’account (dati aziendali, informazioni per l’AI, impostazioni del widget e statistiche complessive), ma non alle richieste e alle conversazioni dei clienti dell’azienda. Ogni accesso e ogni intervento vengono registrati. In caso di eliminazione dell’account vengono cancellati in modo definitivo anche i dati collegati.": {
+    "en": "Before a plan is activated we verify that the company exists, automatically by analysing public information and, if needed, with a check by our team. We may reject or suspend an account that fails verification or breaches these terms. For verification and support the MoreAI team can access the account configuration (company details, AI information, widget settings and overall statistics), but not the requests and conversations of the company’s customers. Every access and action is recorded. If the account is deleted, the related data is also permanently deleted.",
+    "es": "Antes de activar un plan verificamos que la empresa exista, automáticamente con el análisis de la información pública y, si es necesario, con una revisión de nuestro equipo. Podemos rechazar o suspender una cuenta que no supere la verificación o que incumpla estas condiciones. Para verificación y asistencia, el equipo de MoreAI puede acceder a la configuración de la cuenta (datos de la empresa, información para la IA, ajustes del widget y estadísticas generales), pero no a las solicitudes ni a las conversaciones de los clientes de la empresa. Cada acceso e intervención queda registrado. Si se elimina la cuenta, también se borran de forma definitiva los datos vinculados.",
+    "fr": "Avant l’activation d’une formule, nous vérifions que l’entreprise existe, automatiquement par l’analyse des informations publiques et, si nécessaire, par un contrôle de notre équipe. Nous pouvons refuser ou suspendre un compte qui ne passe pas la vérification ou qui enfreint ces conditions. Pour la vérification et l’assistance, l’équipe MoreAI peut accéder à la configuration du compte (données de l’entreprise, informations pour l’IA, réglages du widget et statistiques globales), mais pas aux demandes ni aux conversations des clients de l’entreprise. Chaque accès et intervention est enregistré. En cas de suppression du compte, les données liées sont également supprimées définitivement."
+  },
+  "La Demo è gratuita, dura 7 giorni e include 100 messaggi AI. I piani Base, Plus e Advanced includono rispettivamente 3.000, 10.000 e 50.000 messaggi AI al mese; per Advanced il limite vale come soglia di uso corretto. Prezzi e caratteristiche sono indicati nella sezione Offerte del sito. I piani a pagamento includono una prova gratuita di 14 giorni, utilizzabile una sola volta per azienda: il metodo di pagamento viene registrato all’attivazione e il primo addebito avviene al 15° giorno, salvo disdetta prima della scadenza. Il widget da installare sul proprio sito è incluso nei piani Base, Plus e Advanced (anche durante la prova) e non nella Demo. Puoi passare subito a un piano superiore, programmare un piano inferiore o un cambio di periodo dal rinnovo successivo e disdire il rinnovo in qualsiasi momento: il piano resta attivo fino alla scadenza. Al momento i pagamenti sono in modalità di prova e non avviene alcun addebito reale.": {
+    "en": "The Demo is free, lasts 7 days and includes 100 AI messages. The Base, Plus and Advanced plans include 3,000, 10,000 and 50,000 AI messages per month respectively; for Advanced the limit is a fair-use threshold. Prices and features are shown in the Offers section of the website. Paid plans include a 14-day free trial, usable once per company: the payment method is registered on activation and the first charge happens on day 15, unless cancelled before the end. The widget to install on your own website is included in the Base, Plus and Advanced plans (also during the trial) and not in the Demo. You can move to a higher plan immediately, schedule a lower plan or a billing period change from the next renewal, and cancel the renewal at any time: the plan stays active until it expires. Payments are currently in test mode and no real charge is made.",
+    "es": "La Demo es gratuita, dura 7 días e incluye 100 mensajes de IA. Los planes Base, Plus y Advanced incluyen respectivamente 3.000, 10.000 y 50.000 mensajes de IA al mes; para Advanced el límite es un umbral de uso razonable. Precios y características se indican en la sección Ofertas del sitio. Los planes de pago incluyen una prueba gratuita de 14 días, utilizable una sola vez por empresa: el método de pago se registra al activar y el primer cargo se realiza el día 15, salvo cancelación antes del vencimiento. El widget para instalar en tu sitio está incluido en los planes Base, Plus y Advanced (también durante la prueba) y no en la Demo. Puedes pasar enseguida a un plan superior, programar un plan inferior o un cambio de periodo desde la siguiente renovación y cancelar la renovación en cualquier momento: el plan sigue activo hasta el vencimiento. Por ahora los pagos están en modo de prueba y no se realiza ningún cargo real.",
+    "fr": "La Démo est gratuite, dure 7 jours et comprend 100 messages IA. Les formules Base, Plus et Advanced comprennent respectivement 3 000, 10 000 et 50 000 messages IA par mois ; pour Advanced, la limite vaut seuil d’usage raisonnable. Prix et caractéristiques sont indiqués dans la section Offres du site. Les formules payantes comprennent un essai gratuit de 14 jours, utilisable une seule fois par entreprise : le moyen de paiement est enregistré à l’activation et le premier prélèvement a lieu le 15e jour, sauf résiliation avant l’échéance. Le widget à installer sur votre site est inclus dans les formules Base, Plus et Advanced (y compris pendant l’essai) et pas dans la Démo. Vous pouvez passer tout de suite à une formule supérieure, programmer une formule inférieure ou un changement de période au renouvellement suivant et résilier le renouvellement à tout moment : la formule reste active jusqu’à l’échéance. Pour l’instant, les paiements sont en mode test et aucun prélèvement réel n’a lieu."
   }
 }

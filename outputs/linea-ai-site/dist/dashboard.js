@@ -799,6 +799,28 @@ $('#logout')
 
     company = me.company;
 
+    // Pulsante dell'area gestore: solo per l'account del gestore
+    // (l'accesso vero è controllato dal server).
+    if (me.is_admin) {
+      document.querySelectorAll('.admin-only').forEach(x => { x.hidden = false; });
+    }
+
+    /*
+     * Visita del gestore: niente richieste e conversazioni
+     * dei clienti (il server le blocca comunque).
+     */
+    if (me.viewing_as_admin) {
+      document.body.classList.add('viewer-mode');
+      $('#viewer-banner').hidden = false;
+      $('#viewer-name').textContent = company.config.name;
+      $('#account-email').textContent = (window.lineaPreferences?.t || String)('Visita del gestore MoreAI');
+      for (const tab of ['leads', 'conversations']) {
+        document.querySelector('[data-tab="' + tab + '"]').hidden = true;
+        $('#tab-' + tab).hidden = true;
+      }
+      document.querySelector('[data-tab="settings"]').click();
+    }
+
     $('#company-title')
       .textContent =
       company.config.name;
@@ -913,7 +935,9 @@ $('#logout')
      * e l'utente verificato viene mandato
      * alle offerte.
      */
-    await refresh();
+    if (!me.viewing_as_admin) {
+      await refresh();
+    }
 
     const mail =
       await request(
@@ -1303,10 +1327,16 @@ $('#team-review')
     const bar = document.querySelector('#usage-bar');
 
     document.querySelector('#usage-used').textContent = format(u.used);
-    document.querySelector('#usage-limit').textContent = format(u.limit || 0);
+    document.querySelector('#usage-limit').textContent = u.unlimited ? (window.lineaPreferences?.t || String)('illimitati') : format(u.limit || 0);
     bar.querySelector('span').style.width = Math.round(ratio * 100) + '%';
     bar.classList.toggle('warn', ratio >= 0.8 && ratio < 1);
     bar.classList.toggle('full', ratio >= 1);
+    if (u.unlimited) {
+      bar.hidden = true;
+      document.querySelector('#usage-note').textContent = (window.lineaPreferences?.t || String)('Account del gestore: tutte le funzioni, senza limiti di piano.');
+      card.hidden = false;
+      return;
+    }
     document.querySelector('#usage-note').textContent =
       ratio >= 1
         ? 'Hai raggiunto il limite del mese: l’assistente riprenderà il primo giorno del mese prossimo, oppure passando a un piano superiore.'

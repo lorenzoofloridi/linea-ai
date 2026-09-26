@@ -11,6 +11,7 @@ import { randomBytes } from "node:crypto";
 
 const DAY = 86400;
 const PERIOD_SECONDS = { monthly: 30 * DAY, annual: 365 * DAY };
+const PLAN_RANK = { base: 1, plus: 2, advanced: 3 };
 const ref = prefix => prefix + "_" + randomBytes(9).toString("base64url");
 const fail = (status, message) => {
   const error = new Error(message);
@@ -35,7 +36,8 @@ async function event(db, companyId, actor, action, outcome, amount, created) {
 export async function settleSubscription(db, companyId, now = Date.now() / 1000) {
   const s = (
     await db.pool.query(
-      `SELECT plan, period, status, period_end, cancel_at_end, amount_cents, provider
+      `SELECT plan, period, status, period_end, cancel_at_end, amount_cents, provider,
+              pending_plan, pending_period, pending_amount_cents
          FROM plan_subscriptions WHERE company_id=$1`,
       [companyId]
     )
@@ -51,16 +53,27 @@ export async function settleSubscription(db, companyId, now = Date.now() / 1000)
     await event(db, companyId, "system", "expired", "ok", 0, now);
     return;
   }
-  const length = PERIOD_SECONDS[s.period] || PERIOD_SECONDS.monthly;
+  // Cambio programmato (downgrade o cambio di periodo): vale dal rinnovo.
+  let plan = s.plan, period = s.period, amount = s.amount_cents;
+  if (s.pending_plan && ["base", "plus", "advanced"].includes(s.pending_plan) && Number.isInteger(s.pending_amount_cents)) {
+    plan = s.pending_plan;
+    period = PERIOD_SECONDS[s.pending_period] ? s.pending_period : s.period;
+    amount = s.pending_amount_cents;
+    await event(db, companyId, "system", "plan_changed:" + plan + ":" + period, "ok", 0, end);
+  }
+  const length = PERIOD_SECONDS[period] || PERIOD_SECONDS.monthly;
   let charges = 0;
   while (end <= now && charges < 36) {
-    await event(db, companyId, "system", s.status === "trial" && charges === 0 ? "trial_converted" : "renewal", "simulated", s.amount_cents, end);
+    await event(db, companyId, "system", s.status === "trial" && charges === 0 ? "trial_converted" : "renewal", "simulated", amount, end);
     end += length;
     charges++;
   }
   await db.pool.query(
-    "UPDATE plan_subscriptions SET status='active', period_end=$1 WHERE company_id=$2 AND provider='mock'",
-    [end, companyId]
+    `UPDATE plan_subscriptions
+        SET status='active', period_end=$1, plan=$2, period=$3, amount_cents=$4,
+            pending_plan=NULL, pending_period=NULL, pending_amount_cents=NULL
+      WHERE company_id=$5 AND provider='mock'`,
+    [end, plan, period, amount, companyId]
   );
 }
 
@@ -118,13 +131,13 @@ async function readBody(request) {
 }
 
 /**
- * Rotte: POST /api/plan-checkout, POST /api/plan-cancel, GET /api/plan-offer.
+ * Rotte: POST /api/plan-checkout, POST /api/plan-cancel, POST /api/plan-change, GET /api/plan-offer.
  * options: { plans, amount(code, period), methods, emailVerified(db, userId), trialDays }
  */
 export async function billingApi(request, db, auth, options) {
   const path = new URL(request.url).pathname;
   const method = request.method.toUpperCase();
-  if (!["/api/plan-checkout", "/api/plan-cancel", "/api/plan-offer"].includes(path)) return null;
+  if (!["/api/plan-checkout", "/api/plan-cancel", "/api/plan-offer", "/api/plan-change"].includes(path)) return null;
 
   const user = await auth(db, request);
   if (!user) fail(401, "Accedi al tuo account per continuare.");
@@ -152,6 +165,50 @@ export async function billingApi(request, db, auth, options) {
     if (!r.rowCount) fail(409, "Non c’è un piano attivo da disdire.");
     await event(db, user.company_id, user.email || user.id, "cancel_scheduled", "ok", 0, now);
     return json({ ok: true, ends: Number(r.rows[0].period_end) });
+  }
+
+  // Cambio piano con un piano già attivo (anche durante la prova):
+  // - piano superiore, stesso periodo: subito, il nuovo prezzo vale dal prossimo rinnovo;
+  // - piano inferiore o cambio di periodo: dal prossimo rinnovo;
+  // - stesso piano e periodo: annulla un cambio programmato o una disdetta.
+  if (path === "/api/plan-change" && method === "POST") {
+    const body = await readBody(request);
+    const plan = body.plan;
+    const period = body.period;
+    if (!["base", "plus", "advanced"].includes(plan) || !["monthly", "annual"].includes(period)) fail(400, "Scegli un piano e un periodo.");
+    const s = (await db.pool.query(
+      "SELECT plan, period, status, period_end, cancel_at_end, amount_cents FROM plan_subscriptions WHERE company_id=$1",
+      [user.company_id]
+    )).rows[0];
+    if (!s || !["trial", "active"].includes(s.status) || Number(s.period_end) <= now) fail(409, "Non c’è un piano attivo da cambiare.");
+    const amount = options.amount(plan, period);
+    const actor = user.email || user.id;
+    if (plan === s.plan && period === s.period) {
+      await db.pool.query(
+        `UPDATE plan_subscriptions SET pending_plan=NULL, pending_period=NULL, pending_amount_cents=NULL,
+                cancel_at_end=FALSE, cancelled_at=NULL WHERE company_id=$1`,
+        [user.company_id]
+      );
+      await event(db, user.company_id, actor, "change_cleared", "ok", 0, now);
+      return json({ ok: true, when: "none", plan, period });
+    }
+    const upgrade = PLAN_RANK[plan] > PLAN_RANK[s.plan] && period === s.period;
+    if (upgrade) {
+      await db.pool.query(
+        `UPDATE plan_subscriptions SET plan=$1, amount_cents=$2, pending_plan=NULL, pending_period=NULL,
+                pending_amount_cents=NULL, cancel_at_end=FALSE, cancelled_at=NULL WHERE company_id=$3`,
+        [plan, amount, user.company_id]
+      );
+      await event(db, user.company_id, actor, "upgrade:" + plan, "simulated", 0, now);
+      return json({ ok: true, when: "now", plan, period, amount_cents: amount, next_charge_at: Number(s.period_end) });
+    }
+    await db.pool.query(
+      `UPDATE plan_subscriptions SET pending_plan=$1, pending_period=$2, pending_amount_cents=$3,
+              cancel_at_end=FALSE, cancelled_at=NULL WHERE company_id=$4`,
+      [plan, period, amount, user.company_id]
+    );
+    await event(db, user.company_id, actor, "change_scheduled:" + plan + ":" + period, "ok", 0, now);
+    return json({ ok: true, when: "renewal", plan, period, amount_cents: amount, starts_at: Number(s.period_end) });
   }
 
   if (path === "/api/plan-checkout" && method === "POST") {
@@ -186,7 +243,7 @@ export async function billingApi(request, db, auth, options) {
          cancel_at_end=FALSE, cancelled_at=NULL, method_kind=EXCLUDED.method_kind,
          customer_ref=EXCLUDED.customer_ref, method_ref=EXCLUDED.method_ref,
          amount_cents=EXCLUDED.amount_cents, provider='mock', grace_until=NULL,
-         pending_plan=NULL, pending_period=NULL`,
+         pending_plan=NULL, pending_period=NULL, pending_amount_cents=NULL`,
       [user.company_id, plan, period, trial ? "trial" : "active", now, trial ? periodEnd : now, periodEnd,
        body.method, ref("cus"), ref("pm"), amount]
     );
